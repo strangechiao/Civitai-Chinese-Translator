@@ -63,7 +63,8 @@
   }
 
   function translateElementRules(element) {
-    const normalized = normalizeText(element.textContent);
+    const rawText = element.textContent;
+    const normalized = normalizeText(rawText);
 
     for (const rule of elementRules) {
       const match = normalized.match(rule.pattern);
@@ -127,11 +128,20 @@
     });
   }
 
+  let translateTimer = null;
+
+  function scheduleTranslate() {
+    if (translateTimer) return;
+
+    translateTimer = setTimeout(() => {
+      translateTimer = null;
+      translatePage();
+    }, 100);
+  }
+
   translatePage();
 
-  const observer = new MutationObserver(() => {
-    translatePage();
-  });
+  const observer = new MutationObserver(scheduleTranslate);
 
   observer.observe(document.body, {
     childList: true,
@@ -140,6 +150,4 @@
     attributes: true,
     attributeFilter: ["value", "placeholder", "title", "aria-label"],
   });
-
-  setInterval(translatePage, 1000);
 })();

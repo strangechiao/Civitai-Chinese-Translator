@@ -6,7 +6,7 @@ const root = path.resolve(__dirname, "..");
 const header = `// ==UserScript==
 // @name         Civitai 中文汉化插件
 // @namespace    https://civitai.com/
-// @version      0.1.4
+// @version      0.1.5
 // @description  为 Civitai 提供中文界面翻译
 // @homepageURL  https://github.com/strangechiao/civitai-chinese
 // @supportURL   https://github.com/strangechiao/civitai-chinese/issues

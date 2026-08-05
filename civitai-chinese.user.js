@@ -75,7 +75,7 @@
     announcements: "公告",
     comments: "评论",
     milestones: "里程碑",
-    buzz: "积分",
+    buzz: "Buzz",
     system: "系统",
     others: "其他",
     "filter by message...": "按消息筛选...",
@@ -153,7 +153,7 @@
     logout: "退出登录",
     "logout all": "退出所有账户",
 
-    "buy buzz": "购买积分",
+    "buy buzz": "购买Buzz",
     "your profile": "个人资料",
     training: "训练",
     "my collections": "我的收藏",
@@ -161,7 +161,7 @@
     "bookmarked articles": "收藏的文章",
     "my bounties": "我的悬赏",
     "your challenges": "我的挑战",
-    "buzz dashboard": "积分管理",
+    "buzz dashboard": "Buzz管理",
     "creator studio": "创作者工作室",
     "my vault": "我的保险库",
     referrals: "邀请返利",
@@ -175,12 +175,73 @@
     new: "新增",
     "account settings": "账户设置",
 
-    // BUZZ菜单项
-    "my buzz dashboard": "我的积分管理",
+    // 邀请返利
+    "earn free membership perks": "赚取免费会员权益",
+    "share your code. every paid membership month from a friend earns you tokens you can spend on membership perks, plus 10% blue buzz back on their buzz purchases.":
+      "分享你的邀请码。好友每支付一个月会员，你都能获得可用于会员权益的 Tokens，并且还能从他们的 Buzz 购买中获得 10% 蓝色 Buzz 返利。",
+    "open referrals": "打开邀请返利",
+
+    // 我的Buzz管理
+    "my buzz dashboard": "我的Buzz管理",
     blue: "蓝色",
     green: "绿色",
     yellow: "黄色",
     current: "当前",
+    "free buzz earned from viewing ads or completing daily challenges.": "通过观看广告或完成每日任务获得的免费Buzz。",
+    generation: "生成内容",
+    "24h": "24小时",
+    "7d": "7天",
+    weekly: "每周",
+    "12m": "12个月",
+    "all times are utc": "所有时间均为 UTC 时间",
+    recent: "最近的",
+    transactions: "交易",
+    "view all": "查看全部",
+    "view image": "查看图片",
+    "show more": "显示更多",
+
+    // 交易历史
+    "transaction history": "交易历史",
+    from: "从",
+    to: "到",
+    type: "类型",
+    "select a type": "选择类型",
+    "export csv": "导出 CSV",
+    reward: "奖励",
+    tip: "打赏",
+    refund: "退款",
+    purchase: "购买",
+    bounty: "悬赏",
+    sell: "出售",
+    compensation: "补偿",
+    donation: "捐赠",
+    bid: "出价",
+    redeemable: "可兑换",
+    "ways to earn": "赚取",
+    "ways to earn blue buzz": "赚取蓝色 Buzz 的方式",
+    "earn 4x blue buzz with a membership": "开通会员赚取 4 倍蓝色 Buzz",
+    "with a membership": "开通会员",
+    "for each unique reaction you give": "每给出一次不重复的反应",
+    "for feedback given on the generator": "在生成器中提供反馈",
+    "for first 3 people that you follow each day": "每天关注的前 3 个人",
+    "by claiming it daily in the image generator": "每天在图片生成器中领取",
+    "for the first image post you make each day": "每天发布的第一张图片",
+    "for each time a user collects your content": "每当有用户收藏你的内容",
+    "for each user that reacts to anything you created in the last 30 days": "每有用户对你近 30 天内创作的内容作出反应",
+    "for each user that posts an image to your model": "每有用户向你的模型发布图片",
+    "for each report you make that is accepted": "每提交一个被采纳的举报",
+    "generation buzz earned": "生成内容获得的 Buzz",
+    "top earning resources": "收益最高的资源",
+    "search your resources": "搜索你的资源",
+    "no earning resources yet": "暂无收益资源",
+    "earnings can take up to 24 hours to appear": "收益最多可能需要 24 小时才会显示",
+    "if you react to the same thing multiple times, you will not get more rewards.": "如果你对同一个内容多次作出反应，将不会获得更多奖励。",
+    "if you unfollow and follow the same person, you will not get this reward again.": "如果你取消关注后又关注同一个人，将不会再次获得此奖励。",
+    "when a user loves your content, they can add it to one of their collections. you'll be rewarded each time this happens.": "当用户喜欢你的内容时，可以将其添加到自己的收藏中。每次发生这种情况，你都会获得奖励。",
+    "daily buzz rewards reset at midnight utc": "每日 Buzz 奖励会在 UTC 时间午夜重置",
+    "resets in": "重置倒计时",
+    day: "天",
+    month: "月",
 
     // 登录界面
     "sign up or log in": "注册或登录",
@@ -234,6 +295,81 @@
       replace: "糟糕，您仍然能看到此内容…请检查您的订阅状态并重试。",
     },
 
+    // 月份年份
+    {
+      pattern: /^(january|february|march|april|may|june|july|august|september|october|november|december) (\d{4})$/i,
+      replace(match, monthName, year) {
+        const months = {
+          january: "1月",
+          february: "2月",
+          march: "3月",
+          april: "4月",
+          may: "5月",
+          june: "6月",
+          july: "7月",
+          august: "8月",
+          september: "9月",
+          october: "10月",
+          november: "11月",
+          december: "12月",
+        };
+
+        return `${year}年${months[monthName]}`;
+      },
+    },
+    // 配额单位
+    {
+      pattern: /^([\d,]+) \/ day$/i,
+      replace: "$1 / 天",
+    },
+    {
+      pattern: /^([\d,]+) \/ month$/i,
+      replace: "$1 / 月",
+    },
+    // Buzz 生成收益
+    {
+      pattern: /^no (blue|蓝色|yellow|黄色|green|绿色) buzz earned this month$/i,
+      replace(match) {
+        const colors = {
+          blue: "蓝色",
+          蓝色: "蓝色",
+          yellow: "黄色",
+          黄色: "黄色",
+          green: "绿色",
+          绿色: "绿色",
+        };
+
+        return `本月没有获得${colors[match[1]]} Buzz`;
+      },
+    },
+    {
+      pattern: /^you didn't earn any (blue|蓝色|yellow|黄色|green|绿色) buzz from generations in this period\. pick another month with the selector above to see your earnings\.$/i,
+      replace(match) {
+        const colors = {
+          blue: "蓝色",
+          蓝色: "蓝色",
+          yellow: "黄色",
+          黄色: "黄色",
+          green: "绿色",
+          绿色: "绿色",
+        };
+
+        return `你在此期间没有通过生成内容获得任何${colors[match[1]]} Buzz。请使用上方选择器切换到其他月份查看收益。`;
+      },
+    },
+    // Buzz 任务时间
+    {
+      pattern: /^resets in (\d+)h (\d+)m$/i,
+      replace: "$1小时$2分钟后重置",
+    },
+    {
+      pattern: /^resets in (\d+)h$/i,
+      replace: "$1小时后重置",
+    },
+    {
+      pattern: /^resets in (\d+)m$/i,
+      replace: "$1分钟后重置",
+    },
     // Buzz 数量提示
     {
       pattern: /^blue: ([\d,]+)$/i,
@@ -242,6 +378,101 @@
     {
       pattern: /^yellow: ([\d,]+)$/i,
       replace: "黄色：$1",
+    },
+    // 中文月份 + 日期，例如：七月 1, 2026
+    {
+      pattern: /^(january|february|march|april|may|june|july|august|september|october|november|december|jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec|一月|二月|三月|四月|五月|六月|七月|八月|九月|十月|十一月|十二月) (\d{1,2}), (\d{4})$/i,
+      replace(match, monthName, day, year) {
+        const months = {
+          january: "01",
+          february: "02",
+          march: "03",
+          april: "04",
+          may: "05",
+          june: "06",
+          july: "07",
+          august: "08",
+          september: "09",
+          october: "10",
+          november: "11",
+          december: "12",
+          jan: "01",
+          feb: "02",
+          mar: "03",
+          apr: "04",
+          jun: "06",
+          jul: "07",
+          aug: "08",
+          sep: "09",
+          oct: "10",
+          nov: "11",
+          dec: "12",
+          一月: "01",
+          二月: "02",
+          三月: "03",
+          四月: "04",
+          五月: "05",
+          六月: "06",
+          七月: "07",
+          八月: "08",
+          九月: "09",
+          十月: "10",
+          十一月: "11",
+          十二月: "12",
+        };
+        const paddedDay = String(day).padStart(2, "0");
+
+        return `${year}年${months[monthName.toLowerCase()] || months[monthName]}月${paddedDay}日`;
+      },
+    },
+    // 交易历史
+    {
+      pattern: /^(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec) (\d{1,2}), (\d{4})$/i,
+      replace(match, monthName, day, year) {
+        const months = {
+          jan: "01",
+          feb: "02",
+          mar: "03",
+          apr: "04",
+          may: "05",
+          jun: "06",
+          jul: "07",
+          aug: "08",
+          sep: "09",
+          oct: "10",
+          nov: "11",
+          dec: "12",
+        };
+        const paddedDay = String(day).padStart(2, "0");
+
+        return `${year}年${months[monthName]}月${paddedDay}日`;
+      },
+    },
+    {
+      pattern: /^buzz reward: a image that you posted was liked by someone else$/i,
+      replace: "Buzz奖励：你发布的一张图片被其他人点赞",
+    },
+    {
+      pattern: /^buzz reward: a image that you posted was collected by someone else$/i,
+      replace: "Buzz奖励：你发布的一张图片被其他人收藏",
+    },
+    // Buzz 交易记录
+    
+    {
+      pattern: /^buzz reward: you made your first post of the day$/i,
+      replace: "Buzz奖励：你发布了当天的第一篇内容",
+    },
+    {
+      pattern: /^buzz reward: for encouraging others to post content$/i,
+      replace: "Buzz奖励：鼓励他人发布内容",
+    },
+    {
+      pattern: /^buzz reward: content that you posted was liked by someone else$/i,
+      replace: "Buzz奖励：你发布的内容被其他人点赞",
+    },
+    {
+      pattern: /^buzz reward: content that you posted was collected by someone else$/i,
+      replace: "Buzz奖励：你发布的内容被其他人收藏",
     },
     // 聊天内容
     {
@@ -381,6 +612,96 @@
 
   const elementRules = [
     {
+      pattern: /^no (blue|蓝色|yellow|黄色|green|绿色) buzz earned this month$/i,
+      replace(match) {
+        const colors = {
+          blue: "蓝色",
+          蓝色: "蓝色",
+          yellow: "黄色",
+          黄色: "黄色",
+          green: "绿色",
+          绿色: "绿色",
+        };
+
+        return `本月没有获得${colors[match[1]]} Buzz`;
+      },
+    },
+    {
+      pattern: /^you didn't earn any (blue|蓝色|yellow|黄色|green|绿色) buzz from generations in this period\. pick another month with the selector above to see your earnings\.$/i,
+      replace(match) {
+        const colors = {
+          blue: "蓝色",
+          蓝色: "蓝色",
+          yellow: "黄色",
+          黄色: "黄色",
+          green: "绿色",
+          绿色: "绿色",
+        };
+
+        return `你在此期间没有通过生成内容获得任何${colors[match[1]]} Buzz。请使用上方选择器切换到其他月份查看收益。`;
+      },
+    },
+    {
+      pattern: /^([\d,]+) \/ (day|天)$/i,
+      replace(match) {
+        return `${match[1]} / 天`;
+      },
+    },
+    {
+      pattern: /^([\d,]+) \/ (month|月)$/i,
+      replace(match) {
+        return `${match[1]} / 月`;
+      },
+    },
+    {
+      pattern: /^ways to earn (blue|蓝色|yellow|黄色|green|绿色) buzz$/i,
+      replace(match) {
+        const colors = {
+          blue: "蓝色",
+          蓝色: "蓝色",
+          yellow: "黄色",
+          黄色: "黄色",
+          green: "绿色",
+          绿色: "绿色",
+        };
+
+        return `赚取${colors[match[1]]} Buzz 的方式`;
+      },
+    },
+    {
+      pattern: /^earn (\d+)x (blue|蓝色|yellow|黄色|green|绿色) buzz with a membership$/i,
+      replace(match) {
+        const colors = {
+          blue: "蓝色",
+          蓝色: "蓝色",
+          yellow: "黄色",
+          黄色: "黄色",
+          green: "绿色",
+          绿色: "绿色",
+        };
+
+        return `开通会员赚取 ${match[1]} 倍${colors[match[2]]} Buzz`;
+      },
+    },
+    {
+      pattern: /^resets in (\d+)h (\d+)m$/i,
+      replace(match) {
+        return `${match[1]}小时${match[2]}分钟后重置`;
+      },
+    },
+    {
+      pattern: /^resets in (\d+)h$/i,
+      replace(match) {
+        return `${match[1]}小时后重置`;
+      },
+    },
+    {
+      pattern: /^resets in (\d+)m$/i,
+      replace(match) {
+        return `${match[1]}分钟后重置`;
+      },
+    },
+    {
       pattern: /^signed in as (.+)\. log in below to add another account\.$/i,
       replace(match) {
         return `已登录为 ${match[1]}。请在下方登录以添加另一个账户。`;
@@ -495,7 +816,8 @@
   }
 
   function translateElementRules(element) {
-    const normalized = normalizeText(element.textContent);
+    const rawText = element.textContent;
+    const normalized = normalizeText(rawText);
 
     for (const rule of elementRules) {
       const match = normalized.match(rule.pattern);
@@ -559,11 +881,20 @@
     });
   }
 
+  let translateTimer = null;
+
+  function scheduleTranslate() {
+    if (translateTimer) return;
+
+    translateTimer = setTimeout(() => {
+      translateTimer = null;
+      translatePage();
+    }, 100);
+  }
+
   translatePage();
 
-  const observer = new MutationObserver(() => {
-    translatePage();
-  });
+  const observer = new MutationObserver(scheduleTranslate);
 
   observer.observe(document.body, {
     childList: true,
@@ -572,6 +903,4 @@
     attributes: true,
     attributeFilter: ["value", "placeholder", "title", "aria-label"],
   });
-
-  setInterval(translatePage, 1000);
 })();
