@@ -119,7 +119,7 @@
     "send message": "发送消息",
     "search sticker": "搜索贴纸",
     "you don't own any stickers yet. grab some in the shop.": "你还没有贴纸。去商店买一些吧。",
-    "no chats": "暂无聊天",
+    "no chats.": "暂无聊天",
 
     // 登录按钮与下拉菜单
     "sign in": "登录",
