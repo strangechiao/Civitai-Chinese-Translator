@@ -262,6 +262,14 @@
       replace: "$1 模型有新版本：$2",
     },
     {
+      pattern: /^you received a tip of (\d+) (.+) buzz from @?(.+) on one of your images!$/i,
+      replace: "你收到 @$3 的 $1 个 $2 Buzz 图片打赏！",
+    },
+    {
+      pattern: /^your avatar has been blocked\.$/i,
+      replace: "你的头像已被屏蔽。",
+    },
+    {
       pattern: /^your image using (.+) has received (\d+) reactions?$/i,
       replace: "你使用 $1 生成的图片收到了 $2 个反应",
     },
