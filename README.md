@@ -20,6 +20,10 @@ https://raw.githubusercontent.com/strangechiao/civitai-chinese/main/civitai-chin
 
 ## 更新说明
 
+v0.1.4 (2026.08.05)
+
+- 已完成聊天窗口汉化
+
 v0.1.3 (2026.08.05)
 
 - 完成通知菜单内的正则匹配汉化
