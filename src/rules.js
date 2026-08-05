@@ -13,6 +13,15 @@
       replace: "糟糕，您仍然能看到此内容…请检查您的订阅状态并重试。",
     },
 
+    // Buzz 数量提示
+    {
+      pattern: /^blue: ([\d,]+)$/i,
+      replace: "蓝色：$1",
+    },
+    {
+      pattern: /^yellow: ([\d,]+)$/i,
+      replace: "黄色：$1",
+    },
     // 聊天内容
     {
       pattern: /^(.+) joined$/i,
@@ -161,6 +170,7 @@
   window.CivitaiChinese.textRules = textRules;
   window.CivitaiChinese.elementRules = elementRules;
 })();
+
 
 
 

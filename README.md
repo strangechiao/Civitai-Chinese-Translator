@@ -1,6 +1,6 @@
-# Civitai 汉化插件
+# Civitai 中文汉化插件
 
-一个用于汉化 [Civitai](https://civitai.com/) / civitai.red 的 Tampermonkey 用户脚本。
+一个用于汉化 [Civitai](https://civitai.com/) / [CivitaiRed](https://civitai.red/) 的 Tampermonkey 用户脚本。
 
 脚本会自动替换页面中的常见英文界面文本，并针对通知、时间、下拉菜单等动态内容做了一些规则处理。当前项目仍在持续补充词条，翻译覆盖范围会随着使用逐步完善。
 
@@ -12,34 +12,13 @@
 
 先安装浏览器扩展 Tampermonkey，然后打开下面的 Raw 地址安装脚本：
 
-```txt
-https://raw.githubusercontent.com/strangechiao/civitai-chinese/main/civitai-chinese.user.js
-```
+[点击安装](https://raw.githubusercontent.com/strangechiao/civitai-chinese/main/civitai-chinese.user.js)
 
 安装后刷新 Civitai 页面即可生效。
 
 ## 更新说明
 
-v0.1.4 (2026.08.05)
-
-- 已完成聊天窗口汉化
-
-v0.1.3 (2026.08.05)
-
-- 完成通知菜单内的正则匹配汉化
-
-v0.1.2 (2026.08.05)
-
-- 已完成页头一级菜单汉化
-- 已完成页头次级菜单、页面、弹窗的部分汉化
-
-v0.1.1 (2026.08.05)
-
-- 已完成页头部分的部分汉化
-
-v0.1.0 (2026.08.05)
-
-- 初始化项目
+持续更新中...
 
 ## 说明
 

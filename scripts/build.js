@@ -4,10 +4,10 @@ const path = require("path");
 const root = path.resolve(__dirname, "..");
 
 const header = `// ==UserScript==
-// @name         Civitai 汉化插件
-// @namespace    https://civitai.red/
+// @name         Civitai 中文汉化插件
+// @namespace    https://civitai.com/
 // @version      0.1.4
-// @description  把 civitai 页面上的常见英文翻译成中文
+// @description  为 Civitai 提供中文界面翻译
 // @homepageURL  https://github.com/strangechiao/civitai-chinese
 // @supportURL   https://github.com/strangechiao/civitai-chinese/issues
 // @updateURL    https://raw.githubusercontent.com/strangechiao/civitai-chinese/main/civitai-chinese.user.js

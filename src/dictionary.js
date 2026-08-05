@@ -58,7 +58,7 @@
     announcements: "公告",
     comments: "评论",
     milestones: "里程碑",
-    buzz: "Buzz积分",
+    buzz: "积分",
     system: "系统",
     others: "其他",
     "filter by message...": "按消息筛选...",
@@ -136,7 +136,7 @@
     logout: "退出登录",
     "logout all": "退出所有账户",
 
-    "buy buzz": "购买 Buzz积分",
+    "buy buzz": "购买积分",
     "your profile": "个人资料",
     training: "训练",
     "my collections": "我的收藏",
@@ -144,7 +144,7 @@
     "bookmarked articles": "收藏的文章",
     "my bounties": "我的悬赏",
     "your challenges": "我的挑战",
-    "buzz dashboard": "Buzz积分面板",
+    "buzz dashboard": "积分管理",
     "creator studio": "创作者工作室",
     "my vault": "我的保险库",
     referrals: "邀请返利",
@@ -157,6 +157,13 @@
     "getting started": "入门指南",
     new: "新增",
     "account settings": "账户设置",
+
+    // 我的积分管理
+    "my buzz dashboard": "我的积分管理",
+    blue: "蓝色",
+    green: "绿色",
+    yellow: "黄色",
+    current: "当前",
 
     // 登录界面
     "sign up or log in": "注册或登录",
