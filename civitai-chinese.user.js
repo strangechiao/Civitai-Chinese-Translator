@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Civitai 汉化插件
 // @namespace    https://civitai.red/
-// @version      0.1.5
+// @version      0.1.4
 // @description  把 civitai 页面上的常见英文翻译成中文
 // @homepageURL  https://github.com/strangechiao/civitai-chinese
 // @supportURL   https://github.com/strangechiao/civitai-chinese/issues
@@ -20,7 +20,7 @@
 
   window.CivitaiChinese = window.CivitaiChinese || {};
 
-const dictionary = {
+  const dictionary = {
     // 搜索栏
     "search civitai": "在 CivitAI 中搜索",
     users: "用户",
@@ -84,6 +84,60 @@ const dictionary = {
     "notification settings": "通知设置",
     "all caught up! nothing to see here": "已查看全部通知，没有新的内容",
 
+    // 聊天按钮
+    chats: "聊天",
+    "mute sounds": "关闭提示音",
+    "play sounds": "打开提示音",
+    moderation: "内容审核",
+    "enable conversation moderation": "开启 违规内容过滤",
+    "disable conversation moderation": "关闭 违规内容过滤",
+    "not connected. may not receive live messages or alerts.": "未连接。可能无法接收实时消息或提醒。",
+    "filter by user": "按用户筛选",
+    active: "当前",
+    pending: "待处理",
+    archived: "已归档",
+    joined: "已加入",
+    "[deleted]": "[已删除]",
+    "Chat Terms": "聊天规则",
+    "beware of scam messages. civitai staff will only message you from": "请注意诈骗消息。Civitai 工作人员只会通过",
+    "red-nameplate": "红色铭牌",
+    "accounts and have a civitai moderator badge next to their name (not the profile picture!). do not click unknown links or share payment info.":
+      "账号联系你，并且他们的名字旁边会有 Civitai 管理员徽章（不是头像上的徽章！）。不要点击未知链接或分享付款信息。",
+    "report suspicious dms": "举报可疑私信",
+    "immediately.": "。",
+    "Chats are inspected by automated systems, and moderators have full access to chat logs. Discussion of illegal activities, or the sharing of illegal image content, harassment of other users, or unwanted solicitation will not be tolerated and may result in account suspension or deletion.":
+      "聊天记录由自动系统审核，版主拥有完整的聊天记录访问权限。讨论非法活动、分享非法图片内容、骚扰其他用户或进行不必要的招揽行为均不被容忍，违者可能导致账号被暂停或删除。",
+
+    "got it": "知道了",
+    "select at least 1 user above": "请至少选择一个用户",
+    "new chat": "新聊天",
+    "select users": "选择用户",
+    cancel: "取消",
+    "start chat": "开始聊天",
+    "enable notifications": "启用通知",
+    "disable notifications": "关闭通知",
+    report: "举报",
+    leave: "归档",
+    "report chat": "举报聊天",
+    "needs moderator review": "需要版主审核",
+    spam: "垃圾信息",
+    reason: "原因",
+    "potential security concern": "潜在安全问题",
+    "content that should be reviewed": "需要审核的内容",
+    "incorrect or misrepresented content": "错误或误导性内容",
+    "other concern": "其他问题",
+    "comment (optional)": "备注（可选）",
+    submit: "提交",
+    "anything that helps moderators triage (link, account behavior, repeated posts, etc.)":
+      "请提供任何有助于版主判断的信息（例如链接、账号行为、重复发布等）",
+    "really leave this chat?": "确定要归档此聊天吗？",
+    "you can rejoin at any time from the archived tab.": "你可以随时从“已归档”标签页重新加入。",
+    confirm: "确认",
+    "send message": "发送消息",
+    "search sticker": "搜索贴纸",
+    "you don't own any stickers yet. grab some in the shop.": "你还没有贴纸。去商店买一些吧。",
+    "no chats": "暂无聊天",
+
     // 登录按钮与下拉菜单
     "sign in": "登录",
     leaderboard: "排行榜",
@@ -118,7 +172,7 @@ const dictionary = {
     "creators you follow": "关注的创作者",
     "download history": "下载历史",
     "getting started": "入门指南",
-    new: "新",
+    new: "新增",
     "account settings": "账户设置",
 
     // 登录界面
@@ -163,7 +217,7 @@ const dictionary = {
 
   window.CivitaiChinese = window.CivitaiChinese || {};
 
-const textRules = [
+  const textRules = [
     {
       pattern: /^signed in as (.+)\. log in below to add another account\.$/i,
       replace: "已登录为 $1。请在下方登录以添加另一个账户。",
@@ -173,6 +227,35 @@ const textRules = [
       replace: "糟糕，您仍然能看到此内容…请检查您的订阅状态并重试。",
     },
 
+    // 聊天内容
+    {
+      pattern: /^(.+) joined$/i,
+      replace: "$1 已加入",
+    },
+    {
+      pattern: /^(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec) (\d{1,2}), (\d{4}) (\d{1,2}):(\d{2}):(\d{2}) ([ap]m)$/i,
+      replace(match, monthName, day, year, hour, minute, second, period) {
+        const months = {
+          jan: "01",
+          feb: "02",
+          mar: "03",
+          apr: "04",
+          may: "05",
+          jun: "06",
+          jul: "07",
+          aug: "08",
+          sep: "09",
+          oct: "10",
+          nov: "11",
+          dec: "12",
+        };
+        const chinesePeriod = period === "am" ? "上午" : "下午";
+        const paddedDay = String(day).padStart(2, "0");
+        const paddedHour = String(hour).padStart(2, "0");
+
+        return `${year}年${months[monthName]}月${paddedDay}日 ${paddedHour}:${minute}:${second} ${chinesePeriod}`;
+      },
+    },
     // 通知内容
     {
       pattern: /^the (.+) model has a new version: (.+)$/i,

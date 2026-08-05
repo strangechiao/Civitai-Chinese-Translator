@@ -3,7 +3,7 @@
 
   window.CivitaiChinese = window.CivitaiChinese || {};
 
-const textRules = [
+  const textRules = [
     {
       pattern: /^signed in as (.+)\. log in below to add another account\.$/i,
       replace: "已登录为 $1。请在下方登录以添加另一个账户。",
@@ -13,6 +13,35 @@ const textRules = [
       replace: "糟糕，您仍然能看到此内容…请检查您的订阅状态并重试。",
     },
 
+    // 聊天内容
+    {
+      pattern: /^(.+) joined$/i,
+      replace: "$1 已加入",
+    },
+    {
+      pattern: /^(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec) (\d{1,2}), (\d{4}) (\d{1,2}):(\d{2}):(\d{2}) ([ap]m)$/i,
+      replace(match, monthName, day, year, hour, minute, second, period) {
+        const months = {
+          jan: "01",
+          feb: "02",
+          mar: "03",
+          apr: "04",
+          may: "05",
+          jun: "06",
+          jul: "07",
+          aug: "08",
+          sep: "09",
+          oct: "10",
+          nov: "11",
+          dec: "12",
+        };
+        const chinesePeriod = period === "am" ? "上午" : "下午";
+        const paddedDay = String(day).padStart(2, "0");
+        const paddedHour = String(hour).padStart(2, "0");
+
+        return `${year}年${months[monthName]}月${paddedDay}日 ${paddedHour}:${minute}:${second} ${chinesePeriod}`;
+      },
+    },
     // 通知内容
     {
       pattern: /^the (.+) model has a new version: (.+)$/i,
@@ -124,4 +153,5 @@ const textRules = [
   window.CivitaiChinese.textRules = textRules;
   window.CivitaiChinese.elementRules = elementRules;
 })();
+
 
