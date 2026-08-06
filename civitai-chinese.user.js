@@ -3,10 +3,10 @@
 // @namespace    https://civitai.com/
 // @version      0.1.7
 // @description  CCT 中文增强插件（全称：Civitai Chinese Translator），一个用于中文翻译、汉化 [Civitai](https://civitai.com/) / [CivitaiRed](https://civitai.red/) 英文界面的 Tampermonkey 用户脚本。
-// @homepageURL  https://github.com/strangechiao/civitai-chinese
-// @supportURL   https://github.com/strangechiao/civitai-chinese/issues
-// @updateURL    https://raw.githubusercontent.com/strangechiao/civitai-chinese/main/civitai-chinese.user.js
-// @downloadURL  https://raw.githubusercontent.com/strangechiao/civitai-chinese/main/civitai-chinese.user.js
+// @homepageURL  https://github.com/strangechiao/Civitai-Chinese-Translator-Userscript
+// @supportURL   https://github.com/strangechiao/Civitai-Chinese-Translator-Userscript/issues
+// @updateURL    https://raw.githubusercontent.com/strangechiao/Civitai-Chinese-Translator-Userscript/main/civitai-chinese.user.js
+// @downloadURL  https://raw.githubusercontent.com/strangechiao/Civitai-Chinese-Translator-Userscript/main/civitai-chinese.user.js
 // @match        https://civitai.red/*
 // @match        https://www.civitai.red/*
 // @match        https://civitai.com/*

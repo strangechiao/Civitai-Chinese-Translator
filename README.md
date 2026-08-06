@@ -16,7 +16,7 @@ CCT 中文增强插件（全称：Civitai Chinese Translator），一个用于�
 
 先安装浏览器扩展 Tampermonkey，然后打开下面的 Raw 地址安装脚本：
 
-[点击安装](https://raw.githubusercontent.com/strangechiao/civitai-chinese/main/civitai-chinese.user.js)
+[点击安装](https://raw.githubusercontent.com/strangechiao/Civitai-Chinese-Translator-Userscript/main/civitai-chinese.user.js)
 
 安装后刷新 Civitai 页面即可生效。
 
