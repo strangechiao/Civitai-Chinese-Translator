@@ -6,7 +6,7 @@ const root = path.resolve(__dirname, "..");
 const header = `// ==UserScript==
 // @name         CCT 中文增强插件
 // @namespace    https://civitai.com/
-// @version      0.1.7
+// @version      0.1.8
 // @description  CCT 中文增强插件（全称：Civitai Chinese Translator），一个用于中文翻译、汉化 [Civitai](https://civitai.com/) / [CivitaiRed](https://civitai.red/) 英文界面的 Tampermonkey 用户脚本。
 // @homepageURL  https://github.com/strangechiao/Civitai-Chinese-Translator-Userscript
 // @supportURL   https://github.com/strangechiao/Civitai-Chinese-Translator-Userscript/issues
