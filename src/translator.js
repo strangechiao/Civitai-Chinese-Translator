@@ -162,12 +162,24 @@
     document.head.appendChild(style);
   }
 
+  function shouldSkipTextParent(element) {
+    if (!element) return true;
+
+    const tagName = element.tagName.toLowerCase();
+
+    return ["script", "style", "textarea"].includes(tagName);
+  }
+
   function translateTextNode(node) {
     const rawText = node.nodeValue;
     const chinese = getContextualTranslation(node) || getTranslation(rawText);
 
     if (chinese) {
-      node.nodeValue = rawText.replace(rawText.trim(), chinese);
+      const nextText = rawText.replace(rawText.trim(), chinese);
+
+      if (nextText !== rawText) {
+        node.nodeValue = nextText;
+      }
     }
   }
 
@@ -178,7 +190,7 @@
       const value = element.getAttribute(attr);
       const chinese = value && getTranslation(value);
 
-      if (chinese) {
+      if (chinese && chinese !== value) {
         element.setAttribute(attr, chinese);
       }
     });
@@ -198,7 +210,12 @@
 
       if (hasMatchingChild) return;
 
-      element.textContent = rule.replace(match);
+      const nextText = rule.replace(match);
+
+      if (nextText !== rawText) {
+        element.textContent = nextText;
+      }
+
       return;
     }
   }
@@ -215,22 +232,16 @@
     if (!wrapper) return;
 
     wrapper.classList.add("civitai-cn-select-wrapper");
-    wrapper.dataset.civitaiCnText = chinese;
+    if (wrapper.dataset.civitaiCnText !== chinese) {
+      wrapper.dataset.civitaiCnText = chinese;
+    }
     element.classList.add("civitai-cn-hidden-input-text");
   }
 
-  function translatePage() {
-    injectStyle();
-    injectLogoButton();
-
-    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+  function translateTextNodes(root) {
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
       acceptNode(node) {
-        const parent = node.parentElement;
-        if (!parent) return NodeFilter.FILTER_REJECT;
-
-        const tagName = parent.tagName.toLowerCase();
-
-        if (["script", "style", "textarea"].includes(tagName)) {
+        if (shouldSkipTextParent(node.parentElement)) {
           return NodeFilter.FILTER_REJECT;
         }
 
@@ -243,28 +254,85 @@
     while ((node = walker.nextNode())) {
       translateTextNode(node);
     }
-
-    document.querySelectorAll("*").forEach((element) => {
-      translateAttributes(element);
-      translateElementRules(element);
-      translateSelectDisplay(element);
-    });
   }
 
+  function translateElement(element) {
+    translateAttributes(element);
+    translateElementRules(element);
+    translateSelectDisplay(element);
+  }
+
+  function translateElementTree(root) {
+    translateElement(root);
+    root.querySelectorAll("*").forEach(translateElement);
+  }
+
+  function translateRoot(root) {
+    if (!root) return;
+
+    if (root.nodeType === Node.TEXT_NODE) {
+      if (!shouldSkipTextParent(root.parentElement)) {
+        translateTextNode(root);
+      }
+
+      return;
+    }
+
+    if (root.nodeType !== Node.ELEMENT_NODE) return;
+
+    translateTextNodes(root);
+    translateElementTree(root);
+  }
+
+  function translatePage() {
+    injectStyle();
+    injectLogoButton();
+    translateRoot(document.body);
+  }
+
+  const pendingRoots = new Set();
   let translateTimer = null;
+
+  function queueTranslateRoot(root) {
+    if (!root) return;
+
+    if (root.nodeType === Node.DOCUMENT_NODE) {
+      pendingRoots.add(document.body);
+      return;
+    }
+
+    pendingRoots.add(root);
+  }
 
   function scheduleTranslate() {
     if (translateTimer) return;
 
     translateTimer = setTimeout(() => {
       translateTimer = null;
-      translatePage();
+
+      injectStyle();
+      injectLogoButton();
+
+      const roots = Array.from(pendingRoots);
+      pendingRoots.clear();
+      roots.forEach(translateRoot);
     }, 100);
   }
 
   translatePage();
 
-  const observer = new MutationObserver(scheduleTranslate);
+  const observer = new MutationObserver((mutations) => {
+    for (const mutation of mutations) {
+      if (mutation.type === "childList") {
+        mutation.addedNodes.forEach(queueTranslateRoot);
+        continue;
+      }
+
+      queueTranslateRoot(mutation.target);
+    }
+
+    scheduleTranslate();
+  });
 
   observer.observe(document.body, {
     childList: true,
@@ -274,7 +342,9 @@
     attributeFilter: ["value", "placeholder", "title", "aria-label"],
   });
 
-  observer.observe(document.documentElement, {
+  const themeObserver = new MutationObserver(scheduleTranslate);
+
+  themeObserver.observe(document.documentElement, {
     attributes: true,
     attributeFilter: ["data-mantine-color-scheme", "class"],
   });
