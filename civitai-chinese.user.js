@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name         Civitai 中文汉化插件
+// @name         CCT 中文增强插件
 // @namespace    https://civitai.com/
-// @version      0.1.4
-// @description  为 Civitai 提供中文界面翻译
+// @version      0.1.6
+// @description  CCT 中文增强插件（全称：Civitai Chinese Translator），一个用于中文翻译、汉化 [Civitai](https://civitai.com/) / [CivitaiRed](https://civitai.red/) 英文界面的 Tampermonkey 用户脚本。
 // @homepageURL  https://github.com/strangechiao/civitai-chinese
 // @supportURL   https://github.com/strangechiao/civitai-chinese/issues
 // @updateURL    https://raw.githubusercontent.com/strangechiao/civitai-chinese/main/civitai-chinese.user.js
@@ -14,6 +14,16 @@
 // @match        https://auth.civitai.com/*
 // @grant        none
 // ==/UserScript==
+
+(function () {
+  "use strict";
+
+  window.CivitaiChinese = window.CivitaiChinese || {};
+  window.CivitaiChinese.logoSvgs = {
+    dark: "<svg width=\"160\" height=\"101\" viewBox=\"0 0 160 101\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<path d=\"M150 6H155C157.761 6 160 8.23858 160 11V21C160 23.7614 157.761 26 155 26H150V6Z\" fill=\"#E03131\"/>\n<path d=\"M158.325 11.5C158.698 11.5 159.005 11.1961 158.949 10.8275C158.895 10.4679 158.797 10.1154 158.657 9.77792C158.431 9.23196 158.1 8.73588 157.682 8.31802C157.264 7.90016 156.768 7.56869 156.222 7.34254C155.885 7.20274 155.532 7.10488 155.172 7.05053C154.804 6.99482 154.5 7.30221 154.5 7.675V7.675C154.5 8.04779 154.806 8.34277 155.17 8.42205C155.353 8.46181 155.532 8.51787 155.705 8.58978C156.088 8.74808 156.435 8.98011 156.727 9.27261C157.02 9.56512 157.252 9.91237 157.41 10.2945C157.482 10.4682 157.538 10.6474 157.578 10.8302C157.657 11.1944 157.952 11.5 158.325 11.5V11.5Z\" fill=\"white\"/>\n<rect x=\"150\" y=\"5\" width=\"3\" height=\"22\" fill=\"white\"/>\n<rect width=\"150\" height=\"101\" rx=\"5\" fill=\"white\"/>\n<rect x=\"5\" y=\"5\" width=\"140\" height=\"91\" fill=\"#414141\"/>\n<rect x=\"10\" y=\"10\" width=\"130\" height=\"81\" fill=\"white\"/>\n<rect x=\"55\" y=\"9\" width=\"82\" height=\"6\" transform=\"rotate(90 55 9)\" fill=\"#414141\"/>\n<rect x=\"100\" y=\"10\" width=\"82\" height=\"6\" transform=\"rotate(90 100 10)\" fill=\"#414141\"/>\n<path d=\"M47 86.75L41.333 91H29.666L35.333 86.75H12V78H47V86.75ZM74.5 83C80.6628 83 86.0813 86.1857 89.1992 91H59.8008C62.9187 86.1857 68.3372 83 74.5 83ZM119.5 89.666L128.25 78H137L127.25 91H111.75L102 78H110.75L119.5 89.666ZM67.8027 39.332C71.0004 38.0075 74.5194 37.6607 77.9141 38.3359C81.3087 39.0112 84.4266 40.6786 86.874 43.126L80.6875 49.3125C79.4638 48.0888 77.9044 47.2556 76.207 46.918C74.5097 46.5804 72.7502 46.7538 71.1514 47.416C69.5526 48.0783 68.186 49.1998 67.2246 50.6387C66.2631 52.0776 65.75 53.7694 65.75 55.5C65.75 57.2306 66.2631 58.9224 67.2246 60.3613C68.186 61.8002 69.5526 62.9217 71.1514 63.584C72.7502 64.2462 74.5097 64.4196 76.207 64.082C77.9044 63.7444 79.4638 62.9112 80.6875 61.6875L86.874 67.874C84.4266 70.3214 81.3087 71.9888 77.9141 72.6641C74.5194 73.3393 71.0004 72.9925 67.8027 71.668C64.6052 70.3434 61.8721 68.1004 59.9492 65.2227C58.0263 62.3448 57 58.9612 57 55.5C57 52.0388 58.0263 48.6552 59.9492 45.7773C61.8721 42.8996 64.6052 40.6566 67.8027 39.332ZM137 41.75H123.699L123.698 68H114.949V41.75H102V33H137V41.75ZM22.8027 34.332C26.0004 33.0075 29.5194 32.6607 32.9141 33.3359C36.3087 34.0112 39.4266 35.6786 41.874 38.126L35.6875 44.3125C34.4638 43.0888 32.9044 42.2556 31.207 41.918C29.5097 41.5804 27.7502 41.7538 26.1514 42.416C24.5526 43.0783 23.186 44.1998 22.2246 45.6387C21.2631 47.0776 20.75 48.7694 20.75 50.5C20.75 52.2306 21.2631 53.9224 22.2246 55.3613C23.186 56.8002 24.5526 57.9217 26.1514 58.584C27.7502 59.2462 29.5097 59.4196 31.207 59.082C32.9044 58.7444 34.4638 57.9112 35.6875 56.6875L41.874 62.874C39.4266 65.3214 36.3087 66.9888 32.9141 67.6641C29.5194 68.3393 26.0004 67.9925 22.8027 66.668C19.6052 65.3434 16.8721 63.1004 14.9492 60.2227C13.0263 57.3448 12 53.9612 12 50.5C12 47.0388 13.0263 43.6552 14.9492 40.7773C16.8721 37.8996 19.6052 35.6566 22.8027 34.332ZM65.75 28H57V10H65.75V28ZM83.25 16.333V10H92V28H83.25L69.75 10H78.5L83.25 16.333ZM47 23H39.3438L36.2676 12.0625H22.7324L19.6562 23H12L15.6562 10H43.3438L47 23ZM110.75 14.25H137V23H102V10H110.75V14.25Z\" fill=\"#414141\"/>\n</svg>",
+    light: "<svg width=\"160\" height=\"101\" viewBox=\"0 0 160 101\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<path d=\"M150 6H155C157.761 6 160 8.23858 160 11V21C160 23.7614 157.761 26 155 26H150V6Z\" fill=\"#E03131\"/>\n<path d=\"M158.325 11.5C158.698 11.5 159.005 11.1961 158.949 10.8275C158.895 10.4679 158.797 10.1154 158.657 9.77792C158.431 9.23196 158.1 8.73588 157.682 8.31802C157.264 7.90016 156.768 7.56869 156.222 7.34254C155.885 7.20274 155.532 7.10488 155.172 7.05053C154.804 6.99482 154.5 7.30221 154.5 7.675V7.675C154.5 8.04779 154.806 8.34277 155.17 8.42205C155.353 8.46181 155.532 8.51787 155.705 8.58978C156.088 8.74808 156.435 8.98011 156.727 9.27261C157.02 9.56512 157.252 9.91237 157.41 10.2945C157.482 10.4682 157.538 10.6474 157.578 10.8302C157.657 11.1944 157.952 11.5 158.325 11.5V11.5Z\" fill=\"white\"/>\n<rect x=\"150\" y=\"5\" width=\"3\" height=\"22\" fill=\"#414141\"/>\n<rect width=\"150\" height=\"101\" rx=\"5\" fill=\"#414141\"/>\n<rect x=\"5\" y=\"5\" width=\"140\" height=\"91\" fill=\"white\"/>\n<rect x=\"10\" y=\"10\" width=\"130\" height=\"81\" fill=\"#414141\"/>\n<rect x=\"55\" y=\"9\" width=\"82\" height=\"6\" transform=\"rotate(90 55 9)\" fill=\"white\"/>\n<rect x=\"100\" y=\"10\" width=\"82\" height=\"6\" transform=\"rotate(90 100 10)\" fill=\"white\"/>\n<path d=\"M47 86.75L41.333 91H29.666L35.333 86.75H12V78H47V86.75ZM74.5 83C80.6628 83 86.0813 86.1857 89.1992 91H59.8008C62.9187 86.1857 68.3372 83 74.5 83ZM119.5 89.666L128.25 78H137L127.25 91H111.75L102 78H110.75L119.5 89.666ZM67.8027 39.332C71.0004 38.0075 74.5194 37.6607 77.9141 38.3359C81.3087 39.0112 84.4266 40.6786 86.874 43.126L80.6875 49.3125C79.4638 48.0888 77.9044 47.2556 76.207 46.918C74.5097 46.5804 72.7502 46.7538 71.1514 47.416C69.5526 48.0783 68.186 49.1998 67.2246 50.6387C66.2631 52.0776 65.75 53.7694 65.75 55.5C65.75 57.2306 66.2631 58.9224 67.2246 60.3613C68.186 61.8002 69.5526 62.9217 71.1514 63.584C72.7502 64.2462 74.5097 64.4196 76.207 64.082C77.9044 63.7444 79.4638 62.9112 80.6875 61.6875L86.874 67.874C84.4266 70.3214 81.3087 71.9888 77.9141 72.6641C74.5194 73.3393 71.0004 72.9925 67.8027 71.668C64.6052 70.3434 61.8721 68.1004 59.9492 65.2227C58.0263 62.3448 57 58.9612 57 55.5C57 52.0388 58.0263 48.6552 59.9492 45.7773C61.8721 42.8996 64.6052 40.6566 67.8027 39.332ZM137 41.75H123.699L123.698 68H114.949V41.75H102V33H137V41.75ZM22.8027 34.332C26.0004 33.0075 29.5194 32.6607 32.9141 33.3359C36.3087 34.0112 39.4266 35.6786 41.874 38.126L35.6875 44.3125C34.4638 43.0888 32.9044 42.2556 31.207 41.918C29.5097 41.5804 27.7502 41.7538 26.1514 42.416C24.5526 43.0783 23.186 44.1998 22.2246 45.6387C21.2631 47.0776 20.75 48.7694 20.75 50.5C20.75 52.2306 21.2631 53.9224 22.2246 55.3613C23.186 56.8002 24.5526 57.9217 26.1514 58.584C27.7502 59.2462 29.5097 59.4196 31.207 59.082C32.9044 58.7444 34.4638 57.9112 35.6875 56.6875L41.874 62.874C39.4266 65.3214 36.3087 66.9888 32.9141 67.6641C29.5194 68.3393 26.0004 67.9925 22.8027 66.668C19.6052 65.3434 16.8721 63.1004 14.9492 60.2227C13.0263 57.3448 12 53.9612 12 50.5C12 47.0388 13.0263 43.6552 14.9492 40.7773C16.8721 37.8996 19.6052 35.6566 22.8027 34.332ZM65.75 28H57V10H65.75V28ZM83.25 16.333V10H92V28H83.25L69.75 10H78.5L83.25 16.333ZM47 23H39.3438L36.2676 12.0625H22.7324L19.6562 23H12L15.6562 10H43.3438L47 23ZM110.75 14.25H137V23H102V10H110.75V14.25Z\" fill=\"white\"/>\n</svg>",
+  };
+})();
 
 (function () {
   "use strict";
@@ -181,6 +191,35 @@
       "分享你的邀请码。好友每支付一个月会员，你都能获得可用于会员权益的 Tokens，并且还能从他们的 Buzz 购买中获得 10% 蓝色 Buzz 返利。",
     "open referrals": "打开邀请返利",
 
+    // 获取 Buzz
+    "top up your buzz balance any time.": "随时为你的 Buzz 余额充值。",
+    "view challenges": "查看挑战",
+    "enter themed contests. generate using the featured model, ai picks the winners.":
+      "参加主题比赛。使用指定模型生成作品，由 AI 评选获胜者。",
+    "buzz beggars board": "Buzz 讨赏榜",
+    "post your images to get tipped buzz by the community and featured on the homepage":
+      "发布你的图片，获得社区 Buzz 打赏，并有机会展示在首页。",
+    "visit board": "查看榜单",
+    "get paid": "获得收益",
+    "banking phase": "入库阶段",
+    "generating a lot of buzz? bank it to earn cash!": "生成了很多 Buzz？存入后即可赚取现金！",
+    "how does this work?": "这是如何运作的？",
+    "this is an estimated value based on the assumption that a portion of all buzz earned by creators will be banked. the amount you receive depends on the total buzz banked by all creators at the end of the month. if you’re not happy with your estimated payout, you can withdraw your buzz during the 3-day extraction phase at the end of the month.":
+      "这是基于一项假设得出的估算值：创作者获得的所有 Buzz 中会有一部分被存入。你最终收到的金额取决于月底所有创作者存入的 Buzz 总量。如果你对预计收益不满意，可以在月底为期 3 天的提取阶段取回你的 Buzz。",
+    "this is an estimated value based on the assumption that a portion of all buzz earned by creators will be banked. the amount you receive depends on the total buzz banked by all creators at the end of the month. if you're not happy with your estimated payout, you can withdraw your buzz during the 3-day extraction phase at the end of the month.":
+      "这是基于一项假设得出的估算值：创作者获得的所有 Buzz 中会有一部分被存入。你最终收到的金额取决于月底所有创作者存入的 Buzz 总量。如果你对预计收益不满意，可以在月底为期 3 天的提取阶段取回你的 Buzz。",
+    close: "关闭",
+    "join the creator program": "加入创作者计划",
+    "program requirements": "计划要求",
+    "have a creator score higher than 40k": "创作者评分高于 40k",
+    "creator score": "创作者评分",
+    "be a civitai green member": "成为 Civitai 绿色会员",
+    "become a civitai member now!": "立即成为 Civitai 会员！",
+    "compensation pool": "补偿池",
+    "current banked": "当前已存入",
+    "current banked buzz": "当前已存入 Buzz",
+    "how is this determined?": "这是如何计算的？",
+
     // 我的Buzz管理
     "my buzz dashboard": "我的Buzz管理",
     blue: "蓝色",
@@ -199,8 +238,6 @@
     "view all": "查看全部",
     "view image": "查看图片",
     "show more": "显示更多",
-
-    // 交易历史
     "transaction history": "交易历史",
     from: "从",
     to: "到",
@@ -237,11 +274,15 @@
     "earnings can take up to 24 hours to appear": "收益最多可能需要 24 小时才会显示",
     "if you react to the same thing multiple times, you will not get more rewards.": "如果你对同一个内容多次作出反应，将不会获得更多奖励。",
     "if you unfollow and follow the same person, you will not get this reward again.": "如果你取消关注后又关注同一个人，将不会再次获得此奖励。",
-    "when a user loves your content, they can add it to one of their collections. you'll be rewarded each time this happens.": "当用户喜欢你的内容时，可以将其添加到自己的收藏中。每次发生这种情况，你都会获得奖励。",
+    "when a user loves your content, they can add it to one of their collections. you'll be rewarded each time this happens.":
+      "当用户喜欢你的内容时，可以将其添加到自己的收藏中。每次发生这种情况，你都会获得奖励。",
     "daily buzz rewards reset at midnight utc": "每日 Buzz 奖励会在 UTC 时间午夜重置",
     "resets in": "重置倒计时",
     day: "天",
     month: "月",
+    "no transactions yet.": "暂无交易记录",
+    "no results found": "未找到结果",
+    "try adjusting your search or filters to find what you're looking for": "尝试调整搜索条件或筛选条件，以找到您想要的内容。",
 
     // 登录界面
     "sign up or log in": "注册或登录",
@@ -356,6 +397,46 @@
 
         return `你在此期间没有通过生成内容获得任何${colors[match[1]]} Buzz。请使用上方选择器切换到其他月份查看收益。`;
       },
+    },
+    {
+      pattern: /^get (blue|蓝色|yellow|黄色|green|绿色) buzz$/i,
+      replace(match, colorName) {
+        const colors = {
+          blue: "蓝色",
+          蓝色: "蓝色",
+          yellow: "黄色",
+          黄色: "黄色",
+          green: "绿色",
+          绿色: "绿色",
+        };
+
+        return `获取${colors[colorName]} Buzz`;
+      },
+    },
+    {
+      pattern: /^multiple ways to get (blue|蓝色|yellow|黄色|green|绿色) buzz and power your creativity$/i,
+      replace(match, colorName) {
+        const colors = {
+          blue: "蓝色",
+          蓝色: "蓝色",
+          yellow: "黄色",
+          黄色: "黄色",
+          green: "绿色",
+          绿色: "绿色",
+        };
+
+        return `通过多种方式获取${colors[colorName]} Buzz，助力你的创作`;
+      },
+    },
+    {
+      pattern: /^your ([\d,.]+[km]?) could be worth \$([\d,.]+)!?$/i,
+      replace(match, buzzAmount, cashAmount) {
+        return `你的 ${buzzAmount} Buzz 可能价值 $${cashAmount}！`;
+      },
+    },
+    {
+      pattern: /^your current creator score is ([\d,.]+[km]?)\.?$/i,
+      replace: "你当前的创作者评分是 $1。",
     },
     // Buzz 任务时间
     {
@@ -748,6 +829,30 @@
     color: transparent !important;
     caret-color: transparent !important;
   }
+
+  .civitai-cn-logo-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    height: var(--civitai-cn-logo-button-size, 38px);
+    min-width: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    box-sizing: border-box;
+  }
+
+  .civitai-cn-logo-button:hover {
+    background: transparent;
+  }
+
+  .civitai-cn-logo-button img {
+    display: block;
+    width: auto;
+    height: var(--civitai-cn-logo-button-size, 38px);
+  }
 `;
 })();
 
@@ -758,6 +863,7 @@
   const dictionary = config.dictionary || {};
   const textRules = config.textRules || [];
   const elementRules = config.elementRules || [];
+  const logoSvgs = config.logoSvgs || {};
 
   function normalizeText(text) {
     return text
@@ -783,6 +889,87 @@
     return null;
   }
 
+  function hasAncestorText(node, patterns) {
+    let element = node.parentElement;
+    let depth = 0;
+
+    while (element && depth < 4) {
+      const normalized = normalizeText(element.textContent);
+
+      if (patterns.some((pattern) => pattern.test(normalized))) {
+        return true;
+      }
+
+      element = element.parentElement;
+      depth += 1;
+    }
+
+    return false;
+  }
+
+  function getContextualTranslation(node) {
+    const normalized = normalizeText(node.nodeValue);
+    const colorBuzzPattern = /^(get|获取) (blue|蓝色|yellow|黄色|green|绿色) buzz$/i;
+    const colorBuzzDescriptionPattern =
+      /^(multiple ways to get|通过多种方式获取) (blue|蓝色|yellow|黄色|green|绿色) buzz (and power your creativity|，助力你的创作)$/i;
+    const creatorProgramValuePattern =
+      /^(your|你的) [\d,.]+[km]? (could be worth|buzz 可能价值) \$[\d,.]+!?$/i;
+    const creatorScorePattern =
+      /^(your current|你当前的) (creator score|创作者评分) (is|是) [\d,.]+[km]?\.?$/i;
+    const bankingPhasePattern = /^(banking|入库) (phase|阶段)$/i;
+
+    if (normalized === "get" && hasAncestorText(node, [colorBuzzPattern])) {
+      return "获取";
+    }
+
+    if (hasAncestorText(node, [colorBuzzDescriptionPattern])) {
+      if (normalized === "multiple ways to get") {
+        return "通过多种方式获取";
+      }
+
+      if (normalized === "buzz and power your creativity") {
+        return "Buzz，助力你的创作";
+      }
+
+      if (normalized === "and power your creativity") {
+        return "，助力你的创作";
+      }
+    }
+
+    if (hasAncestorText(node, [creatorProgramValuePattern])) {
+      if (normalized === "your") {
+        return "你的";
+      }
+
+      if (normalized === "could be worth") {
+        return "Buzz 可能价值";
+      }
+    }
+
+    if (hasAncestorText(node, [creatorScorePattern])) {
+      if (normalized === "your current") {
+        return "你当前的";
+      }
+
+      const scoreMatch = normalized.match(/^is ([\d,.]+[km]?)\.?$/i);
+      if (scoreMatch) {
+        return `是 ${scoreMatch[1]}。`;
+      }
+    }
+
+    if (hasAncestorText(node, [bankingPhasePattern])) {
+      if (normalized === "banking") {
+        return "入库";
+      }
+
+      if (normalized === "phase") {
+        return "阶段";
+      }
+    }
+
+    return null;
+  }
+
   function injectStyle() {
     if (document.getElementById("civitai-cn-style")) return;
 
@@ -795,7 +982,7 @@
 
   function translateTextNode(node) {
     const rawText = node.nodeValue;
-    const chinese = getTranslation(rawText);
+    const chinese = getContextualTranslation(node) || getTranslation(rawText);
 
     if (chinese) {
       node.nodeValue = rawText.replace(rawText.trim(), chinese);
@@ -850,8 +1037,89 @@
     element.classList.add("civitai-cn-hidden-input-text");
   }
 
+  function syncLogoButtonSize(button, createButton) {
+    const height = Math.round(createButton.getBoundingClientRect().height);
+    if (height > 0) {
+      button.style.setProperty("--civitai-cn-logo-button-size", `${height}px`);
+    }
+  }
+
+  function getColorScheme() {
+    const candidates = [document.documentElement, document.body].filter(Boolean);
+
+    for (const element of candidates) {
+      const scheme = element.getAttribute("data-mantine-color-scheme") || element.dataset.mantineColorScheme;
+      if (scheme === "dark" || scheme === "light") {
+        return scheme;
+      }
+    }
+
+    if (document.documentElement.classList.contains("dark") || document.body.classList.contains("dark")) {
+      return "dark";
+    }
+
+    if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+      return "dark";
+    }
+
+    return "light";
+  }
+
+  function getLogoSvg() {
+    const scheme = getColorScheme();
+    return logoSvgs[scheme] || logoSvgs.light || logoSvgs.dark || "";
+  }
+
+  function syncLogoImage(logoButton) {
+    const logoImage = logoButton.querySelector("img");
+    const logoSvg = getLogoSvg();
+    if (!logoImage || !logoSvg) return;
+
+    const nextSrc = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(logoSvg)}`;
+    if (logoImage.src !== nextSrc) {
+      logoImage.src = nextSrc;
+    }
+  }
+
+  function injectLogoButton() {
+    if (!logoSvgs.dark && !logoSvgs.light) return;
+
+    const createButton = document.querySelector('[data-activity="create:navbar"]');
+    if (!createButton) return;
+
+    const createGroup = createButton.parentElement;
+    const actionGroup = createGroup && createGroup.parentElement;
+    if (!createGroup || !actionGroup) return;
+
+    let logoButton = actionGroup.querySelector(":scope > .civitai-cn-logo-button");
+    if (!logoButton) {
+      logoButton = document.createElement("button");
+      logoButton.type = "button";
+      logoButton.className = "civitai-cn-logo-button";
+      logoButton.setAttribute("aria-label", "Civitai 中文汉化插件");
+      logoButton.title = "Civitai 中文汉化插件";
+
+      const logoImage = document.createElement("img");
+      logoImage.alt = "";
+
+      logoButton.appendChild(logoImage);
+      logoButton.addEventListener("click", () => {
+        window.open("https://github.com/strangechiao/civitai-chinese", "_blank", "noopener,noreferrer");
+      });
+    }
+
+    if (logoButton.parentElement !== actionGroup || logoButton.nextElementSibling !== createGroup) {
+      actionGroup.insertBefore(logoButton, createGroup);
+    }
+
+    syncLogoImage(logoButton);
+    syncLogoButtonSize(logoButton, createButton);
+    requestAnimationFrame(() => syncLogoButtonSize(logoButton, createButton));
+  }
+
   function translatePage() {
     injectStyle();
+    injectLogoButton();
 
     const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
       acceptNode(node) {
@@ -902,5 +1170,10 @@
     characterData: true,
     attributes: true,
     attributeFilter: ["value", "placeholder", "title", "aria-label"],
+  });
+
+  observer.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["data-mantine-color-scheme", "class"],
   });
 })();

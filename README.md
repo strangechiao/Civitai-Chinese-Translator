@@ -1,6 +1,6 @@
-# Civitai 中文汉化插件
+# CCT 中文增强插件
 
-一个用于汉化 [Civitai](https://civitai.com/) / [CivitaiRed](https://civitai.red/) 的 Tampermonkey 用户脚本。
+CCT 中文增强插件（全称：Civitai Chinese Translator），一个用于中文翻译、汉化 [Civitai](https://civitai.com/) / [CivitaiRed](https://civitai.red/) 英文界面的 Tampermonkey 用户脚本。
 
 脚本会自动替换页面中的常见英文界面文本，并针对通知、时间、下拉菜单等动态内容做了一些规则处理。当前项目仍在持续补充词条，翻译覆盖范围会随着使用逐步完善。
 

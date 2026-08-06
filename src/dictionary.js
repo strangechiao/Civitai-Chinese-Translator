@@ -164,6 +164,35 @@
       "分享你的邀请码。好友每支付一个月会员，你都能获得可用于会员权益的 Tokens，并且还能从他们的 Buzz 购买中获得 10% 蓝色 Buzz 返利。",
     "open referrals": "打开邀请返利",
 
+    // 获取 Buzz
+    "top up your buzz balance any time.": "随时为你的 Buzz 余额充值。",
+    "view challenges": "查看挑战",
+    "enter themed contests. generate using the featured model, ai picks the winners.":
+      "参加主题比赛。使用指定模型生成作品，由 AI 评选获胜者。",
+    "buzz beggars board": "Buzz 讨赏榜",
+    "post your images to get tipped buzz by the community and featured on the homepage":
+      "发布你的图片，获得社区 Buzz 打赏，并有机会展示在首页。",
+    "visit board": "查看榜单",
+    "get paid": "获得收益",
+    "banking phase": "入库阶段",
+    "generating a lot of buzz? bank it to earn cash!": "生成了很多 Buzz？存入后即可赚取现金！",
+    "how does this work?": "这是如何运作的？",
+    "this is an estimated value based on the assumption that a portion of all buzz earned by creators will be banked. the amount you receive depends on the total buzz banked by all creators at the end of the month. if you’re not happy with your estimated payout, you can withdraw your buzz during the 3-day extraction phase at the end of the month.":
+      "这是基于一项假设得出的估算值：创作者获得的所有 Buzz 中会有一部分被存入。你最终收到的金额取决于月底所有创作者存入的 Buzz 总量。如果你对预计收益不满意，可以在月底为期 3 天的提取阶段取回你的 Buzz。",
+    "this is an estimated value based on the assumption that a portion of all buzz earned by creators will be banked. the amount you receive depends on the total buzz banked by all creators at the end of the month. if you're not happy with your estimated payout, you can withdraw your buzz during the 3-day extraction phase at the end of the month.":
+      "这是基于一项假设得出的估算值：创作者获得的所有 Buzz 中会有一部分被存入。你最终收到的金额取决于月底所有创作者存入的 Buzz 总量。如果你对预计收益不满意，可以在月底为期 3 天的提取阶段取回你的 Buzz。",
+    close: "关闭",
+    "join the creator program": "加入创作者计划",
+    "program requirements": "计划要求",
+    "have a creator score higher than 40k": "创作者评分高于 40k",
+    "creator score": "创作者评分",
+    "be a civitai green member": "成为 Civitai 绿色会员",
+    "become a civitai member now!": "立即成为 Civitai 会员！",
+    "compensation pool": "补偿池",
+    "current banked": "当前已存入",
+    "current banked buzz": "当前已存入 Buzz",
+    "how is this determined?": "这是如何计算的？",
+
     // 我的Buzz管理
     "my buzz dashboard": "我的Buzz管理",
     blue: "蓝色",
@@ -224,6 +253,9 @@
     "resets in": "重置倒计时",
     day: "天",
     month: "月",
+    "no transactions yet.": "暂无交易记录",
+    "no results found": "未找到结果",
+    "try adjusting your search or filters to find what you're looking for": "尝试调整搜索条件或筛选条件，以找到您想要的内容。",
 
     // 登录界面
     "sign up or log in": "注册或登录",

@@ -5,6 +5,7 @@
   const dictionary = config.dictionary || {};
   const textRules = config.textRules || [];
   const elementRules = config.elementRules || [];
+  const logoSvgs = config.logoSvgs || {};
 
   function normalizeText(text) {
     return text
@@ -30,6 +31,87 @@
     return null;
   }
 
+  function hasAncestorText(node, patterns) {
+    let element = node.parentElement;
+    let depth = 0;
+
+    while (element && depth < 4) {
+      const normalized = normalizeText(element.textContent);
+
+      if (patterns.some((pattern) => pattern.test(normalized))) {
+        return true;
+      }
+
+      element = element.parentElement;
+      depth += 1;
+    }
+
+    return false;
+  }
+
+  function getContextualTranslation(node) {
+    const normalized = normalizeText(node.nodeValue);
+    const colorBuzzPattern = /^(get|获取) (blue|蓝色|yellow|黄色|green|绿色) buzz$/i;
+    const colorBuzzDescriptionPattern =
+      /^(multiple ways to get|通过多种方式获取) (blue|蓝色|yellow|黄色|green|绿色) buzz (and power your creativity|，助力你的创作)$/i;
+    const creatorProgramValuePattern =
+      /^(your|你的) [\d,.]+[km]? (could be worth|buzz 可能价值) \$[\d,.]+!?$/i;
+    const creatorScorePattern =
+      /^(your current|你当前的) (creator score|创作者评分) (is|是) [\d,.]+[km]?\.?$/i;
+    const bankingPhasePattern = /^(banking|入库) (phase|阶段)$/i;
+
+    if (normalized === "get" && hasAncestorText(node, [colorBuzzPattern])) {
+      return "获取";
+    }
+
+    if (hasAncestorText(node, [colorBuzzDescriptionPattern])) {
+      if (normalized === "multiple ways to get") {
+        return "通过多种方式获取";
+      }
+
+      if (normalized === "buzz and power your creativity") {
+        return "Buzz，助力你的创作";
+      }
+
+      if (normalized === "and power your creativity") {
+        return "，助力你的创作";
+      }
+    }
+
+    if (hasAncestorText(node, [creatorProgramValuePattern])) {
+      if (normalized === "your") {
+        return "你的";
+      }
+
+      if (normalized === "could be worth") {
+        return "Buzz 可能价值";
+      }
+    }
+
+    if (hasAncestorText(node, [creatorScorePattern])) {
+      if (normalized === "your current") {
+        return "你当前的";
+      }
+
+      const scoreMatch = normalized.match(/^is ([\d,.]+[km]?)\.?$/i);
+      if (scoreMatch) {
+        return `是 ${scoreMatch[1]}。`;
+      }
+    }
+
+    if (hasAncestorText(node, [bankingPhasePattern])) {
+      if (normalized === "banking") {
+        return "入库";
+      }
+
+      if (normalized === "phase") {
+        return "阶段";
+      }
+    }
+
+    return null;
+  }
+
   function injectStyle() {
     if (document.getElementById("civitai-cn-style")) return;
 
@@ -42,7 +124,7 @@
 
   function translateTextNode(node) {
     const rawText = node.nodeValue;
-    const chinese = getTranslation(rawText);
+    const chinese = getContextualTranslation(node) || getTranslation(rawText);
 
     if (chinese) {
       node.nodeValue = rawText.replace(rawText.trim(), chinese);
@@ -97,8 +179,89 @@
     element.classList.add("civitai-cn-hidden-input-text");
   }
 
+  function syncLogoButtonSize(button, createButton) {
+    const height = Math.round(createButton.getBoundingClientRect().height);
+    if (height > 0) {
+      button.style.setProperty("--civitai-cn-logo-button-size", `${height}px`);
+    }
+  }
+
+  function getColorScheme() {
+    const candidates = [document.documentElement, document.body].filter(Boolean);
+
+    for (const element of candidates) {
+      const scheme = element.getAttribute("data-mantine-color-scheme") || element.dataset.mantineColorScheme;
+      if (scheme === "dark" || scheme === "light") {
+        return scheme;
+      }
+    }
+
+    if (document.documentElement.classList.contains("dark") || document.body.classList.contains("dark")) {
+      return "dark";
+    }
+
+    if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+      return "dark";
+    }
+
+    return "light";
+  }
+
+  function getLogoSvg() {
+    const scheme = getColorScheme();
+    return logoSvgs[scheme] || logoSvgs.light || logoSvgs.dark || "";
+  }
+
+  function syncLogoImage(logoButton) {
+    const logoImage = logoButton.querySelector("img");
+    const logoSvg = getLogoSvg();
+    if (!logoImage || !logoSvg) return;
+
+    const nextSrc = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(logoSvg)}`;
+    if (logoImage.src !== nextSrc) {
+      logoImage.src = nextSrc;
+    }
+  }
+
+  function injectLogoButton() {
+    if (!logoSvgs.dark && !logoSvgs.light) return;
+
+    const createButton = document.querySelector('[data-activity="create:navbar"]');
+    if (!createButton) return;
+
+    const createGroup = createButton.parentElement;
+    const actionGroup = createGroup && createGroup.parentElement;
+    if (!createGroup || !actionGroup) return;
+
+    let logoButton = actionGroup.querySelector(":scope > .civitai-cn-logo-button");
+    if (!logoButton) {
+      logoButton = document.createElement("button");
+      logoButton.type = "button";
+      logoButton.className = "civitai-cn-logo-button";
+      logoButton.setAttribute("aria-label", "Civitai 中文汉化插件");
+      logoButton.title = "Civitai 中文汉化插件";
+
+      const logoImage = document.createElement("img");
+      logoImage.alt = "";
+
+      logoButton.appendChild(logoImage);
+      logoButton.addEventListener("click", () => {
+        window.open("https://github.com/strangechiao/civitai-chinese", "_blank", "noopener,noreferrer");
+      });
+    }
+
+    if (logoButton.parentElement !== actionGroup || logoButton.nextElementSibling !== createGroup) {
+      actionGroup.insertBefore(logoButton, createGroup);
+    }
+
+    syncLogoImage(logoButton);
+    syncLogoButtonSize(logoButton, createButton);
+    requestAnimationFrame(() => syncLogoButtonSize(logoButton, createButton));
+  }
+
   function translatePage() {
     injectStyle();
+    injectLogoButton();
 
     const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
       acceptNode(node) {
@@ -149,5 +312,10 @@
     characterData: true,
     attributes: true,
     attributeFilter: ["value", "placeholder", "title", "aria-label"],
+  });
+
+  observer.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["data-mantine-color-scheme", "class"],
   });
 })();

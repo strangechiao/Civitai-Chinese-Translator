@@ -33,5 +33,29 @@
     color: transparent !important;
     caret-color: transparent !important;
   }
+
+  .civitai-cn-logo-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    height: var(--civitai-cn-logo-button-size, 38px);
+    min-width: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    box-sizing: border-box;
+  }
+
+  .civitai-cn-logo-button:hover {
+    background: transparent;
+  }
+
+  .civitai-cn-logo-button img {
+    display: block;
+    width: auto;
+    height: var(--civitai-cn-logo-button-size, 38px);
+  }
 `;
 })();

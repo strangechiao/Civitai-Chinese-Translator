@@ -75,6 +75,46 @@
         return `你在此期间没有通过生成内容获得任何${colors[match[1]]} Buzz。请使用上方选择器切换到其他月份查看收益。`;
       },
     },
+    {
+      pattern: /^get (blue|蓝色|yellow|黄色|green|绿色) buzz$/i,
+      replace(match, colorName) {
+        const colors = {
+          blue: "蓝色",
+          蓝色: "蓝色",
+          yellow: "黄色",
+          黄色: "黄色",
+          green: "绿色",
+          绿色: "绿色",
+        };
+
+        return `获取${colors[colorName]} Buzz`;
+      },
+    },
+    {
+      pattern: /^multiple ways to get (blue|蓝色|yellow|黄色|green|绿色) buzz and power your creativity$/i,
+      replace(match, colorName) {
+        const colors = {
+          blue: "蓝色",
+          蓝色: "蓝色",
+          yellow: "黄色",
+          黄色: "黄色",
+          green: "绿色",
+          绿色: "绿色",
+        };
+
+        return `通过多种方式获取${colors[colorName]} Buzz，助力你的创作`;
+      },
+    },
+    {
+      pattern: /^your ([\d,.]+[km]?) could be worth \$([\d,.]+)!?$/i,
+      replace(match, buzzAmount, cashAmount) {
+        return `你的 ${buzzAmount} Buzz 可能价值 $${cashAmount}！`;
+      },
+    },
+    {
+      pattern: /^your current creator score is ([\d,.]+[km]?)\.?$/i,
+      replace: "你当前的创作者评分是 $1。",
+    },
     // Buzz 任务时间
     {
       pattern: /^resets in (\d+)h (\d+)m$/i,
