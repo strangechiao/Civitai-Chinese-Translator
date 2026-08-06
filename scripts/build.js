@@ -21,7 +21,7 @@ const header = `// ==UserScript==
 // ==/UserScript==
 `;
 
-const sourceFiles = ["src/dictionary.js", "src/rules.js", "src/styles.js", "src/translator.js"];
+const sourceFiles = ["src/dictionary.js", "src/rules.js", "src/styles.js", "src/logoButton.js", "src/translator.js"];
 
 const logoSvgDark = fs.readFileSync(path.join(root, "public", "cct-logo-dark.svg"), "utf8").trim();
 const logoSvgLight = fs.readFileSync(path.join(root, "public", "cct-logo-light.svg"), "utf8").trim();

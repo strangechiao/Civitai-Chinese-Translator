@@ -5,7 +5,7 @@
   const dictionary = config.dictionary || {};
   const textRules = config.textRules || [];
   const elementRules = config.elementRules || [];
-  const logoSvgs = config.logoSvgs || {};
+  const injectLogoButton = config.injectLogoButton || function () {};
 
   function normalizeText(text) {
     return text
@@ -177,86 +177,6 @@
     wrapper.classList.add("civitai-cn-select-wrapper");
     wrapper.dataset.civitaiCnText = chinese;
     element.classList.add("civitai-cn-hidden-input-text");
-  }
-
-  function syncLogoButtonSize(button, createButton) {
-    const height = Math.round(createButton.getBoundingClientRect().height);
-    if (height > 0) {
-      button.style.setProperty("--civitai-cn-logo-button-size", `${height}px`);
-    }
-  }
-
-  function getColorScheme() {
-    const candidates = [document.documentElement, document.body].filter(Boolean);
-
-    for (const element of candidates) {
-      const scheme = element.getAttribute("data-mantine-color-scheme") || element.dataset.mantineColorScheme;
-      if (scheme === "dark" || scheme === "light") {
-        return scheme;
-      }
-    }
-
-    if (document.documentElement.classList.contains("dark") || document.body.classList.contains("dark")) {
-      return "dark";
-    }
-
-    if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
-      return "dark";
-    }
-
-    return "light";
-  }
-
-  function getLogoSvg() {
-    const scheme = getColorScheme();
-    return logoSvgs[scheme] || logoSvgs.light || logoSvgs.dark || "";
-  }
-
-  function syncLogoImage(logoButton) {
-    const logoImage = logoButton.querySelector("img");
-    const logoSvg = getLogoSvg();
-    if (!logoImage || !logoSvg) return;
-
-    const nextSrc = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(logoSvg)}`;
-    if (logoImage.src !== nextSrc) {
-      logoImage.src = nextSrc;
-    }
-  }
-
-  function injectLogoButton() {
-    if (!logoSvgs.dark && !logoSvgs.light) return;
-
-    const createButton = document.querySelector('[data-activity="create:navbar"]');
-    if (!createButton) return;
-
-    const createGroup = createButton.parentElement;
-    const actionGroup = createGroup && createGroup.parentElement;
-    if (!createGroup || !actionGroup) return;
-
-    let logoButton = actionGroup.querySelector(":scope > .civitai-cn-logo-button");
-    if (!logoButton) {
-      logoButton = document.createElement("button");
-      logoButton.type = "button";
-      logoButton.className = "civitai-cn-logo-button";
-      logoButton.setAttribute("aria-label", "Civitai 中文汉化插件");
-      logoButton.title = "Civitai 中文汉化插件";
-
-      const logoImage = document.createElement("img");
-      logoImage.alt = "";
-
-      logoButton.appendChild(logoImage);
-      logoButton.addEventListener("click", () => {
-        window.open("https://github.com/strangechiao/civitai-chinese", "_blank", "noopener,noreferrer");
-      });
-    }
-
-    if (logoButton.parentElement !== actionGroup || logoButton.nextElementSibling !== createGroup) {
-      actionGroup.insertBefore(logoButton, createGroup);
-    }
-
-    syncLogoImage(logoButton);
-    syncLogoButtonSize(logoButton, createButton);
-    requestAnimationFrame(() => syncLogoButtonSize(logoButton, createButton));
   }
 
   function translatePage() {
