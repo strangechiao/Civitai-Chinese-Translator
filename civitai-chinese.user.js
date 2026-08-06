@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         CCT 中文增强插件
 // @namespace    https://civitai.com/
-// @version      0.1.6
+// @version      0.1.7
 // @description  CCT 中文增强插件（全称：Civitai Chinese Translator），一个用于中文翻译、汉化 [Civitai](https://civitai.com/) / [CivitaiRed](https://civitai.red/) 英文界面的 Tampermonkey 用户脚本。
 // @homepageURL  https://github.com/strangechiao/civitai-chinese
 // @supportURL   https://github.com/strangechiao/civitai-chinese/issues
@@ -193,9 +193,14 @@
 
     // 获取 Buzz
     "top up your buzz balance any time.": "随时为你的 Buzz 余额充值。",
+    "buy buzz with your favorite crypto. sent to your personalized deposit address.":
+      "使用你喜欢的加密货币购买 Buzz。款项会发送到你的专属充值地址。",
     "view challenges": "查看挑战",
     "enter themed contests. generate using the featured model, ai picks the winners.":
       "参加主题比赛。使用指定模型生成作品，由 AI 评选获胜者。",
+    "view bounties": "查看悬赏",
+    "earn buzz by completing creative requests from other users, or post your own.":
+      "完成其他用户的创作请求来赚取 Buzz，或发布你自己的悬赏。",
     "buzz beggars board": "Buzz 讨赏榜",
     "post your images to get tipped buzz by the community and featured on the homepage":
       "发布你的图片，获得社区 Buzz 打赏，并有机会展示在首页。",
@@ -219,6 +224,15 @@
     "current banked": "当前已存入",
     "current banked buzz": "当前已存入 Buzz",
     "how is this determined?": "这是如何计算的？",
+    "redeem your code": "兑换你的代码",
+    "enter your unique code to instantly receive rewards": "输入你的专属代码，即可立即领取奖励",
+    "buzz-code-here": "在此输入 Buzz 代码",
+    redeem: "兑换",
+    "case-insensitive • spaces auto-removed • instant processing": "不区分大小写 • 自动移除空格 • 即时处理",
+    "all redemptions are final and non-refundable.": "所有兑换一经完成，不可撤销且不可退款。",
+    "purchased codes": "已购买的代码",
+    "no codes yet": "暂无代码",
+    "redeem a code above to see it here": "在上方兑换代码后会显示在这里",
 
     // 我的Buzz管理
     "my buzz dashboard": "我的Buzz管理",
@@ -226,6 +240,15 @@
     green: "绿色",
     yellow: "黄色",
     current: "当前",
+    "need more yellow buzz?": "需要更多黄色 Buzz？",
+    "top up now to keep creating and exploring": "立即充值，继续创作和探索",
+    "top up": "充值",
+    "yellow gained": "获得的黄色 Buzz",
+    "yellow spent": "消耗的黄色 Buzz",
+    "blue gained": "获得的蓝色 Buzz",
+    "blue spent": "消耗的蓝色 Buzz",
+    "green gained": "获得的绿色 Buzz",
+    "green spent": "消耗的绿色 Buzz",
     "free buzz earned from viewing ads or completing daily challenges.": "通过观看广告或完成每日任务获得的免费Buzz。",
     generation: "生成内容",
     "24h": "24小时",
@@ -355,7 +378,7 @@
           december: "12月",
         };
 
-        return `${year}年${months[monthName]}`;
+        return `${year}年${months[monthName.toLowerCase()]}`;
       },
     },
     // 配额单位
@@ -460,6 +483,27 @@
       pattern: /^yellow: ([\d,]+)$/i,
       replace: "黄色：$1",
     },
+    {
+      pattern: /^(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)-(\d{1,2})$/i,
+      replace(match, monthName, day) {
+        const months = {
+          jan: "1月",
+          feb: "2月",
+          mar: "3月",
+          apr: "4月",
+          may: "5月",
+          jun: "6月",
+          jul: "7月",
+          aug: "8月",
+          sep: "9月",
+          oct: "10月",
+          nov: "11月",
+          dec: "12月",
+        };
+
+        return `${months[monthName.toLowerCase()]}${day.padStart(2, "0")}日`;
+      },
+    },
     // 中文月份 + 日期，例如：七月 1, 2026
     {
       pattern: /^(january|february|march|april|may|june|july|august|september|october|november|december|jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec|一月|二月|三月|四月|五月|六月|七月|八月|九月|十月|十一月|十二月) (\d{1,2}), (\d{4})$/i,
@@ -526,7 +570,7 @@
         };
         const paddedDay = String(day).padStart(2, "0");
 
-        return `${year}年${months[monthName]}月${paddedDay}日`;
+        return `${year}年${months[monthName.toLowerCase()]}月${paddedDay}日`;
       },
     },
     {
@@ -581,7 +625,7 @@
         const paddedDay = String(day).padStart(2, "0");
         const paddedHour = String(hour).padStart(2, "0");
 
-        return `${year}年${months[monthName]}月${paddedDay}日 ${paddedHour}:${minute}:${second} ${chinesePeriod}`;
+        return `${year}年${months[monthName.toLowerCase()]}月${paddedDay}日 ${paddedHour}:${minute}:${second} ${chinesePeriod}`;
       },
     },
     // 通知内容
@@ -592,6 +636,10 @@
     {
       pattern: /^you received a tip of (\d+) (.+) buzz from @?(.+) on one of your images!$/i,
       replace: "你收到 @$3 的 $1 个 $2 Buzz 图片打赏！",
+    },
+    {
+      pattern: /^gain early access on model: (.+)$/i,
+      replace: "获得模型抢先体验：$1",
     },
     {
       pattern: /^your avatar has been blocked\.$/i,
@@ -916,10 +964,10 @@
     },
     {
       label: "联系我",
-      url: "https://civitai.red/user/qoob9006",
+      url: "https://civitai.com/user/qoob9006",
     },
     {
-      label: "特别鸣谢：catlover1937",
+      label: "特别鸣谢：@catlover1937",
       url: "https://civitai.red/user/catlover1937",
     },
   ];
@@ -1114,7 +1162,10 @@
 
     for (const rule of textRules) {
       if (rule.pattern.test(normalized)) {
-        return normalized.replace(rule.pattern, rule.replace);
+        const trimmed = text.trim();
+        const translated = trimmed.replace(rule.pattern, rule.replace);
+
+        return translated === trimmed ? normalized.replace(rule.pattern, rule.replace) : translated;
       }
     }
 

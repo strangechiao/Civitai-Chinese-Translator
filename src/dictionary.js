@@ -166,9 +166,14 @@
 
     // 获取 Buzz
     "top up your buzz balance any time.": "随时为你的 Buzz 余额充值。",
+    "buy buzz with your favorite crypto. sent to your personalized deposit address.":
+      "使用你喜欢的加密货币购买 Buzz。款项会发送到你的专属充值地址。",
     "view challenges": "查看挑战",
     "enter themed contests. generate using the featured model, ai picks the winners.":
       "参加主题比赛。使用指定模型生成作品，由 AI 评选获胜者。",
+    "view bounties": "查看悬赏",
+    "earn buzz by completing creative requests from other users, or post your own.":
+      "完成其他用户的创作请求来赚取 Buzz，或发布你自己的悬赏。",
     "buzz beggars board": "Buzz 讨赏榜",
     "post your images to get tipped buzz by the community and featured on the homepage":
       "发布你的图片，获得社区 Buzz 打赏，并有机会展示在首页。",
@@ -192,6 +197,15 @@
     "current banked": "当前已存入",
     "current banked buzz": "当前已存入 Buzz",
     "how is this determined?": "这是如何计算的？",
+    "redeem your code": "兑换你的代码",
+    "enter your unique code to instantly receive rewards": "输入你的专属代码，即可立即领取奖励",
+    "buzz-code-here": "在此输入 Buzz 代码",
+    redeem: "兑换",
+    "case-insensitive • spaces auto-removed • instant processing": "不区分大小写 • 自动移除空格 • 即时处理",
+    "all redemptions are final and non-refundable.": "所有兑换一经完成，不可撤销且不可退款。",
+    "purchased codes": "已购买的代码",
+    "no codes yet": "暂无代码",
+    "redeem a code above to see it here": "在上方兑换代码后会显示在这里",
 
     // 我的Buzz管理
     "my buzz dashboard": "我的Buzz管理",
@@ -199,6 +213,15 @@
     green: "绿色",
     yellow: "黄色",
     current: "当前",
+    "need more yellow buzz?": "需要更多黄色 Buzz？",
+    "top up now to keep creating and exploring": "立即充值，继续创作和探索",
+    "top up": "充值",
+    "yellow gained": "获得的黄色 Buzz",
+    "yellow spent": "消耗的黄色 Buzz",
+    "blue gained": "获得的蓝色 Buzz",
+    "blue spent": "消耗的蓝色 Buzz",
+    "green gained": "获得的绿色 Buzz",
+    "green spent": "消耗的绿色 Buzz",
     "free buzz earned from viewing ads or completing daily challenges.": "通过观看广告或完成每日任务获得的免费Buzz。",
     generation: "生成内容",
     "24h": "24小时",

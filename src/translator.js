@@ -24,7 +24,10 @@
 
     for (const rule of textRules) {
       if (rule.pattern.test(normalized)) {
-        return normalized.replace(rule.pattern, rule.replace);
+        const trimmed = text.trim();
+        const translated = trimmed.replace(rule.pattern, rule.replace);
+
+        return translated === trimmed ? normalized.replace(rule.pattern, rule.replace) : translated;
       }
     }
 

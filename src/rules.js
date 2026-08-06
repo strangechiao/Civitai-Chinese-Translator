@@ -32,7 +32,7 @@
           december: "12月",
         };
 
-        return `${year}年${months[monthName]}`;
+        return `${year}年${months[monthName.toLowerCase()]}`;
       },
     },
     // 配额单位
@@ -137,6 +137,27 @@
       pattern: /^yellow: ([\d,]+)$/i,
       replace: "黄色：$1",
     },
+    {
+      pattern: /^(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)-(\d{1,2})$/i,
+      replace(match, monthName, day) {
+        const months = {
+          jan: "1月",
+          feb: "2月",
+          mar: "3月",
+          apr: "4月",
+          may: "5月",
+          jun: "6月",
+          jul: "7月",
+          aug: "8月",
+          sep: "9月",
+          oct: "10月",
+          nov: "11月",
+          dec: "12月",
+        };
+
+        return `${months[monthName.toLowerCase()]}${day.padStart(2, "0")}日`;
+      },
+    },
     // 中文月份 + 日期，例如：七月 1, 2026
     {
       pattern: /^(january|february|march|april|may|june|july|august|september|october|november|december|jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec|一月|二月|三月|四月|五月|六月|七月|八月|九月|十月|十一月|十二月) (\d{1,2}), (\d{4})$/i,
@@ -203,7 +224,7 @@
         };
         const paddedDay = String(day).padStart(2, "0");
 
-        return `${year}年${months[monthName]}月${paddedDay}日`;
+        return `${year}年${months[monthName.toLowerCase()]}月${paddedDay}日`;
       },
     },
     {
@@ -258,7 +279,7 @@
         const paddedDay = String(day).padStart(2, "0");
         const paddedHour = String(hour).padStart(2, "0");
 
-        return `${year}年${months[monthName]}月${paddedDay}日 ${paddedHour}:${minute}:${second} ${chinesePeriod}`;
+        return `${year}年${months[monthName.toLowerCase()]}月${paddedDay}日 ${paddedHour}:${minute}:${second} ${chinesePeriod}`;
       },
     },
     // 通知内容
@@ -269,6 +290,10 @@
     {
       pattern: /^you received a tip of (\d+) (.+) buzz from @?(.+) on one of your images!$/i,
       replace: "你收到 @$3 的 $1 个 $2 Buzz 图片打赏！",
+    },
+    {
+      pattern: /^gain early access on model: (.+)$/i,
+      replace: "获得模型抢先体验：$1",
     },
     {
       pattern: /^your avatar has been blocked\.$/i,
