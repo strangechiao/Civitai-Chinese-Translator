@@ -9,6 +9,8 @@
 
   function normalizeText(text) {
     return text
+      .replace(/[‘’]/g, "'")
+      .replace(/[“”]/g, '"')
       .replace(/\s+/g, " ")
       .replace(/\u00a0/g, " ")
       .trim()
