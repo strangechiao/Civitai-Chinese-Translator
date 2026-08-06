@@ -64,6 +64,9 @@
     const creatorScorePattern =
       /^(your current|你当前的) (creator score|创作者评分) (is|是) [\d,.]+[km]?\.?$/i;
     const bankingPhasePattern = /^(banking|入库) (phase|阶段)$/i;
+    const saveImageToCollectionPattern =
+      /^(save|保存) (image|图片) (to|到) (collection|收藏集)$/i;
+    const addToModelCollectionPattern = /^(add to|添加到) (model|模型) (collection|收藏集)$/i;
 
     if (normalized === "get" && hasAncestorText(node, [colorBuzzPattern])) {
       return "获取";
@@ -111,6 +114,38 @@
 
       if (normalized === "phase") {
         return "阶段";
+      }
+    }
+
+    if (hasAncestorText(node, [saveImageToCollectionPattern])) {
+      if (normalized === "image") {
+        return "图片";
+      }
+
+      if (normalized === "to") {
+        return "到";
+      }
+
+      if (normalized === "image to") {
+        return "图片到";
+      }
+
+      if (normalized === "image to collection") {
+        return "图片到收藏集";
+      }
+    }
+
+    if (hasAncestorText(node, [addToModelCollectionPattern])) {
+      if (normalized === "add to") {
+        return "添加到";
+      }
+
+      if (normalized === "model") {
+        return "模型";
+      }
+
+      if (normalized === "model collection") {
+        return "模型收藏集";
       }
     }
 

@@ -2,10 +2,11 @@ const fs = require("fs");
 const path = require("path");
 
 const root = path.resolve(__dirname, "..");
-const version = "0.1.10";
+const version = "0.1.11";
 const homepageUrl = "https://github.com/strangechiao/Civitai-Chinese-Translator-Userscript";
 const supportUrl = `${homepageUrl}/issues`;
 const updateUrl = "https://raw.githubusercontent.com/strangechiao/Civitai-Chinese-Translator-Userscript/main/civitai-chinese.user.js";
+const iconUrl = "https://raw.githubusercontent.com/strangechiao/Civitai-Chinese-Translator-Userscript/main/public/icon.png";
 
 const header = `// ==UserScript==
 // @name         CCT 中文增强插件
@@ -16,6 +17,8 @@ const header = `// ==UserScript==
 // @supportURL   ${supportUrl}
 // @updateURL    ${updateUrl}
 // @downloadURL  ${updateUrl}
+// @icon         ${iconUrl}
+// @icon64       ${iconUrl}
 // @match        https://civitai.red/*
 // @match        https://www.civitai.red/*
 // @match        https://civitai.com/*

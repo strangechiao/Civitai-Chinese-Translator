@@ -1,12 +1,14 @@
 // ==UserScript==
 // @name         CCT 中文增强插件
 // @namespace    https://civitai.com/
-// @version      0.1.9
+// @version      0.1.10
 // @description  CCT 中文增强插件（全称：Civitai Chinese Translator），一个用于中文翻译、汉化 [Civitai](https://civitai.com/) / [CivitaiRed](https://civitai.red/) 英文界面的 Tampermonkey 用户脚本。
 // @homepageURL  https://github.com/strangechiao/Civitai-Chinese-Translator-Userscript
 // @supportURL   https://github.com/strangechiao/Civitai-Chinese-Translator-Userscript/issues
 // @updateURL    https://raw.githubusercontent.com/strangechiao/Civitai-Chinese-Translator-Userscript/main/civitai-chinese.user.js
 // @downloadURL  https://raw.githubusercontent.com/strangechiao/Civitai-Chinese-Translator-Userscript/main/civitai-chinese.user.js
+// @icon         https://raw.githubusercontent.com/strangechiao/Civitai-Chinese-Translator-Userscript/main/public/icon.png
+// @icon64       https://raw.githubusercontent.com/strangechiao/Civitai-Chinese-Translator-Userscript/main/public/icon.png
 // @match        https://civitai.red/*
 // @match        https://www.civitai.red/*
 // @match        https://civitai.com/*
@@ -19,7 +21,7 @@
   "use strict";
 
   window.CivitaiChinese = window.CivitaiChinese || {};
-  window.CivitaiChinese.version = "0.1.9";
+  window.CivitaiChinese.version = "0.1.10";
   window.CivitaiChinese.updateUrl = "https://raw.githubusercontent.com/strangechiao/Civitai-Chinese-Translator-Userscript/main/civitai-chinese.user.js";
   window.CivitaiChinese.logoSvgs = {
     dark: "<svg width=\"160\" height=\"101\" viewBox=\"0 0 160 101\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<path d=\"M150 6H155C157.761 6 160 8.23858 160 11V21C160 23.7614 157.761 26 155 26H150V6Z\" fill=\"#E03131\"/>\n<path d=\"M158.325 11.5C158.698 11.5 159.005 11.1961 158.949 10.8275C158.895 10.4679 158.797 10.1154 158.657 9.77792C158.431 9.23196 158.1 8.73588 157.682 8.31802C157.264 7.90016 156.768 7.56869 156.222 7.34254C155.885 7.20274 155.532 7.10488 155.172 7.05053C154.804 6.99482 154.5 7.30221 154.5 7.675V7.675C154.5 8.04779 154.806 8.34277 155.17 8.42205C155.353 8.46181 155.532 8.51787 155.705 8.58978C156.088 8.74808 156.435 8.98011 156.727 9.27261C157.02 9.56512 157.252 9.91237 157.41 10.2945C157.482 10.4682 157.538 10.6474 157.578 10.8302C157.657 11.1944 157.952 11.5 158.325 11.5V11.5Z\" fill=\"white\"/>\n<rect x=\"150\" y=\"5\" width=\"3\" height=\"22\" fill=\"white\"/>\n<rect width=\"150\" height=\"101\" rx=\"5\" fill=\"white\"/>\n<rect x=\"5\" y=\"5\" width=\"140\" height=\"91\" fill=\"#414141\"/>\n<rect x=\"10\" y=\"10\" width=\"130\" height=\"81\" fill=\"white\"/>\n<rect x=\"55\" y=\"9\" width=\"82\" height=\"6\" transform=\"rotate(90 55 9)\" fill=\"#414141\"/>\n<rect x=\"100\" y=\"10\" width=\"82\" height=\"6\" transform=\"rotate(90 100 10)\" fill=\"#414141\"/>\n<path d=\"M47 86.75L41.333 91H29.666L35.333 86.75H12V78H47V86.75ZM74.5 83C80.6628 83 86.0813 86.1857 89.1992 91H59.8008C62.9187 86.1857 68.3372 83 74.5 83ZM119.5 89.666L128.25 78H137L127.25 91H111.75L102 78H110.75L119.5 89.666ZM67.8027 39.332C71.0004 38.0075 74.5194 37.6607 77.9141 38.3359C81.3087 39.0112 84.4266 40.6786 86.874 43.126L80.6875 49.3125C79.4638 48.0888 77.9044 47.2556 76.207 46.918C74.5097 46.5804 72.7502 46.7538 71.1514 47.416C69.5526 48.0783 68.186 49.1998 67.2246 50.6387C66.2631 52.0776 65.75 53.7694 65.75 55.5C65.75 57.2306 66.2631 58.9224 67.2246 60.3613C68.186 61.8002 69.5526 62.9217 71.1514 63.584C72.7502 64.2462 74.5097 64.4196 76.207 64.082C77.9044 63.7444 79.4638 62.9112 80.6875 61.6875L86.874 67.874C84.4266 70.3214 81.3087 71.9888 77.9141 72.6641C74.5194 73.3393 71.0004 72.9925 67.8027 71.668C64.6052 70.3434 61.8721 68.1004 59.9492 65.2227C58.0263 62.3448 57 58.9612 57 55.5C57 52.0388 58.0263 48.6552 59.9492 45.7773C61.8721 42.8996 64.6052 40.6566 67.8027 39.332ZM137 41.75H123.699L123.698 68H114.949V41.75H102V33H137V41.75ZM22.8027 34.332C26.0004 33.0075 29.5194 32.6607 32.9141 33.3359C36.3087 34.0112 39.4266 35.6786 41.874 38.126L35.6875 44.3125C34.4638 43.0888 32.9044 42.2556 31.207 41.918C29.5097 41.5804 27.7502 41.7538 26.1514 42.416C24.5526 43.0783 23.186 44.1998 22.2246 45.6387C21.2631 47.0776 20.75 48.7694 20.75 50.5C20.75 52.2306 21.2631 53.9224 22.2246 55.3613C23.186 56.8002 24.5526 57.9217 26.1514 58.584C27.7502 59.2462 29.5097 59.4196 31.207 59.082C32.9044 58.7444 34.4638 57.9112 35.6875 56.6875L41.874 62.874C39.4266 65.3214 36.3087 66.9888 32.9141 67.6641C29.5194 68.3393 26.0004 67.9925 22.8027 66.668C19.6052 65.3434 16.8721 63.1004 14.9492 60.2227C13.0263 57.3448 12 53.9612 12 50.5C12 47.0388 13.0263 43.6552 14.9492 40.7773C16.8721 37.8996 19.6052 35.6566 22.8027 34.332ZM65.75 28H57V10H65.75V28ZM83.25 16.333V10H92V28H83.25L69.75 10H78.5L83.25 16.333ZM47 23H39.3438L36.2676 12.0625H22.7324L19.6562 23H12L15.6562 10H43.3438L47 23ZM110.75 14.25H137V23H102V10H110.75V14.25Z\" fill=\"#414141\"/>\n</svg>",
@@ -512,6 +514,60 @@
     "no projects yet": "暂无项目",
     "create your first comic": "创建你的第一部漫画",
     "new project": "新建项目",
+
+    save: "保存",
+    "add to showcase": "添加到展示",
+    "hide content with these tags": "隐藏带有这些标签的内容",
+    "add content decoration": "添加内容装饰",
+    "add to model collection": "添加到模型收藏集",
+    "model collection": "模型收藏集",
+    collection: "收藏集",
+    "your collections": "你的收藏集",
+    "new collection": "新建收藏集",
+    "favorite models": "收藏的模型",
+    "active contests": "正在进行的比赛",
+    "submit this model as an entry. it will be sent to the contest for review.": "提交此模型作为参赛作品。它将发送至比赛进行审核。",
+    "krea 2 training contest": "krea 2 训练比赛",
+    "tag your entry": "为你的参赛作品添加标签",
+    "art style": "艺术风格",
+    "world morph": "世界变换",
+
+    "view post": "查看帖子",
+    "edit post": "编辑帖子",
+    delete: "删除",
+    "back to selection": "返回选择",
+    name: "名称",
+    description: "描述",
+    privacy: "隐私",
+    "e.g.: video game characters": "例如：游戏角色",
+    "e.g.: my favorite video game characters": "例如：我喜欢的游戏角色",
+    "this collection contains mature content": "此收藏集包含成人内容",
+    "only you and contributors for this collection can see this": "只有你和此收藏集的贡献者可以查看",
+    public: "公开",
+    "anyone can see this collection": "任何人都可以查看此收藏集",
+    unlisted: "不公开列出",
+    "only people with the link can see this collection": "只有拥有链接的人可以查看此收藏集",
+
+    "content decorations": "内容装饰",
+    "no decorations": "无装饰",
+    "hide tags": "隐藏标签",
+    "select the tags you want to add to your blocking list": "选择要添加到屏蔽列表的标签",
+    edit: "编辑",
+    "image to collection": "将图片添加到收藏集",
+
+    "most followers": "最多关注者",
+    "most bookmarks": "收藏最多",
+    "most reactions": "互动最多",
+    "most comments": "评论最多",
+    "recently updated": "最近更新",
+    "you haven't published any 3d models yet.": "你还没有发布任何 3D 模型。",
+    "metadata only": "仅包含元数据",
+    "requiring metadata": "需要元数据",
+    scheduled: "已安排",
+    "originals only": "仅原作",
+    "remixes only": "仅混合版本",
+    "created with...": "创建工具...",
+    techniques: "技术",
 
     // 导航栏
     home: "首页",
@@ -1459,34 +1515,72 @@
     return root;
   }
 
-  function injectLogoButton() {
-    if (!logoSvgs.dark && !logoSvgs.light) return;
+  function getInsertionTarget() {
+    const supportButton = document.querySelector('a[href="/purchase/buzz"]');
+    if (supportButton && supportButton.parentElement) {
+      return {
+        container: supportButton.parentElement,
+        mode: "after",
+        reference: supportButton,
+        sizeElement: supportButton,
+      };
+    }
 
     const createButton = document.querySelector('[data-activity="create:navbar"]');
-    if (!createButton) return;
+    if (!createButton) return null;
 
     const createGroup = createButton.parentElement;
     const actionGroup = createGroup && createGroup.parentElement;
-    if (!createGroup || !actionGroup) return;
+    if (!createGroup || !actionGroup) return null;
 
-    const legacyLogoButton = actionGroup.querySelector(":scope > .civitai-cn-logo-button");
-    if (legacyLogoButton) {
-      legacyLogoButton.remove();
+    return {
+      container: actionGroup,
+      mode: "before",
+      reference: createGroup,
+      sizeElement: createButton,
+    };
+  }
+
+  function placeLogoRoot(root, target) {
+    if (target.mode === "after") {
+      if (root.parentElement === target.container && root.previousElementSibling === target.reference) {
+        return;
+      }
+
+      target.container.insertBefore(root, target.reference.nextSibling);
+      return;
     }
 
-    let root = actionGroup.querySelector(":scope > .civitai-cn-logo-menu-root");
+    if (root.parentElement === target.container && root.nextElementSibling === target.reference) {
+      return;
+    }
+
+    target.container.insertBefore(root, target.reference);
+  }
+
+  function injectLogoButton() {
+    if (!logoSvgs.dark && !logoSvgs.light) return;
+
+    const target = getInsertionTarget();
+    if (!target) return;
+
+    document.querySelectorAll(".civitai-cn-logo-button").forEach((button) => {
+      if (!button.closest(".civitai-cn-logo-menu-root")) {
+        button.remove();
+      }
+    });
+
+    let root = document.querySelector(".civitai-cn-logo-menu-root");
     if (!root) {
       root = createLogoMenuRoot();
     }
 
-    if (root.parentElement !== actionGroup || root.nextElementSibling !== createGroup) {
-      actionGroup.insertBefore(root, createGroup);
-    }
+    placeLogoRoot(root, target);
 
     const logoButton = root.querySelector(".civitai-cn-logo-button");
     syncLogoImage(logoButton);
-    syncLogoButtonSize(logoButton, createButton);
-    requestAnimationFrame(() => syncLogoButtonSize(logoButton, createButton));
+    syncLogoButtonSize(logoButton, target.sizeElement);
+    requestAnimationFrame(() => syncLogoButtonSize(logoButton, target.sizeElement));
   }
 
   document.addEventListener("click", (event) => {
@@ -1573,6 +1667,9 @@
     const creatorScorePattern =
       /^(your current|你当前的) (creator score|创作者评分) (is|是) [\d,.]+[km]?\.?$/i;
     const bankingPhasePattern = /^(banking|入库) (phase|阶段)$/i;
+    const saveImageToCollectionPattern =
+      /^(save|保存) (image|图片) (to|到) (collection|收藏集)$/i;
+    const addToModelCollectionPattern = /^(add to|添加到) (model|模型) (collection|收藏集)$/i;
 
     if (normalized === "get" && hasAncestorText(node, [colorBuzzPattern])) {
       return "获取";
@@ -1620,6 +1717,38 @@
 
       if (normalized === "phase") {
         return "阶段";
+      }
+    }
+
+    if (hasAncestorText(node, [saveImageToCollectionPattern])) {
+      if (normalized === "image") {
+        return "图片";
+      }
+
+      if (normalized === "to") {
+        return "到";
+      }
+
+      if (normalized === "image to") {
+        return "图片到";
+      }
+
+      if (normalized === "image to collection") {
+        return "图片到收藏集";
+      }
+    }
+
+    if (hasAncestorText(node, [addToModelCollectionPattern])) {
+      if (normalized === "add to") {
+        return "添加到";
+      }
+
+      if (normalized === "model") {
+        return "模型";
+      }
+
+      if (normalized === "model collection") {
+        return "模型收藏集";
       }
     }
 

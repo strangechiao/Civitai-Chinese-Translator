@@ -265,34 +265,72 @@
     return root;
   }
 
-  function injectLogoButton() {
-    if (!logoSvgs.dark && !logoSvgs.light) return;
+  function getInsertionTarget() {
+    const supportButton = document.querySelector('a[href="/purchase/buzz"]');
+    if (supportButton && supportButton.parentElement) {
+      return {
+        container: supportButton.parentElement,
+        mode: "after",
+        reference: supportButton,
+        sizeElement: supportButton,
+      };
+    }
 
     const createButton = document.querySelector('[data-activity="create:navbar"]');
-    if (!createButton) return;
+    if (!createButton) return null;
 
     const createGroup = createButton.parentElement;
     const actionGroup = createGroup && createGroup.parentElement;
-    if (!createGroup || !actionGroup) return;
+    if (!createGroup || !actionGroup) return null;
 
-    const legacyLogoButton = actionGroup.querySelector(":scope > .civitai-cn-logo-button");
-    if (legacyLogoButton) {
-      legacyLogoButton.remove();
+    return {
+      container: actionGroup,
+      mode: "before",
+      reference: createGroup,
+      sizeElement: createButton,
+    };
+  }
+
+  function placeLogoRoot(root, target) {
+    if (target.mode === "after") {
+      if (root.parentElement === target.container && root.previousElementSibling === target.reference) {
+        return;
+      }
+
+      target.container.insertBefore(root, target.reference.nextSibling);
+      return;
     }
 
-    let root = actionGroup.querySelector(":scope > .civitai-cn-logo-menu-root");
+    if (root.parentElement === target.container && root.nextElementSibling === target.reference) {
+      return;
+    }
+
+    target.container.insertBefore(root, target.reference);
+  }
+
+  function injectLogoButton() {
+    if (!logoSvgs.dark && !logoSvgs.light) return;
+
+    const target = getInsertionTarget();
+    if (!target) return;
+
+    document.querySelectorAll(".civitai-cn-logo-button").forEach((button) => {
+      if (!button.closest(".civitai-cn-logo-menu-root")) {
+        button.remove();
+      }
+    });
+
+    let root = document.querySelector(".civitai-cn-logo-menu-root");
     if (!root) {
       root = createLogoMenuRoot();
     }
 
-    if (root.parentElement !== actionGroup || root.nextElementSibling !== createGroup) {
-      actionGroup.insertBefore(root, createGroup);
-    }
+    placeLogoRoot(root, target);
 
     const logoButton = root.querySelector(".civitai-cn-logo-button");
     syncLogoImage(logoButton);
-    syncLogoButtonSize(logoButton, createButton);
-    requestAnimationFrame(() => syncLogoButtonSize(logoButton, createButton));
+    syncLogoButtonSize(logoButton, target.sizeElement);
+    requestAnimationFrame(() => syncLogoButtonSize(logoButton, target.sizeElement));
   }
 
   document.addEventListener("click", (event) => {
