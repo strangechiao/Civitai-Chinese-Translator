@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         CCT 中文增强插件
 // @namespace    https://civitai.com/
-// @version      0.1.7
+// @version      0.1.9
 // @description  CCT 中文增强插件（全称：Civitai Chinese Translator），一个用于中文翻译、汉化 [Civitai](https://civitai.com/) / [CivitaiRed](https://civitai.red/) 英文界面的 Tampermonkey 用户脚本。
 // @homepageURL  https://github.com/strangechiao/Civitai-Chinese-Translator-Userscript
 // @supportURL   https://github.com/strangechiao/Civitai-Chinese-Translator-Userscript/issues
@@ -19,6 +19,8 @@
   "use strict";
 
   window.CivitaiChinese = window.CivitaiChinese || {};
+  window.CivitaiChinese.version = "0.1.9";
+  window.CivitaiChinese.updateUrl = "https://raw.githubusercontent.com/strangechiao/Civitai-Chinese-Translator-Userscript/main/civitai-chinese.user.js";
   window.CivitaiChinese.logoSvgs = {
     dark: "<svg width=\"160\" height=\"101\" viewBox=\"0 0 160 101\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<path d=\"M150 6H155C157.761 6 160 8.23858 160 11V21C160 23.7614 157.761 26 155 26H150V6Z\" fill=\"#E03131\"/>\n<path d=\"M158.325 11.5C158.698 11.5 159.005 11.1961 158.949 10.8275C158.895 10.4679 158.797 10.1154 158.657 9.77792C158.431 9.23196 158.1 8.73588 157.682 8.31802C157.264 7.90016 156.768 7.56869 156.222 7.34254C155.885 7.20274 155.532 7.10488 155.172 7.05053C154.804 6.99482 154.5 7.30221 154.5 7.675V7.675C154.5 8.04779 154.806 8.34277 155.17 8.42205C155.353 8.46181 155.532 8.51787 155.705 8.58978C156.088 8.74808 156.435 8.98011 156.727 9.27261C157.02 9.56512 157.252 9.91237 157.41 10.2945C157.482 10.4682 157.538 10.6474 157.578 10.8302C157.657 11.1944 157.952 11.5 158.325 11.5V11.5Z\" fill=\"white\"/>\n<rect x=\"150\" y=\"5\" width=\"3\" height=\"22\" fill=\"white\"/>\n<rect width=\"150\" height=\"101\" rx=\"5\" fill=\"white\"/>\n<rect x=\"5\" y=\"5\" width=\"140\" height=\"91\" fill=\"#414141\"/>\n<rect x=\"10\" y=\"10\" width=\"130\" height=\"81\" fill=\"white\"/>\n<rect x=\"55\" y=\"9\" width=\"82\" height=\"6\" transform=\"rotate(90 55 9)\" fill=\"#414141\"/>\n<rect x=\"100\" y=\"10\" width=\"82\" height=\"6\" transform=\"rotate(90 100 10)\" fill=\"#414141\"/>\n<path d=\"M47 86.75L41.333 91H29.666L35.333 86.75H12V78H47V86.75ZM74.5 83C80.6628 83 86.0813 86.1857 89.1992 91H59.8008C62.9187 86.1857 68.3372 83 74.5 83ZM119.5 89.666L128.25 78H137L127.25 91H111.75L102 78H110.75L119.5 89.666ZM67.8027 39.332C71.0004 38.0075 74.5194 37.6607 77.9141 38.3359C81.3087 39.0112 84.4266 40.6786 86.874 43.126L80.6875 49.3125C79.4638 48.0888 77.9044 47.2556 76.207 46.918C74.5097 46.5804 72.7502 46.7538 71.1514 47.416C69.5526 48.0783 68.186 49.1998 67.2246 50.6387C66.2631 52.0776 65.75 53.7694 65.75 55.5C65.75 57.2306 66.2631 58.9224 67.2246 60.3613C68.186 61.8002 69.5526 62.9217 71.1514 63.584C72.7502 64.2462 74.5097 64.4196 76.207 64.082C77.9044 63.7444 79.4638 62.9112 80.6875 61.6875L86.874 67.874C84.4266 70.3214 81.3087 71.9888 77.9141 72.6641C74.5194 73.3393 71.0004 72.9925 67.8027 71.668C64.6052 70.3434 61.8721 68.1004 59.9492 65.2227C58.0263 62.3448 57 58.9612 57 55.5C57 52.0388 58.0263 48.6552 59.9492 45.7773C61.8721 42.8996 64.6052 40.6566 67.8027 39.332ZM137 41.75H123.699L123.698 68H114.949V41.75H102V33H137V41.75ZM22.8027 34.332C26.0004 33.0075 29.5194 32.6607 32.9141 33.3359C36.3087 34.0112 39.4266 35.6786 41.874 38.126L35.6875 44.3125C34.4638 43.0888 32.9044 42.2556 31.207 41.918C29.5097 41.5804 27.7502 41.7538 26.1514 42.416C24.5526 43.0783 23.186 44.1998 22.2246 45.6387C21.2631 47.0776 20.75 48.7694 20.75 50.5C20.75 52.2306 21.2631 53.9224 22.2246 55.3613C23.186 56.8002 24.5526 57.9217 26.1514 58.584C27.7502 59.2462 29.5097 59.4196 31.207 59.082C32.9044 58.7444 34.4638 57.9112 35.6875 56.6875L41.874 62.874C39.4266 65.3214 36.3087 66.9888 32.9141 67.6641C29.5194 68.3393 26.0004 67.9925 22.8027 66.668C19.6052 65.3434 16.8721 63.1004 14.9492 60.2227C13.0263 57.3448 12 53.9612 12 50.5C12 47.0388 13.0263 43.6552 14.9492 40.7773C16.8721 37.8996 19.6052 35.6566 22.8027 34.332ZM65.75 28H57V10H65.75V28ZM83.25 16.333V10H92V28H83.25L69.75 10H78.5L83.25 16.333ZM47 23H39.3438L36.2676 12.0625H22.7324L19.6562 23H12L15.6562 10H43.3438L47 23ZM110.75 14.25H137V23H102V10H110.75V14.25Z\" fill=\"#414141\"/>\n</svg>",
     light: "<svg width=\"160\" height=\"101\" viewBox=\"0 0 160 101\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<path d=\"M150 6H155C157.761 6 160 8.23858 160 11V21C160 23.7614 157.761 26 155 26H150V6Z\" fill=\"#E03131\"/>\n<path d=\"M158.325 11.5C158.698 11.5 159.005 11.1961 158.949 10.8275C158.895 10.4679 158.797 10.1154 158.657 9.77792C158.431 9.23196 158.1 8.73588 157.682 8.31802C157.264 7.90016 156.768 7.56869 156.222 7.34254C155.885 7.20274 155.532 7.10488 155.172 7.05053C154.804 6.99482 154.5 7.30221 154.5 7.675V7.675C154.5 8.04779 154.806 8.34277 155.17 8.42205C155.353 8.46181 155.532 8.51787 155.705 8.58978C156.088 8.74808 156.435 8.98011 156.727 9.27261C157.02 9.56512 157.252 9.91237 157.41 10.2945C157.482 10.4682 157.538 10.6474 157.578 10.8302C157.657 11.1944 157.952 11.5 158.325 11.5V11.5Z\" fill=\"white\"/>\n<rect x=\"150\" y=\"5\" width=\"3\" height=\"22\" fill=\"#414141\"/>\n<rect width=\"150\" height=\"101\" rx=\"5\" fill=\"#414141\"/>\n<rect x=\"5\" y=\"5\" width=\"140\" height=\"91\" fill=\"white\"/>\n<rect x=\"10\" y=\"10\" width=\"130\" height=\"81\" fill=\"#414141\"/>\n<rect x=\"55\" y=\"9\" width=\"82\" height=\"6\" transform=\"rotate(90 55 9)\" fill=\"white\"/>\n<rect x=\"100\" y=\"10\" width=\"82\" height=\"6\" transform=\"rotate(90 100 10)\" fill=\"white\"/>\n<path d=\"M47 86.75L41.333 91H29.666L35.333 86.75H12V78H47V86.75ZM74.5 83C80.6628 83 86.0813 86.1857 89.1992 91H59.8008C62.9187 86.1857 68.3372 83 74.5 83ZM119.5 89.666L128.25 78H137L127.25 91H111.75L102 78H110.75L119.5 89.666ZM67.8027 39.332C71.0004 38.0075 74.5194 37.6607 77.9141 38.3359C81.3087 39.0112 84.4266 40.6786 86.874 43.126L80.6875 49.3125C79.4638 48.0888 77.9044 47.2556 76.207 46.918C74.5097 46.5804 72.7502 46.7538 71.1514 47.416C69.5526 48.0783 68.186 49.1998 67.2246 50.6387C66.2631 52.0776 65.75 53.7694 65.75 55.5C65.75 57.2306 66.2631 58.9224 67.2246 60.3613C68.186 61.8002 69.5526 62.9217 71.1514 63.584C72.7502 64.2462 74.5097 64.4196 76.207 64.082C77.9044 63.7444 79.4638 62.9112 80.6875 61.6875L86.874 67.874C84.4266 70.3214 81.3087 71.9888 77.9141 72.6641C74.5194 73.3393 71.0004 72.9925 67.8027 71.668C64.6052 70.3434 61.8721 68.1004 59.9492 65.2227C58.0263 62.3448 57 58.9612 57 55.5C57 52.0388 58.0263 48.6552 59.9492 45.7773C61.8721 42.8996 64.6052 40.6566 67.8027 39.332ZM137 41.75H123.699L123.698 68H114.949V41.75H102V33H137V41.75ZM22.8027 34.332C26.0004 33.0075 29.5194 32.6607 32.9141 33.3359C36.3087 34.0112 39.4266 35.6786 41.874 38.126L35.6875 44.3125C34.4638 43.0888 32.9044 42.2556 31.207 41.918C29.5097 41.5804 27.7502 41.7538 26.1514 42.416C24.5526 43.0783 23.186 44.1998 22.2246 45.6387C21.2631 47.0776 20.75 48.7694 20.75 50.5C20.75 52.2306 21.2631 53.9224 22.2246 55.3613C23.186 56.8002 24.5526 57.9217 26.1514 58.584C27.7502 59.2462 29.5097 59.4196 31.207 59.082C32.9044 58.7444 34.4638 57.9112 35.6875 56.6875L41.874 62.874C39.4266 65.3214 36.3087 66.9888 32.9141 67.6641C29.5194 68.3393 26.0004 67.9925 22.8027 66.668C19.6052 65.3434 16.8721 63.1004 14.9492 60.2227C13.0263 57.3448 12 53.9612 12 50.5C12 47.0388 13.0263 43.6552 14.9492 40.7773C16.8721 37.8996 19.6052 35.6566 22.8027 34.332ZM65.75 28H57V10H65.75V28ZM83.25 16.333V10H92V28H83.25L69.75 10H78.5L83.25 16.333ZM47 23H39.3438L36.2676 12.0625H22.7324L19.6562 23H12L15.6562 10H43.3438L47 23ZM110.75 14.25H137V23H102V10H110.75V14.25Z\" fill=\"white\"/>\n</svg>",
@@ -914,7 +916,7 @@
     top: calc(100% + 8px);
     left: 0;
     z-index: 10000;
-    min-width: 150px;
+    min-width: 220px;
     padding: 4px;
     border: 1px solid var(--mantine-color-default-border, rgba(255, 255, 255, 0.12));
     border-radius: var(--mantine-radius-sm, 4px);
@@ -924,6 +926,56 @@
 
   .civitai-cn-logo-menu[hidden] {
     display: none;
+  }
+
+  .civitai-cn-logo-menu-header {
+    padding: 8px 10px;
+    color: var(--mantine-color-text, inherit);
+    font-family: var(--mantine-font-family);
+    font-size: var(--mantine-font-size-sm);
+    font-weight: 700;
+    line-height: var(--mantine-line-height-sm);
+    white-space: nowrap;
+  }
+
+  .civitai-cn-logo-menu-update {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 6px 10px 10px;
+    border-bottom: 1px solid var(--mantine-color-default-border, rgba(255, 255, 255, 0.12));
+    margin-bottom: 4px;
+  }
+
+  .civitai-cn-logo-menu-update-status {
+    min-height: 18px;
+    color: var(--mantine-color-dimmed, #909296);
+    font-family: var(--mantine-font-family);
+    font-size: var(--mantine-font-size-xs);
+    line-height: var(--mantine-line-height-xs);
+  }
+
+  .civitai-cn-logo-menu-update-button {
+    width: 100%;
+    padding: 7px 10px;
+    border: 0;
+    border-radius: var(--mantine-radius-xs, 2px);
+    background: var(--mantine-primary-color-filled, var(--mantine-color-blue-filled, #228be6));
+    color: var(--mantine-color-white, #fff);
+    cursor: pointer;
+    font-family: var(--mantine-font-family);
+    font-size: var(--mantine-font-size-sm);
+    font-weight: 600;
+    line-height: var(--mantine-line-height-sm);
+  }
+
+  .civitai-cn-logo-menu-update-button:hover {
+    background: var(--mantine-primary-color-filled-hover, var(--mantine-color-blue-filled-hover, #1c7ed6));
+  }
+
+  .civitai-cn-logo-menu-update-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
   }
 
   .civitai-cn-logo-menu-item {
@@ -953,6 +1005,13 @@
 
   const config = window.CivitaiChinese || {};
   const logoSvgs = config.logoSvgs || {};
+  const currentVersion = config.version || "0.0.0";
+  const updateUrl = config.updateUrl || "https://raw.githubusercontent.com/strangechiao/Civitai-Chinese-Translator-Userscript/main/civitai-chinese.user.js";
+  const updateState = {
+    checking: false,
+    latestVersion: null,
+    error: null,
+  };
   const menuItems = [
     {
       label: "提交错误",
@@ -1016,6 +1075,99 @@
     }
   }
 
+  function compareVersions(left, right) {
+    const leftParts = String(left)
+      .split(".")
+      .map((part) => Number.parseInt(part, 10) || 0);
+    const rightParts = String(right)
+      .split(".")
+      .map((part) => Number.parseInt(part, 10) || 0);
+    const length = Math.max(leftParts.length, rightParts.length);
+
+    for (let index = 0; index < length; index += 1) {
+      const leftValue = leftParts[index] || 0;
+      const rightValue = rightParts[index] || 0;
+
+      if (leftValue > rightValue) return 1;
+      if (leftValue < rightValue) return -1;
+    }
+
+    return 0;
+  }
+
+  function getRemoteVersion(scriptText) {
+    const match = scriptText.match(/\/\/\s*@version\s+([^\s]+)/i);
+    return match && match[1];
+  }
+
+  function renderUpdateStatus(menu) {
+    const status = menu.querySelector(".civitai-cn-logo-menu-update-status");
+    const button = menu.querySelector(".civitai-cn-logo-menu-update-button");
+    if (!status || !button) return;
+
+    if (updateState.checking) {
+      status.textContent = "正在检查更新...";
+      button.textContent = "检查更新";
+      button.disabled = true;
+      return;
+    }
+
+    if (updateState.error) {
+      status.textContent = updateState.error;
+      button.textContent = "重新检查";
+      button.disabled = false;
+      return;
+    }
+
+    if (!updateState.latestVersion) {
+      status.textContent = "";
+      button.textContent = "检查更新";
+      button.disabled = false;
+      return;
+    }
+
+    if (compareVersions(updateState.latestVersion, currentVersion) > 0) {
+      status.textContent = `发现新版本 v${updateState.latestVersion}`;
+      button.textContent = "更新";
+      button.disabled = false;
+      return;
+    }
+
+    status.textContent = "已经是最新版本";
+    button.textContent = "检查更新";
+    button.disabled = false;
+  }
+
+  async function checkForUpdates(menu) {
+    if (updateState.latestVersion && compareVersions(updateState.latestVersion, currentVersion) > 0) {
+      window.open(updateUrl, "_blank", "noopener,noreferrer");
+      return;
+    }
+
+    updateState.checking = true;
+    updateState.error = null;
+    renderUpdateStatus(menu);
+
+    try {
+      const response = await fetch(`${updateUrl}?t=${Date.now()}`, { cache: "no-store" });
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+      }
+
+      const latestVersion = getRemoteVersion(await response.text());
+      if (!latestVersion) {
+        throw new Error("未找到远程版本号");
+      }
+
+      updateState.latestVersion = latestVersion;
+    } catch (error) {
+      updateState.error = "检查失败，请稍后重试";
+    } finally {
+      updateState.checking = false;
+      renderUpdateStatus(menu);
+    }
+  }
+
   function closeLogoMenu(root) {
     if (!root) return;
 
@@ -1044,6 +1196,31 @@
     menu.hidden = true;
     menu.setAttribute("role", "menu");
 
+    const header = document.createElement("div");
+    header.className = "civitai-cn-logo-menu-header";
+    header.textContent = `CCT 中文增强插件 v${currentVersion}`;
+    menu.appendChild(header);
+
+    const updatePanel = document.createElement("div");
+    updatePanel.className = "civitai-cn-logo-menu-update";
+
+    const updateStatus = document.createElement("div");
+    updateStatus.className = "civitai-cn-logo-menu-update-status";
+
+    const updateButton = document.createElement("button");
+    updateButton.type = "button";
+    updateButton.className = "civitai-cn-logo-menu-update-button";
+    updateButton.textContent = "检查更新";
+    updateButton.addEventListener("click", (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      checkForUpdates(menu);
+    });
+
+    updatePanel.appendChild(updateStatus);
+    updatePanel.appendChild(updateButton);
+    menu.appendChild(updatePanel);
+
     menuItems.forEach((item) => {
       const link = document.createElement("a");
       link.className = "civitai-cn-logo-menu-item";
@@ -1056,6 +1233,8 @@
 
       menu.appendChild(link);
     });
+
+    renderUpdateStatus(menu);
 
     return menu;
   }

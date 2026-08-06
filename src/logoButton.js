@@ -3,6 +3,13 @@
 
   const config = window.CivitaiChinese || {};
   const logoSvgs = config.logoSvgs || {};
+  const currentVersion = config.version || "0.0.0";
+  const updateUrl = config.updateUrl || "https://raw.githubusercontent.com/strangechiao/Civitai-Chinese-Translator-Userscript/main/civitai-chinese.user.js";
+  const updateState = {
+    checking: false,
+    latestVersion: null,
+    error: null,
+  };
   const menuItems = [
     {
       label: "提交错误",
@@ -66,6 +73,99 @@
     }
   }
 
+  function compareVersions(left, right) {
+    const leftParts = String(left)
+      .split(".")
+      .map((part) => Number.parseInt(part, 10) || 0);
+    const rightParts = String(right)
+      .split(".")
+      .map((part) => Number.parseInt(part, 10) || 0);
+    const length = Math.max(leftParts.length, rightParts.length);
+
+    for (let index = 0; index < length; index += 1) {
+      const leftValue = leftParts[index] || 0;
+      const rightValue = rightParts[index] || 0;
+
+      if (leftValue > rightValue) return 1;
+      if (leftValue < rightValue) return -1;
+    }
+
+    return 0;
+  }
+
+  function getRemoteVersion(scriptText) {
+    const match = scriptText.match(/\/\/\s*@version\s+([^\s]+)/i);
+    return match && match[1];
+  }
+
+  function renderUpdateStatus(menu) {
+    const status = menu.querySelector(".civitai-cn-logo-menu-update-status");
+    const button = menu.querySelector(".civitai-cn-logo-menu-update-button");
+    if (!status || !button) return;
+
+    if (updateState.checking) {
+      status.textContent = "正在检查更新...";
+      button.textContent = "检查更新";
+      button.disabled = true;
+      return;
+    }
+
+    if (updateState.error) {
+      status.textContent = updateState.error;
+      button.textContent = "重新检查";
+      button.disabled = false;
+      return;
+    }
+
+    if (!updateState.latestVersion) {
+      status.textContent = "";
+      button.textContent = "检查更新";
+      button.disabled = false;
+      return;
+    }
+
+    if (compareVersions(updateState.latestVersion, currentVersion) > 0) {
+      status.textContent = `发现新版本 v${updateState.latestVersion}`;
+      button.textContent = "更新";
+      button.disabled = false;
+      return;
+    }
+
+    status.textContent = "已经是最新版本";
+    button.textContent = "检查更新";
+    button.disabled = false;
+  }
+
+  async function checkForUpdates(menu) {
+    if (updateState.latestVersion && compareVersions(updateState.latestVersion, currentVersion) > 0) {
+      window.open(updateUrl, "_blank", "noopener,noreferrer");
+      return;
+    }
+
+    updateState.checking = true;
+    updateState.error = null;
+    renderUpdateStatus(menu);
+
+    try {
+      const response = await fetch(`${updateUrl}?t=${Date.now()}`, { cache: "no-store" });
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+      }
+
+      const latestVersion = getRemoteVersion(await response.text());
+      if (!latestVersion) {
+        throw new Error("未找到远程版本号");
+      }
+
+      updateState.latestVersion = latestVersion;
+    } catch (error) {
+      updateState.error = "检查失败，请稍后重试";
+    } finally {
+      updateState.checking = false;
+      renderUpdateStatus(menu);
+    }
+  }
+
   function closeLogoMenu(root) {
     if (!root) return;
 
@@ -94,6 +194,31 @@
     menu.hidden = true;
     menu.setAttribute("role", "menu");
 
+    const header = document.createElement("div");
+    header.className = "civitai-cn-logo-menu-header";
+    header.textContent = `CCT 中文增强插件 v${currentVersion}`;
+    menu.appendChild(header);
+
+    const updatePanel = document.createElement("div");
+    updatePanel.className = "civitai-cn-logo-menu-update";
+
+    const updateStatus = document.createElement("div");
+    updateStatus.className = "civitai-cn-logo-menu-update-status";
+
+    const updateButton = document.createElement("button");
+    updateButton.type = "button";
+    updateButton.className = "civitai-cn-logo-menu-update-button";
+    updateButton.textContent = "检查更新";
+    updateButton.addEventListener("click", (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      checkForUpdates(menu);
+    });
+
+    updatePanel.appendChild(updateStatus);
+    updatePanel.appendChild(updateButton);
+    menu.appendChild(updatePanel);
+
     menuItems.forEach((item) => {
       const link = document.createElement("a");
       link.className = "civitai-cn-logo-menu-item";
@@ -106,6 +231,8 @@
 
       menu.appendChild(link);
     });
+
+    renderUpdateStatus(menu);
 
     return menu;
   }

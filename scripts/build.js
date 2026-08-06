@@ -2,16 +2,20 @@ const fs = require("fs");
 const path = require("path");
 
 const root = path.resolve(__dirname, "..");
+const version = "0.1.9";
+const homepageUrl = "https://github.com/strangechiao/Civitai-Chinese-Translator-Userscript";
+const supportUrl = `${homepageUrl}/issues`;
+const updateUrl = "https://raw.githubusercontent.com/strangechiao/Civitai-Chinese-Translator-Userscript/main/civitai-chinese.user.js";
 
 const header = `// ==UserScript==
 // @name         CCT 中文增强插件
 // @namespace    https://civitai.com/
-// @version      0.1.8
+// @version      ${version}
 // @description  CCT 中文增强插件（全称：Civitai Chinese Translator），一个用于中文翻译、汉化 [Civitai](https://civitai.com/) / [CivitaiRed](https://civitai.red/) 英文界面的 Tampermonkey 用户脚本。
-// @homepageURL  https://github.com/strangechiao/Civitai-Chinese-Translator-Userscript
-// @supportURL   https://github.com/strangechiao/Civitai-Chinese-Translator-Userscript/issues
-// @updateURL    https://raw.githubusercontent.com/strangechiao/Civitai-Chinese-Translator-Userscript/main/civitai-chinese.user.js
-// @downloadURL  https://raw.githubusercontent.com/strangechiao/Civitai-Chinese-Translator-Userscript/main/civitai-chinese.user.js
+// @homepageURL  ${homepageUrl}
+// @supportURL   ${supportUrl}
+// @updateURL    ${updateUrl}
+// @downloadURL  ${updateUrl}
 // @match        https://civitai.red/*
 // @match        https://www.civitai.red/*
 // @match        https://civitai.com/*
@@ -29,6 +33,8 @@ const logoSource = `(function () {
   "use strict";
 
   window.CivitaiChinese = window.CivitaiChinese || {};
+  window.CivitaiChinese.version = ${JSON.stringify(version)};
+  window.CivitaiChinese.updateUrl = ${JSON.stringify(updateUrl)};
   window.CivitaiChinese.logoSvgs = {
     dark: ${JSON.stringify(logoSvgDark)},
     light: ${JSON.stringify(logoSvgLight)},
