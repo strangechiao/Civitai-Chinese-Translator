@@ -7,10 +7,15 @@
   const updateUrl =
     config.updateUrl ||
     "https://raw.githubusercontent.com/strangechiao/Civitai-Chinese-Translator-Userscript/main/civitai-chinese-translator.user.js";
+  const legacyUpdateUrl =
+    "https://raw.githubusercontent.com/strangechiao/Civitai-Chinese-Translator-Userscript/main/civitai-chinese.user.js";
   const updateState = {
     checking: false,
     latestVersion: null,
+    latestUrl: null,
     error: null,
+    showLatestMessage: false,
+    messageTimer: null,
   };
   const menuItems = [
     {
@@ -100,6 +105,46 @@
     return match && match[1];
   }
 
+  function getUpdateUrls() {
+    return Array.from(new Set([updateUrl, legacyUpdateUrl].filter(Boolean)));
+  }
+
+  async function fetchRemoteVersion() {
+    const errors = [];
+
+    for (const url of getUpdateUrls()) {
+      try {
+        const response = await fetch(`${url}?t=${Date.now()}`, { cache: "no-store" });
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}`);
+        }
+
+        const latestVersion = getRemoteVersion(await response.text());
+        if (!latestVersion) {
+          throw new Error("未找到远程版本号");
+        }
+
+        return { latestVersion, url };
+      } catch (error) {
+        errors.push(error);
+      }
+    }
+
+    throw errors[errors.length - 1] || new Error("检查失败");
+  }
+
+  function clearLatestMessageLater(menu) {
+    if (updateState.messageTimer) {
+      clearTimeout(updateState.messageTimer);
+    }
+
+    updateState.messageTimer = setTimeout(() => {
+      updateState.showLatestMessage = false;
+      updateState.messageTimer = null;
+      renderUpdateStatus(menu);
+    }, 2500);
+  }
+
   function renderUpdateStatus(menu) {
     const status = menu.querySelector(".civitai-cn-logo-menu-update-status");
     const button = menu.querySelector(".civitai-cn-logo-menu-update-button");
@@ -126,21 +171,21 @@
       return;
     }
 
+    button.disabled = false;
+
     if (compareVersions(updateState.latestVersion, currentVersion) > 0) {
       status.textContent = `发现新版本 v${updateState.latestVersion}`;
       button.textContent = "更新";
-      button.disabled = false;
       return;
     }
 
-    status.textContent = "已经是最新版本";
+    status.textContent = updateState.showLatestMessage ? "已经是最新版本" : "";
     button.textContent = "检查更新";
-    button.disabled = false;
   }
 
   async function checkForUpdates(menu) {
     if (updateState.latestVersion && compareVersions(updateState.latestVersion, currentVersion) > 0) {
-      window.open(updateUrl, "_blank", "noopener,noreferrer");
+      window.open(updateState.latestUrl || updateUrl, "_blank", "noopener,noreferrer");
       return;
     }
 
@@ -149,22 +194,19 @@
     renderUpdateStatus(menu);
 
     try {
-      const response = await fetch(`${updateUrl}?t=${Date.now()}`, { cache: "no-store" });
-      if (!response.ok) {
-        throw new Error(`HTTP ${response.status}`);
-      }
-
-      const latestVersion = getRemoteVersion(await response.text());
-      if (!latestVersion) {
-        throw new Error("未找到远程版本号");
-      }
-
+      const { latestVersion, url } = await fetchRemoteVersion();
       updateState.latestVersion = latestVersion;
+      updateState.latestUrl = url;
+      updateState.showLatestMessage = compareVersions(latestVersion, currentVersion) <= 0;
     } catch (error) {
       updateState.error = "检查失败，请稍后重试";
     } finally {
       updateState.checking = false;
       renderUpdateStatus(menu);
+
+      if (updateState.showLatestMessage) {
+        clearLatestMessageLater(menu);
+      }
     }
   }
 
