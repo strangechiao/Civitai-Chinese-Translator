@@ -2,10 +2,11 @@ const fs = require("fs");
 const path = require("path");
 
 const root = path.resolve(__dirname, "..");
-const version = "0.1.12";
+const version = "0.1.13";
+const outputFile = "civitai-chinese-translator.user.js";
 const homepageUrl = "https://github.com/strangechiao/Civitai-Chinese-Translator-Userscript";
 const supportUrl = `${homepageUrl}/issues`;
-const updateUrl = "https://raw.githubusercontent.com/strangechiao/Civitai-Chinese-Translator-Userscript/main/civitai-chinese.user.js";
+const updateUrl = `${homepageUrl.replace("https://github.com", "https://raw.githubusercontent.com")}/main/${outputFile}`;
 const iconUrl = `data:image/png;base64,${fs.readFileSync(path.join(root, "public", "icon.png")).toString("base64")}`;
 
 const header = `// ==UserScript==
@@ -29,7 +30,13 @@ const header = `// ==UserScript==
 // ==/UserScript==
 `;
 
-const sourceFiles = ["src/dictionary.js", "src/rules.js", "src/styles.js", "src/logoButton.js", "src/translator.js"];
+const sourceFiles = [
+  "src/locales/zh-CN/dictionary.js",
+  "src/locales/zh-CN/rules.js",
+  "src/features/styles.js",
+  "src/features/logoButton.js",
+  "src/core/translator.js",
+];
 
 const logoSvgDark = fs.readFileSync(path.join(root, "public", "cct-logo-dark.svg"), "utf8").trim();
 const logoSvgLight = fs.readFileSync(path.join(root, "public", "cct-logo-light.svg"), "utf8").trim();
@@ -47,4 +54,4 @@ const logoSource = `(function () {
 
 const body = [logoSource, ...sourceFiles.map((file) => fs.readFileSync(path.join(root, file), "utf8").trim())].join("\n\n");
 
-fs.writeFileSync(path.join(root, "civitai-chinese.user.js"), `${header}\n${body}\n`, "utf8");
+fs.writeFileSync(path.join(root, outputFile), `${header}\n${body}\n`, "utf8");

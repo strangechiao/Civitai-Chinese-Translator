@@ -4,7 +4,9 @@
   const config = window.CivitaiChinese || {};
   const logoSvgs = config.logoSvgs || {};
   const currentVersion = config.version || "0.0.0";
-  const updateUrl = config.updateUrl || "https://raw.githubusercontent.com/strangechiao/Civitai-Chinese-Translator-Userscript/main/civitai-chinese.user.js";
+  const updateUrl =
+    config.updateUrl ||
+    "https://raw.githubusercontent.com/strangechiao/Civitai-Chinese-Translator-Userscript/main/civitai-chinese-translator.user.js";
   const updateState = {
     checking: false,
     latestVersion: null,
@@ -265,8 +267,34 @@
     return root;
   }
 
+  function getNavbarGroup() {
+    const homeLogo = document.querySelector('a[aria-label="Civitai home"]');
+    if (!homeLogo) return null;
+
+    return homeLogo.closest(".flex") || homeLogo.parentElement;
+  }
+
+  function getSupportButton() {
+    const navbarGroup = getNavbarGroup();
+    const supportSelectors = ['a[href*="/purchase/buzz"]', 'a[href*="purchase/buzz"]'];
+
+    for (const selector of supportSelectors) {
+      const scopedButton = navbarGroup && navbarGroup.querySelector(selector);
+      if (scopedButton) return scopedButton;
+
+      const pageButton = document.querySelector(selector);
+      if (pageButton) return pageButton;
+    }
+
+    if (!navbarGroup) return null;
+
+    return Array.from(navbarGroup.querySelectorAll("a, button")).find(
+      (element) => element.textContent && element.textContent.trim().toLowerCase() === "pro",
+    );
+  }
+
   function getInsertionTarget() {
-    const supportButton = document.querySelector('a[href="/purchase/buzz"]');
+    const supportButton = getSupportButton();
     if (supportButton && supportButton.parentElement) {
       return {
         container: supportButton.parentElement,

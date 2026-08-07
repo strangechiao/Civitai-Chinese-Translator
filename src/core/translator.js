@@ -6,6 +6,20 @@
   const textRules = config.textRules || [];
   const elementRules = config.elementRules || [];
   const injectLogoButton = config.injectLogoButton || function () {};
+  const skippedSelector = [
+    "script",
+    "style",
+    "textarea",
+    "template",
+    "noscript",
+    "svg",
+    "math",
+    "code",
+    "pre",
+    "[type='application/json']",
+    "[type='application/ld+json']",
+    "#__NEXT_DATA__",
+  ].join(",");
 
   function normalizeText(text) {
     return text
@@ -162,12 +176,14 @@
     document.head.appendChild(style);
   }
 
-  function shouldSkipTextParent(element) {
+  function shouldSkipElement(element) {
     if (!element) return true;
 
-    const tagName = element.tagName.toLowerCase();
+    return Boolean(element.closest(skippedSelector));
+  }
 
-    return ["script", "style", "textarea"].includes(tagName);
+  function shouldSkipTextNode(node) {
+    return shouldSkipElement(node.parentElement);
   }
 
   function translateTextNode(node) {
@@ -241,7 +257,7 @@
   function translateTextNodes(root) {
     const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
       acceptNode(node) {
-        if (shouldSkipTextParent(node.parentElement)) {
+        if (shouldSkipTextNode(node)) {
           return NodeFilter.FILTER_REJECT;
         }
 
@@ -257,12 +273,16 @@
   }
 
   function translateElement(element) {
+    if (shouldSkipElement(element)) return;
+
     translateAttributes(element);
     translateElementRules(element);
     translateSelectDisplay(element);
   }
 
   function translateElementTree(root) {
+    if (shouldSkipElement(root)) return;
+
     translateElement(root);
     root.querySelectorAll("*").forEach(translateElement);
   }
@@ -271,7 +291,7 @@
     if (!root) return;
 
     if (root.nodeType === Node.TEXT_NODE) {
-      if (!shouldSkipTextParent(root.parentElement)) {
+      if (!shouldSkipTextNode(root)) {
         translateTextNode(root);
       }
 
@@ -279,6 +299,7 @@
     }
 
     if (root.nodeType !== Node.ELEMENT_NODE) return;
+    if (shouldSkipElement(root)) return;
 
     translateTextNodes(root);
     translateElementTree(root);
@@ -300,6 +321,9 @@
       pendingRoots.add(document.body);
       return;
     }
+
+    if (root.nodeType === Node.TEXT_NODE && shouldSkipTextNode(root)) return;
+    if (root.nodeType === Node.ELEMENT_NODE && shouldSkipElement(root)) return;
 
     pendingRoots.add(root);
   }
