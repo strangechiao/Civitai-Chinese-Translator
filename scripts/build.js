@@ -3,7 +3,7 @@ const path = require("path");
 
 const root = path.resolve(__dirname, "..");
 const outputFile = "civitai-chinese-translator.user.js";
-const version = "0.2.0";
+const version = "0.2.1";
 const homepageUrl = "https://github.com/strangechiao/Civitai-Chinese-Translator";
 const updateUrl = `${homepageUrl.replace("https://github.com", "https://raw.githubusercontent.com")}/main/${outputFile}`;
 const logoSvg = fs.readFileSync(path.join(root, "public", "logo.svg"), "utf8").trim();
@@ -13,7 +13,8 @@ const header = `// ==UserScript==
 // @name         CCT 中文增强插件
 // @namespace    https://civitai.com/
 // @version      ${version}
-// @description  Civitai / CivitaiRed 中文增强与界面汉化用户脚本
+// @description  汉化（中文化、本地化、翻译）Civitai / Civitai.red 页面的 Tampermonkey 脚本。
+// @license      GPL-3.0-or-later
 // @homepageURL  ${homepageUrl}
 // @supportURL   ${homepageUrl}/issues
 // @updateURL    ${updateUrl}
@@ -57,8 +58,6 @@ const assetsSource = `(function () {
   window.CCT.assets.logoSvg = ${JSON.stringify(logoSvg)};
 })();`;
 
-const body = [assetsSource, ...sourceFiles.map((file) => fs.readFileSync(path.join(root, file), "utf8").trim())].join(
-  "\n\n",
-);
+const body = [assetsSource, ...sourceFiles.map((file) => fs.readFileSync(path.join(root, file), "utf8").trim())].join("\n\n");
 
 fs.writeFileSync(path.join(root, outputFile), `${header}\n${body}\n`, "utf8");

@@ -8,7 +8,7 @@
 汉化（中文化、本地化、翻译）Civitai / Civitai.red 页面的 Tampermonkey 脚本。
 </p>
 
-<a href="你的GreasyFork链接">
+<a href="https://greasyfork.org/zh-CN/scripts/590454-cct-%E4%B8%AD%E6%96%87%E5%A2%9E%E5%BC%BA%E6%8F%92%E4%BB%B6">
 <img src="https://img.shields.io/greasyfork/v/xxxx">
 </a>
 
@@ -16,7 +16,7 @@
 <img src="https://img.shields.io/github/license/strangechiao/civitai-chinese-translator">
 </a>
 
-</p>
+<p> 持续更新中…… </p>
 
 </div>
 

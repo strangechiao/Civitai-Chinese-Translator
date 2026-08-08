@@ -1,8 +1,9 @@
 // ==UserScript==
 // @name         CCT 中文增强插件
 // @namespace    https://civitai.com/
-// @version      0.2.0
-// @description  Civitai / CivitaiRed 中文增强与界面汉化用户脚本
+// @version      0.2.1
+// @description  汉化（中文化、本地化、翻译）Civitai / Civitai.red 页面的 Tampermonkey 脚本。
+// @license      GPL-3.0-or-later
 // @homepageURL  https://github.com/strangechiao/Civitai-Chinese-Translator
 // @supportURL   https://github.com/strangechiao/Civitai-Chinese-Translator/issues
 // @updateURL    https://raw.githubusercontent.com/strangechiao/Civitai-Chinese-Translator/main/civitai-chinese-translator.user.js
@@ -23,7 +24,7 @@
 
   window.CCT = window.CCT || {};
   window.CCT.meta = window.CCT.meta || {};
-  window.CCT.meta.version = "0.2.0";
+  window.CCT.meta.version = "0.2.1";
   window.CCT.meta.updateUrl = "https://raw.githubusercontent.com/strangechiao/Civitai-Chinese-Translator/main/civitai-chinese-translator.user.js";
   window.CCT.meta.supportUrl = "https://github.com/strangechiao/Civitai-Chinese-Translator/issues";
   window.CCT.assets = window.CCT.assets || {};
