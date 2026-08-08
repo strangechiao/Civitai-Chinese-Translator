@@ -43,18 +43,29 @@
       gap: 8px;
       min-width: 220px;
       padding: 12px;
-      border: 1px solid var(--mantine-color-dark-4, #373a40);
+      border: 1px solid #373A40;
       border-radius: var(--mantine-radius-sm, 4px);
-      background: var(--mantine-color-dark-6, #25262b);
+      background: #25262B;
       box-shadow: var(--mantine-shadow-md, 0 8px 24px rgba(0, 0, 0, 0.35));
       color: var(--mantine-color-gray-2, #e9ecef);
       font-family: var(--mantine-font-family);
       font-size: var(--mantine-font-size-sm);
       line-height: var(--mantine-line-height-sm);
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-4px) scale(0.96);
+      transform-origin: top left;
+      transition: transform 180ms ease, opacity 180ms ease;
     }
 
     .cct-logo-menu[hidden] {
       display: none !important;
+    }
+
+    .cct-logo-menu[data-open="true"] {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0) scale(1);
     }
 
     .cct-logo-menu-title {
@@ -70,8 +81,8 @@
 
     .cct-logo-menu-version {
       align-self: flex-end;
-      color: var(--mantine-color-dimmed);
-      font-size: var(--mantine-font-size-xs);
+      color: #F59F00;
+      font-size: var(--mantine-font-size-sm);
       font-weight: 600;
       line-height: var(--mantine-line-height-xs);
       white-space: nowrap;
@@ -88,21 +99,26 @@
       align-items: center;
       justify-content: center;
       width: 100%;
-      min-height: var(--button-height-xs, 30px);
-      padding-inline: var(--button-padding-x-xs, 14px);
-      border: calc(0.0625rem * var(--mantine-scale)) solid transparent;
-      border-radius: var(--mantine-radius-sm, 4px);
-      background: var(--mantine-color-blue-light);
-      color: var(--mantine-color-blue-light-color);
+      height: var(--button-height-sm, calc(2.25rem * var(--mantine-scale)));
+      padding-inline: var(--button-padding-x-sm, calc(1.125rem * var(--mantine-scale)));
+      border: var(--button-bd, calc(0.0625rem * var(--mantine-scale)) solid transparent);
+      border-color: rgba(34, 139, 230, 0.3);
+      border-radius: var(--button-radius, var(--mantine-radius-default));
+      background: var(--button-bg, var(--mantine-color-blue-light));
+      background-color: rgba(34, 139, 230, 0.15);
+      color: var(--button-color, var(--mantine-color-blue-light-color));
       font-family: var(--mantine-font-family);
-      font-size: var(--mantine-font-size-xs);
+      font-size: var(--button-fz, var(--mantine-font-size-sm));
       font-weight: 600;
-      line-height: var(--mantine-line-height-xs);
+      line-height: 1;
+      text-align: center;
+      vertical-align: middle;
+      user-select: none;
       cursor: pointer;
     }
 
     .cct-logo-menu-check:hover {
-      background: var(--mantine-color-blue-light-hover);
+      background: var(--button-hover, var(--mantine-color-blue-light-hover));
     }
 
     .cct-logo-menu-check:disabled {
@@ -152,7 +168,6 @@
 
     .cct-logo-menu-toggle:hover {
       background: var(--mantine-color-dark-5, #2c2e33);
-      color: var(--mantine-color-blue-4, #4dabf7);
     }
 
     .cct-logo-menu-link-main {
@@ -174,18 +189,15 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 16px;
-      height: 16px;
-      border: 1px solid currentColor;
-      border-radius: 999px;
+      width: 14px;
+      height: 14px;
       color: var(--mantine-color-dimmed);
-      font-size: 11px;
-      font-weight: 700;
       line-height: 1;
     }
 
-    .cct-logo-menu-help:hover {
-      color: var(--mantine-color-blue-4, #4dabf7);
+    .cct-logo-menu-help .cct-logo-menu-icon {
+      width: 14px;
+      height: 14px;
     }
 
     .cct-logo-menu-switch {
@@ -211,7 +223,7 @@
     }
 
     .cct-logo-menu-toggle[data-checked="true"] .cct-logo-menu-switch {
-      background: var(--mantine-color-blue-filled, #228be6);
+      background: #2F9E44;
     }
 
     .cct-logo-menu-toggle[data-checked="true"] .cct-logo-menu-switch::after {
@@ -220,19 +232,19 @@
 
     .cct-logo-menu-tooltip {
       position: absolute;
-      left: calc(100% + 8px);
+      left: calc(100% + 16px);
       top: 50%;
       transform: translateY(-50%);
       z-index: 1;
       display: none;
-      width: 260px;
-      padding: 8px 10px;
-      border: 1px solid var(--mantine-color-dark-4, #373a40);
+      width: 320px;
+      padding: 16px;
+      border: 1px solid var(--mantine-color-blue-4, #4dabf7);
       border-radius: var(--mantine-radius-sm, 4px);
       background: var(--mantine-color-dark-6, #25262b);
       box-shadow: var(--mantine-shadow-md, 0 8px 24px rgba(0, 0, 0, 0.35));
       color: var(--mantine-color-gray-2, #e9ecef);
-      font-size: var(--mantine-font-size-xs);
+      font-size: var(--mantine-font-size-sm);
       font-weight: 400;
       line-height: 1.45;
       white-space: normal;
@@ -266,7 +278,6 @@
 
     .cct-logo-menu-link:hover {
       background: var(--mantine-color-dark-5, #2c2e33);
-      color: var(--mantine-color-blue-4, #4dabf7);
       text-decoration: none;
     }
 

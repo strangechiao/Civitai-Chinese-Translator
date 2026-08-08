@@ -62,14 +62,14 @@
   }
 
   function iconSvg(name) {
-    const icons = {
-      bug: '<svg class="cct-logo-menu-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6.5a4 4 0 0 1 8 0V8H8V6.5Z"></path><path d="M6 8h12v6a6 6 0 0 1-12 0V8Z"></path><path d="M4 13H2"></path><path d="M22 13h-2"></path><path d="M5 19l-2 2"></path><path d="M19 19l2 2"></path><path d="M5 7 3 5"></path><path d="M19 7l2-2"></path><path d="M12 8v12"></path></svg>',
-      user: '<svg class="cct-logo-menu-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"></path><path d="M4 21a8 8 0 0 1 16 0"></path></svg>',
-      external: '<svg class="cct-logo-menu-external" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 5h5v5"></path><path d="M19 5 10 14"></path><path d="M19 14v5H5V5h5"></path></svg>',
-      download: '<svg class="cct-logo-menu-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v10"></path><path d="M8 10l4 4 4-4"></path><path d="M4 20h16"></path></svg>',
-    };
+    const icons = CCT.assets && CCT.assets.icons;
+    const svg = icons && icons[name];
+    const className = name === "external" ? "cct-logo-menu-external" : "cct-logo-menu-icon";
+    if (!svg) return "";
 
-    return icons[name] || "";
+    return svg
+      .replace(/\sclass="[^"]*"/, "")
+      .replace("<svg ", `<svg class="${className}" aria-hidden="true" `);
   }
 
   function updateOriginalDownloadToggle(menu) {
@@ -191,15 +191,28 @@
     if (!button || !menu) return;
 
     button.setAttribute("aria-expanded", String(open));
-    if (open) positionMenu(root, menu);
-    menu.hidden = !open;
+    clearTimeout(menu._cctCloseTimer);
+
+    if (open) {
+      positionMenu(root, menu);
+      menu.hidden = false;
+      requestAnimationFrame(() => {
+        menu.dataset.open = "true";
+      });
+      return;
+    }
+
+    menu.dataset.open = "false";
+    menu._cctCloseTimer = setTimeout(() => {
+      if (menu.dataset.open !== "true") menu.hidden = true;
+    }, 180);
   }
 
   function toggleMenu(root) {
     const menu = getMenu(root);
     if (!menu) return;
 
-    setMenuOpen(root, menu.hidden);
+    setMenuOpen(root, menu.dataset.open !== "true");
   }
 
   function getMenu(root) {
@@ -265,7 +278,7 @@
       </div>
       <div class="cct-logo-menu-divider" aria-hidden="true"></div>
       <button class="cct-logo-menu-toggle" type="button" role="switch" aria-checked="false">
-        <span class="cct-logo-menu-link-main">${iconSvg("download")}<span>下载原始文件</span><span class="cct-logo-menu-help" tabindex="0" aria-label="下载原始文件说明">?</span></span>
+        <span class="cct-logo-menu-link-main">${iconSvg("download")}<span>下载原始文件</span><span class="cct-logo-menu-help" tabindex="0" aria-label="下载原始文件说明">${iconSvg("question")}</span></span>
         <span class="cct-logo-menu-toggle-right">
           <span class="cct-logo-menu-switch" aria-hidden="true"></span>
         </span>
@@ -276,7 +289,7 @@
         ${iconSvg("external")}
       </a>
       <a class="cct-logo-menu-link" href="https://civitai.com/user/qoob9006" target="_blank" rel="noopener noreferrer" role="menuitem">
-        <span class="cct-logo-menu-link-main">${iconSvg("user")}<span>联系我</span></span>
+        <span class="cct-logo-menu-link-main">${iconSvg("contact")}<span>联系我</span></span>
         ${iconSvg("external")}
       </a>
       <button class="cct-logo-menu-check" type="button" data-mode="check">检查更新</button>

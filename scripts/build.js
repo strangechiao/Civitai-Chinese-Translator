@@ -3,11 +3,22 @@ const path = require("path");
 
 const root = path.resolve(__dirname, "..");
 const outputFile = "civitai-chinese-translator.user.js";
-const version = "0.3.0";
+const version = "0.3.1";
 const homepageUrl = "https://github.com/strangechiao/Civitai-Chinese-Translator";
 const updateUrl = `${homepageUrl.replace("https://github.com", "https://raw.githubusercontent.com")}/main/${outputFile}`;
 const logoSvg = fs.readFileSync(path.join(root, "public", "logo.svg"), "utf8").trim();
 const iconUrl = `data:image/png;base64,${fs.readFileSync(path.join(root, "public", "logo.png")).toString("base64")}`;
+const iconFiles = {
+  bug: "bug.svg",
+  contact: "mail.svg",
+  download: "folder-down.svg",
+  originalDownload: "cloud-download.svg",
+  external: "square-arrow-out-up-right.svg",
+  question: "circle-question-mark.svg",
+};
+const icons = Object.fromEntries(
+  Object.entries(iconFiles).map(([name, file]) => [name, fs.readFileSync(path.join(root, "public", "icons", file), "utf8").trim()]),
+);
 
 const header = `// ==UserScript==
 // @name         CCT 中文增强插件
@@ -60,6 +71,7 @@ const assetsSource = `(function () {
   window.CCT.meta.supportUrl = ${JSON.stringify(`${homepageUrl}/issues`)};
   window.CCT.assets = window.CCT.assets || {};
   window.CCT.assets.logoSvg = ${JSON.stringify(logoSvg)};
+  window.CCT.assets.icons = ${JSON.stringify(icons)};
 })();`;
 
 const body = [assetsSource, ...sourceFiles.map((file) => fs.readFileSync(path.join(root, file), "utf8").trim())].join("\n\n");

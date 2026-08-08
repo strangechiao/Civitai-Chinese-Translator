@@ -14,7 +14,15 @@
   }
 
   function iconSvg() {
-    return '<svg class="cct-original-download-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v10"></path><path d="M8 10l4 4 4-4"></path><path d="M4 20h16"></path></svg>';
+    const icons = CCT.assets && CCT.assets.icons;
+    const svg = icons && icons.originalDownload;
+    if (!svg) {
+      return '<svg class="cct-original-download-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v10"></path><path d="M8 10l4 4 4-4"></path><path d="M4 20h16"></path></svg>';
+    }
+
+    return svg
+      .replace(/\sclass="[^"]*"/, "")
+      .replace("<svg ", '<svg class="cct-original-download-icon" aria-hidden="true" ');
   }
 
   function arrowSvg() {
