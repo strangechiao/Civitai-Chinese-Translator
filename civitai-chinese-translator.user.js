@@ -1,19 +1,19 @@
 // ==UserScript==
 // @name         CCT 中文增强插件
 // @namespace    https://civitai.com/
-// @version      0.1.14
-// @description  CCT 中文增强插件（全称：Civitai Chinese Translator），一个用于中文翻译、汉化 [Civitai](https://civitai.com/) / [CivitaiRed](https://civitai.red/) 英文界面的 Tampermonkey 用户脚本。
-// @homepageURL  https://github.com/strangechiao/Civitai-Chinese-Translator-Userscript
-// @supportURL   https://github.com/strangechiao/Civitai-Chinese-Translator-Userscript/issues
-// @updateURL    https://raw.githubusercontent.com/strangechiao/Civitai-Chinese-Translator-Userscript/main/civitai-chinese-translator.user.js
-// @downloadURL  https://raw.githubusercontent.com/strangechiao/Civitai-Chinese-Translator-Userscript/main/civitai-chinese-translator.user.js
-// @icon         data:image/png;base64,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
-// @iconURL      data:image/png;base64,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
-// @icon64       data:image/png;base64,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
-// @match        https://civitai.red/*
-// @match        https://www.civitai.red/*
+// @version      0.2.0
+// @description  Civitai / CivitaiRed 中文增强与界面汉化用户脚本
+// @homepageURL  https://github.com/strangechiao/Civitai-Chinese-Translator
+// @supportURL   https://github.com/strangechiao/Civitai-Chinese-Translator/issues
+// @updateURL    https://raw.githubusercontent.com/strangechiao/Civitai-Chinese-Translator/main/civitai-chinese-translator.user.js
+// @downloadURL  https://raw.githubusercontent.com/strangechiao/Civitai-Chinese-Translator/main/civitai-chinese-translator.user.js
+// @icon         data:image/png;base64,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
+// @iconURL      data:image/png;base64,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
+// @icon64       data:image/png;base64,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
 // @match        https://civitai.com/*
 // @match        https://www.civitai.com/*
+// @match        https://civitai.red/*
+// @match        https://www.civitai.red/*
 // @match        https://auth.civitai.com/*
 // @grant        none
 // ==/UserScript==
@@ -21,1764 +21,806 @@
 (function () {
   "use strict";
 
-  window.CivitaiChinese = window.CivitaiChinese || {};
-  window.CivitaiChinese.version = "0.1.14";
-  window.CivitaiChinese.updateUrl = "https://raw.githubusercontent.com/strangechiao/Civitai-Chinese-Translator-Userscript/main/civitai-chinese-translator.user.js";
-  window.CivitaiChinese.logoSvgs = {
-    dark: "<svg width=\"160\" height=\"101\" viewBox=\"0 0 160 101\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<path d=\"M150 6H155C157.761 6 160 8.23858 160 11V21C160 23.7614 157.761 26 155 26H150V6Z\" fill=\"#E03131\"/>\n<path d=\"M158.325 11.5C158.698 11.5 159.005 11.1961 158.949 10.8275C158.895 10.4679 158.797 10.1154 158.657 9.77792C158.431 9.23196 158.1 8.73588 157.682 8.31802C157.264 7.90016 156.768 7.56869 156.222 7.34254C155.885 7.20274 155.532 7.10488 155.172 7.05053C154.804 6.99482 154.5 7.30221 154.5 7.675V7.675C154.5 8.04779 154.806 8.34277 155.17 8.42205C155.353 8.46181 155.532 8.51787 155.705 8.58978C156.088 8.74808 156.435 8.98011 156.727 9.27261C157.02 9.56512 157.252 9.91237 157.41 10.2945C157.482 10.4682 157.538 10.6474 157.578 10.8302C157.657 11.1944 157.952 11.5 158.325 11.5V11.5Z\" fill=\"white\"/>\n<rect x=\"150\" y=\"5\" width=\"3\" height=\"22\" fill=\"white\"/>\n<rect width=\"150\" height=\"101\" rx=\"5\" fill=\"white\"/>\n<rect x=\"5\" y=\"5\" width=\"140\" height=\"91\" fill=\"#414141\"/>\n<rect x=\"10\" y=\"10\" width=\"130\" height=\"81\" fill=\"white\"/>\n<rect x=\"55\" y=\"9\" width=\"82\" height=\"6\" transform=\"rotate(90 55 9)\" fill=\"#414141\"/>\n<rect x=\"100\" y=\"10\" width=\"82\" height=\"6\" transform=\"rotate(90 100 10)\" fill=\"#414141\"/>\n<path d=\"M47 86.75L41.333 91H29.666L35.333 86.75H12V78H47V86.75ZM74.5 83C80.6628 83 86.0813 86.1857 89.1992 91H59.8008C62.9187 86.1857 68.3372 83 74.5 83ZM119.5 89.666L128.25 78H137L127.25 91H111.75L102 78H110.75L119.5 89.666ZM67.8027 39.332C71.0004 38.0075 74.5194 37.6607 77.9141 38.3359C81.3087 39.0112 84.4266 40.6786 86.874 43.126L80.6875 49.3125C79.4638 48.0888 77.9044 47.2556 76.207 46.918C74.5097 46.5804 72.7502 46.7538 71.1514 47.416C69.5526 48.0783 68.186 49.1998 67.2246 50.6387C66.2631 52.0776 65.75 53.7694 65.75 55.5C65.75 57.2306 66.2631 58.9224 67.2246 60.3613C68.186 61.8002 69.5526 62.9217 71.1514 63.584C72.7502 64.2462 74.5097 64.4196 76.207 64.082C77.9044 63.7444 79.4638 62.9112 80.6875 61.6875L86.874 67.874C84.4266 70.3214 81.3087 71.9888 77.9141 72.6641C74.5194 73.3393 71.0004 72.9925 67.8027 71.668C64.6052 70.3434 61.8721 68.1004 59.9492 65.2227C58.0263 62.3448 57 58.9612 57 55.5C57 52.0388 58.0263 48.6552 59.9492 45.7773C61.8721 42.8996 64.6052 40.6566 67.8027 39.332ZM137 41.75H123.699L123.698 68H114.949V41.75H102V33H137V41.75ZM22.8027 34.332C26.0004 33.0075 29.5194 32.6607 32.9141 33.3359C36.3087 34.0112 39.4266 35.6786 41.874 38.126L35.6875 44.3125C34.4638 43.0888 32.9044 42.2556 31.207 41.918C29.5097 41.5804 27.7502 41.7538 26.1514 42.416C24.5526 43.0783 23.186 44.1998 22.2246 45.6387C21.2631 47.0776 20.75 48.7694 20.75 50.5C20.75 52.2306 21.2631 53.9224 22.2246 55.3613C23.186 56.8002 24.5526 57.9217 26.1514 58.584C27.7502 59.2462 29.5097 59.4196 31.207 59.082C32.9044 58.7444 34.4638 57.9112 35.6875 56.6875L41.874 62.874C39.4266 65.3214 36.3087 66.9888 32.9141 67.6641C29.5194 68.3393 26.0004 67.9925 22.8027 66.668C19.6052 65.3434 16.8721 63.1004 14.9492 60.2227C13.0263 57.3448 12 53.9612 12 50.5C12 47.0388 13.0263 43.6552 14.9492 40.7773C16.8721 37.8996 19.6052 35.6566 22.8027 34.332ZM65.75 28H57V10H65.75V28ZM83.25 16.333V10H92V28H83.25L69.75 10H78.5L83.25 16.333ZM47 23H39.3438L36.2676 12.0625H22.7324L19.6562 23H12L15.6562 10H43.3438L47 23ZM110.75 14.25H137V23H102V10H110.75V14.25Z\" fill=\"#414141\"/>\n</svg>",
-    light: "<svg width=\"160\" height=\"101\" viewBox=\"0 0 160 101\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<path d=\"M150 6H155C157.761 6 160 8.23858 160 11V21C160 23.7614 157.761 26 155 26H150V6Z\" fill=\"#E03131\"/>\n<path d=\"M158.325 11.5C158.698 11.5 159.005 11.1961 158.949 10.8275C158.895 10.4679 158.797 10.1154 158.657 9.77792C158.431 9.23196 158.1 8.73588 157.682 8.31802C157.264 7.90016 156.768 7.56869 156.222 7.34254C155.885 7.20274 155.532 7.10488 155.172 7.05053C154.804 6.99482 154.5 7.30221 154.5 7.675V7.675C154.5 8.04779 154.806 8.34277 155.17 8.42205C155.353 8.46181 155.532 8.51787 155.705 8.58978C156.088 8.74808 156.435 8.98011 156.727 9.27261C157.02 9.56512 157.252 9.91237 157.41 10.2945C157.482 10.4682 157.538 10.6474 157.578 10.8302C157.657 11.1944 157.952 11.5 158.325 11.5V11.5Z\" fill=\"white\"/>\n<rect x=\"150\" y=\"5\" width=\"3\" height=\"22\" fill=\"#414141\"/>\n<rect width=\"150\" height=\"101\" rx=\"5\" fill=\"#414141\"/>\n<rect x=\"5\" y=\"5\" width=\"140\" height=\"91\" fill=\"white\"/>\n<rect x=\"10\" y=\"10\" width=\"130\" height=\"81\" fill=\"#414141\"/>\n<rect x=\"55\" y=\"9\" width=\"82\" height=\"6\" transform=\"rotate(90 55 9)\" fill=\"white\"/>\n<rect x=\"100\" y=\"10\" width=\"82\" height=\"6\" transform=\"rotate(90 100 10)\" fill=\"white\"/>\n<path d=\"M47 86.75L41.333 91H29.666L35.333 86.75H12V78H47V86.75ZM74.5 83C80.6628 83 86.0813 86.1857 89.1992 91H59.8008C62.9187 86.1857 68.3372 83 74.5 83ZM119.5 89.666L128.25 78H137L127.25 91H111.75L102 78H110.75L119.5 89.666ZM67.8027 39.332C71.0004 38.0075 74.5194 37.6607 77.9141 38.3359C81.3087 39.0112 84.4266 40.6786 86.874 43.126L80.6875 49.3125C79.4638 48.0888 77.9044 47.2556 76.207 46.918C74.5097 46.5804 72.7502 46.7538 71.1514 47.416C69.5526 48.0783 68.186 49.1998 67.2246 50.6387C66.2631 52.0776 65.75 53.7694 65.75 55.5C65.75 57.2306 66.2631 58.9224 67.2246 60.3613C68.186 61.8002 69.5526 62.9217 71.1514 63.584C72.7502 64.2462 74.5097 64.4196 76.207 64.082C77.9044 63.7444 79.4638 62.9112 80.6875 61.6875L86.874 67.874C84.4266 70.3214 81.3087 71.9888 77.9141 72.6641C74.5194 73.3393 71.0004 72.9925 67.8027 71.668C64.6052 70.3434 61.8721 68.1004 59.9492 65.2227C58.0263 62.3448 57 58.9612 57 55.5C57 52.0388 58.0263 48.6552 59.9492 45.7773C61.8721 42.8996 64.6052 40.6566 67.8027 39.332ZM137 41.75H123.699L123.698 68H114.949V41.75H102V33H137V41.75ZM22.8027 34.332C26.0004 33.0075 29.5194 32.6607 32.9141 33.3359C36.3087 34.0112 39.4266 35.6786 41.874 38.126L35.6875 44.3125C34.4638 43.0888 32.9044 42.2556 31.207 41.918C29.5097 41.5804 27.7502 41.7538 26.1514 42.416C24.5526 43.0783 23.186 44.1998 22.2246 45.6387C21.2631 47.0776 20.75 48.7694 20.75 50.5C20.75 52.2306 21.2631 53.9224 22.2246 55.3613C23.186 56.8002 24.5526 57.9217 26.1514 58.584C27.7502 59.2462 29.5097 59.4196 31.207 59.082C32.9044 58.7444 34.4638 57.9112 35.6875 56.6875L41.874 62.874C39.4266 65.3214 36.3087 66.9888 32.9141 67.6641C29.5194 68.3393 26.0004 67.9925 22.8027 66.668C19.6052 65.3434 16.8721 63.1004 14.9492 60.2227C13.0263 57.3448 12 53.9612 12 50.5C12 47.0388 13.0263 43.6552 14.9492 40.7773C16.8721 37.8996 19.6052 35.6566 22.8027 34.332ZM65.75 28H57V10H65.75V28ZM83.25 16.333V10H92V28H83.25L69.75 10H78.5L83.25 16.333ZM47 23H39.3438L36.2676 12.0625H22.7324L19.6562 23H12L15.6562 10H43.3438L47 23ZM110.75 14.25H137V23H102V10H110.75V14.25Z\" fill=\"white\"/>\n</svg>",
+  window.CCT = window.CCT || {};
+  window.CCT.meta = window.CCT.meta || {};
+  window.CCT.meta.version = "0.2.0";
+  window.CCT.meta.updateUrl = "https://raw.githubusercontent.com/strangechiao/Civitai-Chinese-Translator/main/civitai-chinese-translator.user.js";
+  window.CCT.meta.supportUrl = "https://github.com/strangechiao/Civitai-Chinese-Translator/issues";
+  window.CCT.assets = window.CCT.assets || {};
+  window.CCT.assets.logoSvg = "<svg width=\"182\" height=\"103\" viewBox=\"0 0 182 103\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<rect width=\"152\" height=\"103\" rx=\"5\" fill=\"white\"/>\n<rect x=\"1\" y=\"1\" width=\"150\" height=\"101\" rx=\"5\" fill=\"#414141\"/>\n<rect x=\"6\" y=\"6\" width=\"140\" height=\"91\" fill=\"white\"/>\n<rect x=\"11\" y=\"11\" width=\"130\" height=\"81\" fill=\"#414141\"/>\n<rect x=\"151\" y=\"5\" width=\"4\" height=\"21\" fill=\"white\"/>\n<rect x=\"151\" y=\"6\" width=\"3\" height=\"19\" fill=\"#414141\"/>\n<rect x=\"56\" y=\"10\" width=\"82\" height=\"6\" transform=\"rotate(90 56 10)\" fill=\"white\"/>\n<rect x=\"101\" y=\"11\" width=\"82\" height=\"6\" transform=\"rotate(90 101 11)\" fill=\"white\"/>\n<path d=\"M48 87.75L42.333 92H30.666L36.333 87.75H13V79H48V87.75ZM75.5 84C81.6628 84 87.0813 87.1857 90.1992 92H60.8008C63.9187 87.1857 69.3372 84 75.5 84ZM120.5 90.666L129.25 79H138L128.25 92H112.75L103 79H111.75L120.5 90.666ZM68.8027 40.332C72.0004 39.0075 75.5194 38.6607 78.9141 39.3359C82.3087 40.0112 85.4266 41.6786 87.874 44.126L81.6875 50.3125C80.4638 49.0888 78.9044 48.2556 77.207 47.918C75.5097 47.5804 73.7502 47.7538 72.1514 48.416C70.5526 49.0783 69.186 50.1998 68.2246 51.6387C67.2631 53.0776 66.75 54.7694 66.75 56.5C66.75 58.2306 67.2631 59.9224 68.2246 61.3613C69.186 62.8002 70.5526 63.9217 72.1514 64.584C73.7502 65.2462 75.5097 65.4196 77.207 65.082C78.9044 64.7444 80.4638 63.9112 81.6875 62.6875L87.874 68.874C85.4266 71.3214 82.3087 72.9888 78.9141 73.6641C75.5194 74.3393 72.0004 73.9925 68.8027 72.668C65.6052 71.3434 62.8721 69.1004 60.9492 66.2227C59.0263 63.3448 58 59.9612 58 56.5C58 53.0388 59.0263 49.6552 60.9492 46.7773C62.8721 43.8996 65.6052 41.6566 68.8027 40.332ZM138 42.75H124.699L124.698 69H115.949V42.75H103V34H138V42.75ZM23.8027 35.332C27.0004 34.0075 30.5194 33.6607 33.9141 34.3359C37.3087 35.0112 40.4266 36.6786 42.874 39.126L36.6875 45.3125C35.4638 44.0888 33.9044 43.2556 32.207 42.918C30.5097 42.5804 28.7502 42.7538 27.1514 43.416C25.5526 44.0783 24.186 45.1998 23.2246 46.6387C22.2631 48.0776 21.75 49.7694 21.75 51.5C21.75 53.2306 22.2631 54.9224 23.2246 56.3613C24.186 57.8002 25.5526 58.9217 27.1514 59.584C28.7502 60.2462 30.5097 60.4196 32.207 60.082C33.9044 59.7444 35.4638 58.9112 36.6875 57.6875L42.874 63.874C40.4266 66.3214 37.3087 67.9888 33.9141 68.6641C30.5194 69.3393 27.0004 68.9925 23.8027 67.668C20.6052 66.3434 17.8721 64.1004 15.9492 61.2227C14.0263 58.3448 13 54.9612 13 51.5C13 48.0388 14.0263 44.6552 15.9492 41.7773C17.8721 38.8996 20.6052 36.6566 23.8027 35.332ZM66.75 29H58V11H66.75V29ZM84.25 17.333V11H93V29H84.25L70.75 11H79.5L84.25 17.333ZM48 24H40.3438L37.2676 13.0625H23.7324L20.6562 24H13L16.6562 11H44.3438L48 24ZM111.75 15.25H138V24H103V11H111.75V15.25Z\" fill=\"white\"/>\n<path d=\"M166 12C169.314 12 172 14.6863 172 18L172 73L166 73L166 12V12Z\" fill=\"white\"/>\n<rect x=\"165\" y=\"18\" width=\"1\" height=\"55\" fill=\"white\"/>\n<circle cx=\"168.5\" cy=\"84.5\" r=\"13.5\" fill=\"white\"/>\n<path d=\"M166 13C168.761 13 171 15.2386 171 18L171 73L166 73L166 13V13Z\" fill=\"#D9D9D9\"/>\n<circle cx=\"168.5\" cy=\"84.5\" r=\"12.5\" fill=\"#E03131\"/>\n<rect x=\"154\" y=\"8\" width=\"3\" height=\"15\" fill=\"white\"/>\n<rect x=\"154\" y=\"9\" width=\"2\" height=\"13\" fill=\"#D9D9D9\"/>\n<rect x=\"157\" y=\"12\" width=\"9\" height=\"7\" fill=\"white\"/>\n<rect x=\"154\" y=\"13\" width=\"12\" height=\"5\" fill=\"#D9D9D9\"/>\n<path d=\"M177.95 84.5C178.53 84.5 179.005 84.0287 178.948 83.4517C178.845 82.4325 178.594 81.4317 178.201 80.4818C177.673 79.2079 176.9 78.0504 175.925 77.0754C174.95 76.1004 173.792 75.3269 172.518 74.7993C171.568 74.4058 170.568 74.1547 169.548 74.0525C168.971 73.9946 168.5 74.4701 168.5 75.05C168.5 75.6299 168.972 76.0932 169.547 76.1655C170.291 76.2589 171.02 76.4515 171.715 76.7394C172.734 77.1616 173.66 77.7803 174.44 78.5603C175.22 79.3403 175.838 80.2663 176.261 81.2855C176.548 81.9804 176.741 82.7095 176.834 83.4527C176.907 84.0281 177.37 84.5 177.95 84.5Z\" fill=\"white\"/>\n</svg>";
+})();
+
+(function () {
+  "use strict";
+
+  window.CCT = window.CCT || {};
+  window.CCT.rules = window.CCT.rules || {
+    common: [],
+    layouts: {},
+    pages: {},
   };
 })();
 
 (function () {
   "use strict";
 
-  window.CivitaiChinese = window.CivitaiChinese || {};
+  const CCT = window.CCT;
 
-  const dictionary = {
-    // 搜索栏
-    "search civitai": "在 CivitAI 中搜索",
-    users: "用户",
-    collections: "收藏",
-    tools: "工具",
+  function normalizeText(text) {
+    return String(text || "")
+      .replace(/[‘’]/g, "'")
+      .replace(/[“”]/g, '"')
+      .replace(/\u00a0/g, " ")
+      .replace(/\s+/g, " ")
+      .trim()
+      .toLowerCase();
+  }
 
-    // 创建按钮
-    create: "创建",
-    generate: "生成",
-    "post images": "发布图片",
-    "post videos": "发布视频",
-    "upload a model": "上传模型",
-    "generate 3d model": "上传 3D 模型",
-    "train a lora": "训练 LoRA 模型",
-    "write an article": "写一篇文章",
-    "create a comic": "创建漫画",
-    "create a bounty": "创建赏金",
-    "create a challenge": "创建挑战",
-
-    // civitai link 按钮
-    "civitai link": "连接 Civitai",
-    "this feature is currently in early access and only available to supporters.": "此功能目前处于抢先体验阶段，仅供支持者使用。",
-    "are you a supporter and seeing this message?": "如果你是支持者但仍看到此消息？",
-    "click here": "点击这里",
-    "interact with any stable diffusion instance in realtime from civitai": "通过 Civitai 与任何 Stable Diffusion 实时交互",
-    "video demo": "视频演示",
-    "become a supporter": "成为支持者",
-    "refreshing your account data...": "正在刷新您的账户数据…",
-    "oh, no! you are still seeing this...": "糟糕，您仍然能看到此内容…",
-    "please check your subscription status and try again.": "请检查您的订阅状态并重试。",
-    "oh, no! you are still seeing this... please check your subscription status and try again.":
-      "糟糕，您仍然能看到此内容…请检查您的订阅状态并重试。",
-    "refreshing account data...": "正在刷新账户数据...",
-    "fetching fresh data for your account": "正在获取您的账户的最新数据",
-
-    // 浏览级别按钮
-    "browsing level": "浏览级别",
-    "select the levels of content you want to see": "选择你想查看的内容级别",
-    "join the knights order": "加入骑士团",
-    "with mature content enabled, some content may be hidden.": "启用成人内容后，部分内容可能仍会被隐藏。",
-    "learn more": "了解更多",
-    "blur mature content (r+)": "模糊成人内容（R+）",
-    apply: "应用",
-    "my filters": "我的筛选器",
-    "hidden tags": "隐藏标签",
-    "search tags to hide": "搜索要隐藏的标签",
-    "we'll hide content with these tags throughout the site.": "我们会在整个网站中隐藏带有这些标签的内容。",
-
-    // 通知按钮
-    notifications: "通知",
-    all: "全部",
-    announcements: "公告",
-    comments: "评论",
-    milestones: "里程碑",
-    buzz: "Buzz",
-    system: "系统",
-    others: "其他",
-    "filter by message...": "按消息筛选...",
-    "hide read": "隐藏已读通知",
-    "mark all as read": "全部标记为已读",
-    "notification settings": "通知设置",
-    "all caught up! nothing to see here": "已查看全部通知，没有新的内容",
-
-    // 聊天按钮
-    chats: "聊天",
-    "mute sounds": "关闭提示音",
-    "play sounds": "打开提示音",
-    moderation: "内容审核",
-    "enable conversation moderation": "开启 违规内容过滤",
-    "disable conversation moderation": "关闭 违规内容过滤",
-    "not connected. may not receive live messages or alerts.": "未连接。可能无法接收实时消息或提醒。",
-    "filter by user": "按用户筛选",
-    active: "当前",
-    pending: "待处理",
-    archived: "已归档",
-    joined: "已加入",
-    "[deleted]": "[已删除]",
-    "Chat Terms": "聊天规则",
-    "beware of scam messages. civitai staff will only message you from": "请注意诈骗消息。Civitai 工作人员只会通过",
-    "red-nameplate": "红色铭牌",
-    "accounts and have a civitai moderator badge next to their name (not the profile picture!). do not click unknown links or share payment info.":
-      "账号联系你，并且他们的名字旁边会有 Civitai 管理员徽章（不是头像上的徽章！）。不要点击未知链接或分享付款信息。",
-    "report suspicious dms": "举报可疑私信",
-    "immediately.": "。",
-    "Chats are inspected by automated systems, and moderators have full access to chat logs. Discussion of illegal activities, or the sharing of illegal image content, harassment of other users, or unwanted solicitation will not be tolerated and may result in account suspension or deletion.":
-      "聊天记录由自动系统审核，版主拥有完整的聊天记录访问权限。讨论非法活动、分享非法图片内容、骚扰其他用户或进行不必要的招揽行为均不被容忍，违者可能导致账号被暂停或删除。",
-
-    "got it": "知道了",
-    "select at least 1 user above": "请至少选择一个用户",
-    "new chat": "新聊天",
-    "select users": "选择用户",
-    cancel: "取消",
-    "start chat": "开始聊天",
-    "enable notifications": "启用通知",
-    "disable notifications": "关闭通知",
-    report: "举报",
-    leave: "归档",
-    "report chat": "举报聊天",
-    "needs moderator review": "需要版主审核",
-    spam: "垃圾信息",
-    reason: "原因",
-    "potential security concern": "潜在安全问题",
-    "content that should be reviewed": "需要审核的内容",
-    "incorrect or misrepresented content": "错误或误导性内容",
-    "other concern": "其他问题",
-    "comment (optional)": "备注（可选）",
-    submit: "提交",
-    "anything that helps moderators triage (link, account behavior, repeated posts, etc.)":
-      "请提供任何有助于版主判断的信息（例如链接、账号行为、重复发布等）",
-    "really leave this chat?": "确定要归档此聊天吗？",
-    "you can rejoin at any time from the archived tab.": "你可以随时从“已归档”标签页重新加入。",
-    confirm: "确认",
-    "send message": "发送消息",
-    "search sticker": "搜索贴纸",
-    "you don't own any stickers yet. grab some in the shop.": "你还没有贴纸。去商店买一些吧。",
-    "no chats.": "暂无聊天",
-
-    // 登录按钮与下拉菜单
-    "sign in": "登录",
-    leaderboard: "排行榜",
-    auctions: "拍卖",
-    "download link app": "下载应用程序",
-    "sign in/sign up": "登录/注册",
-    "light mode": "浅色模式",
-    "dark mode": "深色模式",
-
-    // 个人信息
-    back: "返回",
-    "add account": "添加账户",
-    logout: "退出登录",
-    "logout all": "退出所有账户",
-
-    "buy buzz": "购买Buzz",
-    "your profile": "个人资料",
-    training: "训练",
-    "my collections": "我的收藏",
-    "liked models": "喜欢的模型",
-    "bookmarked articles": "收藏的文章",
-    "my bounties": "我的悬赏",
-    "your challenges": "我的挑战",
-    "buzz dashboard": "Buzz管理",
-    "creator studio": "创作者工作室",
-    "my vault": "我的保险库",
-    referrals: "邀请返利",
-    leaderboard: "排行榜",
-    auctions: "拍卖",
-    "knights of new": "新品骑士团",
-    "download app": "下载应用程序",
-    "creators you follow": "关注的创作者",
-    "download history": "下载历史",
-    "getting started": "入门指南",
-    new: "新增",
-    "account settings": "账户设置",
-
-    // 邀请返利
-    "earn free membership perks": "赚取免费会员权益",
-    "share your code. every paid membership month from a friend earns you tokens you can spend on membership perks, plus 10% blue buzz back on their buzz purchases.":
-      "分享你的邀请码。好友每支付一个月会员，你都能获得可用于会员权益的 Tokens，并且还能从他们的 Buzz 购买中获得 10% 蓝色 Buzz 返利。",
-    "open referrals": "打开邀请返利",
-
-    // 获取 Buzz
-    "top up your buzz balance any time.": "随时为你的 Buzz 余额充值。",
-    "buy buzz with your favorite crypto. sent to your personalized deposit address.": "使用你喜欢的加密货币购买 Buzz。款项会发送到你的专属充值地址。",
-    "view challenges": "查看挑战",
-    "enter themed contests. generate using the featured model, ai picks the winners.": "参加主题比赛。使用指定模型生成作品，由 AI 评选获胜者。",
-    "view bounties": "查看悬赏",
-    "earn buzz by completing creative requests from other users, or post your own.": "完成其他用户的创作请求来赚取 Buzz，或发布你自己的悬赏。",
-    "buzz beggars board": "Buzz 讨赏榜",
-    "post your images to get tipped buzz by the community and featured on the homepage": "发布你的图片，获得社区 Buzz 打赏，并有机会展示在首页。",
-    "visit board": "查看榜单",
-    "get paid": "获得收益",
-    "banking phase": "入库阶段",
-    "generating a lot of buzz? bank it to earn cash!": "生成了很多 Buzz？存入后即可赚取现金！",
-    "how does this work?": "这是如何运作的？",
-    "this is an estimated value based on the assumption that a portion of all buzz earned by creators will be banked. the amount you receive depends on the total buzz banked by all creators at the end of the month. if you’re not happy with your estimated payout, you can withdraw your buzz during the 3-day extraction phase at the end of the month.":
-      "这是基于一项假设得出的估算值：创作者获得的所有 Buzz 中会有一部分被存入。你最终收到的金额取决于月底所有创作者存入的 Buzz 总量。如果你对预计收益不满意，可以在月底为期 3 天的提取阶段取回你的 Buzz。",
-    "this is an estimated value based on the assumption that a portion of all buzz earned by creators will be banked. the amount you receive depends on the total buzz banked by all creators at the end of the month. if you're not happy with your estimated payout, you can withdraw your buzz during the 3-day extraction phase at the end of the month.":
-      "这是基于一项假设得出的估算值：创作者获得的所有 Buzz 中会有一部分被存入。你最终收到的金额取决于月底所有创作者存入的 Buzz 总量。如果你对预计收益不满意，可以在月底为期 3 天的提取阶段取回你的 Buzz。",
-    close: "关闭",
-    "join the creator program": "加入创作者计划",
-    "program requirements": "计划要求",
-    "have a creator score higher than 40k": "创作者评分高于 40k",
-    "creator score": "创作者评分",
-    "be a civitai green member": "成为 Civitai 绿色会员",
-    "become a civitai member now!": "立即成为 Civitai 会员！",
-    "compensation pool": "补偿池",
-    "current banked": "当前已存入",
-    "current banked buzz": "当前已存入 Buzz",
-    "how is this determined?": "这是如何计算的？",
-    "redeem your code": "兑换你的代码",
-    "enter your unique code to instantly receive rewards": "输入你的专属代码，即可立即领取奖励",
-    "buzz-code-here": "在此输入 Buzz 代码",
-    redeem: "兑换",
-    "case-insensitive • spaces auto-removed • instant processing": "不区分大小写 • 自动移除空格 • 即时处理",
-    "all redemptions are final and non-refundable.": "所有兑换一经完成，不可撤销且不可退款。",
-    "purchased codes": "已购买的代码",
-    "no codes yet": "暂无代码",
-    "redeem a code above to see it here": "在上方兑换代码后会显示在这里",
-
-    // 我的Buzz管理
-    "my buzz dashboard": "我的Buzz管理",
-    blue: "蓝色",
-    green: "绿色",
-    yellow: "黄色",
-    current: "当前",
-    "need more yellow buzz?": "需要更多黄色 Buzz？",
-    "top up now to keep creating and exploring": "立即充值，继续创作和探索",
-    "top up": "充值",
-    "yellow gained": "获得的黄色 Buzz",
-    "yellow spent": "消耗的黄色 Buzz",
-    "blue gained": "获得的蓝色 Buzz",
-    "blue spent": "消耗的蓝色 Buzz",
-    "green gained": "获得的绿色 Buzz",
-    "green spent": "消耗的绿色 Buzz",
-    "free buzz earned from viewing ads or completing daily challenges.": "通过观看广告或完成每日任务获得的免费Buzz。",
-    generation: "生成内容",
-    "24h": "24小时",
-    "7d": "7天",
-    weekly: "每周",
-    "12m": "12个月",
-    "all times are utc": "所有时间均为 UTC 时间",
-    recent: "最近的",
-    transactions: "交易",
-    "view all": "查看全部",
-    "view image": "查看图片",
-    "show more": "显示更多",
-    "transaction history": "交易历史",
-    from: "从",
-    to: "到",
-    type: "类型",
-    "select a type": "选择类型",
-    "export csv": "导出 CSV",
-    reward: "奖励",
-    tip: "打赏",
-    refund: "退款",
-    purchase: "购买",
-    bounty: "悬赏",
-    sell: "出售",
-    compensation: "补偿",
-    donation: "捐赠",
-    bid: "出价",
-    redeemable: "可兑换",
-    "ways to earn": "赚取",
-    "ways to earn blue buzz": "赚取蓝色 Buzz 的方式",
-    "earn 4x blue buzz with a membership": "开通会员赚取 4 倍蓝色 Buzz",
-    "with a membership": "开通会员",
-    "for each unique reaction you give": "每给出一次不重复的反应",
-    "for feedback given on the generator": "在生成器中提供反馈",
-    "for first 3 people that you follow each day": "每天关注的前 3 个人",
-    "by claiming it daily in the image generator": "每天在图片生成器中领取",
-    "for the first image post you make each day": "每天发布的第一张图片",
-    "for each time a user collects your content": "每当有用户收藏你的内容",
-    "for each user that reacts to anything you created in the last 30 days": "每有用户对你近 30 天内创作的内容作出反应",
-    "for each user that posts an image to your model": "每有用户向你的模型发布图片",
-    "for each report you make that is accepted": "每提交一个被采纳的举报",
-    "generation buzz earned": "生成内容获得的 Buzz",
-    "top earning resources": "收益最高的资源",
-    "search your resources": "搜索你的资源",
-    "no earning resources yet": "暂无收益资源",
-    "earnings can take up to 24 hours to appear": "收益最多可能需要 24 小时才会显示",
-    "if you react to the same thing multiple times, you will not get more rewards.": "如果你对同一个内容多次作出反应，将不会获得更多奖励。",
-    "if you unfollow and follow the same person, you will not get this reward again.": "如果你取消关注后又关注同一个人，将不会再次获得此奖励。",
-    "when a user loves your content, they can add it to one of their collections. you'll be rewarded each time this happens.":
-      "当用户喜欢你的内容时，可以将其添加到自己的收藏中。每次发生这种情况，你都会获得奖励。",
-    "daily buzz rewards reset at midnight utc": "每日 Buzz 奖励会在 UTC 时间午夜重置",
-    "resets in": "重置倒计时",
-    day: "天",
-    month: "月",
-    "no transactions yet.": "暂无交易记录",
-    "no results found": "未找到结果",
-    "try adjusting your search or filters to find what you're looking for": "尝试调整搜索条件或筛选条件，以找到您想要的内容。",
-
-    // 登录界面
-    "sign up or log in": "注册或登录",
-    "or continue with email": "或继续通过邮箱登录",
-    "enter your email": "输入你的邮箱地址",
-    "email me a login link": "通过邮箱登录",
-    "verify to continue": "验证后继续",
-    "verifying…": "正在验证…",
-    "couldn't verify you automatically. complete this quick check to continue.": "无法自动验证您的身份。请完成此快速验证以继续。",
-    "check your email": "查看你的邮箱",
-    "for a special login link.": "用于邮箱登录的链接。",
-    "sending…": "发送中…",
-
-    // 个人资料
-    "customize profile": "自定义个人资料",
-    followers: "粉丝",
-    likes: "点赞",
-    downloads: "下载",
-    overview: "概述",
-    "manage model categories": "管理模型分类",
-    "model category manager": "模型分类管理器",
-    "you must select at least one model": "你至少需要选择一个模型",
-    "set category": "设置类别",
-    character: "人物角色",
-    style: "艺术风格",
-    concept: "概念主题",
-    clothing: "服饰",
-    "base model": "基础模型",
-    background: "背景环境",
-    poses: "姿态动作",
-    tool: "工具",
-    assets: "素材资源",
-    vehicle: "交通工具",
-    buildings: "建筑",
-    objects: "物体",
-    animal: "动物",
-    action: "行为动作",
-    "clear selection": "取消选择",
-    share: "分享",
-    "send chat": "发送到聊天",
-    "copy url": "复制链接",
-    other: "其他",
-    "message:": "消息",
-    send: "发送",
-    copied: "已复制",
-    "view all images": "查看所有图片",
-    "view all videos": "查看所有视频",
-    "view all models": "查看所有模型",
-    "most popular models": "热门模型",
-    "most popular articles": "热门文章",
-    "view all articles": "查看全部文章",
-
-    "save changes": "保存更改",
-    profile: "个人资料",
-    reactions: "互动",
-    "edit avatar": "编辑头像",
-    "drop image here, should not exceed 50 mb": "将图片拖放到这里，大小不得超过 50 MB",
-    "showcase stats": "展示统计",
-    uploaded: "上传于",
-    uploads: "上传",
-    generations: "生成记录",
-    "avatar decoration": "头像装饰",
-    "you don't have any avatar decorations yet": "你还没有头像装饰",
-    "creator card backgrounds": "创作者卡片背景",
-    "you don't have any profile backgrounds yet": "你还没有个人资料背景",
-    "show badges on profile": "在个人资料中显示徽章",
-    "featured badge": "精选徽章",
-    "you don't have any badges yet": "你还没有徽章",
-    "you don't have any badges yet.": "你还没有徽章。",
-    "highlighted badges": "高亮徽章",
-    "pin badges to the top of your profile's badge list.": "将徽章固定到个人资料徽章列表顶部",
-    "hidden badges": "隐藏徽章",
-    "hidden badges won't be shown on your profile.": "隐藏的徽章不会显示在你的个人资料中",
-    "nameplate style": "铭牌样式",
-    nameplates: "铭牌",
-    "nameplates change the appearance of your username. they can include special colors or effects. you can earn nameplates by being a subscriber or earning trophies on the site.":
-      "铭牌可以改变用户名的显示样式，可包含特殊颜色或效果。你可以通过订阅或在网站获得奖杯来解锁铭牌。",
-    "select style": "选择样式",
-    "your earned nameplate styles will appear here": "你获得的铭牌样式会显示在这里",
-    "showcase leaderboard": "展示排行榜",
-    "choose which leaderboard badge to display on your profile card": "选择要在个人资料卡片中显示的排行榜徽章",
-    "select a leaderboard": "选择排行榜",
-    creators: "创作者",
-    "creators (90 days)": "创作者（90天）",
-    "creators (mature)": "创作者（成人）",
-    "new creators": "新创作者",
-    "daily challenges": "每日挑战",
-    "buzz daddies": "积分大佬",
-    "top generators": "顶级生成者",
-    "top trainers": "顶级训练者",
-    "cosmetic collectors": "外观收藏家",
-    "creators (z-image)": "创作者（z-image）",
-    "creators (flux)": "创作者（flux）",
-    "creators (sdxl)": "创作者（sdxl）",
-    "creators (pony)": "创作者（pony）",
-    "creators (krea 2)": "创作者（krea 2）",
-    "creators (anima)": "创作者（anima）",
-    guardians: "守护者",
-    writers: "作者",
-    comedians: "喜剧创作者",
-    "master generators": "大师生成者",
-    "master generators (mature)": "大师生成者（成人）",
-    "new master generators": "新大师生成者",
-    "base model creators": "基础模型创作者",
-    "style creators": "风格创作者",
-    "clothing creators": "服装创作者",
-    "character creators": "角色创作者",
-    "architecture creators": "建筑创作者",
-    "background creators": "背景创作者",
-    "poses creators": "姿势创作者",
-    "concept creators": "概念创作者",
-    "vehicle creators": "载具创作者",
-    "asset creators": "素材创作者",
-    "tool creators": "工具创作者",
-    "knights of new order": "新秩序骑士",
-
-    links: "链接",
-    "social links": "社交链接",
-    "add new link": "添加新链接",
-    "provided url appears to be invalid": "提供的网址似乎无效",
-    "sponsorship links": "赞助链接",
-    "profile page": "个人资料页面",
-    "cover image": "封面图片",
-    "suggested resolution: 1600x400px": "建议尺寸：1600×400px",
-    announcement: "公告",
-    "have something you want to share with people visiting your profile? put it here and we'll display it at the top of your page":
-      "有什么想与访问你个人资料的人分享的内容吗？填写在这里，我们会将其显示在你的页面顶部",
-    bio: "简介",
-    location: "所在地",
-    "page sections": "页面区块",
-    "drag diferent sections on your profile in order of your preference": "按照你的偏好拖动个人资料页面中的不同区块进行排序",
-    showcase: "展示",
-    "images overview": "图片概览",
-    "models overview": "模型概览",
-    "recent reviews": "最近评价",
-    "showcase items": "展示项目",
-    'select up to 32 items to showcase on your profile. you do this via the "add to showcase" button on models and images':
-      "最多选择 32 个项目展示在你的个人资料中。你可以通过模型和图片上的「添加到展示」按钮进行添加",
-    "you have not selected any items to showcase.": "你还没有选择任何展示项目",
-    posts: "帖子",
-    published: "已发布",
-    draft: "草稿",
-    private: "私密",
-    "early access": "抢先体验",
-    newest: "最新",
-    filters: "筛选",
-    "highest rated": "最高评分",
-    "most downloaded": "下载最多",
-    "most liked": "点赞最多",
-    "most discussed": "讨论最多",
-    "most collected": "收藏最多",
-    "most images": "图片最多",
-    oldest: "最早",
-    "time period": "时间范围",
-    week: "一周",
-    year: "一年",
-    "all time": "全部时间",
-    "model status": "模型状态",
-    "early access": "抢先体验",
-    "on-site generation": "站内生成",
-    "made on-site": "站内制作",
-    featured: "精选",
-    "model types": "模型类型",
-    "checkpoint type": "Checkpoint 类型",
-    "trained merge": "训练合并",
-    "file format": "文件格式",
-    safetensor: "safetensor",
-    pickletensor: "PickleTensor",
-    gguf: "GGUF",
-    diffusers: "Diffusers",
-    "core ml": "Core ML",
-    onnx: "ONNX",
-    "all base models": "全部基础模型",
-    modifiers: "附加条件",
-    reset: "重置",
-    "apply filters": "应用筛选",
-
-    "my images": "我的图片",
-    "my reactions": "我的互动",
-    anime: "动漫",
-    architecture: "建筑",
-    astronomy: "天文",
-    car: "汽车",
-    cartoon: "卡通",
-    cat: "猫",
-    city: "城市",
-    dog: "狗",
-    dragon: "龙",
-    fantasy: "奇幻",
-    food: "美食",
-    "game character": "游戏角色",
-    landscape: "风景",
-    "modern art": "现代艺术",
-    outdoors: "户外",
-    photography: "摄影",
-    photorealistic: "超写实",
-    "post apocalyptic": "末日废土",
-    robot: "机器人",
-    "sci-fi": "科幻",
-    "sports car": "跑车",
-    transportation: "交通工具",
-
-    "post media": "发布媒体",
-    "my comics": "我的漫画",
-    "drafts and pending comics show up here on your profile's comics page. only you can see them until you publish a chapter.":
-      "草稿和待发布漫画会显示在你个人资料的漫画页面中。在你发布章节之前，只有你自己可以查看它们。",
-    "no projects yet": "暂无项目",
-    "create your first comic": "创建你的第一部漫画",
-    "new project": "新建项目",
-
-    save: "保存",
-    "add to showcase": "添加到展示",
-    "hide content with these tags": "隐藏带有这些标签的内容",
-    "add content decoration": "添加内容装饰",
-    "add to model collection": "添加到模型收藏集",
-    "model collection": "模型收藏集",
-    collection: "收藏集",
-    "your collections": "你的收藏集",
-    "new collection": "新建收藏集",
-    "favorite models": "收藏的模型",
-    "active contests": "正在进行的比赛",
-    "submit this model as an entry. it will be sent to the contest for review.": "提交此模型作为参赛作品。它将发送至比赛进行审核。",
-    "krea 2 training contest": "krea 2 训练比赛",
-    "tag your entry": "为你的参赛作品添加标签",
-    "art style": "艺术风格",
-    "world morph": "世界变换",
-
-    "view post": "查看帖子",
-    "edit post": "编辑帖子",
-    delete: "删除",
-    "back to selection": "返回选择",
-    name: "名称",
-    description: "描述",
-    privacy: "隐私",
-    "e.g.: video game characters": "例如：游戏角色",
-    "e.g.: my favorite video game characters": "例如：我喜欢的游戏角色",
-    "this collection contains mature content": "此收藏集包含成人内容",
-    "only you and contributors for this collection can see this": "只有你和此收藏集的贡献者可以查看",
-    public: "公开",
-    "anyone can see this collection": "任何人都可以查看此收藏集",
-    unlisted: "不公开列出",
-    "only people with the link can see this collection": "只有拥有链接的人可以查看此收藏集",
-
-    "content decorations": "内容装饰",
-    "no decorations": "无装饰",
-    "hide tags": "隐藏标签",
-    "select the tags you want to add to your blocking list": "选择要添加到屏蔽列表的标签",
-    edit: "编辑",
-    "image to collection": "将图片添加到收藏集",
-
-    // 图片详情
-    process: "处理流程",
-    "generation data": "生成数据",
-    "resources used": "使用的资源",
-    "copy all": "复制全部",
-    prompt: "提示词",
-    "other metadata": "其他元数据",
-    discussion: "讨论",
-    "be the first to leave a comment...": "成为第一个评论的人...",
-    "be the first to leave a comment…": "成为第一个评论的人...",
-    "cannot be empty": "不能为空",
-    comment: "评论",
-
-    // 模型详情
-    "updated:": "更新于：",
-    updated: "已更新",
-    like: "喜欢",
-    "add to vault": "添加到保险库",
-    "stop getting notifications for this model": "停止接收此模型的通知",
-    "add to collection": "添加到收藏集",
-    "bid to feature this model": "竞价推荐此模型",
-    download: "下载",
-    "verified:": "已验证：",
-    verified: "已验证",
-    "download selected": "下载所选",
-    follow: "关注",
-    unfollow: "取消关注",
-    items: "项目",
-    model: "模型",
-    details: "详情",
-    stats: "统计",
-    "generation license fee": "生成许可费",
-    image: "图片",
-    "how to use this": "如何使用",
-    "the creator has issued a license fee. this amount is added on top of the standard generation cost for each image generated on civitai with this resource.":
-      "创作者设置了许可费。使用此资源在 Civitai 上生成每张图片时，该金额会在标准生成费用之外额外收取。",
-    reviews: "评价",
-    "very positive": "特别好评",
-    hash: "哈希",
-    tensors: "张量",
-    shape: "形状",
-    precision: "精度",
-    min: "最低",
-    rec: "推荐",
-    "rough lower bound to run this model, estimated from its tensor sizes and precision plus typical runtime overhead. at this level weights are streamed onto the gpu as needed, so it runs but more slowly. actual usage varies by the tool and settings you use.":
-      "运行此模型的粗略最低要求，根据张量大小、精度和典型运行时开销估算。在这个级别下，权重会按需流式加载到 GPU，因此可以运行但速度较慢。实际占用会因你使用的工具和设置而异。",
-    "rough target for smooth performance, estimated from its tensor sizes and precision plus typical runtime overhead. at this level the full set of weights can stay resident on the gpu at once. actual usage varies by the tool and settings you use.":
-      "实现流畅性能的粗略目标，根据张量大小、精度和典型运行时开销估算。在这个级别下，完整权重可以一次性常驻 GPU。实际占用会因你使用的工具和设置而异。",
-    air: "AIR 标识",
-    "what is an air?": "什么是 AIR？",
-    "air stands for artificial intelligence resource. it is a comprehensive unique identifier, and is composed of the following parts:":
-      "AIR 是 Artificial Intelligence Resource（人工智能资源）的缩写。它是一个完整的唯一标识符，由以下部分组成：",
-    ecosystem: "生态系统",
-    "the resource ecosystem": "资源生态系统",
-    "ecosystem the resource ecosystem": "ecosystem：资源生态系统",
-    type: "类型",
-    "the resource type": "资源类型",
-    "type the resource type": "type：资源类型",
-    source: "来源",
-    "the resource source": "资源来源",
-    "source the resource source": "source：资源来源",
-    id: "ID",
-    "the resource id at the source": "资源在来源处的 ID",
-    "id the resource id at the source": "id：资源在来源处的 ID",
-    "for brevity we have opted not to show the full air here. to learn more about airs,":
-      "为简洁起见，这里不会显示完整 AIR。要了解更多 AIR 信息，",
-    "for brevity we have opted not to show the full air here. to learn more about airs, check out the specification":
-      "为简洁起见，这里不会显示完整 AIR。要了解更多 AIR 信息，请查看规范。",
-    "check out the specification": "查看规范",
-    "license:": "许可：",
-    license: "许可",
-    "suggested resources": "推荐资源",
-    "these are resources suggested by the creator of this model. they may be related to this model or created by the same user.":
-      "这些是此模型创作者推荐的资源。它们可能与此模型相关，或由同一用户创建。",
-    "add comment": "添加评论",
-    "load more": "加载更多",
-    gallery: "图库",
-    "add post": "添加帖子",
-    "add review": "添加评价",
-    "what did you think of this resource?": "你觉得这个资源怎么样？",
-
-    "most followers": "最多关注者",
-    "most bookmarks": "收藏最多",
-    "most reactions": "互动最多",
-    "most comments": "评论最多",
-    "recently updated": "最近更新",
-    "you haven't published any 3d models yet.": "你还没有发布任何 3D 模型。",
-    "metadata only": "仅包含元数据",
-    "requiring metadata": "需要元数据",
-    scheduled: "已安排",
-    "originals only": "仅原作",
-    "remixes only": "仅混合版本",
-    "created with...": "创建工具...",
-    techniques: "技术",
-
-    // 导航栏
-    home: "首页",
-    models: "模型",
-    images: "图片",
-    videos: "视频",
-    "3d models": "3D 模型",
-    articles: "文章",
-    comics: "漫画",
-    bounties: "悬赏",
-    challenges: "挑战",
-    updates: "更新",
-    shop: "商店",
-    more: "更多",
-    "manage home page": "管理首页",
-
-    // 首页图片区
-    "featured images": "特色图片",
-    "all sorts of cool pictures created by our community, from simple shapes to detailed landscapes or human faces. a virtual canvas where you can unleash your creativity or get inspired.":
-      "我们社区创作了各种各样的精彩图片，从简单的图形到精细的风景画或人物肖像，应有尽有。这是一个虚拟画布，您可以在这里尽情挥洒创意，或汲取灵感。",
-    "explore all images": "查看所有图片",
-  };
-
-  window.CivitaiChinese.dictionary = dictionary;
+  CCT.normalizeText = normalizeText;
 })();
 
 (function () {
   "use strict";
 
-  window.CivitaiChinese = window.CivitaiChinese || {};
+  const CCT = window.CCT;
 
-  const textRules = [
-    {
-      pattern: /^signed in as (.+)\. log in below to add another account\.$/i,
-      replace: "已登录为 $1。请在下方登录以添加另一个账户。",
-    },
-    {
-      pattern: /^oh,\s*no!\s*you are still seeing this\.\.\.\s*please check your subscription status and try again\.$/i,
-      replace: "糟糕，您仍然能看到此内容…请检查您的订阅状态并重试。",
-    },
-    {
-      pattern: /^be the first to leave a comment(?:\.{3}|…)$/i,
-      replace: "成为第一个评论的人...",
-    },
-    {
-      pattern: /^(\d+)\s+variants?\s+available$/i,
-      replace: "$1 个可用变体",
-    },
-    {
-      pattern: /^(\d+)\s+items?$/i,
-      replace: "$1 个项目",
-    },
-    {
-      pattern: /^(\d+)\s*\/\s*(\d+)\s+images?$/i,
-      replace: "$1 / $2 张图片",
-    },
-    {
-      pattern: /^(\d+)% of reviews are positive$/i,
-      replace: "$1% 的评价为好评",
-    },
+  function getPathname() {
+    return window.location.pathname.replace(/\/+$/, "") || "/";
+  }
 
-    // 月份年份
-    {
-      pattern: /^(january|february|march|april|may|june|july|august|september|october|november|december) (\d{4})$/i,
-      replace(match, monthName, year) {
-        const months = {
-          january: "1月",
-          february: "2月",
-          march: "3月",
-          april: "4月",
-          may: "5月",
-          june: "6月",
-          july: "7月",
-          august: "8月",
-          september: "9月",
-          october: "10月",
-          november: "11月",
-          december: "12月",
-        };
+  function getCurrentPage() {
+    const pathname = getPathname();
 
-        return `${year}年${months[monthName.toLowerCase()]}`;
-      },
-    },
-    // 配额单位
-    {
-      pattern: /^([\d,]+) \/ day$/i,
-      replace: "$1 / 天",
-    },
-    {
-      pattern: /^([\d,]+) \/ month$/i,
-      replace: "$1 / 月",
-    },
-    // Buzz 生成收益
-    {
-      pattern: /^no (blue|蓝色|yellow|黄色|green|绿色) buzz earned this month$/i,
-      replace(match) {
-        const colors = {
-          blue: "蓝色",
-          蓝色: "蓝色",
-          yellow: "黄色",
-          黄色: "黄色",
-          green: "绿色",
-          绿色: "绿色",
-        };
+    if (pathname === "/") return "home";
+    if (/^\/models\/\d+/i.test(pathname)) return "modelDetail";
+    if (/^\/images\/\d+/i.test(pathname)) return "imageDetail";
+    if (/^\/user\/[^/]+/i.test(pathname)) return "userProfile";
+    if (/^\/(?:buzz|buzz-dashboard|purchase\/buzz)/i.test(pathname)) return "buzz";
+    if (/^\/generate/i.test(pathname)) return "generation";
 
-        return `本月没有获得${colors[match[1]]} Buzz`;
-      },
-    },
-    {
-      pattern: /^you didn't earn any (blue|蓝色|yellow|黄色|green|绿色) buzz from generations in this period\. pick another month with the selector above to see your earnings\.$/i,
-      replace(match) {
-        const colors = {
-          blue: "蓝色",
-          蓝色: "蓝色",
-          yellow: "黄色",
-          黄色: "黄色",
-          green: "绿色",
-          绿色: "绿色",
-        };
+    return "unknown";
+  }
 
-        return `你在此期间没有通过生成内容获得任何${colors[match[1]]} Buzz。请使用上方选择器切换到其他月份查看收益。`;
-      },
-    },
-    {
-      pattern: /^get (blue|蓝色|yellow|黄色|green|绿色) buzz$/i,
-      replace(match, colorName) {
-        const colors = {
-          blue: "蓝色",
-          蓝色: "蓝色",
-          yellow: "黄色",
-          黄色: "黄色",
-          green: "绿色",
-          绿色: "绿色",
-        };
-
-        return `获取${colors[colorName]} Buzz`;
-      },
-    },
-    {
-      pattern: /^multiple ways to get (blue|蓝色|yellow|黄色|green|绿色) buzz and power your creativity$/i,
-      replace(match, colorName) {
-        const colors = {
-          blue: "蓝色",
-          蓝色: "蓝色",
-          yellow: "黄色",
-          黄色: "黄色",
-          green: "绿色",
-          绿色: "绿色",
-        };
-
-        return `通过多种方式获取${colors[colorName]} Buzz，助力你的创作`;
-      },
-    },
-    {
-      pattern: /^your ([\d,.]+[km]?) could be worth \$([\d,.]+)!?$/i,
-      replace(match, buzzAmount, cashAmount) {
-        return `你的 ${buzzAmount} Buzz 可能价值 $${cashAmount}！`;
-      },
-    },
-    {
-      pattern: /^your current creator score is ([\d,.]+[km]?)\.?$/i,
-      replace: "你当前的创作者评分是 $1。",
-    },
-    // Buzz 任务时间
-    {
-      pattern: /^resets in (\d+)h (\d+)m$/i,
-      replace: "$1小时$2分钟后重置",
-    },
-    {
-      pattern: /^resets in (\d+)h$/i,
-      replace: "$1小时后重置",
-    },
-    {
-      pattern: /^resets in (\d+)m$/i,
-      replace: "$1分钟后重置",
-    },
-    // Buzz 数量提示
-    {
-      pattern: /^blue: ([\d,]+)$/i,
-      replace: "蓝色：$1",
-    },
-    {
-      pattern: /^yellow: ([\d,]+)$/i,
-      replace: "黄色：$1",
-    },
-    {
-      pattern: /^(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)-(\d{1,2})$/i,
-      replace(match, monthName, day) {
-        const months = {
-          jan: "1月",
-          feb: "2月",
-          mar: "3月",
-          apr: "4月",
-          may: "5月",
-          jun: "6月",
-          jul: "7月",
-          aug: "8月",
-          sep: "9月",
-          oct: "10月",
-          nov: "11月",
-          dec: "12月",
-        };
-
-        return `${months[monthName.toLowerCase()]}${day.padStart(2, "0")}日`;
-      },
-    },
-    // 中文月份 + 日期，例如：七月 1, 2026
-    {
-      pattern: /^(january|february|march|april|may|june|july|august|september|october|november|december|jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec|一月|二月|三月|四月|五月|六月|七月|八月|九月|十月|十一月|十二月) (\d{1,2}), (\d{4})$/i,
-      replace(match, monthName, day, year) {
-        const months = {
-          january: "01",
-          february: "02",
-          march: "03",
-          april: "04",
-          may: "05",
-          june: "06",
-          july: "07",
-          august: "08",
-          september: "09",
-          october: "10",
-          november: "11",
-          december: "12",
-          jan: "01",
-          feb: "02",
-          mar: "03",
-          apr: "04",
-          jun: "06",
-          jul: "07",
-          aug: "08",
-          sep: "09",
-          oct: "10",
-          nov: "11",
-          dec: "12",
-          一月: "01",
-          二月: "02",
-          三月: "03",
-          四月: "04",
-          五月: "05",
-          六月: "06",
-          七月: "07",
-          八月: "08",
-          九月: "09",
-          十月: "10",
-          十一月: "11",
-          十二月: "12",
-        };
-        const paddedDay = String(day).padStart(2, "0");
-
-        return `${year}年${months[monthName.toLowerCase()] || months[monthName]}月${paddedDay}日`;
-      },
-    },
-    // 交易历史
-    {
-      pattern: /^(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec) (\d{1,2}), (\d{4})$/i,
-      replace(match, monthName, day, year) {
-        const months = {
-          jan: "01",
-          feb: "02",
-          mar: "03",
-          apr: "04",
-          may: "05",
-          jun: "06",
-          jul: "07",
-          aug: "08",
-          sep: "09",
-          oct: "10",
-          nov: "11",
-          dec: "12",
-        };
-        const paddedDay = String(day).padStart(2, "0");
-
-        return `${year}年${months[monthName.toLowerCase()]}月${paddedDay}日`;
-      },
-    },
-    {
-      pattern: /^buzz reward: a image that you posted was liked by someone else$/i,
-      replace: "Buzz奖励：你发布的一张图片被其他人点赞",
-    },
-    {
-      pattern: /^buzz reward: a image that you posted was collected by someone else$/i,
-      replace: "Buzz奖励：你发布的一张图片被其他人收藏",
-    },
-    // Buzz 交易记录
-    
-    {
-      pattern: /^buzz reward: you made your first post of the day$/i,
-      replace: "Buzz奖励：你发布了当天的第一篇内容",
-    },
-    {
-      pattern: /^buzz reward: for encouraging others to post content$/i,
-      replace: "Buzz奖励：鼓励他人发布内容",
-    },
-    {
-      pattern: /^buzz reward: content that you posted was liked by someone else$/i,
-      replace: "Buzz奖励：你发布的内容被其他人点赞",
-    },
-    {
-      pattern: /^buzz reward: content that you posted was collected by someone else$/i,
-      replace: "Buzz奖励：你发布的内容被其他人收藏",
-    },
-    // 聊天内容
-    {
-      pattern: /^(.+) joined$/i,
-      replace: "$1 已加入",
-    },
-    {
-      pattern: /^(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec) (\d{1,2}), (\d{4}) (\d{1,2}):(\d{2}):(\d{2}) ([ap]m)$/i,
-      replace(match, monthName, day, year, hour, minute, second, period) {
-        const months = {
-          jan: "01",
-          feb: "02",
-          mar: "03",
-          apr: "04",
-          may: "05",
-          jun: "06",
-          jul: "07",
-          aug: "08",
-          sep: "09",
-          oct: "10",
-          nov: "11",
-          dec: "12",
-        };
-        const chinesePeriod = period === "am" ? "上午" : "下午";
-        const paddedDay = String(day).padStart(2, "0");
-        const paddedHour = String(hour).padStart(2, "0");
-
-        return `${year}年${months[monthName.toLowerCase()]}月${paddedDay}日 ${paddedHour}:${minute}:${second} ${chinesePeriod}`;
-      },
-    },
-    // 通知内容
-    {
-      pattern: /^the (.+) model has a new version: (.+)$/i,
-      replace: "$1 模型有新版本：$2",
-    },
-    {
-      pattern: /^you received a tip of (\d+) (.+) buzz from @?(.+) on one of your images!$/i,
-      replace: "你收到 @$3 的 $1 个 $2 Buzz 图片打赏！",
-    },
-    {
-      pattern: /^gain early access on model: (.+)$/i,
-      replace: "获得模型抢先体验：$1",
-    },
-    {
-      pattern: /^your avatar has been blocked\.$/i,
-      replace: "你的头像已被屏蔽。",
-    },
-    {
-      pattern: /^your image using (.+) has received (\d+) reactions?$/i,
-      replace: "你使用 $1 生成的图片收到了 $2 个反应",
-    },
-    {
-      pattern: /^(.+) has followed you!$/i,
-      replace: "$1 关注了你！",
-    },
-    {
-      pattern: /^(.+) released a new checkpoint: (.+)$/i,
-      replace: "$1 发布了新的 Checkpoint：$2",
-    },
-    {
-      pattern: /^(.+) released a new wildcards?: (.+)$/i,
-      replace: "$1 发布了新的通配符：$2",
-    },
-    {
-      pattern: /^(.+) released a new workflows?: (.+)$/i,
-      replace: "$1 发布了新的工作流：$2",
-    },
-    {
-      pattern: /^(.+) released a new lora: (.+)$/i,
-      replace: "$1 发布了新的 LoRA：$2",
-    },
-    {
-      pattern: /^(.+) published a new musing article: "(.+)"$/i,
-      replace: "$1 发布了新的随笔文章：“$2”",
-    },
-    {
-      pattern: /^(.+) published a new generation guide article: "(.+)"$/i,
-      replace: "$1 发布了新的生成指南文章：“$2”",
-    },
-    {
-      pattern: /^(.+) published a new announcement article: "(.+)"$/i,
-      replace: "$1 发布了新的公告文章：“$2”",
-    },
-    {
-      pattern: /^(.+) published a new story article: "(.+)"$/i,
-      replace: "$1 发布了新的故事文章：“$2”",
-    },
-    {
-      pattern: /^(.+) responded to the comment thread on the (.+) model$/i,
-      replace: "$1 回复了 $2 模型的评论串",
-    },
-    {
-      pattern: /^(.+) commented on your image posted to the (.+) model$/i,
-      replace: "$1 评论了你发布到 $2 模型的图片",
-    },
-    {
-      pattern: /^(.+) responded to a article thread you're in$/i,
-      replace: "$1 回复了你参与的文章讨论串",
-    },
-    {
-      pattern: /^(.+) mentioned you in a comment on (.+)$/i,
-      replace: "$1 在 $2 的评论中提到了你",
-    },
-    {
-      pattern: /^(.+) replied to a image comment you made$/i,
-      replace: "$1 回复了你发表的图片评论",
-    },
-    {
-      pattern: /^an hour ago$/i,
-      replace: "1 小时前",
-    },
-    {
-      pattern: /^(\d+) hours? ago$/i,
-      replace: "$1 小时前",
-    },
-    {
-      pattern: /^a day ago$/i,
-      replace: "1 天前",
-    },
-    {
-      pattern: /^a month ago$/i,
-      replace: "1 个月前",
-    },
-    {
-      pattern: /^a year ago$/i,
-      replace: "1 年前",
-    },
-    {
-      pattern: /^(\d+) years? ago$/i,
-      replace: "$1 年前",
-    },
-    {
-      pattern: /^(\d+) months? ago$/i,
-      replace: "$1 个月前",
-    },
-    {
-      pattern: /^(\d+) days? ago$/i,
-      replace: "$1 天前",
-    },
-  ];
-
-  const elementRules = [
-    {
-      pattern: /^no (blue|蓝色|yellow|黄色|green|绿色) buzz earned this month$/i,
-      replace(match) {
-        const colors = {
-          blue: "蓝色",
-          蓝色: "蓝色",
-          yellow: "黄色",
-          黄色: "黄色",
-          green: "绿色",
-          绿色: "绿色",
-        };
-
-        return `本月没有获得${colors[match[1]]} Buzz`;
-      },
-    },
-    {
-      pattern: /^you didn't earn any (blue|蓝色|yellow|黄色|green|绿色) buzz from generations in this period\. pick another month with the selector above to see your earnings\.$/i,
-      replace(match) {
-        const colors = {
-          blue: "蓝色",
-          蓝色: "蓝色",
-          yellow: "黄色",
-          黄色: "黄色",
-          green: "绿色",
-          绿色: "绿色",
-        };
-
-        return `你在此期间没有通过生成内容获得任何${colors[match[1]]} Buzz。请使用上方选择器切换到其他月份查看收益。`;
-      },
-    },
-    {
-      pattern: /^([\d,]+) \/ (day|天)$/i,
-      replace(match) {
-        return `${match[1]} / 天`;
-      },
-    },
-    {
-      pattern: /^([\d,]+) \/ (month|月)$/i,
-      replace(match) {
-        return `${match[1]} / 月`;
-      },
-    },
-    {
-      pattern: /^ways to earn (blue|蓝色|yellow|黄色|green|绿色) buzz$/i,
-      replace(match) {
-        const colors = {
-          blue: "蓝色",
-          蓝色: "蓝色",
-          yellow: "黄色",
-          黄色: "黄色",
-          green: "绿色",
-          绿色: "绿色",
-        };
-
-        return `赚取${colors[match[1]]} Buzz 的方式`;
-      },
-    },
-    {
-      pattern: /^earn (\d+)x (blue|蓝色|yellow|黄色|green|绿色) buzz with a membership$/i,
-      replace(match) {
-        const colors = {
-          blue: "蓝色",
-          蓝色: "蓝色",
-          yellow: "黄色",
-          黄色: "黄色",
-          green: "绿色",
-          绿色: "绿色",
-        };
-
-        return `开通会员赚取 ${match[1]} 倍${colors[match[2]]} Buzz`;
-      },
-    },
-    {
-      pattern: /^resets in (\d+)h (\d+)m$/i,
-      replace(match) {
-        return `${match[1]}小时${match[2]}分钟后重置`;
-      },
-    },
-    {
-      pattern: /^resets in (\d+)h$/i,
-      replace(match) {
-        return `${match[1]}小时后重置`;
-      },
-    },
-    {
-      pattern: /^resets in (\d+)m$/i,
-      replace(match) {
-        return `${match[1]}分钟后重置`;
-      },
-    },
-    {
-      pattern: /^signed in as (.+)\. log in below to add another account\.$/i,
-      replace(match) {
-        return `已登录为 ${match[1]}。请在下方登录以添加另一个账户。`;
-      },
-    },
-  ];
-
-  window.CivitaiChinese.textRules = textRules;
-  window.CivitaiChinese.elementRules = elementRules;
+  CCT.getCurrentPage = getCurrentPage;
 })();
 
 (function () {
   "use strict";
 
-  window.CivitaiChinese = window.CivitaiChinese || {};
+  const CCT = window.CCT;
 
-  window.CivitaiChinese.styleText = `
-  .civitai-cn-select-wrapper {
-    position: relative !important;
+  function createRuleEntry(options) {
+    const entry = Object.assign(
+      {
+        static: {},
+        regexp: [],
+        selector: [],
+        selectValue: [],
+        ignore: [],
+      },
+      options.rules || {},
+    );
+
+    entry.type = options.type;
+    entry.name = options.name || "global";
+    entry.component = options.component || "index";
+
+    return entry;
   }
 
-  .civitai-cn-select-wrapper::after {
-    content: attr(data-civitai-cn-text);
-    position: absolute;
-    left: 12px;
-    top: 50%;
-    transform: translateY(-50%);
-    max-width: calc(100% - 42px);
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    pointer-events: none;
-    z-index: 2;
-    box-sizing: border-box;
-    color: var(--mantine-color-text);
-    font-family: var(--mantine-font-family);
-    font-size: var(--mantine-font-size-xs);
-    font-weight: 400;
-    line-height: var(--mantine-line-height);
-    -webkit-font-smoothing: var(--mantine-webkit-font-smoothing);
+  function registerRules(options) {
+    const entry = createRuleEntry(options || {});
+
+    if (entry.type === "common") {
+      CCT.rules.common.push(entry);
+      return;
+    }
+
+    if (entry.type === "layout") {
+      CCT.rules.layouts[entry.name] = CCT.rules.layouts[entry.name] || [];
+      CCT.rules.layouts[entry.name].push(entry);
+      return;
+    }
+
+    if (entry.type === "page") {
+      CCT.rules.pages[entry.name] = CCT.rules.pages[entry.name] || [];
+      CCT.rules.pages[entry.name].push(entry);
+    }
   }
 
-  .civitai-cn-hidden-input-text {
-    color: transparent !important;
-    caret-color: transparent !important;
+  function mergeRules(ruleGroups) {
+    const merged = {
+      static: {},
+      regexp: [],
+      selector: [],
+      selectValue: [],
+      ignore: [],
+    };
+
+    ruleGroups.forEach((group) => {
+      Object.assign(merged.static, group.static || {});
+      merged.regexp.push(...(group.regexp || []));
+      merged.selector.push(...(group.selector || []));
+      merged.selectValue.push(...(group.selectValue || []));
+      merged.ignore.push(...(group.ignore || []));
+    });
+
+    return merged;
   }
 
-  .civitai-cn-logo-button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: auto;
-    height: var(--civitai-cn-logo-button-size, 38px);
-    min-width: 0;
-    padding: 0;
-    border: 0;
-    background: transparent;
-    cursor: pointer;
-    box-sizing: border-box;
+  function getActiveRules() {
+    const page = CCT.getCurrentPage();
+    const layoutRules = Object.values(CCT.rules.layouts).flat();
+    const pageRules = CCT.rules.pages[page] || [];
+
+    return mergeRules([...CCT.rules.common, ...layoutRules, ...pageRules]);
   }
 
-  .civitai-cn-logo-button:hover {
-    background: transparent;
-  }
-
-  .civitai-cn-logo-button img {
-    display: block;
-    width: auto;
-    height: var(--civitai-cn-logo-button-size, 38px);
-  }
-
-  .civitai-cn-logo-menu-root {
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    height: var(--civitai-cn-logo-button-size, 38px);
-  }
-
-  .civitai-cn-logo-menu {
-    position: absolute;
-    top: calc(100% + 8px);
-    left: 0;
-    z-index: 10000;
-    min-width: 220px;
-    padding: 4px;
-    border: 1px solid var(--mantine-color-default-border, rgba(255, 255, 255, 0.12));
-    border-radius: var(--mantine-radius-sm, 4px);
-    background: var(--mantine-color-body, #1a1b1e);
-    box-shadow: var(--mantine-shadow-md, 0 8px 24px rgba(0, 0, 0, 0.24));
-  }
-
-  .civitai-cn-logo-menu[hidden] {
-    display: none;
-  }
-
-  .civitai-cn-logo-menu-header {
-    padding: 8px 10px;
-    color: var(--mantine-color-text, inherit);
-    font-family: var(--mantine-font-family);
-    font-size: var(--mantine-font-size-sm);
-    font-weight: 700;
-    line-height: var(--mantine-line-height-sm);
-    white-space: nowrap;
-  }
-
-  .civitai-cn-logo-menu-update {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    padding: 6px 10px 10px;
-    border-bottom: 1px solid var(--mantine-color-default-border, rgba(255, 255, 255, 0.12));
-    margin-bottom: 4px;
-  }
-
-  .civitai-cn-logo-menu-update-status {
-    min-height: 18px;
-    color: var(--mantine-color-dimmed, #909296);
-    font-family: var(--mantine-font-family);
-    font-size: var(--mantine-font-size-xs);
-    line-height: var(--mantine-line-height-xs);
-  }
-
-  .civitai-cn-logo-menu-update-button {
-    width: 100%;
-    padding: 7px 10px;
-    border: 0;
-    border-radius: var(--mantine-radius-xs, 2px);
-    background: var(--mantine-primary-color-filled, var(--mantine-color-blue-filled, #228be6));
-    color: var(--mantine-color-white, #fff);
-    cursor: pointer;
-    font-family: var(--mantine-font-family);
-    font-size: var(--mantine-font-size-sm);
-    font-weight: 600;
-    line-height: var(--mantine-line-height-sm);
-  }
-
-  .civitai-cn-logo-menu-update-button:hover {
-    background: var(--mantine-primary-color-filled-hover, var(--mantine-color-blue-filled-hover, #1c7ed6));
-  }
-
-  .civitai-cn-logo-menu-update-button:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-  }
-
-  .civitai-cn-logo-menu-item {
-    display: block;
-    width: 100%;
-    padding: 8px 10px;
-    border-radius: var(--mantine-radius-xs, 2px);
-    color: var(--mantine-color-text, inherit);
-    font-family: var(--mantine-font-family);
-    font-size: var(--mantine-font-size-sm);
-    line-height: var(--mantine-line-height-sm);
-    text-align: left;
-    text-decoration: none;
-    white-space: nowrap;
-    box-sizing: border-box;
-  }
-
-  .civitai-cn-logo-menu-item:hover {
-    background: var(--mantine-color-gray-light-hover, rgba(128, 128, 128, 0.16));
-    text-decoration: none;
-  }
-`;
+  CCT.registerRules = registerRules;
+  CCT.getActiveRules = getActiveRules;
 })();
 
 (function () {
   "use strict";
 
-  const config = window.CivitaiChinese || {};
-  const logoSvgs = config.logoSvgs || {};
-  const currentVersion = config.version || "0.0.0";
-  const updateUrl =
-    config.updateUrl ||
-    "https://raw.githubusercontent.com/strangechiao/Civitai-Chinese-Translator-Userscript/main/civitai-chinese-translator.user.js";
-  const legacyUpdateUrl =
-    "https://raw.githubusercontent.com/strangechiao/Civitai-Chinese-Translator-Userscript/main/civitai-chinese.user.js";
-  const updateState = {
-    checking: false,
-    latestVersion: null,
-    latestUrl: null,
-    error: null,
-    showLatestMessage: false,
-    messageTimer: null,
-  };
-  const menuItems = [
-    {
-      label: "提交错误",
-      url: "https://github.com/strangechiao/Civitai-Chinese-Translator-Userscript/issues",
-    },
-    {
-      label: "前往仓库",
-      url: "https://github.com/strangechiao/Civitai-Chinese-Translator-Userscript",
-    },
-    {
-      label: "联系我",
-      url: "https://civitai.com/user/qoob9006",
-    },
-  ];
+  const CCT = window.CCT;
 
-  function syncLogoButtonSize(button, createButton) {
-    const height = Math.round(createButton.getBoundingClientRect().height);
-    if (height > 0) {
-      button.style.setProperty("--civitai-cn-logo-button-size", `${height}px`);
-    }
-  }
-
-  function getColorScheme() {
-    const candidates = [document.documentElement, document.body].filter(Boolean);
-
-    for (const element of candidates) {
-      const scheme = element.getAttribute("data-mantine-color-scheme") || element.dataset.mantineColorScheme;
-      if (scheme === "dark" || scheme === "light") {
-        return scheme;
-      }
+  CCT.styleText = `
+    .cct-logo-root {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: var(--cct-logo-height, 32px);
+      max-width: 160px;
+      line-height: 0;
+      flex: 0 0 auto;
     }
 
-    if (document.documentElement.classList.contains("dark") || document.body.classList.contains("dark")) {
-      return "dark";
+    .cct-logo-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      color: inherit;
+      line-height: 0;
+      cursor: pointer;
     }
 
-    if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
-      return "dark";
+    .cct-logo-root svg,
+    .cct-logo-root img {
+      display: block;
+      width: auto;
+      height: 100%;
     }
 
-    return "light";
-  }
-
-  function getLogoSvg() {
-    const scheme = getColorScheme();
-    return logoSvgs[scheme] || logoSvgs.light || logoSvgs.dark || "";
-  }
-
-  function syncLogoImage(logoButton) {
-    const logoImage = logoButton.querySelector("img");
-    const logoSvg = getLogoSvg();
-    if (!logoImage || !logoSvg) return;
-
-    const nextSrc = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(logoSvg)}`;
-    if (logoImage.src !== nextSrc) {
-      logoImage.src = nextSrc;
-    }
-  }
-
-  function compareVersions(left, right) {
-    const leftParts = String(left)
-      .split(".")
-      .map((part) => Number.parseInt(part, 10) || 0);
-    const rightParts = String(right)
-      .split(".")
-      .map((part) => Number.parseInt(part, 10) || 0);
-    const length = Math.max(leftParts.length, rightParts.length);
-
-    for (let index = 0; index < length; index += 1) {
-      const leftValue = leftParts[index] || 0;
-      const rightValue = rightParts[index] || 0;
-
-      if (leftValue > rightValue) return 1;
-      if (leftValue < rightValue) return -1;
+    .cct-logo-menu {
+      position: fixed;
+      z-index: 10000;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      min-width: 220px;
+      padding: 12px;
+      border: 1px solid var(--mantine-color-dark-4, #373a40);
+      border-radius: var(--mantine-radius-sm, 4px);
+      background: var(--mantine-color-dark-6, #25262b);
+      box-shadow: var(--mantine-shadow-md, 0 8px 24px rgba(0, 0, 0, 0.35));
+      color: var(--mantine-color-gray-2, #e9ecef);
+      font-family: var(--mantine-font-family);
+      font-size: var(--mantine-font-size-sm);
+      line-height: var(--mantine-line-height-sm);
     }
 
-    return 0;
-  }
-
-  function getRemoteVersion(scriptText) {
-    const match = scriptText.match(/\/\/\s*@version\s+([^\s]+)/i);
-    return match && match[1];
-  }
-
-  function getUpdateUrls() {
-    return Array.from(new Set([updateUrl, legacyUpdateUrl].filter(Boolean)));
-  }
-
-  async function fetchRemoteVersion() {
-    const errors = [];
-
-    for (const url of getUpdateUrls()) {
-      try {
-        const response = await fetch(`${url}?t=${Date.now()}`, { cache: "no-store" });
-        if (!response.ok) {
-          throw new Error(`HTTP ${response.status}`);
-        }
-
-        const latestVersion = getRemoteVersion(await response.text());
-        if (!latestVersion) {
-          throw new Error("未找到远程版本号");
-        }
-
-        return { latestVersion, url };
-      } catch (error) {
-        errors.push(error);
-      }
+    .cct-logo-menu[hidden] {
+      display: none !important;
     }
 
-    throw errors[errors.length - 1] || new Error("检查失败");
-  }
-
-  function clearLatestMessageLater(menu) {
-    if (updateState.messageTimer) {
-      clearTimeout(updateState.messageTimer);
+    .cct-logo-menu-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      color: var(--mantine-color-gray-1, #f1f3f5);
+      font-size: var(--mantine-font-size-sm);
+      font-weight: 700;
+      line-height: var(--mantine-line-height-sm);
     }
 
-    updateState.messageTimer = setTimeout(() => {
-      updateState.showLatestMessage = false;
-      updateState.messageTimer = null;
-      renderUpdateStatus(menu);
-    }, 2500);
-  }
-
-  function renderUpdateStatus(menu) {
-    const status = menu.querySelector(".civitai-cn-logo-menu-update-status");
-    const button = menu.querySelector(".civitai-cn-logo-menu-update-button");
-    if (!status || !button) return;
-
-    if (updateState.checking) {
-      status.textContent = "正在检查更新...";
-      button.textContent = "检查更新";
-      button.disabled = true;
-      return;
+    .cct-logo-menu-version {
+      align-self: flex-end;
+      color: var(--mantine-color-dimmed);
+      font-size: var(--mantine-font-size-xs);
+      font-weight: 600;
+      line-height: var(--mantine-line-height-xs);
+      white-space: nowrap;
     }
 
-    if (updateState.error) {
-      status.textContent = updateState.error;
-      button.textContent = "重新检查";
-      button.disabled = false;
-      return;
+    .cct-logo-menu-divider {
+      height: 1px;
+      margin: 2px 0;
+      background: var(--mantine-color-dark-4, #373a40);
     }
 
-    if (!updateState.latestVersion) {
-      status.textContent = "";
-      button.textContent = "检查更新";
-      button.disabled = false;
-      return;
+    .cct-logo-menu-check {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      min-height: var(--button-height-xs, 30px);
+      padding-inline: var(--button-padding-x-xs, 14px);
+      border: calc(0.0625rem * var(--mantine-scale)) solid transparent;
+      border-radius: var(--mantine-radius-sm, 4px);
+      background: var(--mantine-color-blue-light);
+      color: var(--mantine-color-blue-light-color);
+      font-family: var(--mantine-font-family);
+      font-size: var(--mantine-font-size-xs);
+      font-weight: 600;
+      line-height: var(--mantine-line-height-xs);
+      cursor: pointer;
     }
 
-    button.disabled = false;
-
-    if (compareVersions(updateState.latestVersion, currentVersion) > 0) {
-      status.textContent = `发现新版本 v${updateState.latestVersion}`;
-      button.textContent = "更新";
-      return;
+    .cct-logo-menu-check:hover {
+      background: var(--mantine-color-blue-light-hover);
     }
 
-    status.textContent = updateState.showLatestMessage ? "已经是最新版本" : "";
-    button.textContent = "检查更新";
-  }
-
-  async function checkForUpdates(menu) {
-    if (updateState.latestVersion && compareVersions(updateState.latestVersion, currentVersion) > 0) {
-      window.open(updateState.latestUrl || updateUrl, "_blank", "noopener,noreferrer");
-      return;
+    .cct-logo-menu-check:disabled {
+      cursor: default;
+      opacity: 0.65;
     }
 
-    updateState.checking = true;
-    updateState.error = null;
-    renderUpdateStatus(menu);
-
-    try {
-      const { latestVersion, url } = await fetchRemoteVersion();
-      updateState.latestVersion = latestVersion;
-      updateState.latestUrl = url;
-      updateState.showLatestMessage = compareVersions(latestVersion, currentVersion) <= 0;
-    } catch (error) {
-      updateState.error = "检查失败，请稍后重试";
-    } finally {
-      updateState.checking = false;
-      renderUpdateStatus(menu);
-
-      if (updateState.showLatestMessage) {
-        clearLatestMessageLater(menu);
-      }
+    .cct-logo-menu-check[data-state="available"] {
+      color: var(--mantine-color-green-text, #51cf66);
     }
-  }
 
-  function closeLogoMenu(root) {
-    if (!root) return;
+    .cct-logo-menu-check[data-state="error"] {
+      color: var(--mantine-color-red-text, #ff6b6b);
+    }
 
-    const button = root.querySelector(".civitai-cn-logo-button");
-    const menu = root.querySelector(".civitai-cn-logo-menu");
-    if (!button || !menu) return;
+    .cct-logo-menu-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 6px 4px;
+      border-radius: var(--mantine-radius-sm, 4px);
+      color: var(--mantine-color-gray-2, #e9ecef);
+      font-size: var(--mantine-font-size-sm);
+      line-height: var(--mantine-line-height-sm);
+      text-decoration: none;
+    }
 
-    menu.hidden = true;
-    button.setAttribute("aria-expanded", "false");
-  }
+    .cct-logo-menu-link-main {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 0;
+    }
 
-  function toggleLogoMenu(root) {
-    const button = root.querySelector(".civitai-cn-logo-button");
-    const menu = root.querySelector(".civitai-cn-logo-menu");
-    if (!button || !menu) return;
+    .cct-logo-menu-icon,
+    .cct-logo-menu-external {
+      display: block;
+      width: 16px;
+      height: 16px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      flex: 0 0 auto;
+    }
 
-    const nextOpen = menu.hidden;
-    menu.hidden = !nextOpen;
-    button.setAttribute("aria-expanded", String(nextOpen));
-  }
+    .cct-logo-menu-external {
+      width: 14px;
+      height: 14px;
+      color: var(--mantine-color-dimmed);
+    }
 
-  function createMenu() {
-    const menu = document.createElement("div");
-    menu.className = "civitai-cn-logo-menu";
-    menu.id = "civitai-cn-logo-menu";
-    menu.hidden = true;
-    menu.setAttribute("role", "menu");
+    .cct-logo-menu-link:hover {
+      background: var(--mantine-color-dark-5, #2c2e33);
+      color: var(--mantine-color-blue-4, #4dabf7);
+      text-decoration: none;
+    }
 
-    const header = document.createElement("div");
-    header.className = "civitai-cn-logo-menu-header";
-    header.textContent = `CCT 中文增强插件 v${currentVersion}`;
-    menu.appendChild(header);
+    .cct-select-value-wrapper {
+      position: relative !important;
+    }
 
-    const updatePanel = document.createElement("div");
-    updatePanel.className = "civitai-cn-logo-menu-update";
+    .cct-select-value-wrapper::after {
+      content: attr(data-cct-text);
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      max-width: calc(100% - 42px);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      pointer-events: none;
+      z-index: 2;
+      color: currentColor;
+      font-family: var(--mantine-font-family);
+      font-size: var(--input-fz, var(--mantine-font-size-sm));
+      font-weight: 400;
+      line-height: var(--input-line-height, var(--mantine-line-height));
+      -webkit-font-smoothing: var(--mantine-webkit-font-smoothing);
+    }
 
-    const updateStatus = document.createElement("div");
-    updateStatus.className = "civitai-cn-logo-menu-update-status";
+    .cct-hidden-input-text {
+      color: transparent !important;
+      caret-color: transparent !important;
+    }
+  `;
+})();
 
-    const updateButton = document.createElement("button");
-    updateButton.type = "button";
-    updateButton.className = "civitai-cn-logo-menu-update-button";
-    updateButton.textContent = "检查更新";
-    updateButton.addEventListener("click", (event) => {
-      event.preventDefault();
-      event.stopPropagation();
-      checkForUpdates(menu);
-    });
+(function () {
+  "use strict";
 
-    updatePanel.appendChild(updateStatus);
-    updatePanel.appendChild(updateButton);
-    menu.appendChild(updatePanel);
+  const CCT = window.CCT;
+  const MENU_ID = "cct-logo-menu";
+  let menuListenersReady = false;
 
-    menuItems.forEach((item) => {
-      const link = document.createElement("a");
-      link.className = "civitai-cn-logo-menu-item";
-      link.href = item.url;
-      link.target = "_blank";
-      link.rel = "noopener noreferrer";
-      link.textContent = item.label;
-      link.setAttribute("role", "menuitem");
-      link.addEventListener("click", () => closeLogoMenu(menu.parentElement));
+  function getNavbarLogoGroup() {
+    const homeLink =
+      document.querySelector('a[aria-label="Civitai home"]') ||
+      document.querySelector('a[aria-label*="Civitai" i][href="/"]') ||
+      document.querySelector('a[href="/"] svg[class*="Logo-module"]')?.closest("a");
+    if (!homeLink) return null;
 
-      menu.appendChild(link);
-    });
-
-    renderUpdateStatus(menu);
-
-    return menu;
-  }
-
-  function createLogoMenuRoot() {
-    const root = document.createElement("div");
-    root.className = "civitai-cn-logo-menu-root";
-
-    const logoButton = document.createElement("button");
-    logoButton.type = "button";
-    logoButton.className = "civitai-cn-logo-button";
-    logoButton.setAttribute("aria-label", "CCT 中文增强插件");
-    logoButton.setAttribute("aria-haspopup", "menu");
-    logoButton.setAttribute("aria-controls", "civitai-cn-logo-menu");
-    logoButton.setAttribute("aria-expanded", "false");
-    logoButton.title = "CCT 中文增强插件";
-
-    const logoImage = document.createElement("img");
-    logoImage.alt = "";
-
-    logoButton.appendChild(logoImage);
-    logoButton.addEventListener("click", (event) => {
-      event.stopPropagation();
-      toggleLogoMenu(root);
-    });
-
-    root.appendChild(logoButton);
-    root.appendChild(createMenu());
-
-    return root;
-  }
-
-  function getNavbarGroup() {
-    const homeLogo = document.querySelector('a[aria-label="Civitai home"]');
-    if (!homeLogo) return null;
-
-    return homeLogo.closest(".flex") || homeLogo.parentElement;
+    return homeLink.closest(".flex.items-center.gap-2\\.5") || homeLink.closest(".flex.items-center") || null;
   }
 
   function getSupportButton() {
-    const navbarGroup = getNavbarGroup();
-    const supportSelectors = ['a[href*="/purchase/buzz"]', 'a[href*="purchase/buzz"]'];
+    const logoGroup = getNavbarLogoGroup();
+    if (!logoGroup) return null;
 
-    for (const selector of supportSelectors) {
-      const scopedButton = navbarGroup && navbarGroup.querySelector(selector);
-      if (scopedButton) return scopedButton;
-
-      const pageButton = document.querySelector(selector);
-      if (pageButton) return pageButton;
-    }
-
-    if (!navbarGroup) return null;
-
-    return Array.from(navbarGroup.querySelectorAll("a, button")).find(
-      (element) => element.textContent && element.textContent.trim().toLowerCase() === "pro",
+    return (
+      logoGroup.querySelector('a[href="/purchase/buzz"], a[href*="/purchase/buzz"]') ||
+      Array.from(logoGroup.querySelectorAll("a, button")).find((element) => element.textContent.trim() === "Pro") ||
+      null
     );
   }
 
-  function getInsertionTarget() {
+  function getLogoTarget() {
+    const logoGroup = getNavbarLogoGroup();
     const supportButton = getSupportButton();
-    if (supportButton && supportButton.parentElement) {
+    if (logoGroup && supportButton && logoGroup.contains(supportButton)) {
       return {
-        container: supportButton.parentElement,
-        mode: "after",
+        container: logoGroup,
         reference: supportButton,
+        mode: "after",
         sizeElement: supportButton,
       };
     }
 
-    const createButton = document.querySelector('[data-activity="create:navbar"]');
-    if (!createButton) return null;
-
-    const createGroup = createButton.parentElement;
-    const actionGroup = createGroup && createGroup.parentElement;
-    if (!createGroup || !actionGroup) return null;
-
-    return {
-      container: actionGroup,
-      mode: "before",
-      reference: createGroup,
-      sizeElement: createButton,
-    };
+    return null;
   }
 
-  function placeLogoRoot(root, target) {
+  function placeLogo(root, target) {
     if (target.mode === "after") {
-      if (root.parentElement === target.container && root.previousElementSibling === target.reference) {
-        return;
-      }
+      if (root.parentElement === target.container && root.previousElementSibling === target.reference) return;
 
       target.container.insertBefore(root, target.reference.nextSibling);
       return;
     }
 
-    if (root.parentElement === target.container && root.nextElementSibling === target.reference) {
-      return;
-    }
+    if (root.parentElement === target.container && root.nextElementSibling === target.reference) return;
 
     target.container.insertBefore(root, target.reference);
   }
 
-  function injectLogoButton() {
-    if (!logoSvgs.dark && !logoSvgs.light) return;
-
-    const target = getInsertionTarget();
-    if (!target) return;
-
-    document.querySelectorAll(".civitai-cn-logo-button").forEach((button) => {
-      if (!button.closest(".civitai-cn-logo-menu-root")) {
-        button.remove();
-      }
-    });
-
-    let root = document.querySelector(".civitai-cn-logo-menu-root");
-    if (!root) {
-      root = createLogoMenuRoot();
+  function syncLogoSize(root, sizeElement) {
+    const height = Math.round(sizeElement.getBoundingClientRect().height);
+    if (height > 0) {
+      root.style.setProperty("--cct-logo-height", `${height}px`);
     }
-
-    placeLogoRoot(root, target);
-
-    const logoButton = root.querySelector(".civitai-cn-logo-button");
-    syncLogoImage(logoButton);
-    syncLogoButtonSize(logoButton, target.sizeElement);
-    requestAnimationFrame(() => syncLogoButtonSize(logoButton, target.sizeElement));
   }
 
-  document.addEventListener("click", (event) => {
-    document.querySelectorAll(".civitai-cn-logo-menu-root").forEach((root) => {
-      if (!root.contains(event.target)) {
-        closeLogoMenu(root);
+  function iconSvg(name) {
+    const icons = {
+      bug: '<svg class="cct-logo-menu-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6.5a4 4 0 0 1 8 0V8H8V6.5Z"></path><path d="M6 8h12v6a6 6 0 0 1-12 0V8Z"></path><path d="M4 13H2"></path><path d="M22 13h-2"></path><path d="M5 19l-2 2"></path><path d="M19 19l2 2"></path><path d="M5 7 3 5"></path><path d="M19 7l2-2"></path><path d="M12 8v12"></path></svg>',
+      user: '<svg class="cct-logo-menu-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"></path><path d="M4 21a8 8 0 0 1 16 0"></path></svg>',
+      external: '<svg class="cct-logo-menu-external" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 5h5v5"></path><path d="M19 5 10 14"></path><path d="M19 14v5H5V5h5"></path></svg>',
+    };
+
+    return icons[name] || "";
+  }
+
+  function compareVersions(a, b) {
+    const left = String(a || "0").split(".").map((part) => Number.parseInt(part, 10) || 0);
+    const right = String(b || "0").split(".").map((part) => Number.parseInt(part, 10) || 0);
+    const length = Math.max(left.length, right.length);
+
+    for (let index = 0; index < length; index += 1) {
+      const diff = (left[index] || 0) - (right[index] || 0);
+      if (diff !== 0) return diff;
+    }
+
+    return 0;
+  }
+
+  function setUpdateStatus(root, text, state) {
+    const button = getMenu(root).querySelector(".cct-logo-menu-check");
+    if (!button) return;
+
+    button.textContent = text;
+    button.dataset.state = state || "idle";
+  }
+
+  function setUpdateButton(root, text, mode) {
+    const button = getMenu(root).querySelector(".cct-logo-menu-check");
+    if (!button) return;
+
+    button.textContent = text;
+    button.dataset.mode = mode || "check";
+  }
+
+  async function fetchLatestVersion() {
+    const updateUrl = CCT.meta && CCT.meta.updateUrl;
+    if (!updateUrl) throw new Error("Missing update URL");
+
+    const url = `${updateUrl}${updateUrl.includes("?") ? "&" : "?"}t=${Date.now()}`;
+    const response = await fetch(url, { cache: "no-store" });
+    if (!response.ok) throw new Error(`Update check failed: ${response.status}`);
+
+    const source = await response.text();
+    const match = source.match(/\/\/\s*@version\s+([^\s]+)/);
+    if (!match) throw new Error("Version not found");
+
+    return match[1];
+  }
+
+  async function checkForUpdates(root) {
+    const button = getMenu(root).querySelector(".cct-logo-menu-check");
+    if (!button || button.dataset.loading === "true") return;
+
+    const currentVersion = (CCT.meta && CCT.meta.version) || "0.0.0";
+
+    if (button.dataset.mode === "open") {
+      window.open(CCT.meta.updateUrl, "_blank", "noopener,noreferrer");
+      return;
+    }
+
+    button.dataset.loading = "true";
+    button.disabled = true;
+    setUpdateStatus(root, "正在检查...", "loading");
+
+    try {
+      const latestVersion = await fetchLatestVersion();
+      if (compareVersions(latestVersion, currentVersion) > 0) {
+        setUpdateButton(root, `立即更新 v${latestVersion}`, "open");
+        setUpdateStatus(root, `立即更新 v${latestVersion}`, "available");
+        return;
       }
+
+      setUpdateStatus(root, "已是最新版本", "latest");
+    } catch (error) {
+      setUpdateStatus(root, "检查失败", "error");
+    } finally {
+      button.dataset.loading = "false";
+      button.disabled = false;
+    }
+  }
+
+  function setMenuOpen(root, open) {
+    const button = root.querySelector(".cct-logo-button");
+    const menu = getMenu(root);
+    if (!button || !menu) return;
+
+    button.setAttribute("aria-expanded", String(open));
+    if (open) positionMenu(root, menu);
+    menu.hidden = !open;
+  }
+
+  function toggleMenu(root) {
+    const menu = getMenu(root);
+    if (!menu) return;
+
+    setMenuOpen(root, menu.hidden);
+  }
+
+  function getMenu(root) {
+    if (root && root._cctMenu) return root._cctMenu;
+    return document.getElementById(MENU_ID);
+  }
+
+  function positionMenu(root, menu) {
+    const rect = root.getBoundingClientRect();
+    const spacing = 8;
+    menu.style.left = `${Math.round(rect.left)}px`;
+    menu.style.top = `${Math.round(rect.bottom + spacing)}px`;
+  }
+
+  function closeOtherMenus(currentRoot) {
+    document.querySelectorAll(".cct-logo-root").forEach((root) => {
+      if (root !== currentRoot) setMenuOpen(root, false);
     });
-  });
+  }
 
-  document.addEventListener("keydown", (event) => {
-    if (event.key !== "Escape") return;
+  function bindMenuListeners() {
+    if (menuListenersReady) return;
+    menuListenersReady = true;
 
-    document.querySelectorAll(".civitai-cn-logo-menu-root").forEach(closeLogoMenu);
-  });
+    document.addEventListener("click", (event) => {
+      const root = event.target.closest && event.target.closest(".cct-logo-root");
+      const menu = event.target.closest && event.target.closest(".cct-logo-menu");
+      if (menu) return;
 
-  window.CivitaiChinese = window.CivitaiChinese || {};
-  window.CivitaiChinese.injectLogoButton = injectLogoButton;
+      document.querySelectorAll(".cct-logo-root").forEach((item) => {
+        if (item !== root) setMenuOpen(item, false);
+      });
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key !== "Escape") return;
+      document.querySelectorAll(".cct-logo-root").forEach((root) => setMenuOpen(root, false));
+    });
+  }
+
+  function createLogoRoot() {
+    const root = document.createElement("div");
+    root.className = "cct-logo-root";
+    root.setAttribute("aria-label", "CCT 中文增强插件");
+
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "cct-logo-button";
+    button.setAttribute("aria-haspopup", "menu");
+    button.setAttribute("aria-expanded", "false");
+    button.setAttribute("aria-controls", MENU_ID);
+    button.innerHTML = CCT.assets.logoSvg;
+
+    const menu = document.createElement("div");
+    menu.id = MENU_ID;
+    menu.className = "cct-logo-menu";
+    menu.setAttribute("role", "menu");
+    menu.hidden = true;
+    menu.innerHTML = `
+      <div class="cct-logo-menu-title">
+        <span>CCT 中文增强插件</span>
+        <span class="cct-logo-menu-version">v${(CCT.meta && CCT.meta.version) || "0.0.0"}</span>
+      </div>
+      <div class="cct-logo-menu-divider" aria-hidden="true"></div>
+      <a class="cct-logo-menu-link" href="https://github.com/strangechiao/Civitai-Chinese-Translator/issues" target="_blank" rel="noopener noreferrer" role="menuitem">
+        <span class="cct-logo-menu-link-main">${iconSvg("bug")}<span>报告错误</span></span>
+        ${iconSvg("external")}
+      </a>
+      <a class="cct-logo-menu-link" href="https://civitai.com/user/qoob9006" target="_blank" rel="noopener noreferrer" role="menuitem">
+        <span class="cct-logo-menu-link-main">${iconSvg("user")}<span>联系我</span></span>
+        ${iconSvg("external")}
+      </a>
+      <button class="cct-logo-menu-check" type="button" data-mode="check">检查更新</button>
+    `;
+
+    button.addEventListener("click", (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      closeOtherMenus(root);
+      toggleMenu(root);
+    });
+
+    menu.querySelector(".cct-logo-menu-check").addEventListener("click", (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      checkForUpdates(root);
+    });
+
+    root._cctMenu = menu;
+    root.append(button);
+    document.body.appendChild(menu);
+    bindMenuListeners();
+
+    return root;
+  }
+
+  function injectLogo() {
+    if (!CCT.assets || !CCT.assets.logoSvg) return;
+
+    const target = getLogoTarget();
+    if (!target) return;
+
+    let root = document.querySelector(".cct-logo-root");
+    if (!root) {
+      root = createLogoRoot();
+    }
+
+    placeLogo(root, target);
+    syncLogoSize(root, target.sizeElement);
+    requestAnimationFrame(() => syncLogoSize(root, target.sizeElement));
+  }
+
+  CCT.injectLogo = injectLogo;
 })();
 
 (function () {
   "use strict";
 
-  const config = window.CivitaiChinese || {};
-  const dictionary = config.dictionary || {};
-  const textRules = config.textRules || [];
-  const elementRules = config.elementRules || [];
-  const injectLogoButton = config.injectLogoButton || function () {};
-  const skippedSelector = [
+  window.CCT.registerRules({
+    type: "common",
+    name: "global",
+    component: "index",
+    rules: {
+      static: {},
+      regexp: [],
+    },
+  });
+})();
+
+(function () {
+  "use strict";
+
+  window.CCT.registerRules({
+    type: "layout",
+    name: "header",
+    component: "index",
+    rules: {
+      static: {
+        // PRO 按钮
+        Pro: "专业版",
+        "Unlock Premium Benefits!": "解锁高级会员权益！",
+        "Join thousands of creators with exclusive perks, priority support, and advanced features.":
+          "解锁专属权益、优先支持与更多高级功能，与数千名创作者一起获得更好的创作体验。",
+
+        // 搜索栏
+        // 默认的搜索框下拉菜单按钮的Models，
+        // 使用selectValue的方式把“模型”覆盖在了Models上。
+        Models: "模型",
+        Images: "图片",
+        Articles: "文章",
+        Users: "用户",
+        Collections: "收藏",
+        Bounties: "悬赏",
+        Tools: "工具",
+        Comics: "漫画",
+        "Search Civitai": "探索 Civitai",
+        "pro-tip: quick search faster!": "小技巧：使用快捷搜索，效率更高！",
+        "open the quick search without leaving your keyboard by tapping the": "无需离开键盘，只需按下",
+        "key from anywhere and just start typing.": "键，即可随时打开快捷搜索并直接输入内容。",
+
+        // Create 按钮菜单
+        Create: "创建",
+        Generate: "生成",
+        "Post Images": "发布图片",
+        "Post Videos": "发布视频",
+        "Upload a Model": "上传模型",
+        "Generate 3D Model": "生成三维模型",
+        "Train a Lora": "训练 LoRA",
+        "Write an Article": "撰写文章",
+        "Create a Comic": "创建漫画",
+        "Create a Bounty": "创建悬赏",
+        "Create a Challenge": "创建挑战",
+
+        // Civitai Link 按钮窗口
+        "Civitai Link": "连接 Civitai",
+        "This feature is currently in early access and only available to Supporters.": "此功能目前处于抢先体验阶段，仅限支持者使用。",
+        "Are you a supporter and seeing this message? ": "你是支持者但还是看到了这条消息？",
+        "Click here": "点击这里",
+        "Interact with any Stable Diffusion instance in realtime from Civitai": "在 Civitai 中实时连接并操作任意 Stable Diffusion 实例",
+        "Video Demo": "视频演示",
+        "Become a Supporter": "成为支持者",
+
+        // Browsing Level 浏览级别按钮窗口 / Filters 筛选窗口
+        "Browsing Level": "浏览等级",
+        "Join the Knights Order": "加入骑士团",
+        "Help us improve by playing!": "通过体验帮助我们改进！",
+        "Select the levels of content you want to see": "选择您想查看的内容级别",
+        "With mature content enabled, some content may be hidden.": "启用成人内容后，部分内容可能会被隐藏。",
+        "Learn more": "了解更多",
+        "Blur mature content (R+)": "模糊处理成人内容（R+）",
+        Apply: "应用",
+        "my filters": "我的筛选条件",
+        "Hidden Tags": "隐藏标签",
+        "Search tags to hide": "搜索要隐藏的标签",
+        "We'll hide content with these tags throughout the site.": "我们将隐藏网站内所有带有这些标签的内容。",
+
+        // 通知窗口
+        Notifications: "通知",
+        "Hide Read": "隐藏已读通知",
+        "Mark all as read": "全部标记为已读",
+        "All caught up! Nothing to see here": "全部看完啦！这里暂时没有新消息。",
+        "Notification Settings": "通知设置",
+        All: "全部",
+        Announcements: "公告",
+        Comments: "评论",
+        Updates: "更新",
+        Milestones: "里程碑",
+        Bounties: "悬赏",
+        Buzz: "Buzz",
+        Referrals: "邀请",
+        System: "系统",
+        Others: "其他",
+        "Filter by message...": "筛选消息…",
+
+        // 聊天窗口
+        Chats: "聊天",
+        "Mute sounds": "关闭提示音",
+        "Play sounds": "打开提示音",
+        Moderation: "内容审核",
+        "Enable conversation moderation": "开启 违规内容过滤",
+        "Disable conversation moderation": "关闭 违规内容过滤",
+        "Not connected. may not receive live messages or alerts.": "未连接。可能无法接收实时消息或提醒。",
+        // New: "新聊天", (为了避免污染全局new的翻译,用selector选择器单独翻译)
+        "Filter by user": "按用户筛选",
+        Active: "当前",
+        Pending: "待处理",
+        Archived: "已归档",
+        "No chats.": "空空如也",
+        "New Chat": "新的聊天",
+        "Select users": "选择用户",
+        "Select at least 1 user above": "请至少选择一个用户",
+        Cancel: "取消",
+        "Start Chat": "开始聊天",
+        "Beware of scam messages. Civitai staff will only message you from": "谨防诈骗信息。Civitai 工作人员只会使用",
+        "red-nameplate": "红色用户名",
+        "accounts and have a Civitai moderator badge next to their name (not the profile picture!). Do not click unknown links or share payment info.":
+          "和 Civitai 版主徽章的账号与您联系（徽章位于用户名旁边，而非头像上！）。切勿点击未知链接或泄露付款信息。",
+        "Report suspicious DMs": "举报可疑私信",
+        "immediately.": "。",
+        Report: "举报",
+        Leave: "归档",
+        "Enable notifications": "启用通知",
+        "Disable notifications": "关闭通知",
+        "Send message": "发送消息",
+
+        // 导航栏
+        Home: "首页",
+        Models: "模型",
+        Images: "图片",
+        Videos: "视频",
+        "3D Models": "三维模型",
+        Articles: "文章",
+        Comics: "漫画",
+        Bounties: "悬赏",
+        Challenges: "挑战",
+        Updates: "更新",
+        Shop: "商店",
+      },
+
+      // 聊天窗口
+      selector: [
+        {
+          selector: 'button[data-size="xs"] .tabler-icon-circle-plus',
+          closest: "button",
+          textSelector: ".mantine-Button-label",
+          text: "新聊天",
+        },
+      ],
+
+      // 搜索栏
+      selectValue: [
+        {
+          selector: 'input[readonly][aria-label="Search category"]',
+          value: "Models",
+          text: "模型",
+        },
+      ],
+    },
+  });
+})();
+
+
+
+(function () {
+  "use strict";
+
+  window.CCT.registerRules({
+    type: "page",
+    name: "home",
+    component: "index",
+    rules: {
+      static: {},
+    },
+  });
+})();
+
+(function () {
+  "use strict";
+
+  const CCT = window.CCT;
+  const baseIgnore = [
     "script",
     "style",
     "textarea",
@@ -1791,272 +833,155 @@
     "[type='application/json']",
     "[type='application/ld+json']",
     "#__NEXT_DATA__",
-  ].join(",");
+    ".cct-ignore",
+  ];
 
-  function normalizeText(text) {
-    return text
-      .replace(/[‘’]/g, "'")
-      .replace(/[“”]/g, '"')
-      .replace(/\s+/g, " ")
-      .replace(/\u00a0/g, " ")
-      .trim()
-      .toLowerCase();
-  }
+  let activeRules = null;
+  let staticMap = null;
+  let ignoreSelector = baseIgnore.join(",");
 
-  function getTranslation(text) {
-    const normalized = normalizeText(text);
+  function refreshRules() {
+    activeRules = CCT.getActiveRules();
+    staticMap = new Map();
 
-    if (dictionary[normalized]) {
-      return dictionary[normalized];
-    }
+    Object.entries(activeRules.static || {}).forEach(([source, target]) => {
+      staticMap.set(CCT.normalizeText(source), target);
+    });
 
-    for (const rule of textRules) {
-      if (rule.pattern.test(normalized)) {
-        const trimmed = text.trim();
-        const translated = trimmed.replace(rule.pattern, rule.replace);
-
-        return translated === trimmed ? normalized.replace(rule.pattern, rule.replace) : translated;
-      }
-    }
-
-    return null;
-  }
-
-  function hasAncestorText(node, patterns) {
-    let element = node.parentElement;
-    let depth = 0;
-
-    while (element && depth < 4) {
-      const normalized = normalizeText(element.textContent);
-
-      if (patterns.some((pattern) => pattern.test(normalized))) {
-        return true;
-      }
-
-      element = element.parentElement;
-      depth += 1;
-    }
-
-    return false;
-  }
-
-  function getContextualTranslation(node) {
-    const normalized = normalizeText(node.nodeValue);
-    const colorBuzzPattern = /^(get|获取) (blue|蓝色|yellow|黄色|green|绿色) buzz$/i;
-    const colorBuzzDescriptionPattern =
-      /^(multiple ways to get|通过多种方式获取) (blue|蓝色|yellow|黄色|green|绿色) buzz (and power your creativity|，助力你的创作)$/i;
-    const creatorProgramValuePattern =
-      /^(your|你的) [\d,.]+[km]? (could be worth|buzz 可能价值) \$[\d,.]+!?$/i;
-    const creatorScorePattern =
-      /^(your current|你当前的) (creator score|创作者评分) (is|是) [\d,.]+[km]?\.?$/i;
-    const bankingPhasePattern = /^(banking|入库) (phase|阶段)$/i;
-    const saveImageToCollectionPattern =
-      /^(save|保存) (image|图片) (to|到) (collection|收藏集)$/i;
-    const addToModelCollectionPattern = /^(add to|添加到) (model|模型) (collection|收藏集)$/i;
-
-    if (normalized === "get" && hasAncestorText(node, [colorBuzzPattern])) {
-      return "获取";
-    }
-
-    if (hasAncestorText(node, [colorBuzzDescriptionPattern])) {
-      if (normalized === "multiple ways to get") {
-        return "通过多种方式获取";
-      }
-
-      if (normalized === "buzz and power your creativity") {
-        return "Buzz，助力你的创作";
-      }
-
-      if (normalized === "and power your creativity") {
-        return "，助力你的创作";
-      }
-    }
-
-    if (hasAncestorText(node, [creatorProgramValuePattern])) {
-      if (normalized === "your") {
-        return "你的";
-      }
-
-      if (normalized === "could be worth") {
-        return "Buzz 可能价值";
-      }
-    }
-
-    if (hasAncestorText(node, [creatorScorePattern])) {
-      if (normalized === "your current") {
-        return "你当前的";
-      }
-
-      const scoreMatch = normalized.match(/^is ([\d,.]+[km]?)\.?$/i);
-      if (scoreMatch) {
-        return `是 ${scoreMatch[1]}。`;
-      }
-    }
-
-    if (hasAncestorText(node, [bankingPhasePattern])) {
-      if (normalized === "banking") {
-        return "入库";
-      }
-
-      if (normalized === "phase") {
-        return "阶段";
-      }
-    }
-
-    if (hasAncestorText(node, [saveImageToCollectionPattern])) {
-      if (normalized === "image") {
-        return "图片";
-      }
-
-      if (normalized === "to") {
-        return "到";
-      }
-
-      if (normalized === "image to") {
-        return "图片到";
-      }
-
-      if (normalized === "image to collection") {
-        return "图片到收藏集";
-      }
-    }
-
-    if (hasAncestorText(node, [addToModelCollectionPattern])) {
-      if (normalized === "add to") {
-        return "添加到";
-      }
-
-      if (normalized === "model") {
-        return "模型";
-      }
-
-      if (normalized === "model collection") {
-        return "模型收藏集";
-      }
-    }
-
-    return null;
-  }
-
-  function injectStyle() {
-    if (document.getElementById("civitai-cn-style")) return;
-
-    const style = document.createElement("style");
-    style.id = "civitai-cn-style";
-    style.textContent = config.styleText || "";
-
-    document.head.appendChild(style);
+    ignoreSelector = [...baseIgnore, ...(activeRules.ignore || [])].join(",");
   }
 
   function shouldSkipElement(element) {
     if (!element) return true;
-
-    return Boolean(element.closest(skippedSelector));
+    return Boolean(element.closest(ignoreSelector));
   }
 
   function shouldSkipTextNode(node) {
     return shouldSkipElement(node.parentElement);
   }
 
+  function getTranslation(text) {
+    const normalized = CCT.normalizeText(text);
+    if (!normalized) return null;
+
+    if (staticMap.has(normalized)) {
+      return staticMap.get(normalized);
+    }
+
+    for (const rule of activeRules.regexp || []) {
+      const match = normalized.match(rule.pattern);
+      if (!match) continue;
+
+      if (typeof rule.replace === "function") {
+        return rule.replace(match, text);
+      }
+
+      return normalized.replace(rule.pattern, rule.replace);
+    }
+
+    return null;
+  }
+
   function translateTextNode(node) {
     const rawText = node.nodeValue;
-    const chinese = getContextualTranslation(node) || getTranslation(rawText);
+    const trimmed = rawText.trim();
+    if (!trimmed) return;
 
-    if (chinese) {
-      const nextText = rawText.replace(rawText.trim(), chinese);
+    const translated = getTranslation(trimmed);
+    if (!translated) return;
 
-      if (nextText !== rawText) {
-        node.nodeValue = nextText;
-      }
+    const nextText = rawText.replace(trimmed, translated);
+    if (nextText !== rawText) {
+      node.nodeValue = nextText;
     }
   }
 
   function translateAttributes(element) {
-    const attrs = ["title", "aria-label", "placeholder"];
-
-    attrs.forEach((attr) => {
+    ["title", "aria-label", "placeholder"].forEach((attr) => {
       const value = element.getAttribute(attr);
-      const chinese = value && getTranslation(value);
+      if (!value) return;
 
-      if (chinese && chinese !== value) {
-        element.setAttribute(attr, chinese);
+      const translated = getTranslation(value);
+      if (translated && translated !== value) {
+        element.setAttribute(attr, translated);
       }
     });
   }
 
-  function translateElementRules(element) {
-    const rawText = element.textContent;
-    const normalized = normalizeText(rawText);
+  function translateSelectorRules(root) {
+    for (const rule of activeRules.selector || []) {
+      const elements = root.matches && root.matches(rule.selector)
+        ? [root]
+        : Array.from(root.querySelectorAll ? root.querySelectorAll(rule.selector) : []);
 
-    for (const rule of elementRules) {
-      const match = normalized.match(rule.pattern);
-      if (!match) continue;
+      elements.forEach((element) => {
+        const target = rule.closest ? element.closest(rule.closest) : element;
+        if (!target || shouldSkipElement(target)) return;
 
-      const hasMatchingChild = Array.from(element.children).some((child) =>
-        rule.pattern.test(normalizeText(child.textContent)),
-      );
+        const textElement = rule.textSelector ? target.querySelector(rule.textSelector) : target;
+        if (!textElement) return;
 
-      if (hasMatchingChild) return;
+        if (rule.attr) {
+          textElement.setAttribute(rule.attr, rule.text);
+          return;
+        }
 
-      const nextText = rule.replace(match);
-
-      if (nextText !== rawText) {
-        element.textContent = nextText;
-      }
-
-      return;
+        if (textElement.children.length === 0 && textElement.textContent.trim() !== rule.text) {
+          textElement.textContent = rule.text;
+        }
+      });
     }
   }
 
-  function translateSelectDisplay(element) {
-    if (element.tagName !== "INPUT") return;
-    if (!element.readOnly) return;
-    if (!element.value) return;
+  function translateSelectValueRules(root) {
+    for (const rule of activeRules.selectValue || []) {
+      const elements = root.matches && root.matches(rule.selector)
+        ? [root]
+        : Array.from(root.querySelectorAll ? root.querySelectorAll(rule.selector) : []);
 
-    const chinese = getTranslation(element.value);
-    if (!chinese) return;
+      elements.forEach((element) => {
+        if (shouldSkipElement(element)) return;
+        if (!element.value) return;
 
-    const wrapper = element.closest(".mantine-Input-wrapper");
-    if (!wrapper) return;
+        const expectedValue = rule.value ? CCT.normalizeText(rule.value) : null;
+        if (expectedValue && CCT.normalizeText(element.value) !== expectedValue) return;
 
-    wrapper.classList.add("civitai-cn-select-wrapper");
-    if (wrapper.dataset.civitaiCnText !== chinese) {
-      wrapper.dataset.civitaiCnText = chinese;
+        const wrapper = element.closest(".mantine-Input-wrapper") || element.parentElement;
+        if (!wrapper) return;
+
+        wrapper.classList.add("cct-select-value-wrapper");
+        wrapper.dataset.cctText = rule.text;
+        element.classList.add("cct-hidden-input-text");
+      });
     }
-    element.classList.add("civitai-cn-hidden-input-text");
   }
 
   function translateTextNodes(root) {
     const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
       acceptNode(node) {
-        if (shouldSkipTextNode(node)) {
-          return NodeFilter.FILTER_REJECT;
-        }
-
-        return NodeFilter.FILTER_ACCEPT;
+        return shouldSkipTextNode(node) ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT;
       },
     });
 
     let node;
-
     while ((node = walker.nextNode())) {
       translateTextNode(node);
     }
   }
 
-  function translateElement(element) {
-    if (shouldSkipElement(element)) return;
-
-    translateAttributes(element);
-    translateElementRules(element);
-    translateSelectDisplay(element);
-  }
-
   function translateElementTree(root) {
-    if (shouldSkipElement(root)) return;
+    if (root.nodeType !== Node.ELEMENT_NODE || shouldSkipElement(root)) return;
 
-    translateElement(root);
-    root.querySelectorAll("*").forEach(translateElement);
+    translateAttributes(root);
+    root.querySelectorAll("*").forEach((element) => {
+      if (!shouldSkipElement(element)) {
+        translateAttributes(element);
+      }
+    });
+
+    translateTextNodes(root);
+    translateSelectorRules(root);
+    translateSelectValueRules(root);
   }
 
   function translateRoot(root) {
@@ -2066,82 +991,98 @@
       if (!shouldSkipTextNode(root)) {
         translateTextNode(root);
       }
-
       return;
     }
 
-    if (root.nodeType !== Node.ELEMENT_NODE) return;
-    if (shouldSkipElement(root)) return;
-
-    translateTextNodes(root);
     translateElementTree(root);
   }
 
-  function translatePage() {
-    injectStyle();
-    injectLogoButton();
-    translateRoot(document.body);
+  function createTranslator() {
+    const pendingRoots = new Set();
+    let timer = null;
+    let currentPage = CCT.getCurrentPage();
+
+    function schedule(root) {
+      if (root) pendingRoots.add(root);
+      if (timer) return;
+
+      timer = setTimeout(() => {
+        timer = null;
+        CCT.injectLogo && CCT.injectLogo();
+
+        const nextPage = CCT.getCurrentPage();
+        if (nextPage !== currentPage) {
+          currentPage = nextPage;
+          refreshRules();
+          pendingRoots.clear();
+          translateRoot(document.body);
+          return;
+        }
+
+        const roots = Array.from(pendingRoots);
+        pendingRoots.clear();
+        roots.forEach(translateRoot);
+      }, 100);
+    }
+
+    function start() {
+      refreshRules();
+      translateRoot(document.body);
+
+      const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+          if (mutation.type === "childList") {
+            mutation.addedNodes.forEach((node) => schedule(node));
+            return;
+          }
+
+          schedule(mutation.target);
+        });
+      });
+
+      observer.observe(document.body, {
+        childList: true,
+        subtree: true,
+        characterData: true,
+        attributes: true,
+        attributeFilter: ["title", "aria-label", "placeholder"],
+      });
+    }
+
+    return { start };
   }
 
-  const pendingRoots = new Set();
-  let translateTimer = null;
+  CCT.createTranslator = createTranslator;
+})();
 
-  function queueTranslateRoot(root) {
-    if (!root) return;
+(function () {
+  "use strict";
 
-    if (root.nodeType === Node.DOCUMENT_NODE) {
-      pendingRoots.add(document.body);
+  const CCT = window.CCT;
+  const instanceKey = "__CCT_TRANSLATOR_RUNNING__";
+
+  if (window[instanceKey]) return;
+  window[instanceKey] = true;
+
+  function injectStyle() {
+    if (document.getElementById("cct-style")) return;
+
+    const style = document.createElement("style");
+    style.id = "cct-style";
+    style.textContent = CCT.styleText || "";
+    document.head.appendChild(style);
+  }
+
+  function start() {
+    if (!document.body) {
+      requestAnimationFrame(start);
       return;
     }
 
-    if (root.nodeType === Node.TEXT_NODE && shouldSkipTextNode(root)) return;
-    if (root.nodeType === Node.ELEMENT_NODE && shouldSkipElement(root)) return;
-
-    pendingRoots.add(root);
+    injectStyle();
+    CCT.injectLogo && CCT.injectLogo();
+    CCT.createTranslator().start();
   }
 
-  function scheduleTranslate() {
-    if (translateTimer) return;
-
-    translateTimer = setTimeout(() => {
-      translateTimer = null;
-
-      injectStyle();
-      injectLogoButton();
-
-      const roots = Array.from(pendingRoots);
-      pendingRoots.clear();
-      roots.forEach(translateRoot);
-    }, 100);
-  }
-
-  translatePage();
-
-  const observer = new MutationObserver((mutations) => {
-    for (const mutation of mutations) {
-      if (mutation.type === "childList") {
-        mutation.addedNodes.forEach(queueTranslateRoot);
-        continue;
-      }
-
-      queueTranslateRoot(mutation.target);
-    }
-
-    scheduleTranslate();
-  });
-
-  observer.observe(document.body, {
-    childList: true,
-    subtree: true,
-    characterData: true,
-    attributes: true,
-    attributeFilter: ["value", "placeholder", "title", "aria-label"],
-  });
-
-  const themeObserver = new MutationObserver(scheduleTranslate);
-
-  themeObserver.observe(document.documentElement, {
-    attributes: true,
-    attributeFilter: ["data-mantine-color-scheme", "class"],
-  });
+  start();
 })();

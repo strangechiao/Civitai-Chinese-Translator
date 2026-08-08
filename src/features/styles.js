@@ -1,155 +1,195 @@
 (function () {
   "use strict";
 
-  window.CivitaiChinese = window.CivitaiChinese || {};
+  const CCT = window.CCT;
 
-  window.CivitaiChinese.styleText = `
-  .civitai-cn-select-wrapper {
-    position: relative !important;
-  }
+  CCT.styleText = `
+    .cct-logo-root {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: var(--cct-logo-height, 32px);
+      max-width: 160px;
+      line-height: 0;
+      flex: 0 0 auto;
+    }
 
-  .civitai-cn-select-wrapper::after {
-    content: attr(data-civitai-cn-text);
-    position: absolute;
-    left: 12px;
-    top: 50%;
-    transform: translateY(-50%);
-    max-width: calc(100% - 42px);
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    pointer-events: none;
-    z-index: 2;
-    box-sizing: border-box;
-    color: var(--mantine-color-text);
-    font-family: var(--mantine-font-family);
-    font-size: var(--mantine-font-size-xs);
-    font-weight: 400;
-    line-height: var(--mantine-line-height);
-    -webkit-font-smoothing: var(--mantine-webkit-font-smoothing);
-  }
+    .cct-logo-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      color: inherit;
+      line-height: 0;
+      cursor: pointer;
+    }
 
-  .civitai-cn-hidden-input-text {
-    color: transparent !important;
-    caret-color: transparent !important;
-  }
+    .cct-logo-root svg,
+    .cct-logo-root img {
+      display: block;
+      width: auto;
+      height: 100%;
+    }
 
-  .civitai-cn-logo-button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: auto;
-    height: var(--civitai-cn-logo-button-size, 38px);
-    min-width: 0;
-    padding: 0;
-    border: 0;
-    background: transparent;
-    cursor: pointer;
-    box-sizing: border-box;
-  }
+    .cct-logo-menu {
+      position: fixed;
+      z-index: 10000;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      min-width: 220px;
+      padding: 12px;
+      border: 1px solid var(--mantine-color-dark-4, #373a40);
+      border-radius: var(--mantine-radius-sm, 4px);
+      background: var(--mantine-color-dark-6, #25262b);
+      box-shadow: var(--mantine-shadow-md, 0 8px 24px rgba(0, 0, 0, 0.35));
+      color: var(--mantine-color-gray-2, #e9ecef);
+      font-family: var(--mantine-font-family);
+      font-size: var(--mantine-font-size-sm);
+      line-height: var(--mantine-line-height-sm);
+    }
 
-  .civitai-cn-logo-button:hover {
-    background: transparent;
-  }
+    .cct-logo-menu[hidden] {
+      display: none !important;
+    }
 
-  .civitai-cn-logo-button img {
-    display: block;
-    width: auto;
-    height: var(--civitai-cn-logo-button-size, 38px);
-  }
+    .cct-logo-menu-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      color: var(--mantine-color-gray-1, #f1f3f5);
+      font-size: var(--mantine-font-size-sm);
+      font-weight: 700;
+      line-height: var(--mantine-line-height-sm);
+    }
 
-  .civitai-cn-logo-menu-root {
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    height: var(--civitai-cn-logo-button-size, 38px);
-  }
+    .cct-logo-menu-version {
+      align-self: flex-end;
+      color: var(--mantine-color-dimmed);
+      font-size: var(--mantine-font-size-xs);
+      font-weight: 600;
+      line-height: var(--mantine-line-height-xs);
+      white-space: nowrap;
+    }
 
-  .civitai-cn-logo-menu {
-    position: absolute;
-    top: calc(100% + 8px);
-    left: 0;
-    z-index: 10000;
-    min-width: 220px;
-    padding: 4px;
-    border: 1px solid var(--mantine-color-default-border, rgba(255, 255, 255, 0.12));
-    border-radius: var(--mantine-radius-sm, 4px);
-    background: var(--mantine-color-body, #1a1b1e);
-    box-shadow: var(--mantine-shadow-md, 0 8px 24px rgba(0, 0, 0, 0.24));
-  }
+    .cct-logo-menu-divider {
+      height: 1px;
+      margin: 2px 0;
+      background: var(--mantine-color-dark-4, #373a40);
+    }
 
-  .civitai-cn-logo-menu[hidden] {
-    display: none;
-  }
+    .cct-logo-menu-check {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      min-height: var(--button-height-xs, 30px);
+      padding-inline: var(--button-padding-x-xs, 14px);
+      border: calc(0.0625rem * var(--mantine-scale)) solid transparent;
+      border-radius: var(--mantine-radius-sm, 4px);
+      background: var(--mantine-color-blue-light);
+      color: var(--mantine-color-blue-light-color);
+      font-family: var(--mantine-font-family);
+      font-size: var(--mantine-font-size-xs);
+      font-weight: 600;
+      line-height: var(--mantine-line-height-xs);
+      cursor: pointer;
+    }
 
-  .civitai-cn-logo-menu-header {
-    padding: 8px 10px;
-    color: var(--mantine-color-text, inherit);
-    font-family: var(--mantine-font-family);
-    font-size: var(--mantine-font-size-sm);
-    font-weight: 700;
-    line-height: var(--mantine-line-height-sm);
-    white-space: nowrap;
-  }
+    .cct-logo-menu-check:hover {
+      background: var(--mantine-color-blue-light-hover);
+    }
 
-  .civitai-cn-logo-menu-update {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    padding: 6px 10px 10px;
-    border-bottom: 1px solid var(--mantine-color-default-border, rgba(255, 255, 255, 0.12));
-    margin-bottom: 4px;
-  }
+    .cct-logo-menu-check:disabled {
+      cursor: default;
+      opacity: 0.65;
+    }
 
-  .civitai-cn-logo-menu-update-status {
-    min-height: 18px;
-    color: var(--mantine-color-dimmed, #909296);
-    font-family: var(--mantine-font-family);
-    font-size: var(--mantine-font-size-xs);
-    line-height: var(--mantine-line-height-xs);
-  }
+    .cct-logo-menu-check[data-state="available"] {
+      color: var(--mantine-color-green-text, #51cf66);
+    }
 
-  .civitai-cn-logo-menu-update-button {
-    width: 100%;
-    padding: 7px 10px;
-    border: 0;
-    border-radius: var(--mantine-radius-xs, 2px);
-    background: var(--mantine-primary-color-filled, var(--mantine-color-blue-filled, #228be6));
-    color: var(--mantine-color-white, #fff);
-    cursor: pointer;
-    font-family: var(--mantine-font-family);
-    font-size: var(--mantine-font-size-sm);
-    font-weight: 600;
-    line-height: var(--mantine-line-height-sm);
-  }
+    .cct-logo-menu-check[data-state="error"] {
+      color: var(--mantine-color-red-text, #ff6b6b);
+    }
 
-  .civitai-cn-logo-menu-update-button:hover {
-    background: var(--mantine-primary-color-filled-hover, var(--mantine-color-blue-filled-hover, #1c7ed6));
-  }
+    .cct-logo-menu-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 6px 4px;
+      border-radius: var(--mantine-radius-sm, 4px);
+      color: var(--mantine-color-gray-2, #e9ecef);
+      font-size: var(--mantine-font-size-sm);
+      line-height: var(--mantine-line-height-sm);
+      text-decoration: none;
+    }
 
-  .civitai-cn-logo-menu-update-button:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-  }
+    .cct-logo-menu-link-main {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 0;
+    }
 
-  .civitai-cn-logo-menu-item {
-    display: block;
-    width: 100%;
-    padding: 8px 10px;
-    border-radius: var(--mantine-radius-xs, 2px);
-    color: var(--mantine-color-text, inherit);
-    font-family: var(--mantine-font-family);
-    font-size: var(--mantine-font-size-sm);
-    line-height: var(--mantine-line-height-sm);
-    text-align: left;
-    text-decoration: none;
-    white-space: nowrap;
-    box-sizing: border-box;
-  }
+    .cct-logo-menu-icon,
+    .cct-logo-menu-external {
+      display: block;
+      width: 16px;
+      height: 16px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      flex: 0 0 auto;
+    }
 
-  .civitai-cn-logo-menu-item:hover {
-    background: var(--mantine-color-gray-light-hover, rgba(128, 128, 128, 0.16));
-    text-decoration: none;
-  }
-`;
+    .cct-logo-menu-external {
+      width: 14px;
+      height: 14px;
+      color: var(--mantine-color-dimmed);
+    }
+
+    .cct-logo-menu-link:hover {
+      background: var(--mantine-color-dark-5, #2c2e33);
+      color: var(--mantine-color-blue-4, #4dabf7);
+      text-decoration: none;
+    }
+
+    .cct-select-value-wrapper {
+      position: relative !important;
+    }
+
+    .cct-select-value-wrapper::after {
+      content: attr(data-cct-text);
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      max-width: calc(100% - 42px);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      pointer-events: none;
+      z-index: 2;
+      color: currentColor;
+      font-family: var(--mantine-font-family);
+      font-size: var(--input-fz, var(--mantine-font-size-sm));
+      font-weight: 400;
+      line-height: var(--input-line-height, var(--mantine-line-height));
+      -webkit-font-smoothing: var(--mantine-webkit-font-smoothing);
+    }
+
+    .cct-hidden-input-text {
+      color: transparent !important;
+      caret-color: transparent !important;
+    }
+  `;
 })();

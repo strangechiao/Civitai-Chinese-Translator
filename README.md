@@ -1,41 +1,23 @@
-<p align="center">
-  <img src="./public/cct-logo-light.svg" alt="CCT 中文增强插件" height="101" />
-</p>
+# CCT 中文增强插件
 
-<h1 align="center">CCT 中文增强插件</h1>
+CCT 中文增强插件用于汉化 Civitai / CivitaiRed 的英文界面。
 
-CCT 中文增强插件（全称：Civitai Chinese Translator），一个用于中文翻译、汉化 [Civitai](https://civitai.com/) / [CivitaiRed](https://civitai.red/) 英文界面的 Tampermonkey 用户脚本。
-
-脚本会自动替换页面中的常见英文界面文本，并针对通知、时间、下拉菜单等动态内容做了一些规则处理。当前项目仍在持续补充词条，翻译覆盖范围会随着使用逐步完善。
-
-## 功能
-
-- 页面汉化（进行中...）
-
-## 安装
-
-先安装浏览器扩展 Tampermonkey，然后打开下面的 Raw 地址安装脚本：
-
-[点击安装](https://raw.githubusercontent.com/strangechiao/Civitai-Chinese-Translator-Userscript/main/civitai-chinese-translator.user.js)
-
-安装后刷新 Civitai 页面即可生效。
-
-## 更新说明
-
-持续更新中...
-
-## 项目结构
+当前项目正在重新搭建架构。翻译规则采用：
 
 ```text
-src/
-  core/                 翻译核心、DOM 监听与调度
-  features/             Logo 菜单、样式等页面增强功能
-  locales/zh-CN/        中文词典与动态翻译规则
-scripts/
-  build.js              构建 Tampermonkey 用户脚本
-public/                 Logo 与图标资源
+common 通用规则 + pages/<page>/ 页面规则 + 页面内组件规则
 ```
 
-## 说明
+详细规范见 [docs/architecture.md](docs/architecture.md)。
 
-这是一个个人维护的汉化脚本，主要目标是改善中文用户浏览 Civitai 时的基础体验。由于 Civitai 页面更新较快，可能会有部分文本暂未覆盖。
+## 构建
+
+```powershell
+node scripts\build.js
+```
+
+构建后会生成：
+
+```text
+civitai-chinese-translator.user.js
+```

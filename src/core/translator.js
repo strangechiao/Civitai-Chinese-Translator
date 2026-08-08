@@ -1,12 +1,8 @@
 (function () {
   "use strict";
 
-  const config = window.CivitaiChinese || {};
-  const dictionary = config.dictionary || {};
-  const textRules = config.textRules || [];
-  const elementRules = config.elementRules || [];
-  const injectLogoButton = config.injectLogoButton || function () {};
-  const skippedSelector = [
+  const CCT = window.CCT;
+  const baseIgnore = [
     "script",
     "style",
     "textarea",
@@ -19,272 +15,155 @@
     "[type='application/json']",
     "[type='application/ld+json']",
     "#__NEXT_DATA__",
-  ].join(",");
+    ".cct-ignore",
+  ];
 
-  function normalizeText(text) {
-    return text
-      .replace(/[‘’]/g, "'")
-      .replace(/[“”]/g, '"')
-      .replace(/\s+/g, " ")
-      .replace(/\u00a0/g, " ")
-      .trim()
-      .toLowerCase();
-  }
+  let activeRules = null;
+  let staticMap = null;
+  let ignoreSelector = baseIgnore.join(",");
 
-  function getTranslation(text) {
-    const normalized = normalizeText(text);
+  function refreshRules() {
+    activeRules = CCT.getActiveRules();
+    staticMap = new Map();
 
-    if (dictionary[normalized]) {
-      return dictionary[normalized];
-    }
+    Object.entries(activeRules.static || {}).forEach(([source, target]) => {
+      staticMap.set(CCT.normalizeText(source), target);
+    });
 
-    for (const rule of textRules) {
-      if (rule.pattern.test(normalized)) {
-        const trimmed = text.trim();
-        const translated = trimmed.replace(rule.pattern, rule.replace);
-
-        return translated === trimmed ? normalized.replace(rule.pattern, rule.replace) : translated;
-      }
-    }
-
-    return null;
-  }
-
-  function hasAncestorText(node, patterns) {
-    let element = node.parentElement;
-    let depth = 0;
-
-    while (element && depth < 4) {
-      const normalized = normalizeText(element.textContent);
-
-      if (patterns.some((pattern) => pattern.test(normalized))) {
-        return true;
-      }
-
-      element = element.parentElement;
-      depth += 1;
-    }
-
-    return false;
-  }
-
-  function getContextualTranslation(node) {
-    const normalized = normalizeText(node.nodeValue);
-    const colorBuzzPattern = /^(get|获取) (blue|蓝色|yellow|黄色|green|绿色) buzz$/i;
-    const colorBuzzDescriptionPattern =
-      /^(multiple ways to get|通过多种方式获取) (blue|蓝色|yellow|黄色|green|绿色) buzz (and power your creativity|，助力你的创作)$/i;
-    const creatorProgramValuePattern =
-      /^(your|你的) [\d,.]+[km]? (could be worth|buzz 可能价值) \$[\d,.]+!?$/i;
-    const creatorScorePattern =
-      /^(your current|你当前的) (creator score|创作者评分) (is|是) [\d,.]+[km]?\.?$/i;
-    const bankingPhasePattern = /^(banking|入库) (phase|阶段)$/i;
-    const saveImageToCollectionPattern =
-      /^(save|保存) (image|图片) (to|到) (collection|收藏集)$/i;
-    const addToModelCollectionPattern = /^(add to|添加到) (model|模型) (collection|收藏集)$/i;
-
-    if (normalized === "get" && hasAncestorText(node, [colorBuzzPattern])) {
-      return "获取";
-    }
-
-    if (hasAncestorText(node, [colorBuzzDescriptionPattern])) {
-      if (normalized === "multiple ways to get") {
-        return "通过多种方式获取";
-      }
-
-      if (normalized === "buzz and power your creativity") {
-        return "Buzz，助力你的创作";
-      }
-
-      if (normalized === "and power your creativity") {
-        return "，助力你的创作";
-      }
-    }
-
-    if (hasAncestorText(node, [creatorProgramValuePattern])) {
-      if (normalized === "your") {
-        return "你的";
-      }
-
-      if (normalized === "could be worth") {
-        return "Buzz 可能价值";
-      }
-    }
-
-    if (hasAncestorText(node, [creatorScorePattern])) {
-      if (normalized === "your current") {
-        return "你当前的";
-      }
-
-      const scoreMatch = normalized.match(/^is ([\d,.]+[km]?)\.?$/i);
-      if (scoreMatch) {
-        return `是 ${scoreMatch[1]}。`;
-      }
-    }
-
-    if (hasAncestorText(node, [bankingPhasePattern])) {
-      if (normalized === "banking") {
-        return "入库";
-      }
-
-      if (normalized === "phase") {
-        return "阶段";
-      }
-    }
-
-    if (hasAncestorText(node, [saveImageToCollectionPattern])) {
-      if (normalized === "image") {
-        return "图片";
-      }
-
-      if (normalized === "to") {
-        return "到";
-      }
-
-      if (normalized === "image to") {
-        return "图片到";
-      }
-
-      if (normalized === "image to collection") {
-        return "图片到收藏集";
-      }
-    }
-
-    if (hasAncestorText(node, [addToModelCollectionPattern])) {
-      if (normalized === "add to") {
-        return "添加到";
-      }
-
-      if (normalized === "model") {
-        return "模型";
-      }
-
-      if (normalized === "model collection") {
-        return "模型收藏集";
-      }
-    }
-
-    return null;
-  }
-
-  function injectStyle() {
-    if (document.getElementById("civitai-cn-style")) return;
-
-    const style = document.createElement("style");
-    style.id = "civitai-cn-style";
-    style.textContent = config.styleText || "";
-
-    document.head.appendChild(style);
+    ignoreSelector = [...baseIgnore, ...(activeRules.ignore || [])].join(",");
   }
 
   function shouldSkipElement(element) {
     if (!element) return true;
-
-    return Boolean(element.closest(skippedSelector));
+    return Boolean(element.closest(ignoreSelector));
   }
 
   function shouldSkipTextNode(node) {
     return shouldSkipElement(node.parentElement);
   }
 
+  function getTranslation(text) {
+    const normalized = CCT.normalizeText(text);
+    if (!normalized) return null;
+
+    if (staticMap.has(normalized)) {
+      return staticMap.get(normalized);
+    }
+
+    for (const rule of activeRules.regexp || []) {
+      const match = normalized.match(rule.pattern);
+      if (!match) continue;
+
+      if (typeof rule.replace === "function") {
+        return rule.replace(match, text);
+      }
+
+      return normalized.replace(rule.pattern, rule.replace);
+    }
+
+    return null;
+  }
+
   function translateTextNode(node) {
     const rawText = node.nodeValue;
-    const chinese = getContextualTranslation(node) || getTranslation(rawText);
+    const trimmed = rawText.trim();
+    if (!trimmed) return;
 
-    if (chinese) {
-      const nextText = rawText.replace(rawText.trim(), chinese);
+    const translated = getTranslation(trimmed);
+    if (!translated) return;
 
-      if (nextText !== rawText) {
-        node.nodeValue = nextText;
-      }
+    const nextText = rawText.replace(trimmed, translated);
+    if (nextText !== rawText) {
+      node.nodeValue = nextText;
     }
   }
 
   function translateAttributes(element) {
-    const attrs = ["title", "aria-label", "placeholder"];
-
-    attrs.forEach((attr) => {
+    ["title", "aria-label", "placeholder"].forEach((attr) => {
       const value = element.getAttribute(attr);
-      const chinese = value && getTranslation(value);
+      if (!value) return;
 
-      if (chinese && chinese !== value) {
-        element.setAttribute(attr, chinese);
+      const translated = getTranslation(value);
+      if (translated && translated !== value) {
+        element.setAttribute(attr, translated);
       }
     });
   }
 
-  function translateElementRules(element) {
-    const rawText = element.textContent;
-    const normalized = normalizeText(rawText);
+  function translateSelectorRules(root) {
+    for (const rule of activeRules.selector || []) {
+      const elements = root.matches && root.matches(rule.selector)
+        ? [root]
+        : Array.from(root.querySelectorAll ? root.querySelectorAll(rule.selector) : []);
 
-    for (const rule of elementRules) {
-      const match = normalized.match(rule.pattern);
-      if (!match) continue;
+      elements.forEach((element) => {
+        const target = rule.closest ? element.closest(rule.closest) : element;
+        if (!target || shouldSkipElement(target)) return;
 
-      const hasMatchingChild = Array.from(element.children).some((child) =>
-        rule.pattern.test(normalizeText(child.textContent)),
-      );
+        const textElement = rule.textSelector ? target.querySelector(rule.textSelector) : target;
+        if (!textElement) return;
 
-      if (hasMatchingChild) return;
+        if (rule.attr) {
+          textElement.setAttribute(rule.attr, rule.text);
+          return;
+        }
 
-      const nextText = rule.replace(match);
-
-      if (nextText !== rawText) {
-        element.textContent = nextText;
-      }
-
-      return;
+        if (textElement.children.length === 0 && textElement.textContent.trim() !== rule.text) {
+          textElement.textContent = rule.text;
+        }
+      });
     }
   }
 
-  function translateSelectDisplay(element) {
-    if (element.tagName !== "INPUT") return;
-    if (!element.readOnly) return;
-    if (!element.value) return;
+  function translateSelectValueRules(root) {
+    for (const rule of activeRules.selectValue || []) {
+      const elements = root.matches && root.matches(rule.selector)
+        ? [root]
+        : Array.from(root.querySelectorAll ? root.querySelectorAll(rule.selector) : []);
 
-    const chinese = getTranslation(element.value);
-    if (!chinese) return;
+      elements.forEach((element) => {
+        if (shouldSkipElement(element)) return;
+        if (!element.value) return;
 
-    const wrapper = element.closest(".mantine-Input-wrapper");
-    if (!wrapper) return;
+        const expectedValue = rule.value ? CCT.normalizeText(rule.value) : null;
+        if (expectedValue && CCT.normalizeText(element.value) !== expectedValue) return;
 
-    wrapper.classList.add("civitai-cn-select-wrapper");
-    if (wrapper.dataset.civitaiCnText !== chinese) {
-      wrapper.dataset.civitaiCnText = chinese;
+        const wrapper = element.closest(".mantine-Input-wrapper") || element.parentElement;
+        if (!wrapper) return;
+
+        wrapper.classList.add("cct-select-value-wrapper");
+        wrapper.dataset.cctText = rule.text;
+        element.classList.add("cct-hidden-input-text");
+      });
     }
-    element.classList.add("civitai-cn-hidden-input-text");
   }
 
   function translateTextNodes(root) {
     const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
       acceptNode(node) {
-        if (shouldSkipTextNode(node)) {
-          return NodeFilter.FILTER_REJECT;
-        }
-
-        return NodeFilter.FILTER_ACCEPT;
+        return shouldSkipTextNode(node) ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT;
       },
     });
 
     let node;
-
     while ((node = walker.nextNode())) {
       translateTextNode(node);
     }
   }
 
-  function translateElement(element) {
-    if (shouldSkipElement(element)) return;
-
-    translateAttributes(element);
-    translateElementRules(element);
-    translateSelectDisplay(element);
-  }
-
   function translateElementTree(root) {
-    if (shouldSkipElement(root)) return;
+    if (root.nodeType !== Node.ELEMENT_NODE || shouldSkipElement(root)) return;
 
-    translateElement(root);
-    root.querySelectorAll("*").forEach(translateElement);
+    translateAttributes(root);
+    root.querySelectorAll("*").forEach((element) => {
+      if (!shouldSkipElement(element)) {
+        translateAttributes(element);
+      }
+    });
+
+    translateTextNodes(root);
+    translateSelectorRules(root);
+    translateSelectValueRules(root);
   }
 
   function translateRoot(root) {
@@ -294,82 +173,66 @@
       if (!shouldSkipTextNode(root)) {
         translateTextNode(root);
       }
-
       return;
     }
 
-    if (root.nodeType !== Node.ELEMENT_NODE) return;
-    if (shouldSkipElement(root)) return;
-
-    translateTextNodes(root);
     translateElementTree(root);
   }
 
-  function translatePage() {
-    injectStyle();
-    injectLogoButton();
-    translateRoot(document.body);
-  }
+  function createTranslator() {
+    const pendingRoots = new Set();
+    let timer = null;
+    let currentPage = CCT.getCurrentPage();
 
-  const pendingRoots = new Set();
-  let translateTimer = null;
+    function schedule(root) {
+      if (root) pendingRoots.add(root);
+      if (timer) return;
 
-  function queueTranslateRoot(root) {
-    if (!root) return;
+      timer = setTimeout(() => {
+        timer = null;
+        CCT.injectLogo && CCT.injectLogo();
 
-    if (root.nodeType === Node.DOCUMENT_NODE) {
-      pendingRoots.add(document.body);
-      return;
+        const nextPage = CCT.getCurrentPage();
+        if (nextPage !== currentPage) {
+          currentPage = nextPage;
+          refreshRules();
+          pendingRoots.clear();
+          translateRoot(document.body);
+          return;
+        }
+
+        const roots = Array.from(pendingRoots);
+        pendingRoots.clear();
+        roots.forEach(translateRoot);
+      }, 100);
     }
 
-    if (root.nodeType === Node.TEXT_NODE && shouldSkipTextNode(root)) return;
-    if (root.nodeType === Node.ELEMENT_NODE && shouldSkipElement(root)) return;
+    function start() {
+      refreshRules();
+      translateRoot(document.body);
 
-    pendingRoots.add(root);
-  }
+      const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+          if (mutation.type === "childList") {
+            mutation.addedNodes.forEach((node) => schedule(node));
+            return;
+          }
 
-  function scheduleTranslate() {
-    if (translateTimer) return;
+          schedule(mutation.target);
+        });
+      });
 
-    translateTimer = setTimeout(() => {
-      translateTimer = null;
-
-      injectStyle();
-      injectLogoButton();
-
-      const roots = Array.from(pendingRoots);
-      pendingRoots.clear();
-      roots.forEach(translateRoot);
-    }, 100);
-  }
-
-  translatePage();
-
-  const observer = new MutationObserver((mutations) => {
-    for (const mutation of mutations) {
-      if (mutation.type === "childList") {
-        mutation.addedNodes.forEach(queueTranslateRoot);
-        continue;
-      }
-
-      queueTranslateRoot(mutation.target);
+      observer.observe(document.body, {
+        childList: true,
+        subtree: true,
+        characterData: true,
+        attributes: true,
+        attributeFilter: ["title", "aria-label", "placeholder"],
+      });
     }
 
-    scheduleTranslate();
-  });
+    return { start };
+  }
 
-  observer.observe(document.body, {
-    childList: true,
-    subtree: true,
-    characterData: true,
-    attributes: true,
-    attributeFilter: ["value", "placeholder", "title", "aria-label"],
-  });
-
-  const themeObserver = new MutationObserver(scheduleTranslate);
-
-  themeObserver.observe(document.documentElement, {
-    attributes: true,
-    attributeFilter: ["data-mantine-color-scheme", "class"],
-  });
+  CCT.createTranslator = createTranslator;
 })();

@@ -2,56 +2,63 @@ const fs = require("fs");
 const path = require("path");
 
 const root = path.resolve(__dirname, "..");
-const version = "0.1.15";
 const outputFile = "civitai-chinese-translator.user.js";
-const homepageUrl = "https://github.com/strangechiao/Civitai-Chinese-Translator-Userscript";
-const supportUrl = `${homepageUrl}/issues`;
+const version = "0.2.0";
+const homepageUrl = "https://github.com/strangechiao/Civitai-Chinese-Translator";
 const updateUrl = `${homepageUrl.replace("https://github.com", "https://raw.githubusercontent.com")}/main/${outputFile}`;
-const iconUrl = `data:image/png;base64,${fs.readFileSync(path.join(root, "public", "icon.png")).toString("base64")}`;
+const logoSvg = fs.readFileSync(path.join(root, "public", "logo.svg"), "utf8").trim();
+const iconUrl = `data:image/png;base64,${fs.readFileSync(path.join(root, "public", "logo.png")).toString("base64")}`;
 
 const header = `// ==UserScript==
 // @name         CCT 中文增强插件
 // @namespace    https://civitai.com/
 // @version      ${version}
-// @description  CCT 中文增强插件（全称：Civitai Chinese Translator），一个用于中文翻译、汉化 [Civitai](https://civitai.com/) / [CivitaiRed](https://civitai.red/) 英文界面的 Tampermonkey 用户脚本。
+// @description  Civitai / CivitaiRed 中文增强与界面汉化用户脚本
 // @homepageURL  ${homepageUrl}
-// @supportURL   ${supportUrl}
+// @supportURL   ${homepageUrl}/issues
 // @updateURL    ${updateUrl}
 // @downloadURL  ${updateUrl}
 // @icon         ${iconUrl}
 // @iconURL      ${iconUrl}
 // @icon64       ${iconUrl}
-// @match        https://civitai.red/*
-// @match        https://www.civitai.red/*
 // @match        https://civitai.com/*
 // @match        https://www.civitai.com/*
+// @match        https://civitai.red/*
+// @match        https://www.civitai.red/*
 // @match        https://auth.civitai.com/*
 // @grant        none
 // ==/UserScript==
 `;
 
 const sourceFiles = [
-  "src/locales/zh-CN/dictionary.js",
-  "src/locales/zh-CN/rules.js",
+  "src/core/namespace.js",
+  "src/core/normalize.js",
+  "src/core/pageMatcher.js",
+  "src/core/registry.js",
   "src/features/styles.js",
-  "src/features/logoButton.js",
+  "src/features/logo.js",
+  "src/locales/zh-CN/common.js",
+  "src/locales/zh-CN/layout/header/index.js",
+  "src/locales/zh-CN/layout/footer/index.js",
+  "src/locales/zh-CN/pages/home/index.js",
   "src/core/translator.js",
+  "src/core/app.js",
 ];
 
-const logoSvgDark = fs.readFileSync(path.join(root, "public", "cct-logo-dark.svg"), "utf8").trim();
-const logoSvgLight = fs.readFileSync(path.join(root, "public", "cct-logo-light.svg"), "utf8").trim();
-const logoSource = `(function () {
+const assetsSource = `(function () {
   "use strict";
 
-  window.CivitaiChinese = window.CivitaiChinese || {};
-  window.CivitaiChinese.version = ${JSON.stringify(version)};
-  window.CivitaiChinese.updateUrl = ${JSON.stringify(updateUrl)};
-  window.CivitaiChinese.logoSvgs = {
-    dark: ${JSON.stringify(logoSvgDark)},
-    light: ${JSON.stringify(logoSvgLight)},
-  };
+  window.CCT = window.CCT || {};
+  window.CCT.meta = window.CCT.meta || {};
+  window.CCT.meta.version = ${JSON.stringify(version)};
+  window.CCT.meta.updateUrl = ${JSON.stringify(updateUrl)};
+  window.CCT.meta.supportUrl = ${JSON.stringify(`${homepageUrl}/issues`)};
+  window.CCT.assets = window.CCT.assets || {};
+  window.CCT.assets.logoSvg = ${JSON.stringify(logoSvg)};
 })();`;
 
-const body = [logoSource, ...sourceFiles.map((file) => fs.readFileSync(path.join(root, file), "utf8").trim())].join("\n\n");
+const body = [assetsSource, ...sourceFiles.map((file) => fs.readFileSync(path.join(root, file), "utf8").trim())].join(
+  "\n\n",
+);
 
 fs.writeFileSync(path.join(root, outputFile), `${header}\n${body}\n`, "utf8");
