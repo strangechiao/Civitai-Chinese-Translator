@@ -36,6 +36,14 @@
     }
 
     .cct-logo-menu {
+      --cct-menu-bg: #25262B;
+      --cct-menu-border: #373A40;
+      --cct-menu-text: #E9ECEF;
+      --cct-menu-title: #F1F3F5;
+      --cct-menu-muted: var(--mantine-color-dimmed);
+      --cct-menu-divider: #373A40;
+      --cct-menu-hover: #2C2E33;
+      --cct-menu-shadow: var(--mantine-shadow-md, 0 8px 24px rgba(0, 0, 0, 0.35));
       position: fixed;
       z-index: 10000;
       display: flex;
@@ -43,11 +51,11 @@
       gap: 8px;
       min-width: 220px;
       padding: 12px;
-      border: 1px solid #373A40;
+      border: 1px solid var(--cct-menu-border);
       border-radius: var(--mantine-radius-sm, 4px);
-      background: #25262B;
-      box-shadow: var(--mantine-shadow-md, 0 8px 24px rgba(0, 0, 0, 0.35));
-      color: var(--mantine-color-gray-2, #e9ecef);
+      background: var(--cct-menu-bg);
+      box-shadow: var(--cct-menu-shadow);
+      color: var(--cct-menu-text);
       font-family: var(--mantine-font-family);
       font-size: var(--mantine-font-size-sm);
       line-height: var(--mantine-line-height-sm);
@@ -56,6 +64,18 @@
       transform: translateY(-4px) scale(0.96);
       transform-origin: top left;
       transition: transform 180ms ease, opacity 180ms ease;
+    }
+
+    :root[data-mantine-color-scheme="light"] .cct-logo-menu,
+    [data-mantine-color-scheme="light"] .cct-logo-menu {
+      --cct-menu-bg: #FFFFFF;
+      --cct-menu-border: #DEE2E6;
+      --cct-menu-text: #343A40;
+      --cct-menu-title: #212529;
+      --cct-menu-muted: #868E96;
+      --cct-menu-divider: #E9ECEF;
+      --cct-menu-hover: #F1F3F5;
+      --cct-menu-shadow: var(--mantine-shadow-md, 0 8px 24px rgba(0, 0, 0, 0.12));
     }
 
     .cct-logo-menu[hidden] {
@@ -73,7 +93,7 @@
       align-items: center;
       justify-content: space-between;
       gap: 16px;
-      color: var(--mantine-color-gray-1, #f1f3f5);
+      color: var(--cct-menu-title);
       font-size: var(--mantine-font-size-sm);
       font-weight: 700;
       line-height: var(--mantine-line-height-sm);
@@ -91,7 +111,7 @@
     .cct-logo-menu-divider {
       height: 1px;
       margin: 2px 0;
-      background: var(--mantine-color-dark-4, #373a40);
+      background: var(--cct-menu-divider);
     }
 
     .cct-logo-menu-check {
@@ -141,7 +161,7 @@
       gap: 16px;
       padding: 6px 4px;
       border-radius: var(--mantine-radius-sm, 4px);
-      color: var(--mantine-color-gray-2, #e9ecef);
+      color: var(--cct-menu-text);
       font-size: var(--mantine-font-size-sm);
       line-height: var(--mantine-line-height-sm);
       text-decoration: none;
@@ -158,7 +178,7 @@
       border: 0;
       border-radius: var(--mantine-radius-sm, 4px);
       background: transparent;
-      color: var(--mantine-color-gray-2, #e9ecef);
+      color: var(--cct-menu-text);
       font-family: var(--mantine-font-family);
       font-size: var(--mantine-font-size-sm);
       line-height: var(--mantine-line-height-sm);
@@ -167,7 +187,7 @@
     }
 
     .cct-logo-menu-toggle:hover {
-      background: var(--mantine-color-dark-5, #2c2e33);
+      background: var(--cct-menu-hover);
     }
 
     .cct-logo-menu-link-main {
@@ -191,7 +211,7 @@
       justify-content: center;
       width: 14px;
       height: 14px;
-      color: var(--mantine-color-dimmed);
+      color: var(--cct-menu-muted);
       line-height: 1;
     }
 
@@ -206,7 +226,7 @@
       width: 32px;
       height: 18px;
       border-radius: 999px;
-      background: var(--mantine-color-dark-4, #373a40);
+      background: var(--cct-menu-divider);
       transition: background-color 120ms ease;
     }
 
@@ -239,11 +259,11 @@
       display: none;
       width: 320px;
       padding: 16px;
-      border: 1px solid var(--mantine-color-blue-4, #4dabf7);
+      border: 1px solid var(--cct-menu-border);
       border-radius: var(--mantine-radius-sm, 4px);
-      background: var(--mantine-color-dark-6, #25262b);
-      box-shadow: var(--mantine-shadow-md, 0 8px 24px rgba(0, 0, 0, 0.35));
-      color: var(--mantine-color-gray-2, #e9ecef);
+      background: var(--cct-menu-bg);
+      box-shadow: var(--cct-menu-shadow);
+      color: var(--cct-menu-text);
       font-size: var(--mantine-font-size-sm);
       font-weight: 400;
       line-height: 1.45;
@@ -273,11 +293,11 @@
     .cct-logo-menu-external {
       width: 14px;
       height: 14px;
-      color: var(--mantine-color-dimmed);
+      color: var(--cct-menu-muted);
     }
 
     .cct-logo-menu-link:hover {
-      background: var(--mantine-color-dark-5, #2c2e33);
+      background: var(--cct-menu-hover);
       text-decoration: none;
     }
 
