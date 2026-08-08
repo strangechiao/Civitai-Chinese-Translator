@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         CCT 中文增强插件
 // @namespace    https://civitai.com/
-// @version      0.3.2
+// @version      0.4.0
 // @description  汉化（中文化、本地化、翻译）Civitai / Civitai.red 页面的 Tampermonkey 脚本。
 // @license      GPL-3.0-or-later
 // @homepageURL  https://github.com/strangechiao/Civitai-Chinese-Translator
@@ -27,12 +27,12 @@
 
   window.CCT = window.CCT || {};
   window.CCT.meta = window.CCT.meta || {};
-  window.CCT.meta.version = "0.3.2";
+  window.CCT.meta.version = "0.4.0";
   window.CCT.meta.updateUrl = "https://raw.githubusercontent.com/strangechiao/Civitai-Chinese-Translator/main/civitai-chinese-translator.user.js";
   window.CCT.meta.supportUrl = "https://github.com/strangechiao/Civitai-Chinese-Translator/issues";
   window.CCT.assets = window.CCT.assets || {};
   window.CCT.assets.logoSvg = "<svg width=\"182\" height=\"103\" viewBox=\"0 0 182 103\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<rect width=\"152\" height=\"103\" rx=\"5\" fill=\"white\"/>\n<rect x=\"1\" y=\"1\" width=\"150\" height=\"101\" rx=\"5\" fill=\"#414141\"/>\n<rect x=\"6\" y=\"6\" width=\"140\" height=\"91\" fill=\"white\"/>\n<rect x=\"11\" y=\"11\" width=\"130\" height=\"81\" fill=\"#414141\"/>\n<rect x=\"151\" y=\"5\" width=\"4\" height=\"21\" fill=\"white\"/>\n<rect x=\"151\" y=\"6\" width=\"3\" height=\"19\" fill=\"#414141\"/>\n<rect x=\"56\" y=\"10\" width=\"82\" height=\"6\" transform=\"rotate(90 56 10)\" fill=\"white\"/>\n<rect x=\"101\" y=\"11\" width=\"82\" height=\"6\" transform=\"rotate(90 101 11)\" fill=\"white\"/>\n<path d=\"M48 87.75L42.333 92H30.666L36.333 87.75H13V79H48V87.75ZM75.5 84C81.6628 84 87.0813 87.1857 90.1992 92H60.8008C63.9187 87.1857 69.3372 84 75.5 84ZM120.5 90.666L129.25 79H138L128.25 92H112.75L103 79H111.75L120.5 90.666ZM68.8027 40.332C72.0004 39.0075 75.5194 38.6607 78.9141 39.3359C82.3087 40.0112 85.4266 41.6786 87.874 44.126L81.6875 50.3125C80.4638 49.0888 78.9044 48.2556 77.207 47.918C75.5097 47.5804 73.7502 47.7538 72.1514 48.416C70.5526 49.0783 69.186 50.1998 68.2246 51.6387C67.2631 53.0776 66.75 54.7694 66.75 56.5C66.75 58.2306 67.2631 59.9224 68.2246 61.3613C69.186 62.8002 70.5526 63.9217 72.1514 64.584C73.7502 65.2462 75.5097 65.4196 77.207 65.082C78.9044 64.7444 80.4638 63.9112 81.6875 62.6875L87.874 68.874C85.4266 71.3214 82.3087 72.9888 78.9141 73.6641C75.5194 74.3393 72.0004 73.9925 68.8027 72.668C65.6052 71.3434 62.8721 69.1004 60.9492 66.2227C59.0263 63.3448 58 59.9612 58 56.5C58 53.0388 59.0263 49.6552 60.9492 46.7773C62.8721 43.8996 65.6052 41.6566 68.8027 40.332ZM138 42.75H124.699L124.698 69H115.949V42.75H103V34H138V42.75ZM23.8027 35.332C27.0004 34.0075 30.5194 33.6607 33.9141 34.3359C37.3087 35.0112 40.4266 36.6786 42.874 39.126L36.6875 45.3125C35.4638 44.0888 33.9044 43.2556 32.207 42.918C30.5097 42.5804 28.7502 42.7538 27.1514 43.416C25.5526 44.0783 24.186 45.1998 23.2246 46.6387C22.2631 48.0776 21.75 49.7694 21.75 51.5C21.75 53.2306 22.2631 54.9224 23.2246 56.3613C24.186 57.8002 25.5526 58.9217 27.1514 59.584C28.7502 60.2462 30.5097 60.4196 32.207 60.082C33.9044 59.7444 35.4638 58.9112 36.6875 57.6875L42.874 63.874C40.4266 66.3214 37.3087 67.9888 33.9141 68.6641C30.5194 69.3393 27.0004 68.9925 23.8027 67.668C20.6052 66.3434 17.8721 64.1004 15.9492 61.2227C14.0263 58.3448 13 54.9612 13 51.5C13 48.0388 14.0263 44.6552 15.9492 41.7773C17.8721 38.8996 20.6052 36.6566 23.8027 35.332ZM66.75 29H58V11H66.75V29ZM84.25 17.333V11H93V29H84.25L70.75 11H79.5L84.25 17.333ZM48 24H40.3438L37.2676 13.0625H23.7324L20.6562 24H13L16.6562 11H44.3438L48 24ZM111.75 15.25H138V24H103V11H111.75V15.25Z\" fill=\"white\"/>\n<path d=\"M166 12C169.314 12 172 14.6863 172 18L172 73L166 73L166 12V12Z\" fill=\"white\"/>\n<rect x=\"165\" y=\"18\" width=\"1\" height=\"55\" fill=\"white\"/>\n<circle cx=\"168.5\" cy=\"84.5\" r=\"13.5\" fill=\"white\"/>\n<path d=\"M166 13C168.761 13 171 15.2386 171 18L171 73L166 73L166 13V13Z\" fill=\"#D9D9D9\"/>\n<circle cx=\"168.5\" cy=\"84.5\" r=\"12.5\" fill=\"#E03131\"/>\n<rect x=\"154\" y=\"8\" width=\"3\" height=\"15\" fill=\"white\"/>\n<rect x=\"154\" y=\"9\" width=\"2\" height=\"13\" fill=\"#D9D9D9\"/>\n<rect x=\"157\" y=\"12\" width=\"9\" height=\"7\" fill=\"white\"/>\n<rect x=\"154\" y=\"13\" width=\"12\" height=\"5\" fill=\"#D9D9D9\"/>\n<path d=\"M177.95 84.5C178.53 84.5 179.005 84.0287 178.948 83.4517C178.845 82.4325 178.594 81.4317 178.201 80.4818C177.673 79.2079 176.9 78.0504 175.925 77.0754C174.95 76.1004 173.792 75.3269 172.518 74.7993C171.568 74.4058 170.568 74.1547 169.548 74.0525C168.971 73.9946 168.5 74.4701 168.5 75.05C168.5 75.6299 168.972 76.0932 169.547 76.1655C170.291 76.2589 171.02 76.4515 171.715 76.7394C172.734 77.1616 173.66 77.7803 174.44 78.5603C175.22 79.3403 175.838 80.2663 176.261 81.2855C176.548 81.9804 176.741 82.7095 176.834 83.4527C176.907 84.0281 177.37 84.5 177.95 84.5Z\" fill=\"white\"/>\n</svg>";
-  window.CCT.assets.icons = {"bug":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-bug-icon lucide-bug\"><path d=\"M12 20v-9\"/><path d=\"M14 7a4 4 0 0 1 4 4v3a6 6 0 0 1-12 0v-3a4 4 0 0 1 4-4z\"/><path d=\"M14.12 3.88 16 2\"/><path d=\"M21 21a4 4 0 0 0-3.81-4\"/><path d=\"M21 5a4 4 0 0 1-3.55 3.97\"/><path d=\"M22 13h-4\"/><path d=\"M3 21a4 4 0 0 1 3.81-4\"/><path d=\"M3 5a4 4 0 0 0 3.55 3.97\"/><path d=\"M6 13H2\"/><path d=\"m8 2 1.88 1.88\"/><path d=\"M9 7.13V6a3 3 0 1 1 6 0v1.13\"/></svg>","contact":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-mail-icon lucide-mail\"><path d=\"m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7\"/><rect x=\"2\" y=\"4\" width=\"20\" height=\"16\" rx=\"2\"/></svg>","download":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-folder-down-icon lucide-folder-down\"><path d=\"M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z\"/><path d=\"M12 10v6\"/><path d=\"m15 13-3 3-3-3\"/></svg>","originalDownload":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-cloud-download-icon lucide-cloud-download\"><path d=\"M12 13v8l-4-4\"/><path d=\"m12 21 4-4\"/><path d=\"M4.393 15.269A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.436 8.284\"/></svg>","external":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-square-arrow-out-up-right-icon lucide-square-arrow-out-up-right\"><path d=\"M21 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h6\"/><path d=\"m21 3-9 9\"/><path d=\"M15 3h6v6\"/></svg>","question":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-circle-question-mark-icon lucide-circle-question-mark\"><circle cx=\"12\" cy=\"12\" r=\"10\"/><path d=\"M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3\"/><path d=\"M12 17h.01\"/></svg>"};
+  window.CCT.assets.icons = {"bug":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-bug-icon lucide-bug\"><path d=\"M12 20v-9\"/><path d=\"M14 7a4 4 0 0 1 4 4v3a6 6 0 0 1-12 0v-3a4 4 0 0 1 4-4z\"/><path d=\"M14.12 3.88 16 2\"/><path d=\"M21 21a4 4 0 0 0-3.81-4\"/><path d=\"M21 5a4 4 0 0 1-3.55 3.97\"/><path d=\"M22 13h-4\"/><path d=\"M3 21a4 4 0 0 1 3.81-4\"/><path d=\"M3 5a4 4 0 0 0 3.55 3.97\"/><path d=\"M6 13H2\"/><path d=\"m8 2 1.88 1.88\"/><path d=\"M9 7.13V6a3 3 0 1 1 6 0v1.13\"/></svg>","contact":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-mail-icon lucide-mail\"><path d=\"m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7\"/><rect x=\"2\" y=\"4\" width=\"20\" height=\"16\" rx=\"2\"/></svg>","download":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-folder-down-icon lucide-folder-down\"><path d=\"M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z\"/><path d=\"M12 10v6\"/><path d=\"m15 13-3 3-3-3\"/></svg>","originalDownload":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-cloud-download-icon lucide-cloud-download\"><path d=\"M12 13v8l-4-4\"/><path d=\"m12 21 4-4\"/><path d=\"M4.393 15.269A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.436 8.284\"/></svg>","external":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-square-arrow-out-up-right-icon lucide-square-arrow-out-up-right\"><path d=\"M21 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h6\"/><path d=\"m21 3-9 9\"/><path d=\"M15 3h6v6\"/></svg>","question":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-circle-question-mark-icon lucide-circle-question-mark\"><circle cx=\"12\" cy=\"12\" r=\"10\"/><path d=\"M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3\"/><path d=\"M12 17h.01\"/></svg>","expand":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-chevron-down-icon lucide-chevron-down\"><path d=\"m6 9 6 6 6-6\"/></svg>","collapse":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-chevron-up-icon lucide-chevron-up\"><path d=\"m18 15-6-6-6 6\"/></svg>","quickCollapse":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-square-chart-gantt-icon lucide-square-chart-gantt\"><rect width=\"18\" height=\"18\" x=\"3\" y=\"3\" rx=\"2\"/><path d=\"M9 8h7\"/><path d=\"M8 12h6\"/><path d=\"M11 16h5\"/></svg>"};
 })();
 
 (function () {
@@ -579,6 +579,69 @@
       flex: 0 0 auto;
     }
 
+    .cct-model-spoiler-float-button {
+      position: relative;
+      z-index: 30;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 auto;
+      min-width: max-content;
+      height: var(--button-height-sm, calc(2.25rem * var(--mantine-scale)));
+      padding-inline: var(--mantine-spacing-xs);
+      border: var(--button-bd, calc(0.0625rem * var(--mantine-scale)) solid transparent);
+      border-radius: var(--button-radius, var(--mantine-radius-default));
+      background: var(--mantine-color-blue-filled);
+      color: var(--mantine-color-white);
+      font-family: var(--mantine-font-family);
+      font-size: var(--button-fz, var(--mantine-font-size-sm));
+      font-weight: 600;
+      line-height: 1;
+      text-align: center;
+      user-select: none;
+      pointer-events: auto;
+      cursor: pointer;
+      transition-property: transform;
+      transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+      transition-duration: .15s;
+    }
+
+    .cct-model-spoiler-float-button * {
+      pointer-events: none;
+    }
+
+    .cct-model-spoiler-float-button:hover {
+      background: var(--mantine-color-blue-filled-hover);
+    }
+
+    .cct-model-spoiler-float-button:active {
+      transform: translateY(1px);
+    }
+
+    .cct-model-spoiler-float-button:disabled {
+      cursor: default;
+      opacity: 0.65;
+    }
+
+    .cct-model-spoiler-float-inner {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .cct-model-spoiler-float-icon {
+      display: block;
+      width: 20px;
+      height: 20px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      flex: 0 0 auto;
+    }
+
     .cct-select-value-wrapper {
       position: relative !important;
     }
@@ -685,7 +748,7 @@
   }
 
   function updateOriginalDownloadToggle(menu) {
-    const toggle = menu.querySelector(".cct-logo-menu-toggle");
+    const toggle = menu.querySelector(".cct-original-download-toggle");
     if (!toggle) return;
 
     const enabled = CCT.isOriginalDownloadEnabled && CCT.isOriginalDownloadEnabled();
@@ -693,32 +756,46 @@
     toggle.setAttribute("aria-checked", String(enabled));
   }
 
+  function updateQuickCollapseToggle(menu) {
+    const toggle = menu.querySelector(".cct-quick-collapse-toggle");
+    if (!toggle) return;
+
+    const enabled = !CCT.isQuickCollapseEnabled || CCT.isQuickCollapseEnabled();
+    toggle.dataset.checked = enabled ? "true" : "false";
+    toggle.setAttribute("aria-checked", String(enabled));
+  }
+
   function bindTooltip(menu) {
-    const help = menu.querySelector(".cct-logo-menu-help");
-    const tooltip = menu.querySelector(".cct-logo-menu-tooltip");
-    if (!help || !tooltip) return;
+    const helps = Array.from(menu.querySelectorAll(".cct-logo-menu-help"));
+    if (!helps.length) return;
 
-    let timer = null;
+    helps.forEach((help) => {
+      const item = help.closest(".cct-logo-menu-toggle");
+      const tooltip = item && item.querySelector(".cct-logo-menu-tooltip");
+      if (!tooltip) return;
 
-    function showLater(event) {
-      event.stopPropagation();
-      window.clearTimeout(timer);
-      timer = window.setTimeout(() => {
-        tooltip.dataset.open = "true";
-      }, 500);
-    }
+      let timer = null;
 
-    function hide(event) {
-      event.stopPropagation();
-      window.clearTimeout(timer);
-      tooltip.dataset.open = "false";
-    }
+      function showLater(event) {
+        event.stopPropagation();
+        window.clearTimeout(timer);
+        timer = window.setTimeout(() => {
+          tooltip.dataset.open = "true";
+        }, 500);
+      }
 
-    help.addEventListener("mouseenter", showLater);
-    help.addEventListener("focus", showLater);
-    help.addEventListener("mouseleave", hide);
-    help.addEventListener("blur", hide);
-    help.addEventListener("click", (event) => event.stopPropagation());
+      function hide(event) {
+        event.stopPropagation();
+        window.clearTimeout(timer);
+        tooltip.dataset.open = "false";
+      }
+
+      help.addEventListener("mouseenter", showLater);
+      help.addEventListener("focus", showLater);
+      help.addEventListener("mouseleave", hide);
+      help.addEventListener("blur", hide);
+      help.addEventListener("click", (event) => event.stopPropagation());
+    });
   }
 
   function compareVersions(a, b) {
@@ -889,12 +966,19 @@
         <span class="cct-logo-menu-version">v${(CCT.meta && CCT.meta.version) || "0.0.0"}</span>
       </div>
       <div class="cct-logo-menu-divider" aria-hidden="true"></div>
-      <button class="cct-logo-menu-toggle" type="button" role="switch" aria-checked="false">
+      <button class="cct-logo-menu-toggle cct-original-download-toggle" type="button" role="switch" aria-checked="false">
         <span class="cct-logo-menu-link-main">${iconSvg("download")}<span>下载原始文件</span><span class="cct-logo-menu-help" tabindex="0" aria-label="下载原始文件说明">${iconSvg("question")}</span></span>
         <span class="cct-logo-menu-toggle-right">
           <span class="cct-logo-menu-switch" aria-hidden="true"></span>
         </span>
         <span class="cct-logo-menu-tooltip" role="tooltip">通常需要进入详情页才能保存原始图片或视频；在外层卡片直接右键保存，拿到的往往只是压缩缩略图。开启后，可在卡片上快速下载原始文件。</span>
+      </button>
+      <button class="cct-logo-menu-toggle cct-quick-collapse-toggle" type="button" role="switch" aria-checked="true">
+        <span class="cct-logo-menu-link-main">${iconSvg("quickCollapse")}<span>快捷折叠</span><span class="cct-logo-menu-help" tabindex="0" aria-label="快捷折叠说明">${iconSvg("question")}</span></span>
+        <span class="cct-logo-menu-toggle-right">
+          <span class="cct-logo-menu-switch" aria-hidden="true"></span>
+        </span>
+        <span class="cct-logo-menu-tooltip" role="tooltip">部分模型的介绍和更新日志很长。展开后如果想继续查看下方的示例图或评论，往往需要滚动很久才能回到原按钮位置再折叠。开启后，页面右下角会显示快捷按钮，用来快速展开或折叠介绍内容。</span>
       </button>
       <a class="cct-logo-menu-link" href="https://github.com/strangechiao/Civitai-Chinese-Translator/issues" target="_blank" rel="noopener noreferrer" role="menuitem">
         <span class="cct-logo-menu-link-main">${iconSvg("bug")}<span>反馈问题</span></span>
@@ -920,7 +1004,7 @@
       checkForUpdates(root);
     });
 
-    menu.querySelector(".cct-logo-menu-toggle").addEventListener("click", (event) => {
+    menu.querySelector(".cct-original-download-toggle").addEventListener("click", (event) => {
       event.preventDefault();
       event.stopPropagation();
 
@@ -930,7 +1014,18 @@
       updateOriginalDownloadToggle(menu);
     });
 
+    menu.querySelector(".cct-quick-collapse-toggle").addEventListener("click", (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+
+      if (!CCT.setQuickCollapseEnabled || !CCT.isQuickCollapseEnabled) return;
+
+      CCT.setQuickCollapseEnabled(!CCT.isQuickCollapseEnabled());
+      updateQuickCollapseToggle(menu);
+    });
+
     updateOriginalDownloadToggle(menu);
+    updateQuickCollapseToggle(menu);
     bindTooltip(menu);
 
     root._cctMenu = menu;
@@ -1136,6 +1231,159 @@
   CCT.setOriginalDownloadEnabled = setOriginalDownloadEnabled;
   CCT.injectOriginalDownloadButtons = injectOriginalDownloadButtons;
   CCT.refreshOriginalDownloadButtons = refreshOriginalDownloadButtons;
+})();
+
+(function () {
+  "use strict";
+
+  const CCT = window.CCT;
+  const BUTTON_CLASS = "cct-model-spoiler-float-button";
+  const STORAGE_KEY = "CCT_QUICK_COLLAPSE_ENABLED";
+  let routeWatcherReady = false;
+
+  function isQuickCollapseEnabled() {
+    return localStorage.getItem(STORAGE_KEY) !== "false";
+  }
+
+  function setQuickCollapseEnabled(enabled) {
+    localStorage.setItem(STORAGE_KEY, enabled ? "true" : "false");
+    injectModelSidebarToggle();
+  }
+
+  function isModelDetailPage() {
+    return CCT.getCurrentPage && CCT.getCurrentPage() === "modelDetail";
+  }
+
+  function getSpoilerControl() {
+    const controls = Array.from(
+      document.querySelectorAll('.mantine-Spoiler-root[data-has-spoiler="true"] .mantine-Spoiler-control, button[aria-controls][aria-expanded]')
+    ).filter((button) => !button.classList.contains(BUTTON_CLASS));
+
+    const exactTextControl = controls.find((button) => /^(show more|show more|hide|显示更多|隐藏)$/i.test(button.textContent.trim()));
+    if (exactTextControl) return exactTextControl;
+
+    return controls.find((button) => {
+      const region = document.getElementById(button.getAttribute("aria-controls"));
+      return region && region.classList.contains("mantine-Spoiler-content");
+    });
+  }
+
+  function getFloatingButtonGroup() {
+    const scrollTopButton = document.querySelector('button[aria-label="Scroll to top"]');
+    if (scrollTopButton && scrollTopButton.parentElement) return scrollTopButton.parentElement;
+
+    const chatbotIcon = document.querySelector(".tabler-icon-message-chatbot");
+    const chatbotButton = chatbotIcon && chatbotIcon.closest(".mantine-Button-root");
+    return chatbotButton && chatbotButton.parentElement;
+  }
+
+  function iconSvg(name) {
+    const icons = CCT.assets && CCT.assets.icons;
+    const svg = icons && icons[name];
+    if (!svg) return "";
+
+    return svg
+      .replace(/\sclass="[^"]*"/, "")
+      .replace("<svg ", '<svg class="cct-model-spoiler-float-icon" aria-hidden="true" ');
+  }
+
+  function getExpanded(control) {
+    return control && control.getAttribute("aria-expanded") === "true";
+  }
+
+  function syncButton(button) {
+    const control = getSpoilerControl();
+    const expanded = getExpanded(control);
+    const label = expanded ? "折叠" : "展开";
+    const icon = expanded ? iconSvg("collapse") : iconSvg("expand");
+
+    button.disabled = !control;
+    button.dataset.expanded = expanded ? "true" : "false";
+    button.setAttribute("aria-label", label);
+    button.innerHTML = `
+      <span class="cct-model-spoiler-float-inner">
+        ${icon}
+        <span>${control ? label : "未找到"}</span>
+      </span>
+    `;
+  }
+
+  function createButton() {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = BUTTON_CLASS;
+
+    button.addEventListener("click", (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+
+      const control = getSpoilerControl();
+      if (!control) {
+        syncButton(button);
+        return;
+      }
+
+      control.click();
+      window.setTimeout(() => syncButton(button), 80);
+      window.setTimeout(() => syncButton(button), 260);
+    });
+
+    return button;
+  }
+
+  function scheduleRouteInject() {
+    window.setTimeout(injectModelSidebarToggle, 0);
+    window.setTimeout(injectModelSidebarToggle, 120);
+    window.setTimeout(injectModelSidebarToggle, 360);
+  }
+
+  function bindRouteWatcher() {
+    if (routeWatcherReady) return;
+    routeWatcherReady = true;
+
+    ["pushState", "replaceState"].forEach((method) => {
+      const original = history[method];
+      if (typeof original !== "function") return;
+
+      history[method] = function () {
+        const result = original.apply(this, arguments);
+        scheduleRouteInject();
+        return result;
+      };
+    });
+
+    window.addEventListener("popstate", scheduleRouteInject);
+  }
+
+  function injectModelSidebarToggle() {
+    bindRouteWatcher();
+
+    if (!isQuickCollapseEnabled() || !isModelDetailPage()) {
+      document.querySelectorAll(`.${BUTTON_CLASS}`).forEach((button) => button.remove());
+      return;
+    }
+
+    const group = getFloatingButtonGroup();
+    if (!group) return;
+
+    let button = group.querySelector(`.${BUTTON_CLASS}`);
+    if (!button) {
+      button = createButton();
+    }
+
+    const scrollTopButton = group.querySelector('button[aria-label="Scroll to top"]');
+    if (scrollTopButton && scrollTopButton.nextSibling) {
+      if (button !== scrollTopButton.nextSibling) group.insertBefore(button, scrollTopButton.nextSibling);
+    } else if (button.parentElement !== group) {
+      group.appendChild(button);
+    }
+
+    syncButton(button);
+  }
+
+  CCT.injectModelSidebarToggle = injectModelSidebarToggle;
+  CCT.isQuickCollapseEnabled = isQuickCollapseEnabled;
+  CCT.setQuickCollapseEnabled = setQuickCollapseEnabled;
 })();
 
 (function () {
@@ -1513,6 +1761,7 @@
         timer = null;
         CCT.injectLogo && CCT.injectLogo();
         CCT.injectOriginalDownloadButtons && CCT.injectOriginalDownloadButtons(document.body);
+        CCT.injectModelSidebarToggle && CCT.injectModelSidebarToggle();
 
         const nextPage = CCT.getCurrentPage();
         if (nextPage !== currentPage) {
@@ -1586,6 +1835,7 @@
     injectStyle();
     CCT.injectLogo && CCT.injectLogo();
     CCT.injectOriginalDownloadButtons && CCT.injectOriginalDownloadButtons(document.body);
+    CCT.injectModelSidebarToggle && CCT.injectModelSidebarToggle();
     CCT.createTranslator().start();
   }
 

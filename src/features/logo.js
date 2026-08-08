@@ -73,7 +73,7 @@
   }
 
   function updateOriginalDownloadToggle(menu) {
-    const toggle = menu.querySelector(".cct-logo-menu-toggle");
+    const toggle = menu.querySelector(".cct-original-download-toggle");
     if (!toggle) return;
 
     const enabled = CCT.isOriginalDownloadEnabled && CCT.isOriginalDownloadEnabled();
@@ -81,32 +81,46 @@
     toggle.setAttribute("aria-checked", String(enabled));
   }
 
+  function updateQuickCollapseToggle(menu) {
+    const toggle = menu.querySelector(".cct-quick-collapse-toggle");
+    if (!toggle) return;
+
+    const enabled = !CCT.isQuickCollapseEnabled || CCT.isQuickCollapseEnabled();
+    toggle.dataset.checked = enabled ? "true" : "false";
+    toggle.setAttribute("aria-checked", String(enabled));
+  }
+
   function bindTooltip(menu) {
-    const help = menu.querySelector(".cct-logo-menu-help");
-    const tooltip = menu.querySelector(".cct-logo-menu-tooltip");
-    if (!help || !tooltip) return;
+    const helps = Array.from(menu.querySelectorAll(".cct-logo-menu-help"));
+    if (!helps.length) return;
 
-    let timer = null;
+    helps.forEach((help) => {
+      const item = help.closest(".cct-logo-menu-toggle");
+      const tooltip = item && item.querySelector(".cct-logo-menu-tooltip");
+      if (!tooltip) return;
 
-    function showLater(event) {
-      event.stopPropagation();
-      window.clearTimeout(timer);
-      timer = window.setTimeout(() => {
-        tooltip.dataset.open = "true";
-      }, 500);
-    }
+      let timer = null;
 
-    function hide(event) {
-      event.stopPropagation();
-      window.clearTimeout(timer);
-      tooltip.dataset.open = "false";
-    }
+      function showLater(event) {
+        event.stopPropagation();
+        window.clearTimeout(timer);
+        timer = window.setTimeout(() => {
+          tooltip.dataset.open = "true";
+        }, 500);
+      }
 
-    help.addEventListener("mouseenter", showLater);
-    help.addEventListener("focus", showLater);
-    help.addEventListener("mouseleave", hide);
-    help.addEventListener("blur", hide);
-    help.addEventListener("click", (event) => event.stopPropagation());
+      function hide(event) {
+        event.stopPropagation();
+        window.clearTimeout(timer);
+        tooltip.dataset.open = "false";
+      }
+
+      help.addEventListener("mouseenter", showLater);
+      help.addEventListener("focus", showLater);
+      help.addEventListener("mouseleave", hide);
+      help.addEventListener("blur", hide);
+      help.addEventListener("click", (event) => event.stopPropagation());
+    });
   }
 
   function compareVersions(a, b) {
@@ -277,12 +291,19 @@
         <span class="cct-logo-menu-version">v${(CCT.meta && CCT.meta.version) || "0.0.0"}</span>
       </div>
       <div class="cct-logo-menu-divider" aria-hidden="true"></div>
-      <button class="cct-logo-menu-toggle" type="button" role="switch" aria-checked="false">
+      <button class="cct-logo-menu-toggle cct-original-download-toggle" type="button" role="switch" aria-checked="false">
         <span class="cct-logo-menu-link-main">${iconSvg("download")}<span>下载原始文件</span><span class="cct-logo-menu-help" tabindex="0" aria-label="下载原始文件说明">${iconSvg("question")}</span></span>
         <span class="cct-logo-menu-toggle-right">
           <span class="cct-logo-menu-switch" aria-hidden="true"></span>
         </span>
         <span class="cct-logo-menu-tooltip" role="tooltip">通常需要进入详情页才能保存原始图片或视频；在外层卡片直接右键保存，拿到的往往只是压缩缩略图。开启后，可在卡片上快速下载原始文件。</span>
+      </button>
+      <button class="cct-logo-menu-toggle cct-quick-collapse-toggle" type="button" role="switch" aria-checked="true">
+        <span class="cct-logo-menu-link-main">${iconSvg("quickCollapse")}<span>快捷折叠</span><span class="cct-logo-menu-help" tabindex="0" aria-label="快捷折叠说明">${iconSvg("question")}</span></span>
+        <span class="cct-logo-menu-toggle-right">
+          <span class="cct-logo-menu-switch" aria-hidden="true"></span>
+        </span>
+        <span class="cct-logo-menu-tooltip" role="tooltip">部分模型的介绍和更新日志很长。展开后如果想继续查看下方的示例图或评论，往往需要滚动很久才能回到原按钮位置再折叠。开启后，页面右下角会显示快捷按钮，用来快速展开或折叠介绍内容。</span>
       </button>
       <a class="cct-logo-menu-link" href="https://github.com/strangechiao/Civitai-Chinese-Translator/issues" target="_blank" rel="noopener noreferrer" role="menuitem">
         <span class="cct-logo-menu-link-main">${iconSvg("bug")}<span>反馈问题</span></span>
@@ -308,7 +329,7 @@
       checkForUpdates(root);
     });
 
-    menu.querySelector(".cct-logo-menu-toggle").addEventListener("click", (event) => {
+    menu.querySelector(".cct-original-download-toggle").addEventListener("click", (event) => {
       event.preventDefault();
       event.stopPropagation();
 
@@ -318,7 +339,18 @@
       updateOriginalDownloadToggle(menu);
     });
 
+    menu.querySelector(".cct-quick-collapse-toggle").addEventListener("click", (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+
+      if (!CCT.setQuickCollapseEnabled || !CCT.isQuickCollapseEnabled) return;
+
+      CCT.setQuickCollapseEnabled(!CCT.isQuickCollapseEnabled());
+      updateQuickCollapseToggle(menu);
+    });
+
     updateOriginalDownloadToggle(menu);
+    updateQuickCollapseToggle(menu);
     bindTooltip(menu);
 
     root._cctMenu = menu;

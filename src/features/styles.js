@@ -412,6 +412,69 @@
       flex: 0 0 auto;
     }
 
+    .cct-model-spoiler-float-button {
+      position: relative;
+      z-index: 30;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 auto;
+      min-width: max-content;
+      height: var(--button-height-sm, calc(2.25rem * var(--mantine-scale)));
+      padding-inline: var(--mantine-spacing-xs);
+      border: var(--button-bd, calc(0.0625rem * var(--mantine-scale)) solid transparent);
+      border-radius: var(--button-radius, var(--mantine-radius-default));
+      background: var(--mantine-color-blue-filled);
+      color: var(--mantine-color-white);
+      font-family: var(--mantine-font-family);
+      font-size: var(--button-fz, var(--mantine-font-size-sm));
+      font-weight: 600;
+      line-height: 1;
+      text-align: center;
+      user-select: none;
+      pointer-events: auto;
+      cursor: pointer;
+      transition-property: transform;
+      transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+      transition-duration: .15s;
+    }
+
+    .cct-model-spoiler-float-button * {
+      pointer-events: none;
+    }
+
+    .cct-model-spoiler-float-button:hover {
+      background: var(--mantine-color-blue-filled-hover);
+    }
+
+    .cct-model-spoiler-float-button:active {
+      transform: translateY(1px);
+    }
+
+    .cct-model-spoiler-float-button:disabled {
+      cursor: default;
+      opacity: 0.65;
+    }
+
+    .cct-model-spoiler-float-inner {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .cct-model-spoiler-float-icon {
+      display: block;
+      width: 20px;
+      height: 20px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      flex: 0 0 auto;
+    }
+
     .cct-select-value-wrapper {
       position: relative !important;
     }

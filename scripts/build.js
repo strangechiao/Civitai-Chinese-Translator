@@ -3,7 +3,7 @@ const path = require("path");
 
 const root = path.resolve(__dirname, "..");
 const outputFile = "civitai-chinese-translator.user.js";
-const version = "0.3.2";
+const version = "0.4.0";
 const homepageUrl = "https://github.com/strangechiao/Civitai-Chinese-Translator";
 const updateUrl = `${homepageUrl.replace("https://github.com", "https://raw.githubusercontent.com")}/main/${outputFile}`;
 const logoSvg = fs.readFileSync(path.join(root, "public", "logo.svg"), "utf8").trim();
@@ -15,6 +15,9 @@ const iconFiles = {
   originalDownload: "cloud-download.svg",
   external: "square-arrow-out-up-right.svg",
   question: "circle-question-mark.svg",
+  expand: "chevron-down.svg",
+  collapse: "chevron-up.svg",
+  quickCollapse: "square-chart-gantt.svg",
 };
 const icons = Object.fromEntries(
   Object.entries(iconFiles).map(([name, file]) => [name, fs.readFileSync(path.join(root, "public", "icons", file), "utf8").trim()]),
@@ -53,6 +56,7 @@ const sourceFiles = [
   "src/features/styles.js",
   "src/features/logo.js",
   "src/features/imageDownloader.js",
+  "src/features/modelSidebar.js",
   "src/locales/zh-CN/common.js",
   "src/locales/zh-CN/layout/header/index.js",
   "src/locales/zh-CN/layout/footer/index.js",

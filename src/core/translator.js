@@ -192,6 +192,7 @@
         timer = null;
         CCT.injectLogo && CCT.injectLogo();
         CCT.injectOriginalDownloadButtons && CCT.injectOriginalDownloadButtons(document.body);
+        CCT.injectModelSidebarToggle && CCT.injectModelSidebarToggle();
 
         const nextPage = CCT.getCurrentPage();
         if (nextPage !== currentPage) {
