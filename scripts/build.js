@@ -3,7 +3,7 @@ const path = require("path");
 
 const root = path.resolve(__dirname, "..");
 const outputFile = "civitai-chinese-translator.user.js";
-const version = "0.2.1";
+const version = "0.2.2";
 const homepageUrl = "https://github.com/strangechiao/Civitai-Chinese-Translator";
 const updateUrl = `${homepageUrl.replace("https://github.com", "https://raw.githubusercontent.com")}/main/${outputFile}`;
 const logoSvg = fs.readFileSync(path.join(root, "public", "logo.svg"), "utf8").trim();
