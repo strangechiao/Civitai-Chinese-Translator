@@ -3,7 +3,7 @@ const path = require("path");
 
 const root = path.resolve(__dirname, "..");
 const outputFile = "civitai-chinese-translator.user.js";
-const version = "0.2.2";
+const version = "0.3.0";
 const homepageUrl = "https://github.com/strangechiao/Civitai-Chinese-Translator";
 const updateUrl = `${homepageUrl.replace("https://github.com", "https://raw.githubusercontent.com")}/main/${outputFile}`;
 const logoSvg = fs.readFileSync(path.join(root, "public", "logo.svg"), "utf8").trim();
@@ -27,7 +27,10 @@ const header = `// ==UserScript==
 // @match        https://civitai.red/*
 // @match        https://www.civitai.red/*
 // @match        https://auth.civitai.com/*
-// @grant        none
+// @grant        GM_download
+// @connect      image.civitai.com
+// @connect      imagecache.civitai.com
+// @connect      image-b2.civitai.com
 // ==/UserScript==
 `;
 
@@ -38,6 +41,7 @@ const sourceFiles = [
   "src/core/registry.js",
   "src/features/styles.js",
   "src/features/logo.js",
+  "src/features/imageDownloader.js",
   "src/locales/zh-CN/common.js",
   "src/locales/zh-CN/layout/header/index.js",
   "src/locales/zh-CN/layout/footer/index.js",

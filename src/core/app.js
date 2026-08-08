@@ -24,6 +24,7 @@
 
     injectStyle();
     CCT.injectLogo && CCT.injectLogo();
+    CCT.injectOriginalDownloadButtons && CCT.injectOriginalDownloadButtons(document.body);
     CCT.createTranslator().start();
   }
 

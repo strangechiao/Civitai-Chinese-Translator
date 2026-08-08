@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         CCT 中文增强插件
 // @namespace    https://civitai.com/
-// @version      0.2.2
+// @version      0.3.0
 // @description  汉化（中文化、本地化、翻译）Civitai / Civitai.red 页面的 Tampermonkey 脚本。
 // @license      GPL-3.0-or-later
 // @homepageURL  https://github.com/strangechiao/Civitai-Chinese-Translator
@@ -16,7 +16,10 @@
 // @match        https://civitai.red/*
 // @match        https://www.civitai.red/*
 // @match        https://auth.civitai.com/*
-// @grant        none
+// @grant        GM_download
+// @connect      image.civitai.com
+// @connect      imagecache.civitai.com
+// @connect      image-b2.civitai.com
 // ==/UserScript==
 
 (function () {
@@ -24,7 +27,7 @@
 
   window.CCT = window.CCT || {};
   window.CCT.meta = window.CCT.meta || {};
-  window.CCT.meta.version = "0.2.2";
+  window.CCT.meta.version = "0.3.0";
   window.CCT.meta.updateUrl = "https://raw.githubusercontent.com/strangechiao/Civitai-Chinese-Translator/main/civitai-chinese-translator.user.js";
   window.CCT.meta.supportUrl = "https://github.com/strangechiao/Civitai-Chinese-Translator/issues";
   window.CCT.assets = window.CCT.assets || {};
@@ -294,11 +297,118 @@
       text-decoration: none;
     }
 
+    .cct-logo-menu-toggle {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      width: 100%;
+      padding: 6px 4px;
+      border: 0;
+      border-radius: var(--mantine-radius-sm, 4px);
+      background: transparent;
+      color: var(--mantine-color-gray-2, #e9ecef);
+      font-family: var(--mantine-font-family);
+      font-size: var(--mantine-font-size-sm);
+      line-height: var(--mantine-line-height-sm);
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .cct-logo-menu-toggle:hover {
+      background: var(--mantine-color-dark-5, #2c2e33);
+      color: var(--mantine-color-blue-4, #4dabf7);
+    }
+
     .cct-logo-menu-link-main {
       display: inline-flex;
       align-items: center;
       gap: 8px;
       min-width: 0;
+    }
+
+    .cct-logo-menu-toggle-right {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      flex: 0 0 auto;
+    }
+
+    .cct-logo-menu-help {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 16px;
+      height: 16px;
+      border: 1px solid currentColor;
+      border-radius: 999px;
+      color: var(--mantine-color-dimmed);
+      font-size: 11px;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .cct-logo-menu-help:hover {
+      color: var(--mantine-color-blue-4, #4dabf7);
+    }
+
+    .cct-logo-menu-switch {
+      position: relative;
+      display: inline-flex;
+      width: 32px;
+      height: 18px;
+      border-radius: 999px;
+      background: var(--mantine-color-dark-4, #373a40);
+      transition: background-color 120ms ease;
+    }
+
+    .cct-logo-menu-switch::after {
+      content: "";
+      position: absolute;
+      left: 2px;
+      top: 2px;
+      width: 14px;
+      height: 14px;
+      border-radius: 999px;
+      background: var(--mantine-color-gray-1, #f1f3f5);
+      transition: transform 120ms ease;
+    }
+
+    .cct-logo-menu-toggle[data-checked="true"] .cct-logo-menu-switch {
+      background: var(--mantine-color-blue-filled, #228be6);
+    }
+
+    .cct-logo-menu-toggle[data-checked="true"] .cct-logo-menu-switch::after {
+      transform: translateX(14px);
+    }
+
+    .cct-logo-menu-tooltip {
+      position: absolute;
+      left: calc(100% + 8px);
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 1;
+      display: none;
+      width: 260px;
+      padding: 8px 10px;
+      border: 1px solid var(--mantine-color-dark-4, #373a40);
+      border-radius: var(--mantine-radius-sm, 4px);
+      background: var(--mantine-color-dark-6, #25262b);
+      box-shadow: var(--mantine-shadow-md, 0 8px 24px rgba(0, 0, 0, 0.35));
+      color: var(--mantine-color-gray-2, #e9ecef);
+      font-size: var(--mantine-font-size-xs);
+      font-weight: 400;
+      line-height: 1.45;
+      white-space: normal;
+      pointer-events: none;
+      opacity: 0;
+    }
+
+    .cct-logo-menu-tooltip[data-open="true"] {
+      display: block;
+      opacity: 1;
     }
 
     .cct-logo-menu-icon,
@@ -324,6 +434,117 @@
       background: var(--mantine-color-dark-5, #2c2e33);
       color: var(--mantine-color-blue-4, #4dabf7);
       text-decoration: none;
+    }
+
+    .cct-original-download-button {
+      position: relative;
+      z-index: 6;
+      height: var(--size, 30px);
+      width: var(--size, 30px);
+      min-width: var(--size, 30px);
+      padding: 0;
+      border-width: medium;
+      border-style: none;
+      border-color: currentcolor;
+      border-image: none;
+      border: 0;
+      background: transparent;
+      color: var(--mantine-color-dark-6);
+      font-family: var(--mantine-font-family);
+      font-size: var(--mantine-font-size-xs);
+      font-weight: 700;
+      line-height: var(--mantine-line-height-xs);
+      cursor: pointer;
+    }
+
+    .cct-original-download-button:hover .cct-original-download-label,
+    .cct-original-download-button[data-state="loading"] .cct-original-download-label,
+    .cct-original-download-button[data-state="error"] .cct-original-download-label {
+      opacity: 1;
+      transform: scaleX(1);
+      pointer-events: auto;
+    }
+
+    .cct-original-download-button:hover .cct-original-download-hover,
+    .cct-original-download-button[data-state="loading"] .cct-original-download-hover,
+    .cct-original-download-button[data-state="error"] .cct-original-download-hover {
+      opacity: 1;
+    }
+
+    .cct-original-download-button[data-state="error"] {
+      color: var(--mantine-color-red-text, #ff6b6b);
+    }
+
+    .cct-original-download-label,
+    .cct-original-download-icon-wrap,
+    .cct-original-download-hover {
+      position: absolute;
+      top: 0;
+      height: var(--size, 30px);
+      border-radius: 999px;
+      background: white;
+      box-shadow: none;
+      color: currentColor;
+    }
+
+    .cct-original-download-label {
+      right: 0;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      flex-wrap: nowrap;
+      flex-shrink: 0;
+      min-width: calc(var(--size, 30px) * 3);
+      width: auto;
+      padding-left: var(--mantine-spacing-md);
+      padding-right: var(--size, 30px);
+      overflow: hidden;
+      opacity: 0;
+      transform: scaleX(0);
+      transform-origin: 90% center;
+      transition: transform 0.2s, opacity 0.2s;
+      pointer-events: none;
+      box-sizing: border-box;
+    }
+
+    .cct-original-download-text {
+      display: inline-block;
+      white-space: nowrap;
+    }
+
+    .cct-original-download-icon-wrap,
+    .cct-original-download-hover {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: var(--size, 30px);
+      background: white;
+      color: currentColor;
+    }
+
+    .cct-original-download-icon-wrap {
+      z-index: 1;
+      position: relative;
+      right: auto;
+    }
+
+    .cct-original-download-hover {
+      left: 0;
+      opacity: 0;
+      z-index: 2;
+      transition: opacity 0.2s;
+    }
+
+    .cct-original-download-icon {
+      display: block;
+      width: 16px;
+      height: 16px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2.6;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      flex: 0 0 auto;
     }
 
     .cct-select-value-wrapper {
@@ -425,9 +646,47 @@
       bug: '<svg class="cct-logo-menu-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6.5a4 4 0 0 1 8 0V8H8V6.5Z"></path><path d="M6 8h12v6a6 6 0 0 1-12 0V8Z"></path><path d="M4 13H2"></path><path d="M22 13h-2"></path><path d="M5 19l-2 2"></path><path d="M19 19l2 2"></path><path d="M5 7 3 5"></path><path d="M19 7l2-2"></path><path d="M12 8v12"></path></svg>',
       user: '<svg class="cct-logo-menu-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"></path><path d="M4 21a8 8 0 0 1 16 0"></path></svg>',
       external: '<svg class="cct-logo-menu-external" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 5h5v5"></path><path d="M19 5 10 14"></path><path d="M19 14v5H5V5h5"></path></svg>',
+      download: '<svg class="cct-logo-menu-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v10"></path><path d="M8 10l4 4 4-4"></path><path d="M4 20h16"></path></svg>',
     };
 
     return icons[name] || "";
+  }
+
+  function updateOriginalDownloadToggle(menu) {
+    const toggle = menu.querySelector(".cct-logo-menu-toggle");
+    if (!toggle) return;
+
+    const enabled = CCT.isOriginalDownloadEnabled && CCT.isOriginalDownloadEnabled();
+    toggle.dataset.checked = enabled ? "true" : "false";
+    toggle.setAttribute("aria-checked", String(enabled));
+  }
+
+  function bindTooltip(menu) {
+    const help = menu.querySelector(".cct-logo-menu-help");
+    const tooltip = menu.querySelector(".cct-logo-menu-tooltip");
+    if (!help || !tooltip) return;
+
+    let timer = null;
+
+    function showLater(event) {
+      event.stopPropagation();
+      window.clearTimeout(timer);
+      timer = window.setTimeout(() => {
+        tooltip.dataset.open = "true";
+      }, 500);
+    }
+
+    function hide(event) {
+      event.stopPropagation();
+      window.clearTimeout(timer);
+      tooltip.dataset.open = "false";
+    }
+
+    help.addEventListener("mouseenter", showLater);
+    help.addEventListener("focus", showLater);
+    help.addEventListener("mouseleave", hide);
+    help.addEventListener("blur", hide);
+    help.addEventListener("click", (event) => event.stopPropagation());
   }
 
   function compareVersions(a, b) {
@@ -585,8 +844,15 @@
         <span class="cct-logo-menu-version">v${(CCT.meta && CCT.meta.version) || "0.0.0"}</span>
       </div>
       <div class="cct-logo-menu-divider" aria-hidden="true"></div>
+      <button class="cct-logo-menu-toggle" type="button" role="switch" aria-checked="false">
+        <span class="cct-logo-menu-link-main">${iconSvg("download")}<span>下载原始文件</span><span class="cct-logo-menu-help" tabindex="0" aria-label="下载原始文件说明">?</span></span>
+        <span class="cct-logo-menu-toggle-right">
+          <span class="cct-logo-menu-switch" aria-hidden="true"></span>
+        </span>
+        <span class="cct-logo-menu-tooltip" role="tooltip">通常需要进入详情页才能保存原始图片或视频；在外层卡片直接右键保存，拿到的往往只是压缩缩略图。开启后，可在卡片上快速下载原始文件。</span>
+      </button>
       <a class="cct-logo-menu-link" href="https://github.com/strangechiao/Civitai-Chinese-Translator/issues" target="_blank" rel="noopener noreferrer" role="menuitem">
-        <span class="cct-logo-menu-link-main">${iconSvg("bug")}<span>报告错误</span></span>
+        <span class="cct-logo-menu-link-main">${iconSvg("bug")}<span>反馈问题</span></span>
         ${iconSvg("external")}
       </a>
       <a class="cct-logo-menu-link" href="https://civitai.com/user/qoob9006" target="_blank" rel="noopener noreferrer" role="menuitem">
@@ -608,6 +874,19 @@
       event.stopPropagation();
       checkForUpdates(root);
     });
+
+    menu.querySelector(".cct-logo-menu-toggle").addEventListener("click", (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+
+      if (!CCT.setOriginalDownloadEnabled || !CCT.isOriginalDownloadEnabled) return;
+
+      CCT.setOriginalDownloadEnabled(!CCT.isOriginalDownloadEnabled());
+      updateOriginalDownloadToggle(menu);
+    });
+
+    updateOriginalDownloadToggle(menu);
+    bindTooltip(menu);
 
     root._cctMenu = menu;
     root.append(button);
@@ -634,6 +913,176 @@
   }
 
   CCT.injectLogo = injectLogo;
+})();
+
+(function () {
+  "use strict";
+
+  const CCT = window.CCT;
+  const STORAGE_KEY = "CCT_ORIGINAL_DOWNLOAD_ENABLED";
+
+  function isOriginalDownloadEnabled() {
+    return localStorage.getItem(STORAGE_KEY) === "true";
+  }
+
+  function setOriginalDownloadEnabled(enabled) {
+    localStorage.setItem(STORAGE_KEY, enabled ? "true" : "false");
+    refreshOriginalDownloadButtons(document.body);
+  }
+
+  function iconSvg() {
+    return '<svg class="cct-original-download-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v10"></path><path d="M8 10l4 4 4-4"></path><path d="M4 20h16"></path></svg>';
+  }
+
+  function arrowSvg() {
+    return '<svg class="cct-original-download-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"></path><path d="M13 18l6-6"></path><path d="M13 6l6 6"></path></svg>';
+  }
+
+  function getOriginalMediaUrl(mediaUrl) {
+    if (!mediaUrl) return null;
+
+    let url;
+    try {
+      url = new URL(mediaUrl, location.origin);
+    } catch (error) {
+      return null;
+    }
+
+    if (!/(\.|-)civitai\.com$/i.test(url.hostname) && !/^image(?:cache|-b2)?\.civitai\.com$/i.test(url.hostname)) {
+      return null;
+    }
+
+    const parts = url.pathname.split("/");
+    if (parts.length < 5) return null;
+
+    parts[3] = "original=true";
+    url.pathname = parts.join("/");
+    url.search = "";
+    url.hash = "";
+
+    return url.toString();
+  }
+
+  function getCardMedia(card) {
+    return card.querySelector("img[src*='civitai.com'], video[src*='civitai.com'], video source[src*='civitai.com']");
+  }
+
+  function getImageId(card) {
+    const link = card.querySelector('a[href^="/images/"], a[href*="/images/"]');
+    const match = link && link.getAttribute("href").match(/\/images\/(\d+)/);
+    return match ? match[1] : null;
+  }
+
+  function getFileName(originalUrl, imageId) {
+    const url = new URL(originalUrl);
+    const extension = url.pathname.split(".").pop() || "jpg";
+    return `civitai-${imageId || "original"}.${extension}`;
+  }
+
+  function downloadFile(url, fileName) {
+    if (typeof GM_download === "function") {
+      GM_download({
+        url,
+        name: fileName,
+        saveAs: false,
+      });
+      return;
+    }
+
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = fileName;
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+  }
+
+  function setButtonState(button, text, state) {
+    button.querySelector(".cct-original-download-text").textContent = text;
+    button.dataset.state = state || "idle";
+  }
+
+  function getActionGroup(card) {
+    const moreButton = card.querySelector('button[aria-label="More options"]');
+    return moreButton && moreButton.parentElement;
+  }
+
+  function createButton(card) {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "cct-original-download-button";
+    button.title = "下载原始文件";
+    button.style.setProperty("--size", "30px");
+    button.innerHTML = `
+      <span class="cct-original-download-label"><span class="cct-original-download-text">下载</span></span>
+      <span class="cct-original-download-icon-wrap">${iconSvg()}</span>
+      <span class="cct-original-download-hover">${arrowSvg()}</span>
+    `;
+
+    button.addEventListener("click", (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+
+      const media = getCardMedia(card);
+      const mediaUrl = media && (media.currentSrc || media.src);
+      const originalUrl = getOriginalMediaUrl(mediaUrl);
+      if (!originalUrl) {
+        setButtonState(button, "获取失败", "error");
+        window.setTimeout(() => setButtonState(button, "下载", "idle"), 1600);
+        return;
+      }
+
+      const imageId = getImageId(card);
+      setButtonState(button, "开始下载", "loading");
+      downloadFile(originalUrl, getFileName(originalUrl, imageId));
+      window.setTimeout(() => setButtonState(button, "下载", "idle"), 1600);
+    });
+
+    return button;
+  }
+
+  function injectOriginalDownloadButtons(root) {
+    if (!isOriginalDownloadEnabled()) return;
+
+    const scope = root && root.querySelectorAll ? root : document;
+    const links = Array.from(scope.querySelectorAll('a[href^="/images/"], a[href*="/images/"]'));
+
+    links.forEach((link) => {
+      const card = link.parentElement;
+      if (!card || card.querySelector(".cct-original-download-button")) return;
+      if (!getCardMedia(card)) return;
+
+      const actionGroup = getActionGroup(card);
+      if (actionGroup) {
+        const button = createButton(card);
+        actionGroup.appendChild(button);
+        return;
+      }
+
+      card.appendChild(createButton(card));
+    });
+  }
+
+  function removeOriginalDownloadButtons(root) {
+    const scope = root && root.querySelectorAll ? root : document;
+    scope.querySelectorAll(".cct-original-download-button").forEach((button) => button.remove());
+  }
+
+  function refreshOriginalDownloadButtons(root) {
+    if (isOriginalDownloadEnabled()) {
+      injectOriginalDownloadButtons(root);
+      return;
+    }
+
+    removeOriginalDownloadButtons(root);
+  }
+
+  CCT.isOriginalDownloadEnabled = isOriginalDownloadEnabled;
+  CCT.setOriginalDownloadEnabled = setOriginalDownloadEnabled;
+  CCT.injectOriginalDownloadButtons = injectOriginalDownloadButtons;
+  CCT.refreshOriginalDownloadButtons = refreshOriginalDownloadButtons;
 })();
 
 (function () {
@@ -1010,6 +1459,7 @@
       timer = setTimeout(() => {
         timer = null;
         CCT.injectLogo && CCT.injectLogo();
+        CCT.injectOriginalDownloadButtons && CCT.injectOriginalDownloadButtons(document.body);
 
         const nextPage = CCT.getCurrentPage();
         if (nextPage !== currentPage) {
@@ -1082,6 +1532,7 @@
 
     injectStyle();
     CCT.injectLogo && CCT.injectLogo();
+    CCT.injectOriginalDownloadButtons && CCT.injectOriginalDownloadButtons(document.body);
     CCT.createTranslator().start();
   }
 

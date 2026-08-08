@@ -131,11 +131,118 @@
       text-decoration: none;
     }
 
+    .cct-logo-menu-toggle {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      width: 100%;
+      padding: 6px 4px;
+      border: 0;
+      border-radius: var(--mantine-radius-sm, 4px);
+      background: transparent;
+      color: var(--mantine-color-gray-2, #e9ecef);
+      font-family: var(--mantine-font-family);
+      font-size: var(--mantine-font-size-sm);
+      line-height: var(--mantine-line-height-sm);
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .cct-logo-menu-toggle:hover {
+      background: var(--mantine-color-dark-5, #2c2e33);
+      color: var(--mantine-color-blue-4, #4dabf7);
+    }
+
     .cct-logo-menu-link-main {
       display: inline-flex;
       align-items: center;
       gap: 8px;
       min-width: 0;
+    }
+
+    .cct-logo-menu-toggle-right {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      flex: 0 0 auto;
+    }
+
+    .cct-logo-menu-help {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 16px;
+      height: 16px;
+      border: 1px solid currentColor;
+      border-radius: 999px;
+      color: var(--mantine-color-dimmed);
+      font-size: 11px;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .cct-logo-menu-help:hover {
+      color: var(--mantine-color-blue-4, #4dabf7);
+    }
+
+    .cct-logo-menu-switch {
+      position: relative;
+      display: inline-flex;
+      width: 32px;
+      height: 18px;
+      border-radius: 999px;
+      background: var(--mantine-color-dark-4, #373a40);
+      transition: background-color 120ms ease;
+    }
+
+    .cct-logo-menu-switch::after {
+      content: "";
+      position: absolute;
+      left: 2px;
+      top: 2px;
+      width: 14px;
+      height: 14px;
+      border-radius: 999px;
+      background: var(--mantine-color-gray-1, #f1f3f5);
+      transition: transform 120ms ease;
+    }
+
+    .cct-logo-menu-toggle[data-checked="true"] .cct-logo-menu-switch {
+      background: var(--mantine-color-blue-filled, #228be6);
+    }
+
+    .cct-logo-menu-toggle[data-checked="true"] .cct-logo-menu-switch::after {
+      transform: translateX(14px);
+    }
+
+    .cct-logo-menu-tooltip {
+      position: absolute;
+      left: calc(100% + 8px);
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 1;
+      display: none;
+      width: 260px;
+      padding: 8px 10px;
+      border: 1px solid var(--mantine-color-dark-4, #373a40);
+      border-radius: var(--mantine-radius-sm, 4px);
+      background: var(--mantine-color-dark-6, #25262b);
+      box-shadow: var(--mantine-shadow-md, 0 8px 24px rgba(0, 0, 0, 0.35));
+      color: var(--mantine-color-gray-2, #e9ecef);
+      font-size: var(--mantine-font-size-xs);
+      font-weight: 400;
+      line-height: 1.45;
+      white-space: normal;
+      pointer-events: none;
+      opacity: 0;
+    }
+
+    .cct-logo-menu-tooltip[data-open="true"] {
+      display: block;
+      opacity: 1;
     }
 
     .cct-logo-menu-icon,
@@ -161,6 +268,117 @@
       background: var(--mantine-color-dark-5, #2c2e33);
       color: var(--mantine-color-blue-4, #4dabf7);
       text-decoration: none;
+    }
+
+    .cct-original-download-button {
+      position: relative;
+      z-index: 6;
+      height: var(--size, 30px);
+      width: var(--size, 30px);
+      min-width: var(--size, 30px);
+      padding: 0;
+      border-width: medium;
+      border-style: none;
+      border-color: currentcolor;
+      border-image: none;
+      border: 0;
+      background: transparent;
+      color: var(--mantine-color-dark-6);
+      font-family: var(--mantine-font-family);
+      font-size: var(--mantine-font-size-xs);
+      font-weight: 700;
+      line-height: var(--mantine-line-height-xs);
+      cursor: pointer;
+    }
+
+    .cct-original-download-button:hover .cct-original-download-label,
+    .cct-original-download-button[data-state="loading"] .cct-original-download-label,
+    .cct-original-download-button[data-state="error"] .cct-original-download-label {
+      opacity: 1;
+      transform: scaleX(1);
+      pointer-events: auto;
+    }
+
+    .cct-original-download-button:hover .cct-original-download-hover,
+    .cct-original-download-button[data-state="loading"] .cct-original-download-hover,
+    .cct-original-download-button[data-state="error"] .cct-original-download-hover {
+      opacity: 1;
+    }
+
+    .cct-original-download-button[data-state="error"] {
+      color: var(--mantine-color-red-text, #ff6b6b);
+    }
+
+    .cct-original-download-label,
+    .cct-original-download-icon-wrap,
+    .cct-original-download-hover {
+      position: absolute;
+      top: 0;
+      height: var(--size, 30px);
+      border-radius: 999px;
+      background: white;
+      box-shadow: none;
+      color: currentColor;
+    }
+
+    .cct-original-download-label {
+      right: 0;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      flex-wrap: nowrap;
+      flex-shrink: 0;
+      min-width: calc(var(--size, 30px) * 3);
+      width: auto;
+      padding-left: var(--mantine-spacing-md);
+      padding-right: var(--size, 30px);
+      overflow: hidden;
+      opacity: 0;
+      transform: scaleX(0);
+      transform-origin: 90% center;
+      transition: transform 0.2s, opacity 0.2s;
+      pointer-events: none;
+      box-sizing: border-box;
+    }
+
+    .cct-original-download-text {
+      display: inline-block;
+      white-space: nowrap;
+    }
+
+    .cct-original-download-icon-wrap,
+    .cct-original-download-hover {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: var(--size, 30px);
+      background: white;
+      color: currentColor;
+    }
+
+    .cct-original-download-icon-wrap {
+      z-index: 1;
+      position: relative;
+      right: auto;
+    }
+
+    .cct-original-download-hover {
+      left: 0;
+      opacity: 0;
+      z-index: 2;
+      transition: opacity 0.2s;
+    }
+
+    .cct-original-download-icon {
+      display: block;
+      width: 16px;
+      height: 16px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2.6;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      flex: 0 0 auto;
     }
 
     .cct-select-value-wrapper {

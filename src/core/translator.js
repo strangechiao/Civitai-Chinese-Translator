@@ -191,6 +191,7 @@
       timer = setTimeout(() => {
         timer = null;
         CCT.injectLogo && CCT.injectLogo();
+        CCT.injectOriginalDownloadButtons && CCT.injectOriginalDownloadButtons(document.body);
 
         const nextPage = CCT.getCurrentPage();
         if (nextPage !== currentPage) {

@@ -66,9 +66,47 @@
       bug: '<svg class="cct-logo-menu-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6.5a4 4 0 0 1 8 0V8H8V6.5Z"></path><path d="M6 8h12v6a6 6 0 0 1-12 0V8Z"></path><path d="M4 13H2"></path><path d="M22 13h-2"></path><path d="M5 19l-2 2"></path><path d="M19 19l2 2"></path><path d="M5 7 3 5"></path><path d="M19 7l2-2"></path><path d="M12 8v12"></path></svg>',
       user: '<svg class="cct-logo-menu-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"></path><path d="M4 21a8 8 0 0 1 16 0"></path></svg>',
       external: '<svg class="cct-logo-menu-external" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 5h5v5"></path><path d="M19 5 10 14"></path><path d="M19 14v5H5V5h5"></path></svg>',
+      download: '<svg class="cct-logo-menu-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v10"></path><path d="M8 10l4 4 4-4"></path><path d="M4 20h16"></path></svg>',
     };
 
     return icons[name] || "";
+  }
+
+  function updateOriginalDownloadToggle(menu) {
+    const toggle = menu.querySelector(".cct-logo-menu-toggle");
+    if (!toggle) return;
+
+    const enabled = CCT.isOriginalDownloadEnabled && CCT.isOriginalDownloadEnabled();
+    toggle.dataset.checked = enabled ? "true" : "false";
+    toggle.setAttribute("aria-checked", String(enabled));
+  }
+
+  function bindTooltip(menu) {
+    const help = menu.querySelector(".cct-logo-menu-help");
+    const tooltip = menu.querySelector(".cct-logo-menu-tooltip");
+    if (!help || !tooltip) return;
+
+    let timer = null;
+
+    function showLater(event) {
+      event.stopPropagation();
+      window.clearTimeout(timer);
+      timer = window.setTimeout(() => {
+        tooltip.dataset.open = "true";
+      }, 500);
+    }
+
+    function hide(event) {
+      event.stopPropagation();
+      window.clearTimeout(timer);
+      tooltip.dataset.open = "false";
+    }
+
+    help.addEventListener("mouseenter", showLater);
+    help.addEventListener("focus", showLater);
+    help.addEventListener("mouseleave", hide);
+    help.addEventListener("blur", hide);
+    help.addEventListener("click", (event) => event.stopPropagation());
   }
 
   function compareVersions(a, b) {
@@ -226,8 +264,15 @@
         <span class="cct-logo-menu-version">v${(CCT.meta && CCT.meta.version) || "0.0.0"}</span>
       </div>
       <div class="cct-logo-menu-divider" aria-hidden="true"></div>
+      <button class="cct-logo-menu-toggle" type="button" role="switch" aria-checked="false">
+        <span class="cct-logo-menu-link-main">${iconSvg("download")}<span>下载原始文件</span><span class="cct-logo-menu-help" tabindex="0" aria-label="下载原始文件说明">?</span></span>
+        <span class="cct-logo-menu-toggle-right">
+          <span class="cct-logo-menu-switch" aria-hidden="true"></span>
+        </span>
+        <span class="cct-logo-menu-tooltip" role="tooltip">通常需要进入详情页才能保存原始图片或视频；在外层卡片直接右键保存，拿到的往往只是压缩缩略图。开启后，可在卡片上快速下载原始文件。</span>
+      </button>
       <a class="cct-logo-menu-link" href="https://github.com/strangechiao/Civitai-Chinese-Translator/issues" target="_blank" rel="noopener noreferrer" role="menuitem">
-        <span class="cct-logo-menu-link-main">${iconSvg("bug")}<span>报告错误</span></span>
+        <span class="cct-logo-menu-link-main">${iconSvg("bug")}<span>反馈问题</span></span>
         ${iconSvg("external")}
       </a>
       <a class="cct-logo-menu-link" href="https://civitai.com/user/qoob9006" target="_blank" rel="noopener noreferrer" role="menuitem">
@@ -249,6 +294,19 @@
       event.stopPropagation();
       checkForUpdates(root);
     });
+
+    menu.querySelector(".cct-logo-menu-toggle").addEventListener("click", (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+
+      if (!CCT.setOriginalDownloadEnabled || !CCT.isOriginalDownloadEnabled) return;
+
+      CCT.setOriginalDownloadEnabled(!CCT.isOriginalDownloadEnabled());
+      updateOriginalDownloadToggle(menu);
+    });
+
+    updateOriginalDownloadToggle(menu);
+    bindTooltip(menu);
 
     root._cctMenu = menu;
     root.append(button);
