@@ -30,10 +30,6 @@
       label: "联系我",
       url: "https://civitai.com/user/qoob9006",
     },
-    {
-      label: "特别鸣谢：@catlover1937",
-      url: "https://civitai.red/user/catlover1937",
-    },
   ];
 
   function syncLogoButtonSize(button, createButton) {

@@ -12,6 +12,26 @@
       pattern: /^oh,\s*no!\s*you are still seeing this\.\.\.\s*please check your subscription status and try again\.$/i,
       replace: "糟糕，您仍然能看到此内容…请检查您的订阅状态并重试。",
     },
+    {
+      pattern: /^be the first to leave a comment(?:\.{3}|…)$/i,
+      replace: "成为第一个评论的人...",
+    },
+    {
+      pattern: /^(\d+)\s+variants?\s+available$/i,
+      replace: "$1 个可用变体",
+    },
+    {
+      pattern: /^(\d+)\s+items?$/i,
+      replace: "$1 个项目",
+    },
+    {
+      pattern: /^(\d+)\s*\/\s*(\d+)\s+images?$/i,
+      replace: "$1 / $2 张图片",
+    },
+    {
+      pattern: /^(\d+)% of reviews are positive$/i,
+      replace: "$1% 的评价为好评",
+    },
 
     // 月份年份
     {

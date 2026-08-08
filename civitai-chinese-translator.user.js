@@ -365,6 +365,7 @@
     "edit avatar": "编辑头像",
     "drop image here, should not exceed 50 mb": "将图片拖放到这里，大小不得超过 50 MB",
     "showcase stats": "展示统计",
+    uploaded: "上传于",
     uploads: "上传",
     generations: "生成记录",
     "avatar decoration": "头像装饰",
@@ -556,6 +557,87 @@
     edit: "编辑",
     "image to collection": "将图片添加到收藏集",
 
+    // 图片详情
+    process: "处理流程",
+    "generation data": "生成数据",
+    "resources used": "使用的资源",
+    "copy all": "复制全部",
+    prompt: "提示词",
+    "other metadata": "其他元数据",
+    discussion: "讨论",
+    "be the first to leave a comment...": "成为第一个评论的人...",
+    "be the first to leave a comment…": "成为第一个评论的人...",
+    "cannot be empty": "不能为空",
+    comment: "评论",
+
+    // 模型详情
+    "updated:": "更新于：",
+    updated: "已更新",
+    like: "喜欢",
+    "add to vault": "添加到保险库",
+    "stop getting notifications for this model": "停止接收此模型的通知",
+    "add to collection": "添加到收藏集",
+    "bid to feature this model": "竞价推荐此模型",
+    download: "下载",
+    "verified:": "已验证：",
+    verified: "已验证",
+    "download selected": "下载所选",
+    follow: "关注",
+    unfollow: "取消关注",
+    items: "项目",
+    model: "模型",
+    details: "详情",
+    stats: "统计",
+    "generation license fee": "生成许可费",
+    image: "图片",
+    "how to use this": "如何使用",
+    "the creator has issued a license fee. this amount is added on top of the standard generation cost for each image generated on civitai with this resource.":
+      "创作者设置了许可费。使用此资源在 Civitai 上生成每张图片时，该金额会在标准生成费用之外额外收取。",
+    reviews: "评价",
+    "very positive": "特别好评",
+    hash: "哈希",
+    tensors: "张量",
+    shape: "形状",
+    precision: "精度",
+    min: "最低",
+    rec: "推荐",
+    "rough lower bound to run this model, estimated from its tensor sizes and precision plus typical runtime overhead. at this level weights are streamed onto the gpu as needed, so it runs but more slowly. actual usage varies by the tool and settings you use.":
+      "运行此模型的粗略最低要求，根据张量大小、精度和典型运行时开销估算。在这个级别下，权重会按需流式加载到 GPU，因此可以运行但速度较慢。实际占用会因你使用的工具和设置而异。",
+    "rough target for smooth performance, estimated from its tensor sizes and precision plus typical runtime overhead. at this level the full set of weights can stay resident on the gpu at once. actual usage varies by the tool and settings you use.":
+      "实现流畅性能的粗略目标，根据张量大小、精度和典型运行时开销估算。在这个级别下，完整权重可以一次性常驻 GPU。实际占用会因你使用的工具和设置而异。",
+    air: "AIR 标识",
+    "what is an air?": "什么是 AIR？",
+    "air stands for artificial intelligence resource. it is a comprehensive unique identifier, and is composed of the following parts:":
+      "AIR 是 Artificial Intelligence Resource（人工智能资源）的缩写。它是一个完整的唯一标识符，由以下部分组成：",
+    ecosystem: "生态系统",
+    "the resource ecosystem": "资源生态系统",
+    "ecosystem the resource ecosystem": "ecosystem：资源生态系统",
+    type: "类型",
+    "the resource type": "资源类型",
+    "type the resource type": "type：资源类型",
+    source: "来源",
+    "the resource source": "资源来源",
+    "source the resource source": "source：资源来源",
+    id: "ID",
+    "the resource id at the source": "资源在来源处的 ID",
+    "id the resource id at the source": "id：资源在来源处的 ID",
+    "for brevity we have opted not to show the full air here. to learn more about airs,":
+      "为简洁起见，这里不会显示完整 AIR。要了解更多 AIR 信息，",
+    "for brevity we have opted not to show the full air here. to learn more about airs, check out the specification":
+      "为简洁起见，这里不会显示完整 AIR。要了解更多 AIR 信息，请查看规范。",
+    "check out the specification": "查看规范",
+    "license:": "许可：",
+    license: "许可",
+    "suggested resources": "推荐资源",
+    "these are resources suggested by the creator of this model. they may be related to this model or created by the same user.":
+      "这些是此模型创作者推荐的资源。它们可能与此模型相关，或由同一用户创建。",
+    "add comment": "添加评论",
+    "load more": "加载更多",
+    gallery: "图库",
+    "add post": "添加帖子",
+    "add review": "添加评价",
+    "what did you think of this resource?": "你觉得这个资源怎么样？",
+
     "most followers": "最多关注者",
     "most bookmarks": "收藏最多",
     "most reactions": "互动最多",
@@ -608,6 +690,26 @@
     {
       pattern: /^oh,\s*no!\s*you are still seeing this\.\.\.\s*please check your subscription status and try again\.$/i,
       replace: "糟糕，您仍然能看到此内容…请检查您的订阅状态并重试。",
+    },
+    {
+      pattern: /^be the first to leave a comment(?:\.{3}|…)$/i,
+      replace: "成为第一个评论的人...",
+    },
+    {
+      pattern: /^(\d+)\s+variants?\s+available$/i,
+      replace: "$1 个可用变体",
+    },
+    {
+      pattern: /^(\d+)\s+items?$/i,
+      replace: "$1 个项目",
+    },
+    {
+      pattern: /^(\d+)\s*\/\s*(\d+)\s+images?$/i,
+      replace: "$1 / $2 张图片",
+    },
+    {
+      pattern: /^(\d+)% of reviews are positive$/i,
+      replace: "$1% 的评价为好评",
     },
 
     // 月份年份
@@ -1280,10 +1382,6 @@
     {
       label: "联系我",
       url: "https://civitai.com/user/qoob9006",
-    },
-    {
-      label: "特别鸣谢：@catlover1937",
-      url: "https://civitai.red/user/catlover1937",
     },
   ];
 
