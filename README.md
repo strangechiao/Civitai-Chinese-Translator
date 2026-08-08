@@ -24,7 +24,7 @@
 
 ### 简介
 
-此项目是我的 Vite Coding 项目，主要是用来解决 Civitai 没有中文的痛点，Edge、Chrome、Foxfire 等浏览器自带的翻译功能都是人机翻译水平，甚至有些不该翻译的也都翻译了，包括“沉浸式翻译”浏览器扩展，也有收费、翻译边界、购买API等问题，所以 CCT 中文增强插件诞生了。
+此项目是我的 Vite Coding 项目，主要是用来解决 Civitai 没有中文的痛点，Edge、Chrome 等浏览器自带的翻译功能都是人机翻译水平，甚至有些不该翻译的也都翻译了，包括“沉浸式翻译”浏览器扩展，也有收费、翻译边界、购买API等问题，所以 CCT 中文增强插件诞生了。
 
 ### 主要功能
 
@@ -44,5 +44,11 @@
      <img src="./public/images/截图2.png">
 
 2. 配置浏览器
-   - Chromium 内核的浏览器需要打开“**开发者模式**”和“**允许运行用户脚本**”（如Chrome、Edge）[查看教程](https://www.tampermonkey.net/faq.php?q=Q209#Q209)。
-   -
+   - Chromium 内核的浏览器需要打开“**允许运行用户脚本**”（如Chrome、Edge等）[查看教程](https://www.tampermonkey.net/faq.php?q=Q209#Q209)。
+     <img src="./public/images/截图3.png">
+
+3. 安装脚本
+   - 点击 [CCT 中文增强插件](https://raw.githubusercontent.com/strangechiao/Civitai-Chinese-Translator/main/civitai-chinese-translator.user.js) 安装用户脚本。
+
+   - 安装后点击 Tampermonkey 图标，在下拉菜单中确认 CCT 中文增强插件已开启（正常情况下默认开启）。
+   - 打开 Civitai 刷新网页或重启浏览器后，即可看到中文界面了。
