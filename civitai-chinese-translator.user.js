@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         CCT 中文增强插件
 // @namespace    https://civitai.com/
-// @version      0.5.1
-// @description  为 Civitai.com 提供汉化、中文化、本地化与界面翻译，并加入原始图片/视频快捷下载、模型介绍快捷展开/折叠、模型版本快速切换等增强功能的 Tampermonkey 用户脚本。
+// @version      0.5.2
+// @description  为 Civitai.com 与 Civitai.red 提供汉化、中文化、本地化与界面翻译，并加入原始图片/视频快捷下载、模型介绍快捷展开/折叠、模型版本快速切换等增强功能的 Tampermonkey 用户脚本。
 // @license      GPL-3.0-or-later
 // @homepageURL  https://github.com/strangechiao/Civitai-Chinese-Translator
 // @supportURL   https://github.com/strangechiao/Civitai-Chinese-Translator/issues
@@ -13,6 +13,8 @@
 // @icon64       data:image/png;base64,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
 // @match        https://civitai.com/*
 // @match        https://www.civitai.com/*
+// @match        https://civitai.red/*
+// @match        https://www.civitai.red/*
 // @match        https://auth.civitai.com/*
 // @grant        GM_download
 // @connect      image.civitai.com
@@ -25,8 +27,7 @@
 
   window.CCT = window.CCT || {};
   window.CCT.meta = window.CCT.meta || {};
-  window.CCT.meta.version = "0.5.1";
-  window.CCT.meta.edition = "standard";
+  window.CCT.meta.version = "0.5.2";
   window.CCT.meta.updateUrl = "https://raw.githubusercontent.com/strangechiao/Civitai-Chinese-Translator/main/civitai-chinese-translator.user.js";
   window.CCT.meta.supportUrl = "https://github.com/strangechiao/Civitai-Chinese-Translator/issues";
   window.CCT.assets = window.CCT.assets || {};
@@ -843,7 +844,7 @@
   let menuListenersReady = false;
 
   function getProductName() {
-    return CCT.meta && CCT.meta.edition === "r18" ? "CCT 中文增强插件 RED" : "CCT 中文增强插件";
+    return "CCT 中文增强插件";
   }
 
   function getNavbarLogoGroup() {
@@ -2110,6 +2111,135 @@
         "View Collection": "查看收藏集",
         "Top Creators": "顶尖创作者",
         "View more": "查看更多",
+      },
+    },
+  });
+})();
+
+(function () {
+  "use strict";
+
+  window.CCT.registerRules({
+    type: "page",
+    name: "userProfile",
+    component: "index",
+    rules: {
+      static: {
+        // 侧边栏
+        "Customize profile": "自定义个人资料",
+        FOLLOWERS: "关注者",
+        LIKES: "获赞",
+        DOWNLOADS: "下载量",
+        BADGES: "徽章",
+
+        // 自定义个人资料窗口
+        Profile: "个人资料",
+        "Save Changes": "保存更改",
+        "Edit avatar": "编辑头像",
+        "Drop image here, should not exceed 50 MB": "将图片拖到这里，大小不得超过 50 MB",
+        "Showcase Stats": "展示统计数据",
+        Followers: "关注者",
+        Likes: "获赞",
+        Uploads: "上传数",
+        Downloads: "下载量",
+        Generations: "生成数",
+        Reactions: "互动数",
+        "Avatar decoration": "头像装饰",
+        "You don't have any avatar decorations yet": "你还没有任何头像装饰",
+        "Creator Card Backgrounds": "创作者卡片背景",
+        "You don’t have any profile backgrounds yet": "你还没有个人资料背景",
+        "Show badges on profile": "在个人资料中显示徽章",
+        "Featured Badge": "精选徽章",
+        "Highlighted badges": "高亮徽章",
+        "Pin badges to the top of your profile's badge list.": "将徽章置顶显示在个人资料的徽章列表中。",
+        "Hidden badges": "隐藏的徽章",
+        "Hidden badges won't be shown on your profile.": "隐藏的徽章不会显示在个人资料中。",
+        "Nameplate Style": "用户名样式",
+        Nameplates: "用户名样式",
+        "Nameplates change the appearance of your username. They can include special colors or effects. You can earn nameplates by being a subscriber or earning trophies on the site.":
+          "用户名样式会改变用户名的外观，可包含特殊颜色或效果。你可以通过订阅会员或在站内赢得奖杯来获取用户名样式。",
+        "Select style": "选择样式",
+        "Your earned nameplate styles will apppear here": "你已获得的用户名样式将显示在这里",
+        "Showcase Leaderboard": "展示排行榜",
+        "Choose which leaderboard badge to display on your profile card": "选择要在个人资料卡片上显示的排行榜徽章",
+        "Select a leaderboard": "选择排行榜",
+
+        Creators: "创作者",
+        "Creators (90 days)": "创作者（90 天）",
+        "Creators (mature)": "创作者（成人）",
+        "New creators": "新晋创作者",
+        "Daily challenges": "每日挑战",
+        "Buzz daddies": "Buzz 大亨",
+        "Top generators": "顶尖生成者",
+        "Top trainers": "顶尖训练师",
+        "Cosmetic collectors": "装饰品收藏家",
+        "Creators (z-image)": "创作者（z-image）",
+        "Creators (flux)": "创作者（flux）",
+        "Creators (sdxl)": "创作者（sdxl）",
+        "Creators (pony)": "创作者（pony）",
+        "Creators (krea 2)": "创作者（krea 2）",
+        "Creators (anima)": "创作者（anima）",
+        Guardians: "守护者",
+        Writers: "作家",
+        Comedians: "喜剧达人",
+        "Master generators": "生成大师",
+        "Master generators (mature)": "生成大师（成人）",
+        "New master generators": "新晋生成大师",
+        "Base model creators": "基础模型创作者",
+        "Style creators": "风格创作者",
+        "Clothing creators": "服装创作者",
+        "Character creators": "角色创作者",
+        "Architecture creators": "建筑创作者",
+        "Background creators": "背景创作者",
+        "Poses creators": "姿势创作者",
+        "Concept creators": "概念创作者",
+        "Vehicle creators": "载具创作者",
+        "Asset creators": "素材创作者",
+        "Tool creators": "工具创作者",
+        "Knights of new order": "新作骑士团",
+
+        Links: "链接",
+        "Social Links": "社交链接",
+        "Add new link": "添加新链接",
+        "Provided URL appears to be invalid": "提供的网址似乎无效",
+        "Sponsorship Links": "赞助链接",
+        "Profile Page": "个人资料页面",
+        "Cover Image": "封面图片",
+        "Suggested resolution: 1600x400px": "建议分辨率：1600×400 像素",
+        Announcement: "公告",
+        "Have something you want to share with people visiting your profile? Put it here and we'll display it at the top of your page":
+          "有想和个人资料访客分享的内容吗？写在这里，我们会将其显示在页面顶部。",
+        Bio: "个人简介",
+        Location: "所在地",
+        "Page sections": "页面版块",
+        "Drag diferent sections on your profile in order of your preference": "按照你的偏好拖动个人资料中的不同版块进行排序",
+        Showcase: "展示",
+        "Images overview": "图片概览",
+        "Models overview": "模型概览",
+        "Recent reviews": "最近评价",
+        "Showcase Items": "展示项目",
+        "Select up to 32 items to showcase on your profile. You do this via the \"Add to showcase\" button on models and images":
+          "最多选择 32 个项目展示在个人资料中。你可以通过模型和图片上的“添加到展示”按钮进行选择。",
+        "You have not selected any items to showcase.": "你还没有选择任何展示项目。",
+
+        // 导航栏
+        Overview: "概览",
+        Models: "模型",
+        Posts: "帖子",
+        Images: "图片",
+        Videos: "视频",
+        "3D Models": "三维模型",
+        Articles: "文章",
+        Comics: "漫画",
+        Collections: "收藏集",
+        Shop: "商店",
+
+        // 内容页
+        "Most popular models": "最受欢迎的模型",
+        "View all models": "查看所有模型",
+        "Most popular articles": "最受欢迎的文章",
+        "View all Articles": "查看所有文章",
+        "View all images": "查看所有图片",
       },
     },
   });

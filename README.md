@@ -66,9 +66,7 @@
      <img src="./public/images/截图3.png">
 
 3. 安装脚本
-   - Civitai 普通版：点击 [CCT 中文增强插件](https://raw.githubusercontent.com/strangechiao/Civitai-Chinese-Translator/main/civitai-chinese-translator.user.js) 安装用户脚本。
-
-   - Civitai.red 版：点击 [CCT 中文增强插件 RED](https://raw.githubusercontent.com/strangechiao/Civitai-Chinese-Translator/main/civitai-chinese-translator-r18.user.js) 安装用户脚本。
+   - 点击 [CCT 中文增强插件](https://raw.githubusercontent.com/strangechiao/Civitai-Chinese-Translator/main/civitai-chinese-translator.user.js) 安装用户脚本，同时支持 Civitai.com 与 Civitai.red。
 
    - 安装后点击 Tampermonkey 图标，在下拉菜单中确认 CCT 中文增强插件已开启（正常情况下默认开启）。
    - 打开 Civitai 刷新网页或重启浏览器后，即可看到中文界面了。

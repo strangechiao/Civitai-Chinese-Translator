@@ -6,7 +6,7 @@
   let menuListenersReady = false;
 
   function getProductName() {
-    return CCT.meta && CCT.meta.edition === "r18" ? "CCT 中文增强插件 RED" : "CCT 中文增强插件";
+    return "CCT 中文增强插件";
   }
 
   function getNavbarLogoGroup() {
