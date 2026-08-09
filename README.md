@@ -1,62 +1,117 @@
+<p align="center"><img src="public/logo.svg" alt="CCT 中文增强插件" height="100"></p>
+
+<h1 align="center">CCT 中文增强插件</h1>
+
 <div align="center">
+  <a href="">
+    <img src="https://img.shields.io/badge/支持-Civitai.com-1971C2?style=for-the-badge&labelColor=3C3C3C" alt="支持 Civitai.com 和 Civitai.red">
+  </a>
 
-<img src="./public/logo.svg" width="200">
+  <a href="">
+    <img src="https://img.shields.io/badge/支持-Civitai.red-E03131?style=for-the-badge&labelColor=3C3C3C" alt="支持 Civitai.com 和 Civitai.red">
+  </a>
 
-<h1>CCT 中文增强插件</h1>
-
-<p>
-为 Civitai.com 与 Civitai.red 提供汉化、中文化、本地化与界面翻译，并加入原始图片/视频快捷下载、模型介绍快捷展开/折叠、模型版本快速切换等增强功能的 Tampermonkey 用户脚本。
-</p>
-
-<a href="https://greasyfork.org/zh-CN/scripts/590454-cct-%E4%B8%AD%E6%96%87%E5%A2%9E%E5%BC%BA%E6%8F%92%E4%BB%B6">
-<img src="https://img.shields.io/greasyfork/v/xxxx">
+  <a href="">
+    <img src="https://img.shields.io/badge/类型-Tampermonkey_脚本-2F9E44?style=for-the-badge" alt="Tampermonkey 用户脚本">
 </a>
-
-<a href="LICENSE">
-<img src="https://img.shields.io/github/license/strangechiao/civitai-chinese-translator">
-</a>
-
----
-
-<p> 持续更新，逐步完善中… </p>
 
 </div>
 
----
+<br>
 
-### 简介
+<div align="center">
+  <strong>[界面中文化] [原始文件快捷下载] [模型介绍折叠] [模型版本整理] [CCT 功能菜单]</strong><br>
+  <br>
+  为 Civitai.com 与 Civitai.red 提供界面汉化、中文本地化及多项实用增强功能，包括原始图片与视频快捷下载、模型介绍快速展开与折叠、模型版本快速查看与切换等。<br>
 
-此项目是我的 Vibe Coding 项目，主要是用来解决 Civitai 没有中文的痛点，Edge、Chrome 等浏览器自带的翻译功能都是人机翻译水平，甚至有些不该翻译的也都翻译了，包括“沉浸式翻译”浏览器扩展，也有收费、翻译边界、购买API等问题，所以 CCT 中文增强插件诞生了。
+  <sub>
+  适用于：
+  <a href="https://www.microsoft.com/edge/download" target="_blank">Microsoft Edge</a>、
+  <a href="https://www.google.com/chrome/" target="_blank">Google Chrome</a>、
+  <a href="https://www.mozilla.org/firefox/new/" target="_blank">Mozilla Firefox</a>、
+  <a href="https://www.apple.com/safari/" target="_blank">Apple Safari</a>
+  和
+  <a href="https://www.opera.com/download" target="_blank">Opera</a>
+  浏览器
+</sub>
+</div>
 
-### 主要功能
+<br>
 
-- 对 Civitai 网站界面进行中文本地化翻译（不翻译模型名称、模型类型等专有名词）
+<div align="center">
+  <!-- 开源许可 -->
+  <a href="LICENSE">
+    <img src="https://img.shields.io/github/license/strangechiao/Civitai-Chinese-Translator?label=%E5%BC%80%E6%BA%90%E8%AE%B8%E5%8F%AF" alt="开源许可">
+  </a>
 
-- 在网站 LOGO 右侧放置了一个菜单按钮，可以快速反馈问题、更新脚本等。
+  <!-- 当前版本 -->
+  <a href="https://greasyfork.org/scripts/590454">
+    <img src="https://img.shields.io/badge/dynamic/regex?url=https%3A%2F%2Fraw.githubusercontent.com%2Fstrangechiao%2FCivitai-Chinese-Translator%2Fmain%2Fcivitai-chinese-translator.user.js&search=%40version%5Cs%2B%28%5B%5E%5Cs%5D%2B%29&replace=%241&label=%E5%BD%93%E5%89%8D%E7%89%88%E6%9C%AC&color=2F9E44" alt="当前版本">
+  </a>
 
-- 快捷下载原始图片/视频，在不进入详情页的情况下，直接点击下载图标就可以下载原图/原视频。（功能默认关闭）
+  <!-- 总安装量 -->
+  <a href="https://greasyfork.org/scripts/590454">
+    <img src="https://img.shields.io/greasyfork/dt/590454?label=%E6%80%BB%E5%AE%89%E8%A3%85%E9%87%8F" alt="总安装量">
+  </a>
 
-- 快捷展开/折叠模型介绍。部分模型的介绍和更新日志很长，展开后如果想继续查看下方的示例图或评论，往往需要滚动很久才能回到原按钮位置再折叠。开启后，页面右下角会显示快捷按钮，用来快速展开或折叠介绍内容。（功能默认开启）
+  <!-- GitHub 星标 -->
+  <a href="https://github.com/strangechiao/Civitai-Chinese-Translator/stargazers">
+    <img src="https://img.shields.io/github/stars/strangechiao/Civitai-Chinese-Translator?label=GitHub%20%E6%98%9F%E6%A0%87&logo=github" alt="GitHub 星标">
+  </a>
 
-- 模型版本快速切换。将模型版本选项卡列表改为侧边栏下拉菜单，方便快速查看和切换不同版本，解决部分模型版本过多、切换操作不便的问题。（功能默认开启）
+  <!-- 待处理问题 -->
+  <a href="https://github.com/strangechiao/Civitai-Chinese-Translator/issues">
+    <img src="https://img.shields.io/github/issues/strangechiao/Civitai-Chinese-Translator?label=%E5%BE%85%E5%A4%84%E7%90%86%E9%97%AE%E9%A2%98" alt="待处理问题">
+  </a>
 
-### 安装指南
+  <!-- 最后更新 -->
+  <a href="https://github.com/strangechiao/Civitai-Chinese-Translator/commits/main">
+    <img src="https://img.shields.io/github/last-commit/strangechiao/Civitai-Chinese-Translator?label=%E6%9C%80%E5%90%8E%E6%9B%B4%E6%96%B0" alt="最后更新">
+  </a>
+</div>
 
-1. 安装浏览器扩展（以 Chrome 为例）：
-   - 前往 [Tampermonkey 官网](https://www.tampermonkey.net/) 下载扩展。
+<div align="center">
+  <h3>
+    <a href="https://github.com/strangechiao/Civitai-Chinese-Translator">
+      首页
+    </a>
+    <span> | </span>
+    <a href="https://github.com/marktext/marktext#features">
+      Features
+    </a>
+    <span> | </span>
+    <a href="https://github.com/marktext/marktext#download-and-installation">
+      Downloads
+    </a>
+    <span> | </span>
+    <a href="https://github.com/marktext/marktext#development">
+      Development
+    </a>
+    <span> | </span>
+    <a href="https://github.com/marktext/marktext#contribution">
+      Contribution
+    </a>
+  </h3>
+</div>
 
-   - 进入首页后现在页面的上面找到浏览器选项卡，选择你使用的浏览器。
-     <img src="./public/images/截图1.png">
+<div align="center">
+  <sub>Translations:</sub>
+  <a href="docs/i18n/README-zh_cn.md#readme">
+    <span>:cn:简体中文</span>
+  </a>
 
-   - 在页面下方找到下载，点“去商店”后进入对应的浏览器商店安装 Tampermonkey 扩展。
-     <img src="./public/images/截图2.png">
+</div>
 
-2. 配置浏览器
-   - Chromium 内核的浏览器需要打开“**允许运行用户脚本**”（如Chrome、Edge等）[查看教程](https://www.tampermonkey.net/faq.php?q=Q209#Q209)。
-     <img src="./public/images/截图3.png">
+<div align="center">
+  <sub>This Markdown editor that could. Built with ❤︎ by
+    <a href="https://github.com/Jocs">Jocs</a> and
+    <a href="https://github.com/marktext/marktext/graphs/contributors">
+      contributors
+    </a>
+    .
+  </sub>
+</div>
 
-3. 安装脚本
-   - 点击 [CCT 中文增强插件](https://raw.githubusercontent.com/strangechiao/Civitai-Chinese-Translator/main/civitai-chinese-translator.user.js) 安装用户脚本，同时支持 Civitai.com 与 Civitai.red。
+<br />
 
-   - 安装后点击 Tampermonkey 图标，在下拉菜单中确认 CCT 中文增强插件已开启（正常情况下默认开启）。
-   - 打开 Civitai 刷新网页或重启浏览器后，即可看到中文界面了。
+<h2 align="center">Sponsors</h2>
