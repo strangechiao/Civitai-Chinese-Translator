@@ -2,6 +2,7 @@
   "use strict";
 
   const CCT = window.CCT;
+  const STORAGE_KEY = "CCT_TRANSLATION_ENABLED";
   const baseIgnore = [
     "script",
     "style",
@@ -21,6 +22,14 @@
   let activeRules = null;
   let staticMap = null;
   let ignoreSelector = baseIgnore.join(",");
+
+  function isTranslationEnabled() {
+    return localStorage.getItem(STORAGE_KEY) !== "false";
+  }
+
+  function setTranslationEnabled(enabled) {
+    localStorage.setItem(STORAGE_KEY, enabled ? "true" : "false");
+  }
 
   function refreshRules() {
     activeRules = CCT.getActiveRules();
@@ -167,7 +176,7 @@
   }
 
   function translateRoot(root) {
-    if (!root) return;
+    if (!root || !isTranslationEnabled()) return;
 
     if (root.nodeType === Node.TEXT_NODE) {
       if (!shouldSkipTextNode(root)) {
@@ -238,4 +247,6 @@
   }
 
   CCT.createTranslator = createTranslator;
+  CCT.isTranslationEnabled = isTranslationEnabled;
+  CCT.setTranslationEnabled = setTranslationEnabled;
 })();

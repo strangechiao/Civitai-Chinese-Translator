@@ -5,6 +5,10 @@
   const MENU_ID = "cct-logo-menu";
   let menuListenersReady = false;
 
+  function getProductName() {
+    return CCT.meta && CCT.meta.edition === "r18" ? "CCT 中文增强插件 RED" : "CCT 中文增强插件";
+  }
+
   function getNavbarLogoGroup() {
     const homeLink =
       document.querySelector('a[aria-label="Civitai home"]') ||
@@ -67,6 +71,8 @@
       (icons && icons[name]) ||
       (name === "modelVersionSwitch"
         ? '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16"/><path d="M4 12h16"/><path d="M4 19h16"/></svg>'
+        : name === "translation"
+          ? '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/></svg>'
         : "");
     const className = name === "external" ? "cct-logo-menu-external" : "cct-logo-menu-icon";
     if (!svg) return "";
@@ -83,6 +89,17 @@
     const enabled = CCT.isOriginalDownloadEnabled && CCT.isOriginalDownloadEnabled();
     toggle.dataset.checked = enabled ? "true" : "false";
     toggle.setAttribute("aria-checked", String(enabled));
+  }
+
+  function updateTranslationToggle(menu) {
+    const toggle = menu.querySelector(".cct-translation-toggle");
+    if (!toggle) return;
+
+    const enabled = !CCT.isTranslationEnabled || CCT.isTranslationEnabled();
+    const label = toggle.querySelector(".cct-translation-toggle-label");
+    toggle.dataset.checked = enabled ? "true" : "false";
+    toggle.setAttribute("aria-checked", String(enabled));
+    if (label) label.textContent = enabled ? "关闭汉化" : "开启汉化";
   }
 
   function updateQuickCollapseToggle(menu) {
@@ -283,7 +300,7 @@
   function createLogoRoot() {
     const root = document.createElement("div");
     root.className = "cct-logo-root";
-    root.setAttribute("aria-label", "CCT 中文增强插件");
+    root.setAttribute("aria-label", getProductName());
 
     const button = document.createElement("button");
     button.type = "button";
@@ -300,10 +317,16 @@
     menu.hidden = true;
     menu.innerHTML = `
       <div class="cct-logo-menu-title">
-        <span>CCT 中文增强插件</span>
+        <span>${getProductName()}</span>
         <span class="cct-logo-menu-version">v${(CCT.meta && CCT.meta.version) || "0.0.0"}</span>
       </div>
       <div class="cct-logo-menu-divider" aria-hidden="true"></div>
+      <button class="cct-logo-menu-toggle cct-translation-toggle" type="button" role="switch" aria-checked="true">
+        <span class="cct-logo-menu-link-main">${iconSvg("translation")}<span class="cct-translation-toggle-label">关闭汉化</span></span>
+        <span class="cct-logo-menu-toggle-right">
+          <span class="cct-logo-menu-switch" aria-hidden="true"></span>
+        </span>
+      </button>
       <button class="cct-logo-menu-toggle cct-original-download-toggle" type="button" role="switch" aria-checked="false">
         <span class="cct-logo-menu-link-main">${iconSvg("download")}<span>下载原始文件</span><span class="cct-logo-menu-help" tabindex="0" aria-label="下载原始文件说明">${iconSvg("question")}</span></span>
         <span class="cct-logo-menu-toggle-right">
@@ -349,6 +372,16 @@
       checkForUpdates(root);
     });
 
+    menu.querySelector(".cct-translation-toggle").addEventListener("click", (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+
+      if (!CCT.setTranslationEnabled || !CCT.isTranslationEnabled) return;
+
+      CCT.setTranslationEnabled(!CCT.isTranslationEnabled());
+      window.location.reload();
+    });
+
     menu.querySelector(".cct-original-download-toggle").addEventListener("click", (event) => {
       event.preventDefault();
       event.stopPropagation();
@@ -379,6 +412,7 @@
       updateModelVersionSwitchToggle(menu);
     });
 
+    updateTranslationToggle(menu);
     updateOriginalDownloadToggle(menu);
     updateQuickCollapseToggle(menu);
     updateModelVersionSwitchToggle(menu);
