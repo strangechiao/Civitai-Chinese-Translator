@@ -87,20 +87,10 @@
 
 <div align="center">
   <sub>Translations:</sub>
-  <a href="docs/i18n/README-zh_cn.md#readme">
+  <a href="/README.md">
     <span>:cn:简体中文</span>
   </a>
 
-</div>
-
-<div align="center">
-  <sub>This Markdown editor that could. Built with ❤︎ by
-    <a href="https://github.com/Jocs">Jocs</a> and
-    <a href="https://github.com/marktext/marktext/graphs/contributors">
-      contributors
-    </a>
-    .
-  </sub>
 </div>
 
 <br />
