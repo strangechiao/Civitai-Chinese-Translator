@@ -3,18 +3,9 @@
 <h1 align="center">CCT 中文增强插件</h1>
 
 <div align="center">
-  <a href="">
-    <img src="https://img.shields.io/badge/支持-Civitai.com-1971C2?style=for-the-badge&labelColor=3C3C3C" alt="支持 Civitai.com 和 Civitai.red">
-  </a>
-
-  <a href="">
-    <img src="https://img.shields.io/badge/支持-Civitai.red-E03131?style=for-the-badge&labelColor=3C3C3C" alt="支持 Civitai.com 和 Civitai.red">
-  </a>
-
-  <a href="">
-    <img src="https://img.shields.io/badge/类型-Tampermonkey_脚本-2F9E44?style=for-the-badge" alt="Tampermonkey 用户脚本">
-</a>
-
+  <a href="https://civitai.com"><img src="https://img.shields.io/badge/支持-Civitai.com-1971C2?style=for-the-badge&labelColor=3C3C3C" alt="支持 Civitai.com"></a>
+  <a href="https://civitai.red"><img src="https://img.shields.io/badge/支持-Civitai.red-E03131?style=for-the-badge&labelColor=3C3C3C" alt="支持 Civitai.red"></a>
+  <a href="https://www.tampermonkey.net/"><img src="https://img.shields.io/badge/脚本管理器-Tampermonkey-2F9E44?style=for-the-badge&labelColor=3C3C3C" alt="Tampermonkey 用户脚本"></a>
 </div>
 
 <br>
