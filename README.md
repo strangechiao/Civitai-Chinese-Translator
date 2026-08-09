@@ -46,20 +46,20 @@
       首页
     </a>
     <span> | </span>
-    <a href="https://github.com/marktext/marktext#features">
-      Features
+    <a href="https://github.com/strangechiao/Civitai-Chinese-Translator#截图">
+      截图
     </a>
     <span> | </span>
-    <a href="https://github.com/marktext/marktext#download-and-installation">
-      Downloads
+    <a href="https://github.com/strangechiao/Civitai-Chinese-Translator#功能">
+      功能介绍
     </a>
     <span> | </span>
-    <a href="https://github.com/marktext/marktext#development">
-      Development
+    <a href="https://github.com/strangechiao/Civitai-Chinese-Translator#下载与安装">
+      下载与安装
     </a>
     <span> | </span>
-    <a href="https://github.com/marktext/marktext#contribution">
-      Contribution
+    <a href="https://github.com/strangechiao/Civitai-Chinese-Translator#进度">
+      进度
     </a>
   </h3>
 </div>
@@ -76,4 +76,4 @@
 
 <br />
 
-<h2 align="center">Sponsors</h2>
+<h2 align="center">截图</h2>

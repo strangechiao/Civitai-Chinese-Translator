@@ -21,16 +21,20 @@
 
   function getSpoilerControl() {
     const controls = Array.from(
-      document.querySelectorAll('.mantine-Spoiler-root[data-has-spoiler="true"] .mantine-Spoiler-control, button[aria-controls][aria-expanded]')
-    ).filter((button) => !button.classList.contains(BUTTON_CLASS));
+      document.querySelectorAll('.mantine-Spoiler-root .mantine-Spoiler-control[aria-controls]')
+    ).filter((button) => {
+      if (button.classList.contains(BUTTON_CLASS)) return false;
+      if (button.closest(".mantine-Accordion-panel")) return false;
 
-    const exactTextControl = controls.find((button) => /^(show more|show more|hide|显示更多|隐藏)$/i.test(button.textContent.trim()));
-    if (exactTextControl) return exactTextControl;
-
-    return controls.find((button) => {
       const region = document.getElementById(button.getAttribute("aria-controls"));
       return region && region.classList.contains("mantine-Spoiler-content");
     });
+
+    return (
+      controls.find((button) => button.closest('[class*="ModelVersionDetails"][class*="mainSection"]')) ||
+      controls.find((button) => /^(show more|hide|显示更多|隐藏)$/i.test(button.textContent.trim())) ||
+      controls[0]
+    );
   }
 
   function getFloatingButtonGroup() {

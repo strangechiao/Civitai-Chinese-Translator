@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         CCT 中文增强插件
 // @namespace    https://civitai.com/
-// @version      0.5.3
+// @version      0.5.4
 // @description  为 Civitai.com 与 Civitai.red 提供汉化、中文化、本地化与界面翻译，并加入原始图片/视频快捷下载、模型介绍快捷展开/折叠、模型版本快速切换等增强功能的 Tampermonkey 用户脚本。
 // @license      GPL-3.0-or-later
 // @homepageURL  https://github.com/strangechiao/Civitai-Chinese-Translator
@@ -27,7 +27,7 @@
 
   window.CCT = window.CCT || {};
   window.CCT.meta = window.CCT.meta || {};
-  window.CCT.meta.version = "0.5.3";
+  window.CCT.meta.version = "0.5.4";
   window.CCT.meta.updateUrl = "https://raw.githubusercontent.com/strangechiao/Civitai-Chinese-Translator/main/civitai-chinese-translator.user.js";
   window.CCT.meta.supportUrl = "https://github.com/strangechiao/Civitai-Chinese-Translator/issues";
   window.CCT.assets = window.CCT.assets || {};
@@ -1484,16 +1484,20 @@
 
   function getSpoilerControl() {
     const controls = Array.from(
-      document.querySelectorAll('.mantine-Spoiler-root[data-has-spoiler="true"] .mantine-Spoiler-control, button[aria-controls][aria-expanded]')
-    ).filter((button) => !button.classList.contains(BUTTON_CLASS));
+      document.querySelectorAll('.mantine-Spoiler-root .mantine-Spoiler-control[aria-controls]')
+    ).filter((button) => {
+      if (button.classList.contains(BUTTON_CLASS)) return false;
+      if (button.closest(".mantine-Accordion-panel")) return false;
 
-    const exactTextControl = controls.find((button) => /^(show more|show more|hide|显示更多|隐藏)$/i.test(button.textContent.trim()));
-    if (exactTextControl) return exactTextControl;
-
-    return controls.find((button) => {
       const region = document.getElementById(button.getAttribute("aria-controls"));
       return region && region.classList.contains("mantine-Spoiler-content");
     });
+
+    return (
+      controls.find((button) => button.closest('[class*="ModelVersionDetails"][class*="mainSection"]')) ||
+      controls.find((button) => /^(show more|hide|显示更多|隐藏)$/i.test(button.textContent.trim())) ||
+      controls[0]
+    );
   }
 
   function getFloatingButtonGroup() {
