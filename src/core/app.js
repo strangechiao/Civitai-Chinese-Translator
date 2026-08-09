@@ -26,6 +26,7 @@
     CCT.injectLogo && CCT.injectLogo();
     CCT.injectOriginalDownloadButtons && CCT.injectOriginalDownloadButtons(document.body);
     CCT.injectModelSidebarToggle && CCT.injectModelSidebarToggle();
+    CCT.injectModelVersionDropdown && CCT.injectModelVersionDropdown();
     CCT.createTranslator().start();
   }
 

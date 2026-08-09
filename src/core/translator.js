@@ -193,6 +193,7 @@
         CCT.injectLogo && CCT.injectLogo();
         CCT.injectOriginalDownloadButtons && CCT.injectOriginalDownloadButtons(document.body);
         CCT.injectModelSidebarToggle && CCT.injectModelSidebarToggle();
+        CCT.injectModelVersionDropdown && CCT.injectModelVersionDropdown();
 
         const nextPage = CCT.getCurrentPage();
         if (nextPage !== currentPage) {

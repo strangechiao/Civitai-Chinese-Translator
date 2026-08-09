@@ -63,7 +63,11 @@
 
   function iconSvg(name) {
     const icons = CCT.assets && CCT.assets.icons;
-    const svg = icons && icons[name];
+    const svg =
+      (icons && icons[name]) ||
+      (name === "modelVersionSwitch"
+        ? '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16"/><path d="M4 12h16"/><path d="M4 19h16"/></svg>'
+        : "");
     const className = name === "external" ? "cct-logo-menu-external" : "cct-logo-menu-icon";
     if (!svg) return "";
 
@@ -86,6 +90,15 @@
     if (!toggle) return;
 
     const enabled = !CCT.isQuickCollapseEnabled || CCT.isQuickCollapseEnabled();
+    toggle.dataset.checked = enabled ? "true" : "false";
+    toggle.setAttribute("aria-checked", String(enabled));
+  }
+
+  function updateModelVersionSwitchToggle(menu) {
+    const toggle = menu.querySelector(".cct-model-version-switch-toggle");
+    if (!toggle) return;
+
+    const enabled = !CCT.isModelVersionSwitchEnabled || CCT.isModelVersionSwitchEnabled();
     toggle.dataset.checked = enabled ? "true" : "false";
     toggle.setAttribute("aria-checked", String(enabled));
   }
@@ -305,6 +318,13 @@
         </span>
         <span class="cct-logo-menu-tooltip" role="tooltip">部分模型的介绍和更新日志很长。展开后如果想继续查看下方的示例图或评论，往往需要滚动很久才能回到原按钮位置再折叠。开启后，页面右下角会显示快捷按钮，用来快速展开或折叠介绍内容。</span>
       </button>
+      <button class="cct-logo-menu-toggle cct-model-version-switch-toggle" type="button" role="switch" aria-checked="true">
+        <span class="cct-logo-menu-link-main">${iconSvg("modelVersionSwitch")}<span>模型版本快速切换</span><span class="cct-logo-menu-help" tabindex="0" aria-label="模型版本快速切换说明">${iconSvg("question")}</span></span>
+        <span class="cct-logo-menu-toggle-right">
+          <span class="cct-logo-menu-switch" aria-hidden="true"></span>
+        </span>
+        <span class="cct-logo-menu-tooltip" role="tooltip">将模型版本选项卡列表改为侧边栏下拉菜单，方便快速查看和切换不同版本，解决有些模型版本过多，切换时过于麻烦的问题。</span>
+      </button>
       <a class="cct-logo-menu-link" href="https://github.com/strangechiao/Civitai-Chinese-Translator/issues" target="_blank" rel="noopener noreferrer" role="menuitem">
         <span class="cct-logo-menu-link-main">${iconSvg("bug")}<span>反馈问题</span></span>
         ${iconSvg("external")}
@@ -349,8 +369,19 @@
       updateQuickCollapseToggle(menu);
     });
 
+    menu.querySelector(".cct-model-version-switch-toggle").addEventListener("click", (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+
+      if (!CCT.setModelVersionSwitchEnabled || !CCT.isModelVersionSwitchEnabled) return;
+
+      CCT.setModelVersionSwitchEnabled(!CCT.isModelVersionSwitchEnabled());
+      updateModelVersionSwitchToggle(menu);
+    });
+
     updateOriginalDownloadToggle(menu);
     updateQuickCollapseToggle(menu);
+    updateModelVersionSwitchToggle(menu);
     bindTooltip(menu);
 
     root._cctMenu = menu;
