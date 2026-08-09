@@ -63,7 +63,7 @@
 
 <div align="center">
   <h3>
-    <a href="https://github.com/strangechiao/Civitai-Chinese-Translator">
+    <a href="https://github.com/strangechiao/Civitai-Chinese-Translator#CCT-中文增强插件">
       首页
     </a>
     <span> | </span>
@@ -88,8 +88,10 @@
 <div align="center">
   <sub>支持语言：</sub>
   <a href="/README.md">
-    <span>:cn:简体中文</span>
+    <sub>简体中文</sub>
   </a>
+  <sub>|</sub>
+  <sub>繁体中文（计划中）</sub>
 
 </div>
 
