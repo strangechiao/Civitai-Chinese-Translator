@@ -11,9 +11,9 @@
 <br>
 
 <div align="center">
-  <strong>[界面中文化] [原始文件快捷下载] [模型介绍折叠] [模型版本整理] [CCT 功能菜单]</strong><br>
-  <br>
-  为 Civitai.com 与 Civitai.red 提供界面汉化、中文本地化及多项实用增强功能，包括原始图片与视频快捷下载、模型介绍快速展开与折叠、模型版本快速查看与切换等。<br>
+  <strong>Civitai.com 与 Civitai.red 的汉化（中文化、本地化、翻译）及多项实用增强功能</strong><br>
+
+如：原始图片与视频快捷下载、模型介绍快速展开与折叠、模型版本快速查看与切换等。<br>
 
   <sub>
   适用于：
@@ -86,7 +86,7 @@
 </div>
 
 <div align="center">
-  <sub>Translations:</sub>
+  <sub>支持语言：</sub>
   <a href="/README.md">
     <span>:cn:简体中文</span>
   </a>
