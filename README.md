@@ -32,29 +32,12 @@
 <br>
 
 <div align="center">
-  <!-- 开源许可 -->
   <a href="LICENSE"><img src="https://img.shields.io/github/license/strangechiao/Civitai-Chinese-Translator?label=%E5%BC%80%E6%BA%90%E8%AE%B8%E5%8F%AF" alt="开源许可"></a>
-
-  <!-- 当前版本 -->
-
-<a href="https://greasyfork.org/scripts/590454"><img src="https://img.shields.io/badge/dynamic/regex?url=https%3A%2F%2Fraw.githubusercontent.com%2Fstrangechiao%2FCivitai-Chinese-Translator%2Fmain%2Fcivitai-chinese-translator.user.js&search=%40version%5Cs%2B%28%5B%5E%5Cs%5D%2B%29&replace=%241&label=%E5%BD%93%E5%89%8D%E7%89%88%E6%9C%AC&color=2F9E44" alt="当前版本"></a>
-
-  <!-- 总安装量 -->
-
-<a href="https://greasyfork.org/scripts/590454"><img src="https://img.shields.io/greasyfork/dt/590454?label=%E6%80%BB%E5%AE%89%E8%A3%85%E9%87%8F" alt="总安装量"></a>
-
-  <!-- GitHub 星标 -->
-
-<a href="https://github.com/strangechiao/Civitai-Chinese-Translator/stargazers"><img src="https://img.shields.io/github/stars/strangechiao/Civitai-Chinese-Translator?label=GitHub%20%E6%98%9F%E6%A0%87&logo=github" alt="GitHub 星标"></a>
-
-  <!-- 待处理问题 -->
-
-<a href="https://github.com/strangechiao/Civitai-Chinese-Translator/issues"><img src="https://img.shields.io/github/issues/strangechiao/Civitai-Chinese-Translator?label=%E5%BE%85%E5%A4%84%E7%90%86%E9%97%AE%E9%A2%98" alt="待处理问题"></a>
-
-  <!-- 最后更新 -->
-
-<a href="https://github.com/strangechiao/Civitai-Chinese-Translator/commits/main"><img src="https://img.shields.io/github/last-commit/strangechiao/Civitai-Chinese-Translator?label=%E6%9C%80%E5%90%8E%E6%9B%B4%E6%96%B0" alt="最后更新"></a>
-
+  <a href="https://greasyfork.org/scripts/590454"><img src="https://img.shields.io/badge/dynamic/regex?url=https%3A%2F%2Fraw.githubusercontent.com%2Fstrangechiao%2FCivitai-Chinese-Translator%2Fmain%2Fcivitai-chinese-translator.user.js&search=%40version%5Cs%2B%28%5B%5E%5Cs%5D%2B%29&replace=%241&label=%E5%BD%93%E5%89%8D%E7%89%88%E6%9C%AC&color=2F9E44" alt="当前版本"></a>
+  <a href="https://greasyfork.org/scripts/590454"><img src="https://img.shields.io/greasyfork/dt/590454?label=%E6%80%BB%E5%AE%89%E8%A3%85%E9%87%8F" alt="总安装量"></a>
+  <a href="https://github.com/strangechiao/Civitai-Chinese-Translator/stargazers"><img src="https://img.shields.io/github/stars/strangechiao/Civitai-Chinese-Translator?label=GitHub%20%E6%98%9F%E6%A0%87&logo=github" alt="GitHub 星标"></a>
+  <a href="https://github.com/strangechiao/Civitai-Chinese-Translator/issues"><img src="https://img.shields.io/github/issues/strangechiao/Civitai-Chinese-Translator?label=%E5%BE%85%E5%A4%84%E7%90%86%E9%97%AE%E9%A2%98" alt="待处理问题"></a>
+  <a href="https://github.com/strangechiao/Civitai-Chinese-Translator/commits/main"><img src="https://img.shields.io/github/last-commit/strangechiao/Civitai-Chinese-Translator?label=%E6%9C%80%E5%90%8E%E6%9B%B4%E6%96%B0" alt="最后更新"></a>
 </div>
 
 <div align="center">
