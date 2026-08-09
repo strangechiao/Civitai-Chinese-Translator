@@ -345,19 +345,6 @@
           <span class="cct-logo-menu-switch" aria-hidden="true"></span>
         </span>
       </button>
-      <button class="cct-logo-menu-toggle cct-ad-blocking-toggle" type="button" role="switch" aria-checked="true">
-        <span class="cct-logo-menu-link-main">${iconSvg("adBlocking")}<span>屏蔽广告</span></span>
-        <span class="cct-logo-menu-toggle-right">
-          <span class="cct-logo-menu-switch" aria-hidden="true"></span>
-        </span>
-      </button>
-      <button class="cct-logo-menu-toggle cct-ad-layout-centered-toggle" type="button" role="switch" aria-checked="true">
-        <span class="cct-logo-menu-link-main">${iconSvg("adLayoutCentered")}<span>修正页面布局</span><span class="cct-logo-menu-help" tabindex="0" aria-label="修正页面布局说明">${iconSvg("question")}</span></span>
-        <span class="cct-logo-menu-toggle-right">
-          <span class="cct-logo-menu-switch" aria-hidden="true"></span>
-        </span>
-        <span class="cct-logo-menu-tooltip" role="tooltip">Civitai 的模型详情页采用双栏布局，右侧栏用于展示广告。屏蔽广告后，页面仍会保留右侧栏的占位空间，导致主要内容偏向左侧。开启此功能后，会将双栏布局调整为单栏，使主要内容恢复居中显示。</span>
-      </button>
       <button class="cct-logo-menu-toggle cct-original-download-toggle" type="button" role="switch" aria-checked="false">
         <span class="cct-logo-menu-link-main">${iconSvg("download")}<span>下载原始文件</span><span class="cct-logo-menu-help" tabindex="0" aria-label="下载原始文件说明">${iconSvg("question")}</span></span>
         <span class="cct-logo-menu-toggle-right">
@@ -378,6 +365,19 @@
           <span class="cct-logo-menu-switch" aria-hidden="true"></span>
         </span>
         <span class="cct-logo-menu-tooltip" role="tooltip">将模型版本选项卡列表改为侧边栏下拉菜单，方便快速查看和切换不同版本，解决有些模型版本过多，切换时过于麻烦的问题。</span>
+      </button>
+      <button class="cct-logo-menu-toggle cct-ad-blocking-toggle" type="button" role="switch" aria-checked="true">
+        <span class="cct-logo-menu-link-main">${iconSvg("adBlocking")}<span>屏蔽广告</span></span>
+        <span class="cct-logo-menu-toggle-right">
+          <span class="cct-logo-menu-switch" aria-hidden="true"></span>
+        </span>
+      </button>
+      <button class="cct-logo-menu-toggle cct-ad-layout-centered-toggle" type="button" role="switch" aria-checked="true">
+        <span class="cct-logo-menu-link-main">${iconSvg("adLayoutCentered")}<span>修正页面布局</span><span class="cct-logo-menu-help" tabindex="0" aria-label="修正页面布局说明">${iconSvg("question")}</span></span>
+        <span class="cct-logo-menu-toggle-right">
+          <span class="cct-logo-menu-switch" aria-hidden="true"></span>
+        </span>
+        <span class="cct-logo-menu-tooltip" role="tooltip">Civitai 的模型详情页采用双栏布局，右侧栏用于展示广告。屏蔽广告后，页面仍会保留右侧栏的占位空间，导致主要内容偏向左侧。开启此功能后，会将双栏布局调整为单栏，使主要内容恢复居中显示。</span>
       </button>
       <a class="cct-logo-menu-link" href="https://github.com/strangechiao/Civitai-Chinese-Translator/issues" target="_blank" rel="noopener noreferrer" role="menuitem">
         <span class="cct-logo-menu-link-main">${iconSvg("bug")}<span>反馈问题</span></span>

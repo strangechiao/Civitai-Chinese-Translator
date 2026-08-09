@@ -13,7 +13,7 @@
 <center>
   <strong>Civitai.com 与 Civitai.red 的汉化（中文化、本地化、翻译）及多项实用增强功能</strong><br>
 
-如：原始图片与视频快捷下载、模型介绍快速展开与折叠、模型版本快速查看与切换等。<br>
+如：广告屏蔽与页面布局修正、原始图片与视频快捷下载、模型介绍快速展开与折叠、模型版本快速查看与切换等。<br>
 
 <img src="https://raw.githubusercontent.com/strangechiao/Civitai-Chinese-Translator/main/public/images/hero.png" alt="CCT 中文增强插件">
 
@@ -90,6 +90,12 @@
 <h4>🌟模型版本快速切换</h4>
 <p>将模型原有的版本选项卡整理为侧边栏下拉菜单，减少大量版本占用的页面空间，方便快速查看并切换不同模型版本。</p>
 <img src="https://raw.githubusercontent.com/strangechiao/Civitai-Chinese-Translator/main/public/gif/%E6%95%99%E7%A8%8B5.gif" alt="模型版本快速切换演示">
+
+<hr>
+
+<h4>🌟广告屏蔽与页面布局修正</h4>
+<p>根据 Civitai.com 与 Civitai.red 各自的广告加载方式进行适配，减少横幅、侧栏及内容流中的广告干扰。在模型详情页屏蔽右侧广告后，还可将原有双栏布局修正为单栏，使主要内容恢复居中显示。广告屏蔽与页面布局修正均默认开启，可在 CCT 功能菜单中独立关闭。</p>
+<img src="https://raw.githubusercontent.com/strangechiao/Civitai-Chinese-Translator/main/public/gif/%E6%95%99%E7%A8%8B6.gif" alt="广告屏蔽与页面布局修正演示">
 
 <hr>
 
