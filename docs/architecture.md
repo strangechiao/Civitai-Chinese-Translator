@@ -29,6 +29,9 @@ src/
     zh-CN/
       common.js         全站通用词条
       pages/
+        models/
+          index.js          模型列表页基础文案
+
         modelDetail/
           index.js          模型详情页基础文案
           actions.js        操作按钮区
@@ -99,6 +102,7 @@ Load more -> 加载更多
 例子：
 
 ```text
+/models            -> pages/models/
 /models/...        -> pages/modelDetail/
 /images/...        -> pages/imageDetail/
 /user/...          -> pages/userProfile/

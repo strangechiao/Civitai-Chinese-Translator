@@ -113,7 +113,9 @@
         if (!textElement) return;
 
         if (rule.attr) {
-          textElement.setAttribute(rule.attr, rule.text);
+          if (textElement.getAttribute(rule.attr) !== rule.text) {
+            textElement.setAttribute(rule.attr, rule.text);
+          }
           return;
         }
 
@@ -193,28 +195,38 @@
     let timer = null;
     let currentPage = CCT.getCurrentPage();
 
+    function isIgnoredMutationNode(node) {
+      const element = node.nodeType === Node.ELEMENT_NODE ? node : node.parentElement;
+      return Boolean(element && element.closest(".cct-ignore"));
+    }
+
     function schedule(root) {
       if (root) pendingRoots.add(root);
       if (timer) return;
 
       timer = setTimeout(() => {
         timer = null;
+        const roots = Array.from(pendingRoots);
+        pendingRoots.clear();
+        const nextPage = CCT.getCurrentPage();
+        const pageChanged = nextPage !== currentPage;
+        const featureRoots = pageChanged ? [document.body] : roots;
+
+        featureRoots.forEach((root) => {
+          CCT.applyAdBlocking && CCT.applyAdBlocking(root);
+          CCT.injectOriginalDownloadButtons && CCT.injectOriginalDownloadButtons(root);
+        });
         CCT.injectLogo && CCT.injectLogo();
-        CCT.injectOriginalDownloadButtons && CCT.injectOriginalDownloadButtons(document.body);
         CCT.injectModelSidebarToggle && CCT.injectModelSidebarToggle();
         CCT.injectModelVersionDropdown && CCT.injectModelVersionDropdown();
 
-        const nextPage = CCT.getCurrentPage();
-        if (nextPage !== currentPage) {
+        if (pageChanged) {
           currentPage = nextPage;
           refreshRules();
-          pendingRoots.clear();
           translateRoot(document.body);
           return;
         }
 
-        const roots = Array.from(pendingRoots);
-        pendingRoots.clear();
         roots.forEach(translateRoot);
       }, 100);
     }
@@ -225,8 +237,12 @@
 
       const observer = new MutationObserver((mutations) => {
         mutations.forEach((mutation) => {
+          if (isIgnoredMutationNode(mutation.target)) return;
+
           if (mutation.type === "childList") {
-            mutation.addedNodes.forEach((node) => schedule(node));
+            mutation.addedNodes.forEach((node) => {
+              if (!isIgnoredMutationNode(node)) schedule(node);
+            });
             return;
           }
 
@@ -239,7 +255,7 @@
         subtree: true,
         characterData: true,
         attributes: true,
-        attributeFilter: ["title", "aria-label", "placeholder"],
+        attributeFilter: ["title", "aria-label", "placeholder", "aria-expanded"],
       });
     }
 

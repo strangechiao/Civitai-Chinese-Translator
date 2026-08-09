@@ -140,6 +140,17 @@
         "Dark mode": "深色模式",
         "Account settings": "账户设置",
 
+        // 首页设置按钮
+        "Manage Home Page": "管理首页",
+        "Expect frequent changes.": "此功能可能会频繁调整。",
+        "Civitai Home Blocks": "Civitai 首页模块",
+        "All home blocks selected": "已选择全部首页模块",
+        "All civitai home blocks are already selected.": "所有 Civitai 首页模块均已选择。",
+        "Your Home": "你的首页",
+        Save: "保存",
+        "No home blocks selected": "未选择任何首页模块",
+        "By leaving this empty you will end up with our default recommended home page setup.": "如果将此留空，则会使用我们默认推荐的主页设置。",
+
         // 导航栏
         Home: "首页",
         Models: "模型",

@@ -2,7 +2,7 @@ const fs = require("fs");
 const path = require("path");
 
 const root = path.resolve(__dirname, "..");
-const version = "0.5.6";
+const version = "0.6.0";
 const outputFile = "civitai-chinese-translator.user.js";
 const homepageUrl = "https://github.com/strangechiao/Civitai-Chinese-Translator";
 const updateUrl = `${homepageUrl.replace("https://github.com", "https://raw.githubusercontent.com")}/main/${outputFile}`;
@@ -20,6 +20,8 @@ const iconFiles = {
   quickCollapse: "square-chart-gantt.svg",
   modelVersionSwitch: "menu.svg",
   translation: "languages.svg",
+  adBlocking: "shield-ban.svg",
+  adLayoutCentered: "align-center.svg",
 };
 const icons = Object.fromEntries(
   Object.entries(iconFiles).map(([name, file]) => [name, fs.readFileSync(path.join(root, "public", "icons", file), "utf8").trim()]),
@@ -43,7 +45,9 @@ const header = `// ==UserScript==
 // @match        https://civitai.red/*
 // @match        https://www.civitai.red/*
 // @match        https://auth.civitai.com/*
+// @run-at       document-start
 // @grant        GM_download
+// @grant        unsafeWindow
 // @connect      image.civitai.com
 // @connect      imagecache.civitai.com
 // @connect      image-b2.civitai.com
@@ -56,6 +60,7 @@ const sourceFiles = [
   "src/core/pageMatcher.js",
   "src/core/registry.js",
   "src/features/styles.js",
+  "src/features/adBlocker.js",
   "src/features/logo.js",
   "src/features/imageDownloader.js",
   "src/features/modelSidebar.js",
@@ -64,6 +69,8 @@ const sourceFiles = [
   "src/locales/zh-CN/layout/header/index.js",
   "src/locales/zh-CN/layout/footer/index.js",
   "src/locales/zh-CN/pages/home/index.js",
+  "src/locales/zh-CN/pages/models/index.js",
+  "src/locales/zh-CN/pages/modelDetail/index.js",
   "src/locales/zh-CN/pages/userProfile/index.js",
   "src/core/translator.js",
   "src/core/app.js",

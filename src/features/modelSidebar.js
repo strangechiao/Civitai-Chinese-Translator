@@ -63,9 +63,13 @@
   function syncButton(button) {
     const control = getSpoilerControl();
     const expanded = getExpanded(control);
+    const state = control ? (expanded ? "expanded" : "collapsed") : "missing";
+    if (button.dataset.cctState === state) return;
+
     const label = expanded ? "折叠" : "展开";
     const icon = expanded ? iconSvg("collapse") : iconSvg("expand");
 
+    button.dataset.cctState = state;
     button.disabled = !control;
     button.dataset.expanded = expanded ? "true" : "false";
     button.setAttribute("aria-label", label);
@@ -80,7 +84,7 @@
   function createButton() {
     const button = document.createElement("button");
     button.type = "button";
-    button.className = BUTTON_CLASS;
+    button.className = `${BUTTON_CLASS} cct-ignore`;
 
     button.addEventListener("click", (event) => {
       event.preventDefault();

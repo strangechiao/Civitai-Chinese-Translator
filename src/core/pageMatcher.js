@@ -11,6 +11,7 @@
     const pathname = getPathname();
 
     if (pathname === "/") return "home";
+    if (pathname === "/models") return "models";
     if (/^\/models\/\d+/i.test(pathname)) return "modelDetail";
     if (/^\/images\/\d+/i.test(pathname)) return "imageDetail";
     if (/^\/user\/[^/]+/i.test(pathname)) return "userProfile";

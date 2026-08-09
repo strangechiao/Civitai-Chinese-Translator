@@ -8,21 +8,30 @@
   window[instanceKey] = true;
 
   function injectStyle() {
-    if (document.getElementById("cct-style")) return;
+    if (document.getElementById("cct-style")) return true;
+
+    const target = document.head || document.documentElement;
+    if (!target) return false;
 
     const style = document.createElement("style");
     style.id = "cct-style";
     style.textContent = CCT.styleText || "";
-    document.head.appendChild(style);
+    target.appendChild(style);
+    return true;
   }
 
   function start() {
+    if (!injectStyle()) {
+      requestAnimationFrame(start);
+      return;
+    }
+
     if (!document.body) {
       requestAnimationFrame(start);
       return;
     }
 
-    injectStyle();
+    CCT.applyAdBlocking && CCT.applyAdBlocking(document.body);
     CCT.injectLogo && CCT.injectLogo();
     CCT.injectOriginalDownloadButtons && CCT.injectOriginalDownloadButtons(document.body);
     CCT.injectModelSidebarToggle && CCT.injectModelSidebarToggle();

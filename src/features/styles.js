@@ -4,6 +4,61 @@
   const CCT = window.CCT;
 
   CCT.styleText = `
+    .cct-hidden-ad {
+      display: none !important;
+    }
+
+    html.cct-ad-blocking-enabled .box-content:has(a[href^="https://advertising.civitai.com/api/v1/engagement"]),
+    html.cct-ad-blocking-enabled [style*="min-height"]:has(a[href^="https://advertising.civitai.com/api/v1/engagement"]),
+    html.cct-ad-blocking-enabled [class*="__rail"]:has(a[href^="https://advertising.civitai.com/api/v1/engagement"]),
+    html.cct-ad-blocking-enabled [style*="content-visibility"]:has(a[href^="https://advertising.civitai.com/api/v1/engagement"]) {
+      display: none !important;
+    }
+
+    html.cct-site-red.cct-ad-blocking-enabled .box-content:has(> div[id]:empty),
+    html.cct-site-red.cct-ad-blocking-enabled [style*="min-height"]:has(.box-content > div[id]:empty),
+    html.cct-site-red.cct-ad-blocking-enabled [class*="__rail"]:has(.box-content > div[id]:empty),
+    html.cct-site-red.cct-ad-blocking-enabled [style*="content-visibility"]:has(.box-content > div[id]:empty) {
+      display: none !important;
+    }
+
+    html.cct-site-red.cct-ad-blocking-enabled div.relative.box-content.flex.flex-col.items-center.justify-center.gap-2.bg-gray-1.py-3[style*="min-height: 250px"] {
+      display: none !important;
+    }
+
+    html.cct-site-com.cct-ad-blocking-enabled div.relative.flex.justify-center.border-t[style*="min-height: 90px"] {
+      display: none !important;
+    }
+
+    html.cct-site-com.cct-ad-blocking-enabled div.relative.box-content.flex.flex-col.items-center.justify-center.gap-2.py-3[style*="min-height: 250px"] {
+      display: none !important;
+    }
+
+    html.cct-site-com.cct-ad-blocking-enabled [class*="__rail"]:has(> div.relative.box-content.flex.flex-col.items-center.justify-center.gap-2[style*="min-height: 600px"]) {
+      display: none !important;
+    }
+
+    html.cct-site-com.cct-ad-blocking-enabled [class*="__rail"]:empty {
+      display: none !important;
+    }
+
+    html.cct-site-com.cct-ad-blocking-enabled div.relative.box-content.flex.flex-col.items-center.justify-center.gap-2[style*="min-height: 280px"] {
+      display: none !important;
+    }
+
+    html.cct-site-com.cct-ad-blocking-enabled div.relative.flex.overflow-hidden.flex-col.mx-auto.min-w-80.justify-between:has(a[href="/pricing"]) {
+      display: none !important;
+    }
+
+    html.cct-ad-blocking-enabled.cct-ad-layout-centered [class*="__mainRegion"][class*="__withRail"] {
+      grid-template-columns: minmax(0, 1fr) !important;
+    }
+
+    html.cct-ad-blocking-enabled.cct-ad-layout-centered [class*="__mainRegion"][class*="__withRail"] > [class*="__contentCol"] {
+      width: 100% !important;
+      margin-inline: auto !important;
+    }
+
     .cct-logo-root {
       position: relative;
       display: inline-flex;

@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         CCT 中文增强插件
 // @namespace    https://civitai.com/
-// @version      0.5.6
+// @version      0.6.0
 // @description  为 Civitai.com 与 Civitai.red 提供汉化、中文化、本地化与界面翻译，并加入原始图片/视频快捷下载、模型介绍快捷展开/折叠、模型版本快速切换等增强功能的 Tampermonkey 用户脚本。
 // @license      GPL-3.0-or-later
 // @homepageURL  https://github.com/strangechiao/Civitai-Chinese-Translator
@@ -16,7 +16,9 @@
 // @match        https://civitai.red/*
 // @match        https://www.civitai.red/*
 // @match        https://auth.civitai.com/*
+// @run-at       document-start
 // @grant        GM_download
+// @grant        unsafeWindow
 // @connect      image.civitai.com
 // @connect      imagecache.civitai.com
 // @connect      image-b2.civitai.com
@@ -27,12 +29,12 @@
 
   window.CCT = window.CCT || {};
   window.CCT.meta = window.CCT.meta || {};
-  window.CCT.meta.version = "0.5.6";
+  window.CCT.meta.version = "0.6.0";
   window.CCT.meta.updateUrl = "https://raw.githubusercontent.com/strangechiao/Civitai-Chinese-Translator/main/civitai-chinese-translator.user.js";
   window.CCT.meta.supportUrl = "https://github.com/strangechiao/Civitai-Chinese-Translator/issues";
   window.CCT.assets = window.CCT.assets || {};
   window.CCT.assets.logoSvg = "<svg width=\"182\" height=\"103\" viewBox=\"0 0 182 103\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<rect width=\"152\" height=\"103\" rx=\"5\" fill=\"white\"/>\n<rect x=\"1\" y=\"1\" width=\"150\" height=\"101\" rx=\"5\" fill=\"#414141\"/>\n<rect x=\"6\" y=\"6\" width=\"140\" height=\"91\" fill=\"white\"/>\n<rect x=\"11\" y=\"11\" width=\"130\" height=\"81\" fill=\"#414141\"/>\n<rect x=\"151\" y=\"5\" width=\"4\" height=\"21\" fill=\"white\"/>\n<rect x=\"151\" y=\"6\" width=\"3\" height=\"19\" fill=\"#414141\"/>\n<rect x=\"56\" y=\"10\" width=\"82\" height=\"6\" transform=\"rotate(90 56 10)\" fill=\"white\"/>\n<rect x=\"101\" y=\"11\" width=\"82\" height=\"6\" transform=\"rotate(90 101 11)\" fill=\"white\"/>\n<path d=\"M48 87.75L42.333 92H30.666L36.333 87.75H13V79H48V87.75ZM75.5 84C81.6628 84 87.0813 87.1857 90.1992 92H60.8008C63.9187 87.1857 69.3372 84 75.5 84ZM120.5 90.666L129.25 79H138L128.25 92H112.75L103 79H111.75L120.5 90.666ZM68.8027 40.332C72.0004 39.0075 75.5194 38.6607 78.9141 39.3359C82.3087 40.0112 85.4266 41.6786 87.874 44.126L81.6875 50.3125C80.4638 49.0888 78.9044 48.2556 77.207 47.918C75.5097 47.5804 73.7502 47.7538 72.1514 48.416C70.5526 49.0783 69.186 50.1998 68.2246 51.6387C67.2631 53.0776 66.75 54.7694 66.75 56.5C66.75 58.2306 67.2631 59.9224 68.2246 61.3613C69.186 62.8002 70.5526 63.9217 72.1514 64.584C73.7502 65.2462 75.5097 65.4196 77.207 65.082C78.9044 64.7444 80.4638 63.9112 81.6875 62.6875L87.874 68.874C85.4266 71.3214 82.3087 72.9888 78.9141 73.6641C75.5194 74.3393 72.0004 73.9925 68.8027 72.668C65.6052 71.3434 62.8721 69.1004 60.9492 66.2227C59.0263 63.3448 58 59.9612 58 56.5C58 53.0388 59.0263 49.6552 60.9492 46.7773C62.8721 43.8996 65.6052 41.6566 68.8027 40.332ZM138 42.75H124.699L124.698 69H115.949V42.75H103V34H138V42.75ZM23.8027 35.332C27.0004 34.0075 30.5194 33.6607 33.9141 34.3359C37.3087 35.0112 40.4266 36.6786 42.874 39.126L36.6875 45.3125C35.4638 44.0888 33.9044 43.2556 32.207 42.918C30.5097 42.5804 28.7502 42.7538 27.1514 43.416C25.5526 44.0783 24.186 45.1998 23.2246 46.6387C22.2631 48.0776 21.75 49.7694 21.75 51.5C21.75 53.2306 22.2631 54.9224 23.2246 56.3613C24.186 57.8002 25.5526 58.9217 27.1514 59.584C28.7502 60.2462 30.5097 60.4196 32.207 60.082C33.9044 59.7444 35.4638 58.9112 36.6875 57.6875L42.874 63.874C40.4266 66.3214 37.3087 67.9888 33.9141 68.6641C30.5194 69.3393 27.0004 68.9925 23.8027 67.668C20.6052 66.3434 17.8721 64.1004 15.9492 61.2227C14.0263 58.3448 13 54.9612 13 51.5C13 48.0388 14.0263 44.6552 15.9492 41.7773C17.8721 38.8996 20.6052 36.6566 23.8027 35.332ZM66.75 29H58V11H66.75V29ZM84.25 17.333V11H93V29H84.25L70.75 11H79.5L84.25 17.333ZM48 24H40.3438L37.2676 13.0625H23.7324L20.6562 24H13L16.6562 11H44.3438L48 24ZM111.75 15.25H138V24H103V11H111.75V15.25Z\" fill=\"white\"/>\n<path d=\"M166 12C169.314 12 172 14.6863 172 18L172 73L166 73L166 12V12Z\" fill=\"white\"/>\n<rect x=\"165\" y=\"18\" width=\"1\" height=\"55\" fill=\"white\"/>\n<circle cx=\"168.5\" cy=\"84.5\" r=\"13.5\" fill=\"white\"/>\n<path d=\"M166 13C168.761 13 171 15.2386 171 18L171 73L166 73L166 13V13Z\" fill=\"#D9D9D9\"/>\n<circle cx=\"168.5\" cy=\"84.5\" r=\"12.5\" fill=\"#E03131\"/>\n<rect x=\"154\" y=\"8\" width=\"3\" height=\"15\" fill=\"white\"/>\n<rect x=\"154\" y=\"9\" width=\"2\" height=\"13\" fill=\"#D9D9D9\"/>\n<rect x=\"157\" y=\"12\" width=\"9\" height=\"7\" fill=\"white\"/>\n<rect x=\"154\" y=\"13\" width=\"12\" height=\"5\" fill=\"#D9D9D9\"/>\n<path d=\"M177.95 84.5C178.53 84.5 179.005 84.0287 178.948 83.4517C178.845 82.4325 178.594 81.4317 178.201 80.4818C177.673 79.2079 176.9 78.0504 175.925 77.0754C174.95 76.1004 173.792 75.3269 172.518 74.7993C171.568 74.4058 170.568 74.1547 169.548 74.0525C168.971 73.9946 168.5 74.4701 168.5 75.05C168.5 75.6299 168.972 76.0932 169.547 76.1655C170.291 76.2589 171.02 76.4515 171.715 76.7394C172.734 77.1616 173.66 77.7803 174.44 78.5603C175.22 79.3403 175.838 80.2663 176.261 81.2855C176.548 81.9804 176.741 82.7095 176.834 83.4527C176.907 84.0281 177.37 84.5 177.95 84.5Z\" fill=\"white\"/>\n</svg>";
-  window.CCT.assets.icons = {"bug":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-bug-icon lucide-bug\"><path d=\"M12 20v-9\"/><path d=\"M14 7a4 4 0 0 1 4 4v3a6 6 0 0 1-12 0v-3a4 4 0 0 1 4-4z\"/><path d=\"M14.12 3.88 16 2\"/><path d=\"M21 21a4 4 0 0 0-3.81-4\"/><path d=\"M21 5a4 4 0 0 1-3.55 3.97\"/><path d=\"M22 13h-4\"/><path d=\"M3 21a4 4 0 0 1 3.81-4\"/><path d=\"M3 5a4 4 0 0 0 3.55 3.97\"/><path d=\"M6 13H2\"/><path d=\"m8 2 1.88 1.88\"/><path d=\"M9 7.13V6a3 3 0 1 1 6 0v1.13\"/></svg>","contact":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-mail-icon lucide-mail\"><path d=\"m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7\"/><rect x=\"2\" y=\"4\" width=\"20\" height=\"16\" rx=\"2\"/></svg>","download":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-folder-down-icon lucide-folder-down\"><path d=\"M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z\"/><path d=\"M12 10v6\"/><path d=\"m15 13-3 3-3-3\"/></svg>","originalDownload":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-cloud-download-icon lucide-cloud-download\"><path d=\"M12 13v8l-4-4\"/><path d=\"m12 21 4-4\"/><path d=\"M4.393 15.269A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.436 8.284\"/></svg>","external":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-square-arrow-out-up-right-icon lucide-square-arrow-out-up-right\"><path d=\"M21 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h6\"/><path d=\"m21 3-9 9\"/><path d=\"M15 3h6v6\"/></svg>","question":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-circle-question-mark-icon lucide-circle-question-mark\"><circle cx=\"12\" cy=\"12\" r=\"10\"/><path d=\"M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3\"/><path d=\"M12 17h.01\"/></svg>","expand":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-chevron-down-icon lucide-chevron-down\"><path d=\"m6 9 6 6 6-6\"/></svg>","collapse":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-chevron-up-icon lucide-chevron-up\"><path d=\"m18 15-6-6-6 6\"/></svg>","quickCollapse":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-square-chart-gantt-icon lucide-square-chart-gantt\"><rect width=\"18\" height=\"18\" x=\"3\" y=\"3\" rx=\"2\"/><path d=\"M9 8h7\"/><path d=\"M8 12h6\"/><path d=\"M11 16h5\"/></svg>","modelVersionSwitch":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-menu-icon lucide-menu\"><path d=\"M4 5h16\"/><path d=\"M4 12h16\"/><path d=\"M4 19h16\"/></svg>","translation":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-languages-icon lucide-languages\"><path d=\"m5 8 6 6\"/><path d=\"m4 14 6-6 2-3\"/><path d=\"M2 5h12\"/><path d=\"M7 2h1\"/><path d=\"m22 22-5-10-5 10\"/><path d=\"M14 18h6\"/></svg>"};
+  window.CCT.assets.icons = {"bug":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-bug-icon lucide-bug\"><path d=\"M12 20v-9\"/><path d=\"M14 7a4 4 0 0 1 4 4v3a6 6 0 0 1-12 0v-3a4 4 0 0 1 4-4z\"/><path d=\"M14.12 3.88 16 2\"/><path d=\"M21 21a4 4 0 0 0-3.81-4\"/><path d=\"M21 5a4 4 0 0 1-3.55 3.97\"/><path d=\"M22 13h-4\"/><path d=\"M3 21a4 4 0 0 1 3.81-4\"/><path d=\"M3 5a4 4 0 0 0 3.55 3.97\"/><path d=\"M6 13H2\"/><path d=\"m8 2 1.88 1.88\"/><path d=\"M9 7.13V6a3 3 0 1 1 6 0v1.13\"/></svg>","contact":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-mail-icon lucide-mail\"><path d=\"m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7\"/><rect x=\"2\" y=\"4\" width=\"20\" height=\"16\" rx=\"2\"/></svg>","download":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-folder-down-icon lucide-folder-down\"><path d=\"M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z\"/><path d=\"M12 10v6\"/><path d=\"m15 13-3 3-3-3\"/></svg>","originalDownload":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-cloud-download-icon lucide-cloud-download\"><path d=\"M12 13v8l-4-4\"/><path d=\"m12 21 4-4\"/><path d=\"M4.393 15.269A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.436 8.284\"/></svg>","external":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-square-arrow-out-up-right-icon lucide-square-arrow-out-up-right\"><path d=\"M21 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h6\"/><path d=\"m21 3-9 9\"/><path d=\"M15 3h6v6\"/></svg>","question":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-circle-question-mark-icon lucide-circle-question-mark\"><circle cx=\"12\" cy=\"12\" r=\"10\"/><path d=\"M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3\"/><path d=\"M12 17h.01\"/></svg>","expand":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-chevron-down-icon lucide-chevron-down\"><path d=\"m6 9 6 6 6-6\"/></svg>","collapse":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-chevron-up-icon lucide-chevron-up\"><path d=\"m18 15-6-6-6 6\"/></svg>","quickCollapse":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-square-chart-gantt-icon lucide-square-chart-gantt\"><rect width=\"18\" height=\"18\" x=\"3\" y=\"3\" rx=\"2\"/><path d=\"M9 8h7\"/><path d=\"M8 12h6\"/><path d=\"M11 16h5\"/></svg>","modelVersionSwitch":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-menu-icon lucide-menu\"><path d=\"M4 5h16\"/><path d=\"M4 12h16\"/><path d=\"M4 19h16\"/></svg>","translation":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-languages-icon lucide-languages\"><path d=\"m5 8 6 6\"/><path d=\"m4 14 6-6 2-3\"/><path d=\"M2 5h12\"/><path d=\"M7 2h1\"/><path d=\"m22 22-5-10-5 10\"/><path d=\"M14 18h6\"/></svg>","adBlocking":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n  <path d=\"M20 13c0 5-3.5 7.5-8 9-4.5-1.5-8-4-8-9V5l8-3 8 3v8\"/>\n  <path d=\"m4 4 16 16\"/>\n</svg>","adLayoutCentered":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\">\n  <path d=\"M17 5H7\"/>\n  <path d=\"M19 9H5\"/>\n  <path d=\"M17 13H7\"/>\n  <path d=\"M19 17H5\"/>\n  <path d=\"M14 21h-4\"/>\n</svg>"};
 })();
 
 (function () {
@@ -77,6 +79,7 @@
     const pathname = getPathname();
 
     if (pathname === "/") return "home";
+    if (pathname === "/models") return "models";
     if (/^\/models\/\d+/i.test(pathname)) return "modelDetail";
     if (/^\/images\/\d+/i.test(pathname)) return "imageDetail";
     if (/^\/user\/[^/]+/i.test(pathname)) return "userProfile";
@@ -171,6 +174,61 @@
   const CCT = window.CCT;
 
   CCT.styleText = `
+    .cct-hidden-ad {
+      display: none !important;
+    }
+
+    html.cct-ad-blocking-enabled .box-content:has(a[href^="https://advertising.civitai.com/api/v1/engagement"]),
+    html.cct-ad-blocking-enabled [style*="min-height"]:has(a[href^="https://advertising.civitai.com/api/v1/engagement"]),
+    html.cct-ad-blocking-enabled [class*="__rail"]:has(a[href^="https://advertising.civitai.com/api/v1/engagement"]),
+    html.cct-ad-blocking-enabled [style*="content-visibility"]:has(a[href^="https://advertising.civitai.com/api/v1/engagement"]) {
+      display: none !important;
+    }
+
+    html.cct-site-red.cct-ad-blocking-enabled .box-content:has(> div[id]:empty),
+    html.cct-site-red.cct-ad-blocking-enabled [style*="min-height"]:has(.box-content > div[id]:empty),
+    html.cct-site-red.cct-ad-blocking-enabled [class*="__rail"]:has(.box-content > div[id]:empty),
+    html.cct-site-red.cct-ad-blocking-enabled [style*="content-visibility"]:has(.box-content > div[id]:empty) {
+      display: none !important;
+    }
+
+    html.cct-site-red.cct-ad-blocking-enabled div.relative.box-content.flex.flex-col.items-center.justify-center.gap-2.bg-gray-1.py-3[style*="min-height: 250px"] {
+      display: none !important;
+    }
+
+    html.cct-site-com.cct-ad-blocking-enabled div.relative.flex.justify-center.border-t[style*="min-height: 90px"] {
+      display: none !important;
+    }
+
+    html.cct-site-com.cct-ad-blocking-enabled div.relative.box-content.flex.flex-col.items-center.justify-center.gap-2.py-3[style*="min-height: 250px"] {
+      display: none !important;
+    }
+
+    html.cct-site-com.cct-ad-blocking-enabled [class*="__rail"]:has(> div.relative.box-content.flex.flex-col.items-center.justify-center.gap-2[style*="min-height: 600px"]) {
+      display: none !important;
+    }
+
+    html.cct-site-com.cct-ad-blocking-enabled [class*="__rail"]:empty {
+      display: none !important;
+    }
+
+    html.cct-site-com.cct-ad-blocking-enabled div.relative.box-content.flex.flex-col.items-center.justify-center.gap-2[style*="min-height: 280px"] {
+      display: none !important;
+    }
+
+    html.cct-site-com.cct-ad-blocking-enabled div.relative.flex.overflow-hidden.flex-col.mx-auto.min-w-80.justify-between:has(a[href="/pricing"]) {
+      display: none !important;
+    }
+
+    html.cct-ad-blocking-enabled.cct-ad-layout-centered [class*="__mainRegion"][class*="__withRail"] {
+      grid-template-columns: minmax(0, 1fr) !important;
+    }
+
+    html.cct-ad-blocking-enabled.cct-ad-layout-centered [class*="__mainRegion"][class*="__withRail"] > [class*="__contentCol"] {
+      width: 100% !important;
+      margin-inline: auto !important;
+    }
+
     .cct-logo-root {
       position: relative;
       display: inline-flex;
@@ -840,6 +898,143 @@
   "use strict";
 
   const CCT = window.CCT;
+  const STORAGE_KEY = "CCT_AD_BLOCKING_ENABLED";
+  const LAYOUT_STORAGE_KEY = "CCT_AD_LAYOUT_CENTERED_ENABLED";
+  const HIDDEN_CLASS = "cct-hidden-ad";
+  const AD_SELECTOR = [
+    'a[href^="https://advertising.civitai.com/api/v1/engagement"]',
+    'a[aria-label="visit advertiser"][href*="advertising.civitai.com"]',
+    'img[alt="advertisement"]',
+  ].join(",");
+
+  function isAdBlockingEnabled() {
+    return localStorage.getItem(STORAGE_KEY) !== "false";
+  }
+
+  function isAdLayoutCenteredEnabled() {
+    return localStorage.getItem(LAYOUT_STORAGE_KEY) !== "false";
+  }
+
+  function signalNativeAdBlocking() {
+    if (!location.hostname.endsWith("civitai.com") || !isAdBlockingEnabled()) return;
+
+    const pageWindow = typeof unsafeWindow !== "undefined" ? unsafeWindow : window;
+    const pageNavigator = pageWindow.navigator;
+    if (pageNavigator.brave && typeof pageNavigator.brave.isBrave === "function") return;
+
+    try {
+      Object.defineProperty(pageNavigator, "brave", {
+        configurable: true,
+        value: {
+          isBrave: () => Promise.resolve(true),
+        },
+      });
+    } catch {
+      // The DOM fallback rules still work when the page navigator cannot be extended.
+    }
+  }
+
+  function syncAdBlockingState() {
+    if (!document.documentElement) return false;
+    document.documentElement.classList.toggle("cct-site-red", location.hostname.endsWith("civitai.red"));
+    document.documentElement.classList.toggle("cct-site-com", location.hostname.endsWith("civitai.com"));
+    document.documentElement.classList.toggle("cct-ad-blocking-enabled", isAdBlockingEnabled());
+    document.documentElement.classList.toggle("cct-ad-layout-centered", isAdLayoutCenteredEnabled());
+    return true;
+  }
+
+  function findAdSlot(element) {
+    let current = element;
+
+    while (current && current !== document.body) {
+      if (current.classList.contains("box-content")) return current;
+      current = current.parentElement;
+    }
+
+    return null;
+  }
+
+  function hasDirectCloseButton(element) {
+    return Array.from(element.children).some((child) => child.matches && child.matches("button"));
+  }
+
+  function isAdRail(element) {
+    return typeof element.className === "string" && element.className.includes("__rail");
+  }
+
+  function isVirtualizedAdItem(element) {
+    return element.style.position === "absolute" && element.style.contentVisibility === "auto";
+  }
+
+  function findAdContainer(element) {
+    const slot = findAdSlot(element);
+    if (!slot) return null;
+
+    let current = slot;
+    let depth = 0;
+
+    while (current && current !== document.body && depth < 4) {
+      if (current !== slot && hasDirectCloseButton(current)) return current;
+      if (isAdRail(current)) return current;
+      if (isVirtualizedAdItem(current)) return current;
+      current = current.parentElement;
+      depth += 1;
+    }
+
+    return slot;
+  }
+
+  function findAdElements(root) {
+    const elements = [];
+    if (root instanceof Element && root.matches(AD_SELECTOR)) elements.push(root);
+    if (root && root.querySelectorAll) elements.push(...root.querySelectorAll(AD_SELECTOR));
+    return elements;
+  }
+
+  function applyAdBlocking(root = document.body) {
+    syncAdBlockingState();
+    if (!document.body) return;
+
+    if (!isAdBlockingEnabled()) {
+      document.querySelectorAll(`.${HIDDEN_CLASS}`).forEach((element) => element.classList.remove(HIDDEN_CLASS));
+      return;
+    }
+
+    findAdElements(root).forEach((element) => {
+      const container = findAdContainer(element);
+      if (container) container.classList.add(HIDDEN_CLASS);
+    });
+  }
+
+  function setAdBlockingEnabled(enabled) {
+    localStorage.setItem(STORAGE_KEY, String(Boolean(enabled)));
+    syncAdBlockingState();
+    if (location.hostname.endsWith("civitai.com")) {
+      location.reload();
+      return;
+    }
+    applyAdBlocking(document.body);
+  }
+
+  function setAdLayoutCenteredEnabled(enabled) {
+    localStorage.setItem(LAYOUT_STORAGE_KEY, String(Boolean(enabled)));
+    syncAdBlockingState();
+  }
+
+  signalNativeAdBlocking();
+  if (!syncAdBlockingState()) requestAnimationFrame(syncAdBlockingState);
+
+  CCT.isAdBlockingEnabled = isAdBlockingEnabled;
+  CCT.setAdBlockingEnabled = setAdBlockingEnabled;
+  CCT.isAdLayoutCenteredEnabled = isAdLayoutCenteredEnabled;
+  CCT.setAdLayoutCenteredEnabled = setAdLayoutCenteredEnabled;
+  CCT.applyAdBlocking = applyAdBlocking;
+})();
+
+(function () {
+  "use strict";
+
+  const CCT = window.CCT;
   const MENU_ID = "cct-logo-menu";
   let menuListenersReady = false;
 
@@ -954,6 +1149,24 @@
     if (!toggle) return;
 
     const enabled = !CCT.isModelVersionSwitchEnabled || CCT.isModelVersionSwitchEnabled();
+    toggle.dataset.checked = enabled ? "true" : "false";
+    toggle.setAttribute("aria-checked", String(enabled));
+  }
+
+  function updateAdBlockingToggle(menu) {
+    const toggle = menu.querySelector(".cct-ad-blocking-toggle");
+    if (!toggle) return;
+
+    const enabled = !CCT.isAdBlockingEnabled || CCT.isAdBlockingEnabled();
+    toggle.dataset.checked = enabled ? "true" : "false";
+    toggle.setAttribute("aria-checked", String(enabled));
+  }
+
+  function updateAdLayoutCenteredToggle(menu) {
+    const toggle = menu.querySelector(".cct-ad-layout-centered-toggle");
+    if (!toggle) return;
+
+    const enabled = !CCT.isAdLayoutCenteredEnabled || CCT.isAdLayoutCenteredEnabled();
     toggle.dataset.checked = enabled ? "true" : "false";
     toggle.setAttribute("aria-checked", String(enabled));
   }
@@ -1137,7 +1350,7 @@
 
   function createLogoRoot() {
     const root = document.createElement("div");
-    root.className = "cct-logo-root";
+    root.className = "cct-logo-root cct-ignore";
     root.setAttribute("aria-label", getProductName());
 
     const button = document.createElement("button");
@@ -1150,7 +1363,7 @@
 
     const menu = document.createElement("div");
     menu.id = MENU_ID;
-    menu.className = "cct-logo-menu";
+    menu.className = "cct-logo-menu cct-ignore";
     menu.setAttribute("role", "menu");
     menu.hidden = true;
     menu.innerHTML = `
@@ -1164,6 +1377,19 @@
         <span class="cct-logo-menu-toggle-right">
           <span class="cct-logo-menu-switch" aria-hidden="true"></span>
         </span>
+      </button>
+      <button class="cct-logo-menu-toggle cct-ad-blocking-toggle" type="button" role="switch" aria-checked="true">
+        <span class="cct-logo-menu-link-main">${iconSvg("adBlocking")}<span>屏蔽广告</span></span>
+        <span class="cct-logo-menu-toggle-right">
+          <span class="cct-logo-menu-switch" aria-hidden="true"></span>
+        </span>
+      </button>
+      <button class="cct-logo-menu-toggle cct-ad-layout-centered-toggle" type="button" role="switch" aria-checked="true">
+        <span class="cct-logo-menu-link-main">${iconSvg("adLayoutCentered")}<span>修正页面布局</span><span class="cct-logo-menu-help" tabindex="0" aria-label="修正页面布局说明">${iconSvg("question")}</span></span>
+        <span class="cct-logo-menu-toggle-right">
+          <span class="cct-logo-menu-switch" aria-hidden="true"></span>
+        </span>
+        <span class="cct-logo-menu-tooltip" role="tooltip">Civitai 的模型详情页采用双栏布局，右侧栏用于展示广告。屏蔽广告后，页面仍会保留右侧栏的占位空间，导致主要内容偏向左侧。开启此功能后，会将双栏布局调整为单栏，使主要内容恢复居中显示。</span>
       </button>
       <button class="cct-logo-menu-toggle cct-original-download-toggle" type="button" role="switch" aria-checked="false">
         <span class="cct-logo-menu-link-main">${iconSvg("download")}<span>下载原始文件</span><span class="cct-logo-menu-help" tabindex="0" aria-label="下载原始文件说明">${iconSvg("question")}</span></span>
@@ -1230,6 +1456,26 @@
       updateOriginalDownloadToggle(menu);
     });
 
+    menu.querySelector(".cct-ad-blocking-toggle").addEventListener("click", (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+
+      if (!CCT.setAdBlockingEnabled || !CCT.isAdBlockingEnabled) return;
+
+      CCT.setAdBlockingEnabled(!CCT.isAdBlockingEnabled());
+      updateAdBlockingToggle(menu);
+    });
+
+    menu.querySelector(".cct-ad-layout-centered-toggle").addEventListener("click", (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+
+      if (!CCT.setAdLayoutCenteredEnabled || !CCT.isAdLayoutCenteredEnabled) return;
+
+      CCT.setAdLayoutCenteredEnabled(!CCT.isAdLayoutCenteredEnabled());
+      updateAdLayoutCenteredToggle(menu);
+    });
+
     menu.querySelector(".cct-quick-collapse-toggle").addEventListener("click", (event) => {
       event.preventDefault();
       event.stopPropagation();
@@ -1251,6 +1497,8 @@
     });
 
     updateTranslationToggle(menu);
+    updateAdBlockingToggle(menu);
+    updateAdLayoutCenteredToggle(menu);
     updateOriginalDownloadToggle(menu);
     updateQuickCollapseToggle(menu);
     updateModelVersionSwitchToggle(menu);
@@ -1290,7 +1538,7 @@
   const STORAGE_KEY = "CCT_ORIGINAL_DOWNLOAD_ENABLED";
 
   function isOriginalDownloadEnabled() {
-    return localStorage.getItem(STORAGE_KEY) === "true";
+    return localStorage.getItem(STORAGE_KEY) !== "false";
   }
 
   function setOriginalDownloadEnabled(enabled) {
@@ -1388,7 +1636,7 @@
   function createButton(card) {
     const button = document.createElement("button");
     button.type = "button";
-    button.className = "cct-original-download-button";
+    button.className = "cct-original-download-button cct-ignore";
     button.title = "下载原始文件";
     button.style.setProperty("--size", "30px");
     button.innerHTML = `
@@ -1422,8 +1670,12 @@
   function injectOriginalDownloadButtons(root) {
     if (!isOriginalDownloadEnabled()) return;
 
-    const scope = root && root.querySelectorAll ? root : document;
-    const links = Array.from(scope.querySelectorAll('a[href^="/images/"], a[href*="/images/"]'));
+    const rootElement = root && root.nodeType === Node.ELEMENT_NODE ? root : root && root.parentElement;
+    const scope = rootElement && rootElement.querySelectorAll ? rootElement : document;
+    const selector = 'a[href^="/images/"], a[href*="/images/"]';
+    const links = rootElement && rootElement.matches(selector)
+      ? [rootElement, ...scope.querySelectorAll(selector)]
+      : Array.from(scope.querySelectorAll(selector));
 
     links.forEach((link) => {
       const card = link.parentElement;
@@ -1526,9 +1778,13 @@
   function syncButton(button) {
     const control = getSpoilerControl();
     const expanded = getExpanded(control);
+    const state = control ? (expanded ? "expanded" : "collapsed") : "missing";
+    if (button.dataset.cctState === state) return;
+
     const label = expanded ? "折叠" : "展开";
     const icon = expanded ? iconSvg("collapse") : iconSvg("expand");
 
+    button.dataset.cctState = state;
     button.disabled = !control;
     button.dataset.expanded = expanded ? "true" : "false";
     button.setAttribute("aria-label", label);
@@ -1543,7 +1799,7 @@
   function createButton() {
     const button = document.createElement("button");
     button.type = "button";
-    button.className = BUTTON_CLASS;
+    button.className = `${BUTTON_CLASS} cct-ignore`;
 
     button.addEventListener("click", (event) => {
       event.preventDefault();
@@ -1783,14 +2039,30 @@
     const menu = root.querySelector(".cct-model-version-select-menu");
     const selectedLabel = escapeHtml(selected.label);
     const isOpen = root.dataset.open === "true";
+    const currentSignature = `${selected.label}\u0000${selected.paid ? "1" : "0"}`;
 
-    current.innerHTML = `
-      <span class="cct-model-version-select-label">${selectedLabel}</span>
-      ${selected.paid ? '<span class="cct-model-version-select-paid">⚡</span>' : ""}
-    `;
+    if (current.dataset.cctSignature !== currentSignature) {
+      current.dataset.cctSignature = currentSignature;
+      current.innerHTML = `
+        <span class="cct-model-version-select-label">${selectedLabel}</span>
+        ${selected.paid ? '<span class="cct-model-version-select-paid">⚡</span>' : ""}
+      `;
+    }
 
     if (isOpen) return;
 
+    const menuSignature = options
+      .map((option) => `${option.label}\u0000${option.paid ? "1" : "0"}\u0000${option.selected ? "1" : "0"}`)
+      .join("\u0001");
+    const previousButtons = root._cctVersionButtons;
+    const sourceButtonsChanged =
+      !previousButtons ||
+      previousButtons.length !== options.length ||
+      options.some((option, index) => previousButtons[index] !== option.button);
+    if (root.dataset.cctMenuSignature === menuSignature && !sourceButtonsChanged) return;
+
+    root.dataset.cctMenuSignature = menuSignature;
+    root._cctVersionButtons = options.map((option) => option.button);
     menu.innerHTML = "";
     options.forEach((option) => {
       const item = document.createElement("button");
@@ -2025,6 +2297,17 @@
         "Dark mode": "深色模式",
         "Account settings": "账户设置",
 
+        // 首页设置按钮
+        "Manage Home Page": "管理首页",
+        "Expect frequent changes.": "此功能可能会频繁调整。",
+        "Civitai Home Blocks": "Civitai 首页模块",
+        "All home blocks selected": "已选择全部首页模块",
+        "All civitai home blocks are already selected.": "所有 Civitai 首页模块均已选择。",
+        "Your Home": "你的首页",
+        Save: "保存",
+        "No home blocks selected": "未选择任何首页模块",
+        "By leaving this empty you will end up with our default recommended home page setup.": "如果将此留空，则会使用我们默认推荐的主页设置。",
+
         // 导航栏
         Home: "首页",
         Models: "模型",
@@ -2107,7 +2390,8 @@
         "New & Upcoming Model Creators": "新晋模型创作者",
         "Popular models from creators who just got started": "新晋创作者的热门模型",
         "Browse their models": "浏览他们的模型",
-        "Buzz Beggars Board": "Buzz 讨赏榜",
+        "Buzz Beggars Board": "Buzz 悬赏榜",
+        "Featured Collections": "精选系列",
         "Ran out of Buzz while playing? Or want to be generous? Jump in.": "玩着玩着 Buzz 用完了？或者想慷慨解囊？快来参与吧。",
         "Beg or Give": "求助或赠送",
         "Curated Collection by": "精选收藏集，来自",
@@ -2116,6 +2400,89 @@
         "Top Creators": "顶尖创作者",
         "View more": "查看更多",
       },
+    },
+  });
+})();
+
+(function () {
+  "use strict";
+
+  window.CCT.registerRules({
+    type: "page",
+    name: "models",
+    component: "index",
+    rules: {
+      static: {
+        // 模型列表页
+      },
+    },
+  });
+})();
+
+(function () {
+  "use strict";
+
+  window.CCT.registerRules({
+    type: "page",
+    name: "modelDetail",
+    component: "index",
+    rules: {
+      static: {
+        "Updated:": "更新于：",
+        "Early Access": "抢先体验",
+        Share: "分享",
+        Like: "点赞",
+        "Add To Vault": "添加到保险库",
+        "Stop getting notifications for this model": "停止接收此模型的通知",
+        "Get notifications for this model": "接收此模型的通知",
+        "Add to collection": "添加到收藏集",
+        "Bid to feature this model": "竞价推广此模型",
+        Save: "保存",
+        "Hide content from this user": "隐藏该用户的内容",
+        "Hide this model": "隐藏此模型",
+        "Hide content with these tags": "隐藏带有这些标签的内容",
+        // 部分菜单项会把 Hide 和后半句拆成不同的文本节点。
+        Hide: "隐藏",
+        "content from this user": "该用户的内容",
+        "this model": "此模型",
+        "content with these tags": "带有这些标签的内容",
+        Download: "下载",
+        SafeTensor: "SafeTensor",
+        "Download Selected": "下载所选文件",
+        Follow: "关注",
+        Unfollow: "取消关注",
+        "processing...": "处理中……",
+        Details: "详情",
+        Type: "类型",
+        Stats: "统计",
+        "Generation License Fee": "生成许可费",
+        Reviews: "评价",
+        Published: "发布于",
+        "Base Model": "基础模型",
+        Hash: "哈希",
+        AIR: "AIR",
+        Tensors: "张量",
+        "What did you think of this resource?": "你觉得这个资源怎么样？",
+        "License:": "许可证：",
+        "Show More": "展开",
+        "Suggested Resources": "推荐资源",
+        "These are resources suggested by the creator of this model. They may be related to this model or created by the same user.":
+          "这些是该模型创作者推荐的资源，可能与此模型相关，也可能由同一位用户创作。",
+        Discussion: "讨论",
+        "Add Comment": "添加评论",
+        "Load more": "加载更多",
+        Gallery: "图库",
+        "Add Post": "添加帖子",
+        "Add Review": "添加评价",
+        "No results found": "未找到结果",
+        "Try adjusting your search or filters to find what you're looking for": "请尝试调整搜索条件或筛选器，以找到你想要的内容",
+      },
+      selector: [
+        {
+          selector: '.mantine-Spoiler-control[aria-expanded="true"]',
+          text: "收起",
+        },
+      ],
     },
   });
 })();
@@ -2364,7 +2731,9 @@
         if (!textElement) return;
 
         if (rule.attr) {
-          textElement.setAttribute(rule.attr, rule.text);
+          if (textElement.getAttribute(rule.attr) !== rule.text) {
+            textElement.setAttribute(rule.attr, rule.text);
+          }
           return;
         }
 
@@ -2444,28 +2813,38 @@
     let timer = null;
     let currentPage = CCT.getCurrentPage();
 
+    function isIgnoredMutationNode(node) {
+      const element = node.nodeType === Node.ELEMENT_NODE ? node : node.parentElement;
+      return Boolean(element && element.closest(".cct-ignore"));
+    }
+
     function schedule(root) {
       if (root) pendingRoots.add(root);
       if (timer) return;
 
       timer = setTimeout(() => {
         timer = null;
+        const roots = Array.from(pendingRoots);
+        pendingRoots.clear();
+        const nextPage = CCT.getCurrentPage();
+        const pageChanged = nextPage !== currentPage;
+        const featureRoots = pageChanged ? [document.body] : roots;
+
+        featureRoots.forEach((root) => {
+          CCT.applyAdBlocking && CCT.applyAdBlocking(root);
+          CCT.injectOriginalDownloadButtons && CCT.injectOriginalDownloadButtons(root);
+        });
         CCT.injectLogo && CCT.injectLogo();
-        CCT.injectOriginalDownloadButtons && CCT.injectOriginalDownloadButtons(document.body);
         CCT.injectModelSidebarToggle && CCT.injectModelSidebarToggle();
         CCT.injectModelVersionDropdown && CCT.injectModelVersionDropdown();
 
-        const nextPage = CCT.getCurrentPage();
-        if (nextPage !== currentPage) {
+        if (pageChanged) {
           currentPage = nextPage;
           refreshRules();
-          pendingRoots.clear();
           translateRoot(document.body);
           return;
         }
 
-        const roots = Array.from(pendingRoots);
-        pendingRoots.clear();
         roots.forEach(translateRoot);
       }, 100);
     }
@@ -2476,8 +2855,12 @@
 
       const observer = new MutationObserver((mutations) => {
         mutations.forEach((mutation) => {
+          if (isIgnoredMutationNode(mutation.target)) return;
+
           if (mutation.type === "childList") {
-            mutation.addedNodes.forEach((node) => schedule(node));
+            mutation.addedNodes.forEach((node) => {
+              if (!isIgnoredMutationNode(node)) schedule(node);
+            });
             return;
           }
 
@@ -2490,7 +2873,7 @@
         subtree: true,
         characterData: true,
         attributes: true,
-        attributeFilter: ["title", "aria-label", "placeholder"],
+        attributeFilter: ["title", "aria-label", "placeholder", "aria-expanded"],
       });
     }
 
@@ -2512,21 +2895,30 @@
   window[instanceKey] = true;
 
   function injectStyle() {
-    if (document.getElementById("cct-style")) return;
+    if (document.getElementById("cct-style")) return true;
+
+    const target = document.head || document.documentElement;
+    if (!target) return false;
 
     const style = document.createElement("style");
     style.id = "cct-style";
     style.textContent = CCT.styleText || "";
-    document.head.appendChild(style);
+    target.appendChild(style);
+    return true;
   }
 
   function start() {
+    if (!injectStyle()) {
+      requestAnimationFrame(start);
+      return;
+    }
+
     if (!document.body) {
       requestAnimationFrame(start);
       return;
     }
 
-    injectStyle();
+    CCT.applyAdBlocking && CCT.applyAdBlocking(document.body);
     CCT.injectLogo && CCT.injectLogo();
     CCT.injectOriginalDownloadButtons && CCT.injectOriginalDownloadButtons(document.body);
     CCT.injectModelSidebarToggle && CCT.injectModelSidebarToggle();

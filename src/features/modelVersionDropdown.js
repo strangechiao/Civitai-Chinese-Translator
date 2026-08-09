@@ -163,14 +163,30 @@
     const menu = root.querySelector(".cct-model-version-select-menu");
     const selectedLabel = escapeHtml(selected.label);
     const isOpen = root.dataset.open === "true";
+    const currentSignature = `${selected.label}\u0000${selected.paid ? "1" : "0"}`;
 
-    current.innerHTML = `
-      <span class="cct-model-version-select-label">${selectedLabel}</span>
-      ${selected.paid ? '<span class="cct-model-version-select-paid">⚡</span>' : ""}
-    `;
+    if (current.dataset.cctSignature !== currentSignature) {
+      current.dataset.cctSignature = currentSignature;
+      current.innerHTML = `
+        <span class="cct-model-version-select-label">${selectedLabel}</span>
+        ${selected.paid ? '<span class="cct-model-version-select-paid">⚡</span>' : ""}
+      `;
+    }
 
     if (isOpen) return;
 
+    const menuSignature = options
+      .map((option) => `${option.label}\u0000${option.paid ? "1" : "0"}\u0000${option.selected ? "1" : "0"}`)
+      .join("\u0001");
+    const previousButtons = root._cctVersionButtons;
+    const sourceButtonsChanged =
+      !previousButtons ||
+      previousButtons.length !== options.length ||
+      options.some((option, index) => previousButtons[index] !== option.button);
+    if (root.dataset.cctMenuSignature === menuSignature && !sourceButtonsChanged) return;
+
+    root.dataset.cctMenuSignature = menuSignature;
+    root._cctVersionButtons = options.map((option) => option.button);
     menu.innerHTML = "";
     options.forEach((option) => {
       const item = document.createElement("button");

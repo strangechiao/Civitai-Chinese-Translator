@@ -5,7 +5,7 @@
   const STORAGE_KEY = "CCT_ORIGINAL_DOWNLOAD_ENABLED";
 
   function isOriginalDownloadEnabled() {
-    return localStorage.getItem(STORAGE_KEY) === "true";
+    return localStorage.getItem(STORAGE_KEY) !== "false";
   }
 
   function setOriginalDownloadEnabled(enabled) {
@@ -103,7 +103,7 @@
   function createButton(card) {
     const button = document.createElement("button");
     button.type = "button";
-    button.className = "cct-original-download-button";
+    button.className = "cct-original-download-button cct-ignore";
     button.title = "下载原始文件";
     button.style.setProperty("--size", "30px");
     button.innerHTML = `
@@ -137,8 +137,12 @@
   function injectOriginalDownloadButtons(root) {
     if (!isOriginalDownloadEnabled()) return;
 
-    const scope = root && root.querySelectorAll ? root : document;
-    const links = Array.from(scope.querySelectorAll('a[href^="/images/"], a[href*="/images/"]'));
+    const rootElement = root && root.nodeType === Node.ELEMENT_NODE ? root : root && root.parentElement;
+    const scope = rootElement && rootElement.querySelectorAll ? rootElement : document;
+    const selector = 'a[href^="/images/"], a[href*="/images/"]';
+    const links = rootElement && rootElement.matches(selector)
+      ? [rootElement, ...scope.querySelectorAll(selector)]
+      : Array.from(scope.querySelectorAll(selector));
 
     links.forEach((link) => {
       const card = link.parentElement;
