@@ -6,7 +6,7 @@
   let menuListenersReady = false;
 
   function getProductName() {
-    return "CCT 中文增强插件";
+    return "[CCT] Civitai汉化&增强插件";
   }
 
   function getNavbarLogoGroup() {

@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name         CCT 中文增强插件
+// @name         [CCT] Civitai汉化&增强插件
 // @namespace    https://civitai.com/
-// @version      0.6.1
-// @description  为 Civitai.com 与 Civitai.red 提供汉化、中文化、本地化与界面翻译，并加入原始图片/视频快捷下载、模型介绍快捷展开/折叠、模型版本快速切换等增强功能的 Tampermonkey 用户脚本。
+// @version      0.6.2
+// @description  Civitai.com / Civitai.red 页面汉化 | 功能菜单 | 一键原图下载 | 模型描述快捷折叠 | 模型版本选项卡整合 | 广告屏蔽与页面布局修正
 // @license      GPL-3.0-or-later
 // @homepageURL  https://github.com/strangechiao/Civitai-Chinese-Translator
 // @supportURL   https://github.com/strangechiao/Civitai-Chinese-Translator/issues
@@ -29,7 +29,7 @@
 
   window.CCT = window.CCT || {};
   window.CCT.meta = window.CCT.meta || {};
-  window.CCT.meta.version = "0.6.1";
+  window.CCT.meta.version = "0.6.2";
   window.CCT.meta.updateUrl = "https://raw.githubusercontent.com/strangechiao/Civitai-Chinese-Translator/main/civitai-chinese-translator.user.js";
   window.CCT.meta.supportUrl = "https://github.com/strangechiao/Civitai-Chinese-Translator/issues";
   window.CCT.assets = window.CCT.assets || {};
@@ -1039,7 +1039,7 @@
   let menuListenersReady = false;
 
   function getProductName() {
-    return "CCT 中文增强插件";
+    return "[CCT] Civitai汉化&增强插件";
   }
 
   function getNavbarLogoGroup() {

@@ -1,6 +1,6 @@
-<p align="center"><img src="public/logo.svg" alt="CCT 中文增强插件" height="100"></p>
+<p align="center"><img src="public/logo.svg" alt="[CCT] Civitai汉化&增强插件" height="100"></p>
 
-<h1 align="center">CCT 中文增强插件</h1>
+<h1 align="center">[CCT] Civitai汉化&增强插件</h1>
 
 <div align="center">
   <a href="https://civitai.com"><img src="https://img.shields.io/badge/支持-Civitai.com-1971C2?style=for-the-badge&labelColor=3C3C3C" alt="支持 Civitai.com"></a>
@@ -15,7 +15,7 @@
 
 如：广告屏蔽与页面布局修正、原始图片与视频快捷下载、模型介绍快速展开与折叠、模型版本快速查看与切换等。<br>
 
-<p align="center"><img src="public/images/hero.png" alt="CCT 中文增强插件"></p>
+<p align="center"><img src="public/images/hero.png" alt="[CCT] Civitai汉化&增强插件"></p>
 
   <sub>
   适用于：
@@ -138,9 +138,9 @@
      <img src="./public/images/截图3.png">
 
 3. 安装脚本
-   - 点击 [CCT 中文增强插件](https://raw.githubusercontent.com/strangechiao/Civitai-Chinese-Translator/main/civitai-chinese-translator.user.js) 安装用户脚本，同时支持 Civitai.com 与 Civitai.red。
+   - 点击 [\[CCT\] Civitai汉化&增强插件](https://raw.githubusercontent.com/strangechiao/Civitai-Chinese-Translator/main/civitai-chinese-translator.user.js) 安装用户脚本，同时支持 Civitai.com 与 Civitai.red。
 
-   - 安装后点击 Tampermonkey 图标，在下拉菜单中确认 CCT 中文增强插件已开启（正常情况下默认开启）。
+   - 安装后点击 Tampermonkey 图标，在下拉菜单中确认“[CCT] Civitai汉化&增强插件”已开启（正常情况下默认开启）。
    - 打开 Civitai 刷新网页或重启浏览器后，即可看到中文界面了。
 
    <hr>

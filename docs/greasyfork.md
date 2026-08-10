@@ -1,6 +1,6 @@
-<center><img src="https://raw.githubusercontent.com/strangechiao/Civitai-Chinese-Translator/main/public/logo.svg" alt="CCT 中文增强插件" height="100"></center>
+<center><img src="https://raw.githubusercontent.com/strangechiao/Civitai-Chinese-Translator/main/public/logo.svg" alt="[CCT] Civitai汉化&增强插件" height="100"></center>
 
-<center><h1>CCT 中文增强插件</h1></center>
+<center><h1>[CCT] Civitai汉化&增强插件</h1></center>
 
 <center>
   <a href="https://civitai.com"><img src="https://img.shields.io/badge/支持-Civitai.com-1971C2?style=for-the-badge&labelColor=3C3C3C" alt="支持 Civitai.com"></a>
@@ -15,7 +15,7 @@
 
 如：广告屏蔽与页面布局修正、原始图片与视频快捷下载、模型介绍快速展开与折叠、模型版本快速查看与切换等。<br>
 
-<img src="https://raw.githubusercontent.com/strangechiao/Civitai-Chinese-Translator/main/public/images/hero.png" alt="CCT 中文增强插件">
+<img src="https://raw.githubusercontent.com/strangechiao/Civitai-Chinese-Translator/main/public/images/hero.png" alt="[CCT] Civitai汉化&增强插件">
 
   <sub>
   适用于：
@@ -63,37 +63,37 @@
 
 <center><h2>功能介绍</h2></center>
 
-<h4>🌟CCT 功能菜单</h4>
+<h3>🌟CCT 功能菜单</h3>
 <p>通过统一的功能菜单管理 CCT，各项增强功能均可独立开启或关闭，并提供检查更新、反馈问题等快捷入口。</p>
 <img src="https://raw.githubusercontent.com/strangechiao/Civitai-Chinese-Translator/main/public/gif/%E6%95%99%E7%A8%8B1.gif" alt="CCT 功能菜单演示">
 
 <hr>
 
-<h4>🌟Civitai.com / Civitai.red 页面汉化</h4>
+<h3>🌟Civitai.com / Civitai.red 页面汉化</h3>
 <p>自动将 Civitai.com 与 Civitai.red 的界面文本翻译为简体中文，包括导航栏、按钮、菜单、提示信息等内容；模型名称、模型类型及其他专有名词保持原文。</p>
 <img src="https://raw.githubusercontent.com/strangechiao/Civitai-Chinese-Translator/main/public/gif/%E6%95%99%E7%A8%8B2.gif" alt="Civitai 页面汉化演示">
 
 <hr>
 
-<h4>🌟原始文件快捷下载</h4>
+<h3>🌟原始文件快捷下载</h3>
 <p>开启后，图片和视频卡片上会显示下载按钮。无需进入内容详情页，即可直接下载原始图片或视频文件，避免保存到经过压缩的预览文件。此功能默认开启，可在 CCT 功能菜单中关闭。</p>
 <img src="https://raw.githubusercontent.com/strangechiao/Civitai-Chinese-Translator/main/public/gif/%E6%95%99%E7%A8%8B3.gif" alt="原始文件快捷下载演示">
 
 <hr>
 
-<h4>🌟模型介绍快速折叠</h4>
+<h3>🌟模型介绍快速折叠</h3>
 <p>当模型介绍和版本更新日志过长时，可通过页面右下角的快捷按钮随时展开或折叠介绍内容，无需反复滚动到原始按钮所在的位置。</p>
 <img src="https://raw.githubusercontent.com/strangechiao/Civitai-Chinese-Translator/main/public/gif/%E6%95%99%E7%A8%8B4.gif" alt="模型介绍快速折叠演示">
 
 <hr>
 
-<h4>🌟模型版本快速切换</h4>
+<h3>🌟模型版本快速切换</h3>
 <p>将模型原有的版本选项卡整理为侧边栏下拉菜单，减少大量版本占用的页面空间，方便快速查看并切换不同模型版本。</p>
 <img src="https://raw.githubusercontent.com/strangechiao/Civitai-Chinese-Translator/main/public/gif/%E6%95%99%E7%A8%8B5.gif" alt="模型版本快速切换演示">
 
 <hr>
 
-<h4>🌟广告屏蔽与页面布局修正</h4>
+<h3>🌟广告屏蔽与页面布局修正</h3>
 <p>根据 Civitai.com 与 Civitai.red 各自的广告加载方式进行适配，减少横幅、侧栏及内容流中的广告干扰。在模型详情页屏蔽右侧广告后，还可将原有双栏布局修正为单栏，使主要内容恢复居中显示。广告屏蔽与页面布局修正均默认开启，可在 CCT 功能菜单中独立关闭。</p>
 <img src="https://raw.githubusercontent.com/strangechiao/Civitai-Chinese-Translator/main/public/gif/%E6%95%99%E7%A8%8B6.gif" alt="广告屏蔽与页面布局修正演示">
 
@@ -116,7 +116,7 @@
 
 3. 安装脚本：
    - 点击本页面上方的“安装此脚本”按钮，按照 Tampermonkey 的提示完成安装。
-   - 安装后点击浏览器工具栏中的 Tampermonkey 图标，确认“CCT 中文增强插件”已经开启；正常情况下默认开启。
+   - 安装后点击浏览器工具栏中的 Tampermonkey 图标，确认“[CCT] Civitai汉化&增强插件”已经开启；正常情况下默认开启。
    - 打开 Civitai 并刷新网页，或重启浏览器后，即可看到中文界面。
 
 <hr>
