@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         [CCT] Civitai汉化&增强插件
 // @namespace    https://civitai.com/
-// @version      1.0.0
+// @version      1.0.1
 // @description  Civitai.com / Civitai.red 页面汉化 | 功能菜单 | 一键原图下载 | 模型描述快捷折叠 | 模型版本选项卡整合 | 广告屏蔽与页面布局修正
 // @license      GPL-3.0-or-later
 // @homepageURL  https://github.com/strangechiao/Civitai-Chinese-Translator
@@ -29,7 +29,7 @@
 
   window.CCT = window.CCT || {};
   window.CCT.meta = window.CCT.meta || {};
-  window.CCT.meta.version = "1.0.0";
+  window.CCT.meta.version = "1.0.1";
   window.CCT.meta.updateUrl = "https://raw.githubusercontent.com/strangechiao/Civitai-Chinese-Translator/main/civitai-chinese-translator.user.js";
   window.CCT.meta.supportUrl = "https://github.com/strangechiao/Civitai-Chinese-Translator/issues";
   window.CCT.assets = window.CCT.assets || {};
@@ -90,9 +90,10 @@
     if (/^\/challenges(?:\/|$)/i.test(pathname)) return "challenges";
     if (/^\/changelog(?:\/|$)/i.test(pathname)) return "changelog";
     if (/^\/shop(?:\/|$)/i.test(pathname)) return "shop";
+    if (/^\/posts(?:\/|$)/i.test(pathname)) return "posts";
     if (/^\/user\/[^/]+/i.test(pathname)) return "user";
     if (/^\/(?:buzz|buzz-dashboard|purchase\/buzz)/i.test(pathname)) return "buzz";
-    if (/^\/generate/i.test(pathname)) return "generation";
+    if (/^\/generate(?:\/|$)/i.test(pathname)) return "generate";
 
     return "unknown";
   }
@@ -2184,11 +2185,14 @@
         "Base Model": "基础模型",
         "Block": "屏蔽",
         "Block this user": "屏蔽该用户",
+        "Be the first to leave a comment...": "来发表第一条评论吧……",
+        "Cannot be empty": "不能为空",
         "Car": "汽车",
         "Cartoon": "卡通",
         "Cat": "猫",
         "Child abuse and exploitation": "虐待和剥削儿童",
         "Clear all filters": "清除所有筛选条件",
+        Close: "关闭",
         "City": "城市",
         "Clothing": "服装",
         "Collections": "收藏夹",
@@ -2288,7 +2292,6 @@
         "Report": "举报",
         "Report image": "举报图片",
         "Reset": "重置",
-        "Remixes Only": "仅再创作",
         "Robot": "机器人",
         "Sale of illegal substances": "销售非法物质",
         "Save": "保存",
@@ -2296,6 +2299,11 @@
         "Scheduled": "定时发布",
         "Sci-Fi": "科幻",
         "Select all that apply": "选择所有适用项",
+        "Select all": "全选",
+        "Delete": "删除",
+        "Download Selected": "下载所选文件",
+        "Image": "图片",
+        "Video": "视频",
         "Self-harm": "自残",
         "Sexual Acts": "性行为",
         "Sexual Situations": "性暗示情境",
@@ -2321,6 +2329,7 @@
         "Visually Disturbing": "引起强烈不适的内容",
         "Weapon-related Violence": "武器相关暴力",
         "Week": "周",
+        "What did you think of this resource?": "你觉得这个资源怎么样？",
         "White Supremacist Content": "白人至上主义内容",
         "Year": "年",
         "You don't have any image collections yet.": "你还没有任何图片收藏夹。",
@@ -2348,6 +2357,9 @@
         "Share": "分享",
         // 用户页与商店共用的个人资料编辑窗口
         "Profile": "个人资料",
+        "Prompt": "提示词",
+        "Preview": "预览",
+        "Negative prompt": "负面提示词",
         "Save Changes": "保存更改",
         "Edit avatar": "编辑头像",
         "Drop image here, should not exceed 50 MB": "将图片拖到这里，大小不得超过 50 MB",
@@ -2657,6 +2669,279 @@
   "use strict";
 
   window.CCT.registerRules({
+    type: "layout",
+    name: "generate",
+    component: "index",
+    rules: {
+      static: {
+        // 挑战弹窗
+        "Click here to see the full details, rules and prizes.": "点击此处查看完整详情、规则和奖励。",
+        "by CivBot": "作者：CivBot",
+        "Submit your Entry": "提交作品",
+        "Accept Challenge": "接受挑战",
+
+        // 预设菜单
+        Presets: "预设",
+        "View presets": "查看预设",
+        "Save current values": "保存当前参数",
+        "Manage presets": "管理预设",
+        "Filter by ecosystem": "按生态系统筛选",
+        "No presets match the selected filters.": "没有符合所选筛选条件的预设。",
+        "Need help? Start the tour!": "需要帮助？开始引导！",
+
+        // 生成队列与内容流
+        Queue: "队列",
+        Feed: "生成记录",
+        "The queue is empty": "队列为空",
+        "Try generating new images with our resources": "尝试使用我们的资源生成新图片",
+        "Some new filtering options don't apply retroactively.": "部分新的筛选选项不会追溯应用于已有内容。",
+
+        // 图片生成工作流
+        "Create Image": "创建图片",
+        "Generate an AI image from text": "根据文本生成 AI 图片",
+        Draft: "草稿",
+        "Fast generation for quick iterations": "快速生成，便于反复调整",
+        "Create + Face Fix": "创建并修复面部",
+        "Generate with automatic face correction": "使用自动面部修复生成图片",
+        "Create + Hires Fix": "创建并高清修复",
+        "Generate with upscaling for higher detail": "通过放大提升图片细节",
+        "Image Variations": "生成相似图片",
+        "Generate a variation of an existing image": "基于现有图片生成相似图片",
+        "Image to Image": "图生图",
+        "Generate or edit using reference images": "使用参考图片生成或编辑",
+        "Image Face Fix": "图片面部修复",
+        "Fix faces in an existing image": "修复现有图片中的面部",
+        "Image Hires Fix": "图片高清修复",
+        "Hires fix from an existing image": "对现有图片进行高清修复",
+        Upscale: "放大",
+        "Increase image resolution": "提高图片分辨率",
+        "Remove Background": "移除背景",
+        "Remove the background from an image": "移除图片背景",
+        "Control Preprocessor": "ControlNet 预处理器",
+        "Run a ControlNet preprocessor on an image (canny, openpose, depth, etc.)":
+          "对图片运行 ControlNet 预处理器（canny、openpose、depth 等）",
+        "Extract Metadata": "提取元数据",
+        "Extract generation parameters from an image": "从图片中提取生成参数",
+
+        // 视频、音乐与 3D 生成工作流
+        "Create Video": "创建视频",
+        "Generate video from text": "文生视频",
+        "Image to Video": "图生视频",
+        "Generate video from an image": "从图片生成视频",
+        "First/Last Frame": "首尾帧",
+        "Generate video from start and end images": "根据起始帧和结束帧生成视频",
+        "Reference to Video": "参考图生视频",
+        "Generate video using a reference image": "使用参考图片生成视频",
+        "Increase video resolution": "提高视频分辨率",
+        Interpolate: "插帧",
+        "Smooth video by adding frames": "通过补帧使视频更流畅",
+        "Edit Video": "编辑视频",
+        "Edit a video with AI": "使用 AI 编辑视频",
+        "Create Music": "创作音乐",
+        "Generate music from text description and lyrics": "根据文本描述和歌词生成音乐",
+        "Create 3D Model": "创建 3D 模型",
+        "Generate a 3D model from a text prompt (PolyGen via Meshy)":
+          "根据文本提示词生成 3D 模型（PolyGen via Meshy）",
+        "Generate a 3D model from a source image (Meshy, Tripo, or Hunyuan3D)":
+          "根据源图片生成 3D 模型（Meshy、Tripo 或 Hunyuan3D）",
+
+        // 图片生成参数
+        "Text to Image": "文生图",
+        Model: "模型",
+        "Models are the resources you're generating with. Using a different base model can drastically alter the style and composition of images, while adding additional resources can change the characters, concepts and objects.":
+          "模型是生成时使用的核心资源。更换基础模型会显著改变图片的风格和构图，添加附加资源则可以改变角色、概念和物体。",
+        "Additional Resources": "附加资源",
+        Add: "添加",
+        "No resources selected": "未选择资源",
+        Enhance: "优化",
+        "Type out what you'd like to generate in the prompt, add aspects you'd like to avoid in the negative prompt.":
+          "在提示词中描述你想生成的内容，并在负面提示词中添加需要避免的元素。",
+        "Aspect Ratio": "宽高比",
+        "Output Settings": "输出设置",
+        Standard: "标准",
+
+        // 高级参数
+        Advanced: "高级",
+        "CFG Scale": "CFG 强度",
+        Creative: "创意",
+        Balanced: "平衡",
+        Precise: "精准",
+        Sampler: "采样器",
+        Fast: "快速",
+        Popular: "热门",
+        Steps: "步数",
+        High: "高",
+        Seed: "种子",
+        Random: "随机",
+        Custom: "自定义",
+        "CLIP Skip": "CLIP 跳过层数",
+        "Select VAE": "选择 VAE",
+        "Enhanced Compatibility": "增强兼容性",
+        "We've updated our generation engine for better performance, but older prompts may look different. Turn this on to make new generations look more like your originals.":
+          "我们更新了生成引擎以提升性能，但旧提示词的生成效果可能有所不同。开启此项可让新生成结果更接近原有效果。",
+        ControlNets: "ControlNet",
+        "Steer generation using a reference image. Add up to four control signals.":
+          "使用参考图片引导生成，最多可添加四个控制信号。",
+        "Add ControlNet": "添加 ControlNet",
+        Breakdown: "明细",
+        QTY: "数量",
+        "Controls how closely the generation follows the text prompt.": "控制生成结果遵循文本提示词的程度。",
+        "Each will produce a slightly (or significantly) different result.": "每个结果都会略有（或显著）不同。",
+        "These provide additional color and detail improvements.": "这些资源可以进一步改善色彩和细节。",
+        "Output Format": "输出格式",
+        "Request Priority": "请求优先级",
+        Highest: "最高",
+
+        // 生成费用
+        "Blue Buzz can't generate mature content without a membership": "未开通会员时，Blue Buzz 无法生成成人内容",
+        "Pay with": "支付方式",
+        "Generation Cost Breakdown": "生成费用明细",
+        "BASE COST": "基础费用",
+        "Base Cost": "基础费用",
+        TIPS: "打赏",
+        "Creator Tip": "创作者打赏",
+        "Civitai Tip": "Civitai 打赏",
+        Total: "合计",
+
+        // 生成结果与详情
+        "Creations are kept in the Generator for 30 days. Download or Post them to your Profile to save them!":
+          "生成内容会在生成器中保留 30 天。请下载或发布到个人资料中进行保存！",
+        "Show more": "显示更多",
+        "Additional Details": "附加详情",
+        Workflow: "工作流",
+        "Output format": "输出格式",
+        Ecosystem: "生态系统",
+        Quantity: "数量",
+        "Generate with this resource": "使用此资源生成",
+        "User Buzz Update": "用户 Buzz 更新",
+        "Copy Workflow ID": "复制工作流 ID",
+        "Buzz Transactions": "Buzz 交易记录",
+
+        // 生成记录筛选
+        Interactions: "互动",
+        Favorited: "已收藏",
+        Liked: "已点赞",
+        Disliked: "已点踩",
+        "Generation Type": "生成类型",
+        Audio: "音频",
+        "All Models": "所有模型",
+        "All Workflows": "所有工作流",
+        "Date Range": "日期范围",
+        From: "起始",
+        To: "截止",
+        "Start date": "开始日期",
+        "End date": "结束日期",
+        Status: "任务状态",
+        "Hide Failed": "隐藏失败任务",
+        "Delete selected": "删除所选项",
+        "Apply workflow to selected": "将工作流应用到所选项",
+        "Post your generations to earn Buzz!": "发布你的生成作品以赚取 Buzz！",
+        "Copy Generation Data": "复制生成数据",
+        "Open in New Tab": "在新标签页中打开",
+
+        // 新手引导
+        "Getting Started with Content Generation": "内容生成入门",
+        "Welcome to the content generation tool! This tour will guide you through the process.":
+          "欢迎使用内容生成工具！本引导将带你了解完整的操作流程。",
+        Skip: "跳过",
+        Next: "下一步",
+        Back: "返回",
+        Done: "完成",
+        "Accept the Terms": "接受条款",
+        "Before generating content, you must accept the terms of service.": "生成内容前，你必须接受服务条款。",
+        "Image Generation Terms": "图片生成条款",
+        "By using the image generator you confirm that you have read and agree to our":
+          "使用图片生成器即表示你确认已阅读并同意入门流程中展示的",
+        "presented during onboarding. Failure to abide by our": "。如不遵守我们的",
+        "will result in the loss of your access to the image generator. Illegal or exploitative content will be removed and reported.":
+          "，你将失去图片生成器的使用权限。违法或剥削性内容将被删除并举报。",
+        "I Confirm, Start Generating": "我已确认，开始生成",
+        "Start Here": "从这里开始",
+        "Looks like you are remixing an image. You can modify the prompt here to generate an image based on the remix.":
+          "你似乎正在对图片进行 Remix。你可以在这里修改提示词，基于该 Remix 生成图片。",
+        "Submit Your Prompt": "提交提示词",
+        "You can submit your prompt by clicking this button and see the magic happen!":
+          "点击此按钮即可提交提示词，见证奇妙效果！",
+        "Your Generation Queue": "你的生成队列",
+        "This is where your generated media is stored, along with all the generation details.":
+          "你生成的媒体及其全部生成详情都会保存在这里。",
+        "Your Generation Feed": "你的生成记录",
+        "View all your generated media here in a single scrollable view.":
+          "在这个可滚动视图中集中查看你生成的全部媒体。",
+
+        // 成人内容限制提示
+        "Blue Buzz can't generate mature content": "Blue Buzz 无法生成成人内容",
+        "Your generation will be blocked if it produces mature results. Blue Buzz is limited to safe-for-work content only.":
+          "如果生成结果包含成人内容，本次生成将被阻止。Blue Buzz 仅限生成非成人内容。",
+        "Unlock mature content with a membership": "开通会员以解锁成人内容",
+        "Members can generate mature content on Civitai.red. Your membership from Civitai.com carries over automatically.":
+          "会员可在 Civitai.red 生成成人内容。你在 Civitai.com 的会员资格会自动同步。",
+        "Become a member": "成为会员",
+        "Continue anyway": "仍然继续",
+      },
+      regexp: [
+        {
+          pattern: /^(\d+) of (\d+)$/i,
+          replace: "第 $1 步，共 $2 步",
+        },
+        {
+          pattern: /^ends on (.+)$/i,
+          replace: "结束时间：$1",
+        },
+        {
+          pattern: /^join the fun and create your masterpiece with (.+)!$/i,
+          replace: "加入挑战，使用 $1 创作你的杰作！",
+        },
+        {
+          pattern: /^claim (\d+) buzz$/i,
+          replace: "领取 $1 Buzz",
+        },
+        {
+          pattern: /^(\d+)\/(\d+) slots?$/i,
+          replace: "$1/$2 个槽位",
+        },
+        {
+          pattern: /^(\d+) jobs? in queue$/i,
+          replace: "队列中有 $1 个任务",
+        },
+        {
+          pattern: /^your position in queue:\s*(\d+)$/i,
+          replace: "队列位置：$1",
+        },
+        {
+          pattern: /^estimated start time:\s*(.+)$/i,
+          replace: "预计开始时间：$1",
+        },
+        {
+          pattern: /^([\d,]+) buzz has been added to your buzz account$/i,
+          replace: "$1 Buzz 已添加到你的 Buzz 账户",
+        },
+        {
+          pattern: /^(\d+) selected$/i,
+          replace: "已选择 $1 项",
+        },
+      ],
+      selector: [
+        {
+          selector: "button",
+          textSelector: ".mantine-Button-label",
+          source: "Post",
+          text: "发布",
+        },
+        {
+          selector: "button",
+          source: "Post",
+          text: "发布",
+        },
+      ],
+    },
+  });
+})();
+
+(function () {
+  "use strict";
+
+  window.CCT.registerRules({
     type: "page",
     name: "home",
     component: "index",
@@ -2786,7 +3071,6 @@
         "this model": "此模型",
         "content with these tags": "带有这些标签的内容",
         SafeTensor: "SafeTensor",
-        "Download Selected": "下载所选文件",
         Unfollow: "取消关注",
         "processing...": "处理中……",
         Type: "类型",
@@ -2796,7 +3080,6 @@
         Hash: "哈希",
         AIR: "AIR",
         Tensors: "张量",
-        "What did you think of this resource?": "你觉得这个资源怎么样？",
         "Show More": "展开",
         "Suggested Resources": "推荐资源",
         "These are resources suggested by the creator of this model. They may be related to this model or created by the same user.":
@@ -2835,9 +3118,6 @@
         Process: "生成过程",
         "Generation data": "生成数据",
         "Resources used": "使用的资源",
-        Remix: "再创作",
-        Prompt: "提示词",
-        "Negative prompt": "负面提示词",
         "Other metadata": "其他元数据",
         "COPY ALL": "全部复制",
         TAG: "标签",
@@ -2946,12 +3226,9 @@
         "All Rights Reserved": "保留所有权利",
 
         // 评论
-        "Be the first to leave a comment...": "来发表第一条评论吧……",
 
         // 图库筛选
         "Media type": "媒体类型",
-        Image: "图片",
-        Video: "视频",
         Resources: "资源",
         "Hide manually-added": "隐藏手动添加的内容",
         "Hide auto-detected": "隐藏自动检测的内容",
@@ -3239,7 +3516,6 @@
         "Discover handcrafted cosmetics from our featured creators.": "探索精选创作者精心制作的装扮。",
         "Browse a growing collection of community-created cosmetics, including profile backgrounds, badges, avatar decorations, and more. Customize your profile and showcase your style with creations from talented creators.":
           "浏览日益丰富的社区创作装扮，包括个人资料背景、徽章、头像装饰等。使用优秀创作者的作品自定义个人资料，展现你的独特风格。",
-        Preview: "预览",
 
         // 装扮类型筛选
         "Filter by Cosmetic Types": "按装扮类型筛选",
@@ -3270,6 +3546,149 @@
         {
           pattern: /^any cosmetic purchases directly contributes to civitai(.*)$/i,
           replace: (match) => `购买任何装扮都将直接支持 Civitai${match[1]}`,
+        },
+      ],
+    },
+  });
+})();
+
+(function () {
+  "use strict";
+
+  window.CCT.registerRules({
+    type: "page",
+    name: "posts",
+    component: "index",
+    rules: {
+      static: {
+        // 创建帖子与上传说明
+        "Create Image Post": "创建图片帖子",
+        "Create Video Post": "创建视频帖子",
+        "There may be a short delay before your uploaded media appears in the Model Gallery and Feeds. Please allow a few minutes for your media to become visible after posting.":
+          "上传的媒体可能需要稍等片刻才会显示在模型图库和动态中。发布后请等待几分钟，媒体才会变为可见。",
+        "Our site is mostly used for sharing AI generated content. You can start generating content using our onsite generator or train your model using your own content by using our onsite trainer.":
+          "本站主要用于分享 AI 生成内容。你可以使用站内生成器创作内容，也可以使用自己的内容通过站内训练器训练模型。",
+        "Our site is mostly used for sharing AI generated content. You can start generating content using our":
+          "本站主要用于分享 AI 生成内容。你可以使用我们的",
+        "onsite generator": "站内生成器",
+        "or train your model using your own content by using our": "创作内容，也可以使用自己的内容通过我们的",
+        "onsite trainer": "站内训练器",
+        "Drag images here or click to select files": "将图片拖到这里，或点击选择文件",
+        "Attach up to 20 files": "最多可添加 20 个文件",
+        "Videos cannot exceed 750 MB, 4K resolution, or 04 minutes (245 seconds) in duration":
+          "视频大小不得超过 750 MB，分辨率不得超过 4K，时长不得超过 04 分钟（245 秒）",
+        "Accepted file types: .png, .jpeg, .webp, .mp4, .webm":
+          "支持的文件类型：.png、.jpeg、.webp、.mp4、.webm",
+        "Import from Generator": "从生成器导入",
+        Thumbnail: "缩略图",
+        SELECT: "选择",
+        "Thumbnail will be auto generated.": "系统将自动生成缩略图。",
+        "The thumbnail is the image that represents your post. It is the first thing viewers see when they come across your post.":
+          "缩略图是代表你帖子的图片，也是其他用户看到该帖子时最先注意到的内容。",
+
+        // 帖子编辑
+        "Add a title...": "添加标题……",
+        Tag: "标签",
+        "Add a description...": "添加描述……",
+        "Your post is currently hidden": "你的帖子当前处于隐藏状态",
+        Your: "你的",
+        Post: "帖子",
+        "is currently": "当前处于",
+        Hidden: "隐藏状态",
+        SAVED: "已保存",
+        Publish: "发布",
+        "Delete Post": "删除帖子",
+        "Edit Post": "编辑帖子",
+        "Add to Showcase": "添加到展示",
+        "Add Content Decoration": "添加内容装饰",
+        Edit: "编辑",
+        Resources: "资源",
+        "Models, LoRAs, embeddings or other Stable Diffusion or Flux specific resources used to create this image.":
+          "用于创作此图片的模型、LoRA、嵌入或其他 Stable Diffusion 或 Flux 专用资源。",
+        RESOURCE: "资源",
+        "Traditional or generative AI programs, platforms or websites used to create this image.":
+          "用于创作此图片的传统或生成式 AI 程序、平台或网站。",
+        TOOL: "工具",
+        TECHNIQUE: "生成方式",
+        Guidance: "引导",
+
+        // 资源评价与媒体操作
+        "RESOURCE REVIEWS": "资源评价",
+        "What did you think of the resources you used?": "你觉得所使用的资源怎么样？",
+        "Take a moment to rate the resources you used in this post by clicking the thumbs below and optionally leaving a comment about the resource.":
+          "请花一点时间评价这篇帖子中使用的资源。点击下方的赞或踩，还可以选择留下对该资源的评论。",
+        "Edit details": "编辑详情",
+        "Schedule Publish": "定时发布",
+        "Manually add a resource.": "手动添加资源。",
+        "If you can't find the one you're looking for, it's either not uploaded here, or is being filtered out to match your already selected resources.":
+          "如果找不到你想要的资源，可能是它尚未上传到本站，或因当前筛选条件及已选资源而未显示。",
+        "Edit image": "编辑图片",
+        "Delete image": "删除图片",
+        "Posting to": "发布到",
+        "Select a resource to ensure that all uploaded images receive correct resource attribution":
+          "请选择一个资源，确保所有上传的图片都能正确标注资源归属",
+
+        // 资源选择窗口
+        "We weren't able to detect any resources used in the creation of this image. You can add them manually using the + Resource button.":
+          "未能检测到创作此图片时使用的任何资源。你可以使用“+ 资源”按钮手动添加。",
+        "Select resource(s)": "选择资源",
+        "Search models": "搜索模型",
+        "Resource types": "资源类型",
+        FEATURED: "精选",
+        RECENT: "最近使用",
+        LIKED: "已点赞",
+        MINE: "我的",
+        Relevance: "相关性",
+        Popularity: "热门程度",
+        "Couldn't load models": "无法加载模型",
+        "Something went wrong on our end — your models are still there. Try again in a moment.":
+          "服务器出现了问题，你的模型仍然安全保留。请稍后重试。",
+        Retry: "重试",
+
+        // 资源分类标签（页面使用全大写文本）
+        CHARACTER: "角色",
+        STYLE: "风格",
+        CONCEPT: "概念",
+        CLOTHING: "服装",
+        "BASE MODEL": "基础模型",
+        BACKGROUND: "背景",
+        POSES: "姿势",
+        ASSETS: "素材",
+        VEHICLE: "载具",
+        BUILDINGS: "建筑",
+        OBJECTS: "物体",
+        ANIMAL: "动物",
+        ACTION: "动作",
+
+        // 资源兼容性与高级模式
+        "Advanced Mode": "高级模式",
+        "Allow unrestricted mixing of additional resources and base models.":
+          "允许不受限制地混合使用附加资源和基础模型。",
+        "Model Compatibility": "模型兼容性",
+        "Some resources work well together, while others may produce unexpected or lower-quality results.":
+          "有些资源可以很好地配合使用，而另一些资源可能会产生意外结果或降低生成质量。",
+        "Enabling Advanced Mode lets you freely combine resources, but:":
+          "启用高级模式后，你可以自由组合资源，但请注意：",
+        "Results may vary, and quality is not guaranteed.": "生成结果可能有所不同，且无法保证质量。",
+        "Refunds won't be given for poor results caused by incompatible resources.":
+          "因资源不兼容而导致生成结果不佳时，不予退款。",
+
+        // 发布政策
+        "By posting to Civitai you agree to our Content Policies.": "发布到 Civitai 即表示你同意我们的内容政策。",
+        "By posting to Civitai you agree to our": "发布到 Civitai 即表示你同意我们的",
+        "Content Policies": "内容政策",
+        "Illegal or exploitative content will be removed and reported.": "违法或剥削性内容将被删除并举报。",
+      },
+      selector: [
+        {
+          selector: '[role="dialog"] *',
+          source: "Select resource(s)",
+          text: "选择资源",
+        },
+        {
+          selector: 'input[placeholder="Search models"]',
+          attr: "placeholder",
+          text: "搜索模型",
         },
       ],
     },

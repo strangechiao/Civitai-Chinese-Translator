@@ -21,9 +21,10 @@
     if (/^\/challenges(?:\/|$)/i.test(pathname)) return "challenges";
     if (/^\/changelog(?:\/|$)/i.test(pathname)) return "changelog";
     if (/^\/shop(?:\/|$)/i.test(pathname)) return "shop";
+    if (/^\/posts(?:\/|$)/i.test(pathname)) return "posts";
     if (/^\/user\/[^/]+/i.test(pathname)) return "user";
     if (/^\/(?:buzz|buzz-dashboard|purchase\/buzz)/i.test(pathname)) return "buzz";
-    if (/^\/generate/i.test(pathname)) return "generation";
+    if (/^\/generate(?:\/|$)/i.test(pathname)) return "generate";
 
     return "unknown";
   }

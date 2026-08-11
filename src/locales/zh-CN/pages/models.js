@@ -83,7 +83,6 @@
         "this model": "此模型",
         "content with these tags": "带有这些标签的内容",
         SafeTensor: "SafeTensor",
-        "Download Selected": "下载所选文件",
         Unfollow: "取消关注",
         "processing...": "处理中……",
         Type: "类型",
@@ -93,7 +92,6 @@
         Hash: "哈希",
         AIR: "AIR",
         Tensors: "张量",
-        "What did you think of this resource?": "你觉得这个资源怎么样？",
         "Show More": "展开",
         "Suggested Resources": "推荐资源",
         "These are resources suggested by the creator of this model. They may be related to this model or created by the same user.":

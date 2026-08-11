@@ -40,12 +40,9 @@
         "All Rights Reserved": "保留所有权利",
 
         // 评论
-        "Be the first to leave a comment...": "来发表第一条评论吧……",
 
         // 图库筛选
         "Media type": "媒体类型",
-        Image: "图片",
-        Video: "视频",
         Resources: "资源",
         "Hide manually-added": "隐藏手动添加的内容",
         "Hide auto-detected": "隐藏自动检测的内容",

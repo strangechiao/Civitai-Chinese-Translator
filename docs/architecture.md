@@ -20,6 +20,8 @@
 /challenges、其子路径      -> pages/challenges.js
 /changelog、其子路径       -> pages/changelog.js
 /shop、其子路径            -> pages/shop.js
+/posts、其子路径           -> pages/posts.js
+/generate 及全站生成侧栏   -> layout/generate.js
 /user/...                  -> pages/user.js
 ```
 
@@ -48,6 +50,7 @@ src/
       layout/
         header.js       页头
         footer.js       页脚
+        generate.js     全站生成器侧栏
       pages/
         home.js          首页
         models.js        模型列表与详情
@@ -60,6 +63,7 @@ src/
         challenges.js    挑战列表与详情
         changelog.js     更新日志
         shop.js          装扮商店
+        posts.js         创建帖子
         user.js          用户页面
 
   features/
@@ -106,6 +110,8 @@ Load more -> 加载更多
 /challenges、其子路径    -> pages/challenges.js
 /changelog、其子路径     -> pages/changelog.js
 /shop、其子路径          -> pages/shop.js
+/posts、其子路径         -> pages/posts.js
+/generate 及全站生成侧栏 -> layout/generate.js
 /user/...                -> pages/user.js
 ```
 

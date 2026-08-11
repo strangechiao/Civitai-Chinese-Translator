@@ -16,7 +16,6 @@
         "Discover handcrafted cosmetics from our featured creators.": "探索精选创作者精心制作的装扮。",
         "Browse a growing collection of community-created cosmetics, including profile backgrounds, badges, avatar decorations, and more. Customize your profile and showcase your style with creations from talented creators.":
           "浏览日益丰富的社区创作装扮，包括个人资料背景、徽章、头像装饰等。使用优秀创作者的作品自定义个人资料，展现你的独特风格。",
-        Preview: "预览",
 
         // 装扮类型筛选
         "Filter by Cosmetic Types": "按装扮类型筛选",
