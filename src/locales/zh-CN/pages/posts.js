@@ -120,10 +120,6 @@
           "因资源不兼容而导致生成结果不佳时，不予退款。",
 
         // 发布政策
-        "By posting to Civitai you agree to our Content Policies.": "发布到 Civitai 即表示你同意我们的内容政策。",
-        "By posting to Civitai you agree to our": "发布到 Civitai 即表示你同意我们的",
-        "Content Policies": "内容政策",
-        "Illegal or exploitative content will be removed and reported.": "违法或剥削性内容将被删除并举报。",
       },
       selector: [
         {

@@ -17,7 +17,6 @@
         Incident: "事件",
 
         // 标签与日期筛选
-        Tags: "标签",
         "Select tags...": "选择标签……",
         Crypto: "加密货币",
         Changelog: "更新日志",

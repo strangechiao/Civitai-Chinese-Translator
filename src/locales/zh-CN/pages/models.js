@@ -125,11 +125,9 @@
         "Add version": "添加版本",
         "Upload files": "上传文件",
         "Create a post": "创建帖子",
-        Category: "分类",
         "Selecting the closest match helps users find your resource.":
           "选择最匹配的分类，有助于用户找到你的资源。",
         "Select a Category": "选择分类",
-        Tags: "标签",
         "Search or create tags for your model": "搜索或创建模型标签",
         "How to Upload a Model": "如何上传模型",
 
