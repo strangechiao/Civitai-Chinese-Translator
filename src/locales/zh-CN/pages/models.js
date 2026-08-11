@@ -183,6 +183,20 @@
         "Cannot be used for NSFW generation": "不可用于生成 NSFW 内容",
         "I acknowledge that I have reviewed the choices above, selected the appropriate option, and understand that my account may be at risk if the selection is found to be incorrect.":
           "我确认已查看上述选项并作出适当选择，也理解如果选择有误，我的账号可能面临风险。",
+
+        // 站内 LoRA 训练
+        "Create your LoRA": "创建 LoRA",
+        "Add training data": "添加训练数据",
+        "Review and Submit": "审核并提交",
+        "Choose your media type": "选择媒体类型",
+        "Choose your LoRA type": "选择 LoRA 类型",
+        "A specific person or character, realistic or anime": "特定人物或角色，可以是真实风格或动漫风格",
+        "A time period, art style, or general look and feel": "特定时代、艺术风格或整体视觉效果",
+        "Objects, clothing, anatomy, poses, etc.": "物体、服装、人体结构、姿势等",
+        Effect: "特效",
+        "Animations or video effects": "动画或视频特效",
+        "How to Use the On-site LoRA Trainer": "如何使用站内 LoRA 训练器",
+        "Temporarily disabled - check back soon!": "暂时不可用，请稍后再来查看！",
       },
       regexp: [
         {
