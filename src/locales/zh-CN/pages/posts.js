@@ -42,7 +42,6 @@
         "is currently": "当前处于",
         Hidden: "隐藏状态",
         SAVED: "已保存",
-        Publish: "发布",
         "Delete Post": "删除帖子",
         "Edit Post": "编辑帖子",
         "Add to Showcase": "添加到展示",

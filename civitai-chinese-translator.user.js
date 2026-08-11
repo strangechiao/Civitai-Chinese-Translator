@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         [CCT] Civitai汉化&增强插件
 // @namespace    https://civitai.com/
-// @version      1.0.4
+// @version      1.0.5
 // @description  Civitai.com / Civitai.red 页面汉化 | 功能菜单 | 一键原图下载 | 模型描述快捷折叠 | 模型版本选项卡整合 | 广告屏蔽与页面布局修正
 // @license      GPL-3.0-or-later
 // @homepageURL  https://github.com/strangechiao/Civitai-Chinese-Translator
@@ -29,7 +29,7 @@
 
   window.CCT = window.CCT || {};
   window.CCT.meta = window.CCT.meta || {};
-  window.CCT.meta.version = "1.0.4";
+  window.CCT.meta.version = "1.0.5";
   window.CCT.meta.updateUrl = "https://raw.githubusercontent.com/strangechiao/Civitai-Chinese-Translator/main/civitai-chinese-translator.user.js";
   window.CCT.meta.supportUrl = "https://github.com/strangechiao/Civitai-Chinese-Translator/issues";
   window.CCT.assets = window.CCT.assets || {};
@@ -2299,6 +2299,7 @@
         "Private": "私密",
         "Prohibited concepts": "违禁内容",
         "Public": "公开",
+        "Publish": "发布",
         "Reason": "原因",
         "Report": "举报",
         "Report image": "举报图片",
@@ -2311,6 +2312,7 @@
         "Sci-Fi": "科幻",
         "Select all that apply": "选择所有适用项",
         "Select all": "全选",
+        "Select a category": "选择分类",
         "Delete": "删除",
         "Download Selected": "下载所选文件",
         "Image": "图片",
@@ -3131,7 +3133,6 @@
         "Create a post": "创建帖子",
         "Selecting the closest match helps users find your resource.":
           "选择最匹配的分类，有助于用户找到你的资源。",
-        "Select a Category": "选择分类",
         "Search or create tags for your model": "搜索或创建模型标签",
         "How to Upload a Model": "如何上传模型",
 
@@ -3410,6 +3411,13 @@
 
         // 创建文章
         "Create an Article": "创建文章",
+        "How to Write Articles": "如何撰写文章",
+        "Save Draft": "保存草稿",
+        "Your article is currently": "你的文章当前处于",
+        "Categories determine what kind of article you're making. Selecting a category that's the closest match to your subject helps users find your article":
+          "分类用于确定文章的内容类型。选择最贴近文章主题的分类，有助于用户找到你的文章。",
+        "Tags are how users filter content on the site. It's important to correctly tag your content so it can be found by interested users":
+          "标签是用户在网站上筛选内容的依据。请为内容添加准确的标签，以便感兴趣的用户能够找到它。",
         Title: "标题",
         "e.g.: How to create your own LoRA": "例如：如何创建自己的 LoRA",
         Content: "内容",
@@ -3498,6 +3506,10 @@
       },
       regexp: [
         {
+          pattern: /^attach up to 10 files\. each file should not exceed 30 mb\. accepted file types:\s*(.+)$/i,
+          replace: (match) => `最多可添加 10 个文件，每个文件不得超过 30 MB。支持的文件类型：${match[1]}`,
+        },
+        {
           pattern: /^(\d+)\/10 uploaded files$/i,
           replace: (match) => `${match[1]}/10 个文件已上传`,
         },
@@ -3545,7 +3557,60 @@
         // 漫画卡片与举报窗口
         "Report comic": "举报漫画",
         "Report comic Project": "举报漫画项目",
+
+        // 创建漫画项目
+        "Create Comic Project": "创建漫画项目",
+        "Give your project a name and optionally pick a genre. The description is shown on the comic overview page and helps readers discover your work.":
+          "为项目命名，并可选择一个题材。简介会显示在漫画概览页，帮助读者发现你的作品。",
+        "Project name": "项目名称",
+        "My Comic": "我的漫画",
+        Genre: "题材",
+        "What is your comic about? Set the stage for your readers...":
+          "你的漫画讲述了什么？为读者展开故事的序幕……",
+
+        // 漫画预览
+        "READER PREVIEW": "读者预览",
+        "CARD PREVIEW": "卡片预览",
+        "Untitled Comic": "未命名漫画",
+        "Start Reading": "开始阅读",
+        CHAPTERS: "章节",
+
+        // 项目图片
+        "Upload a wide hero banner for the comic overview page and a portrait cover for browse cards. Both are optional and can be changed later.":
+          "为漫画概览页上传一张宽幅主视觉横幅，并为浏览卡片上传一张竖版封面。两者均为可选项，之后也可以更改。",
+        "Hero Banner": "主视觉横幅",
+        Cover: "封面",
+        "16:9 banner": "16:9 横幅",
+        "Pick from generator": "从生成器选择",
+
+        // 保存状态与创建操作
+        "Your comic is saved as a": "你的漫画已保存为",
+        "and will appear on your profile's Comics page. It stays private to you until you publish a chapter.":
+          "，并会显示在你个人资料的漫画页面中。在发布章节前，只有你自己可以查看。",
+        "Create Project": "创建项目",
       },
+      regexp: [
+        {
+          pattern: /^by\s+(.+)$/i,
+          replace: "作者：$1",
+        },
+        {
+          pattern: /^(\d+)\s+chapters?$/i,
+          replace: "$1 章",
+        },
+        {
+          pattern: /^(\d+)\s+panels?$/i,
+          replace: "$1 格",
+        },
+        {
+          pattern: /^chapter\s+(\d+)$/i,
+          replace: "第 $1 章",
+        },
+        {
+          pattern: /^ch\.\s*(\d+)$/i,
+          replace: "第 $1 章",
+        },
+      ],
       selectValue: [
         {
           selector: 'input[readonly][aria-label="Search category"]',
@@ -3813,7 +3878,6 @@
         "is currently": "当前处于",
         Hidden: "隐藏状态",
         SAVED: "已保存",
-        Publish: "发布",
         "Delete Post": "删除帖子",
         "Edit Post": "编辑帖子",
         "Add to Showcase": "添加到展示",
