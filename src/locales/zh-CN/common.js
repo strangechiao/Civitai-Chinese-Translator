@@ -165,6 +165,13 @@
         "Tags are how users filter content on the site. It's important to correctly tag your content so it can be found by interested users":
           "标签是用户在网站上筛选内容的依据。请为内容添加准确的标签，以便感兴趣的用户能够找到它。",
         "Attachments": "附件",
+        "Title": "标题",
+        "Safe for work. No naughty stuff": "适合工作场所浏览，不含不宜内容",
+        "Revealing clothing, small bulges, subtle nipple outline, posing/sexualized bare chested men, light gore, violence":
+          "暴露服装、轻微凸起、隐约可见的乳头轮廓、带有性暗示姿势的裸胸男性、轻度血腥或暴力内容",
+        "Adult themes and situations, partial nudity, bikinis, big bulges, sexual situations, graphic violence":
+          "成人主题和情境、部分裸露、比基尼、明显凸起、性暗示情境或血腥暴力",
+        "Graphic nudity, genitalia, adult objects, or settings": "露骨裸露、生殖器、成人用品或成人场景",
         "This collection contains mature content": "此收藏夹包含成人内容",
         "Techniques": "生成方式",
         "this image": "此图片",

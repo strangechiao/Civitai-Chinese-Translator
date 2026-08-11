@@ -2,7 +2,7 @@ const fs = require("fs");
 const path = require("path");
 
 const root = path.resolve(__dirname, "..");
-const version = "1.0.6";
+const version = "1.0.7";
 const outputFile = "civitai-chinese-translator.user.js";
 const homepageUrl = "https://github.com/strangechiao/Civitai-Chinese-Translator";
 const updateUrl = `${homepageUrl.replace("https://github.com", "https://raw.githubusercontent.com")}/main/${outputFile}`;

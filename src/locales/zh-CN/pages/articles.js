@@ -35,7 +35,6 @@
         "Your article is currently": "你的文章当前处于",
         "Categories determine what kind of article you're making. Selecting a category that's the closest match to your subject helps users find your article":
           "分类用于确定文章的内容类型。选择最贴近文章主题的分类，有助于用户找到你的文章。",
-        Title: "标题",
         "e.g.: How to create your own LoRA": "例如：如何创建自己的 LoRA",
         Content: "内容",
         "Click the publish button to make your article public to share with the Civitai community for comments and reactions.":
@@ -46,12 +45,6 @@
 
         // 内容分级指南
         "Browsing Level Guide": "浏览分级指南",
-        "Safe for work. No naughty stuff": "适合工作场所浏览，不含不宜内容",
-        "Revealing clothing, small bulges, subtle nipple outline, posing/sexualized bare chested men, light gore, violence":
-          "暴露服装、轻微凸起、隐约可见的乳头轮廓、带有性暗示姿势的裸胸男性、轻度血腥或暴力内容",
-        "Adult themes and situations, partial nudity, bikinis, big bulges, sexual situations, graphic violence":
-          "成人主题和情境、部分裸露、比基尼、明显凸起、性暗示情境或血腥暴力",
-        "Graphic nudity, genitalia, adult objects, or settings": "露骨裸露、生殖器、成人用品或成人场景",
         "Sexual Acts, masturbation, ejaculation, cum, vore, anal gape, extremely disturbing content":
           "性行为、自慰、射精、精液、吞食癖、肛门扩张或极度令人不适的内容",
 
