@@ -1,8 +1,10 @@
 const fs = require("fs");
 const path = require("path");
+const { runAudit } = require("./audit");
+const sourceFiles = require("./sourceFiles");
 
 const root = path.resolve(__dirname, "..");
-const version = "1.0.7";
+const version = "1.1.0";
 const outputFile = "civitai-chinese-translator.user.js";
 const homepageUrl = "https://github.com/strangechiao/Civitai-Chinese-Translator";
 const updateUrl = `${homepageUrl.replace("https://github.com", "https://raw.githubusercontent.com")}/main/${outputFile}`;
@@ -54,38 +56,6 @@ const header = `// ==UserScript==
 // ==/UserScript==
 `;
 
-const sourceFiles = [
-  "src/core/namespace.js",
-  "src/core/normalize.js",
-  "src/core/pageMatcher.js",
-  "src/core/registry.js",
-  "src/features/styles.js",
-  "src/features/adBlocker.js",
-  "src/features/logo.js",
-  "src/features/imageDownloader.js",
-  "src/features/modelSidebar.js",
-  "src/features/modelVersionDropdown.js",
-  "src/locales/zh-CN/common.js",
-  "src/locales/zh-CN/layout/header.js",
-  "src/locales/zh-CN/layout/footer.js",
-  "src/locales/zh-CN/layout/generate.js",
-  "src/locales/zh-CN/pages/home.js",
-  "src/locales/zh-CN/pages/models.js",
-  "src/locales/zh-CN/pages/images.js",
-  "src/locales/zh-CN/pages/videos.js",
-  "src/locales/zh-CN/pages/3d-models.js",
-  "src/locales/zh-CN/pages/articles.js",
-  "src/locales/zh-CN/pages/comics.js",
-  "src/locales/zh-CN/pages/bounties.js",
-  "src/locales/zh-CN/pages/challenges.js",
-  "src/locales/zh-CN/pages/changelog.js",
-  "src/locales/zh-CN/pages/shop.js",
-  "src/locales/zh-CN/pages/posts.js",
-  "src/locales/zh-CN/pages/user.js",
-  "src/core/translator.js",
-  "src/core/app.js",
-];
-
 const assetsSource = `(function () {
   "use strict";
 
@@ -100,4 +70,5 @@ const assetsSource = `(function () {
 })();`;
 
 const sourceBody = sourceFiles.map((file) => fs.readFileSync(path.join(root, file), "utf8").trim()).join("\n\n");
+runAudit({ checkArtifact: false, quiet: true });
 fs.writeFileSync(path.join(root, outputFile), `${header}\n${assetsSource}\n\n${sourceBody}\n`, "utf8");

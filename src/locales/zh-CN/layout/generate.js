@@ -164,7 +164,6 @@
         To: "截止",
         "Start date": "开始日期",
         "End date": "结束日期",
-        Status: "任务状态",
         "Hide Failed": "隐藏失败任务",
         "Delete selected": "删除所选项",
         "Apply workflow to selected": "将工作流应用到所选项",

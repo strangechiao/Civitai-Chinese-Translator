@@ -10,12 +10,16 @@
         "Terms of Service": "服务条款",
         Safety: "安全",
         API: "API",
-        Status: "服务状态",
         "Known Issues": "已知问题",
         Education: "教育",
         Support: "支持",
       },
       selector: [
+        {
+          selector: 'a[href*="status.civitai" i], a[href*="/status" i]',
+          source: "Status",
+          text: "服务状态",
+        },
         {
           selector: 'a[href*="privacy" i]',
           source: "Privacy",

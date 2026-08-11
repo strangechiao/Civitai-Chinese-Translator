@@ -44,9 +44,14 @@
     }
 
     const parts = url.pathname.split("/");
-    if (parts.length < 5) return null;
+    if (parts.length < 4) return null;
 
-    parts[3] = "original=true";
+    const transformIndex = parts.findIndex((part) => /^(?:original|width|height|quality|anim|transcode)=/i.test(part));
+    if (transformIndex > -1) {
+      parts[transformIndex] = "original=true";
+    } else {
+      parts.splice(parts.length - 1, 0, "original=true");
+    }
     url.pathname = parts.join("/");
     url.search = "";
     url.hash = "";
@@ -70,13 +75,20 @@
     return `civitai-${imageId || "original"}.${extension}`;
   }
 
-  function downloadFile(url, fileName) {
+  function downloadFile(url, fileName, onSuccess, onError) {
     if (typeof GM_download === "function") {
-      GM_download({
-        url,
-        name: fileName,
-        saveAs: false,
-      });
+      try {
+        GM_download({
+          url,
+          name: fileName,
+          saveAs: false,
+          onload: onSuccess,
+          onerror: onError,
+          ontimeout: onError,
+        });
+      } catch (error) {
+        onError(error);
+      }
       return;
     }
 
@@ -88,6 +100,7 @@
     document.body.appendChild(link);
     link.click();
     link.remove();
+    onSuccess();
   }
 
   function setButtonState(button, text, state) {
@@ -98,6 +111,21 @@
   function getActionGroup(card) {
     const moreButton = card.querySelector('button[aria-label="More options"]');
     return moreButton && moreButton.parentElement;
+  }
+
+  function findMediaCard(link) {
+    let current = link.parentElement;
+    let fallback = null;
+    let depth = 0;
+
+    while (current && current !== document.body && depth < 10) {
+      if (getCardMedia(current)) fallback = fallback || current;
+      if (getActionGroup(current)) return current;
+      current = current.parentElement;
+      depth += 1;
+    }
+
+    return fallback;
   }
 
   function createButton(card) {
@@ -115,6 +143,7 @@
     button.addEventListener("click", (event) => {
       event.preventDefault();
       event.stopPropagation();
+      if (button.dataset.state === "loading") return;
 
       const media = getCardMedia(card);
       const mediaUrl = media && (media.currentSrc || media.src);
@@ -127,8 +156,18 @@
 
       const imageId = getImageId(card);
       setButtonState(button, "开始下载", "loading");
-      downloadFile(originalUrl, getFileName(originalUrl, imageId));
-      window.setTimeout(() => setButtonState(button, "下载", "idle"), 1600);
+      downloadFile(
+        originalUrl,
+        getFileName(originalUrl, imageId),
+        () => setButtonState(button, "下载", "idle"),
+        () => {
+          setButtonState(button, "下载失败", "error");
+          window.setTimeout(() => setButtonState(button, "下载", "idle"), 2000);
+        },
+      );
+      window.setTimeout(() => {
+        if (button.dataset.state === "loading") setButtonState(button, "下载", "idle");
+      }, 1600);
     });
 
     return button;
@@ -145,7 +184,7 @@
       : Array.from(scope.querySelectorAll(selector));
 
     links.forEach((link) => {
-      const card = link.parentElement;
+      const card = findMediaCard(link);
       if (!card || card.querySelector(".cct-original-download-button")) return;
       if (!getCardMedia(card)) return;
 

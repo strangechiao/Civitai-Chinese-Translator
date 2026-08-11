@@ -25,11 +25,13 @@
 /user/...                  -> pages/user.js
 ```
 
-脚本应该先判断当前页面类型，再加载：
+脚本应该先判断当前页面类型，再激活：
 
 ```text
-通用规则 common.js + 当前页面文件 pages/<page>.js
+通用规则 common.js + 布局规则 layout/*.js + 当前页面规则 pages/<page>.js
 ```
+
+布局规则会在全站生效，因此 `Status`、`Type`、`Post` 等可能有多种含义的短词不能直接放进布局的 `static`，应使用 `selector` 限定具体位置。
 
 每条一级网址路径对应一个页面文件。同一路径下的列表、详情、弹窗和卡片菜单都写入同一个文件。
 
@@ -67,11 +69,17 @@ src/
         user.js          用户页面
 
   features/
-    styles.js           样式
-    logoMenu.js         CCT Logo 和菜单
+    styles.js                  样式
+    adBlocker.js               广告屏蔽和布局修正
+    logo.js                    CCT Logo 和菜单
+    imageDownloader.js         原始文件快捷下载
+    modelSidebar.js            模型介绍快捷折叠
+    modelVersionDropdown.js    模型版本快速切换
 
 scripts/
-  build.js              构建用户脚本
+  sourceFiles.js        构建源码顺序
+  audit.js              项目完整性与规则冲突检查
+  build.js              审计并构建用户脚本
 ```
 
 ## 文件分类规则
@@ -123,9 +131,10 @@ Load more -> 加载更多
 
 ```text
 1. 加载 common.js
-2. 通过 pageMatcher 判断当前页面
-3. 加载 pages/<page>.js
-4. 合并规则后交给 translator
+2. 加载 layout/*.js
+3. 通过 pageMatcher 判断当前页面
+4. 加载 pages/<page>.js
+5. 合并规则后交给 translator
 ```
 
 例子：
@@ -175,8 +184,14 @@ static: {
 
 ```js
 regexp: [
-  [/^(\d+) variants? available$/i, "$1 个可用变体"],
-  [/^(\d+) items?$/i, "$1 个项目"],
+  {
+    pattern: /^(\d+) variants? available$/i,
+    replace: "$1 个可用变体",
+  },
+  {
+    pattern: /^(\d+) items?$/i,
+    replace: "$1 个项目",
+  },
 ]
 ```
 
@@ -186,7 +201,25 @@ regexp: [
 
 ```js
 selector: [
-  [".model-header [data-action='download']", "下载"],
+  {
+    selector: ".model-header [data-action='download']",
+    source: "Download",
+    text: "下载",
+  },
+]
+```
+
+### selectValue
+
+覆盖只读输入框或选择器当前显示值，适合 React 控制的下拉菜单。原始值不会被修改。
+
+```js
+selectValue: [
+  {
+    selector: 'input[readonly][aria-label="Search category"]',
+    value: "Models",
+    text: "模型",
+  },
 ]
 ```
 
@@ -229,8 +262,10 @@ ignore: [
 - 页面文件严格对应一级网址路径。
 - 同一路径内通过注释划分功能区域，不再拆分列表页和详情页。
 - 短词慎放 common，例如 `Type`、`Model`、`Post`。
+- 固定词条优先区分大小写；只有不存在冲突时，翻译器才会兼容不同大小写。
 - 不直接改 React 内部数据节点。
 - 不翻译 `script`、`style`、`template`、`svg`、`#__NEXT_DATA__`。
-- 动态页面使用 MutationObserver，但只处理新增或变化节点。
+- 动态页面使用 MutationObserver，只处理新增或变化节点；调度器会自动合并父子重复区域。
 - 用户脚本必须有单实例保护，避免改名后新旧脚本同时运行。
 - 版本号由维护者手动更新，自动化修改时不要主动改版本号。
+- 构建前运行 `node scripts/audit.js`；`node scripts/build.js` 也会自动先执行相同审计。

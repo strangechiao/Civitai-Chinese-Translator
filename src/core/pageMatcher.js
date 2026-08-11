@@ -13,7 +13,7 @@
     if (pathname === "/") return "home";
     if (/^\/models(?:\/|$)/i.test(pathname)) return "models";
     if (/^\/images(?:\/|$)/i.test(pathname)) return "images";
-    if (pathname === "/videos") return "videos";
+    if (/^\/videos(?:\/|$)/i.test(pathname)) return "videos";
     if (/^\/3d-models(?:\/|$)/i.test(pathname)) return "3d-models";
     if (/^\/articles(?:\/|$)/i.test(pathname)) return "articles";
     if (/^\/comics(?:\/|$)/i.test(pathname)) return "comics";

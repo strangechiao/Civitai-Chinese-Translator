@@ -40,8 +40,10 @@
 
   function syncAdBlockingState() {
     if (!document.documentElement) return false;
+    const isUserPage = /^\/user(?:\/|$)/i.test(location.pathname);
     document.documentElement.classList.toggle("cct-site-red", location.hostname.endsWith("civitai.red"));
     document.documentElement.classList.toggle("cct-site-com", location.hostname.endsWith("civitai.com"));
+    document.documentElement.classList.toggle("cct-page-user", isUserPage);
     document.documentElement.classList.toggle("cct-ad-blocking-enabled", isAdBlockingEnabled());
     document.documentElement.classList.toggle("cct-ad-layout-centered", isAdLayoutCenteredEnabled());
     return true;

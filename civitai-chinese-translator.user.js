@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         [CCT] Civitai汉化&增强插件
 // @namespace    https://civitai.com/
-// @version      1.0.7
+// @version      1.1.0
 // @description  Civitai.com / Civitai.red 页面汉化 | 功能菜单 | 一键原图下载 | 模型描述快捷折叠 | 模型版本选项卡整合 | 广告屏蔽与页面布局修正
 // @license      GPL-3.0-or-later
 // @homepageURL  https://github.com/strangechiao/Civitai-Chinese-Translator
@@ -29,7 +29,7 @@
 
   window.CCT = window.CCT || {};
   window.CCT.meta = window.CCT.meta || {};
-  window.CCT.meta.version = "1.0.7";
+  window.CCT.meta.version = "1.1.0";
   window.CCT.meta.updateUrl = "https://raw.githubusercontent.com/strangechiao/Civitai-Chinese-Translator/main/civitai-chinese-translator.user.js";
   window.CCT.meta.supportUrl = "https://github.com/strangechiao/Civitai-Chinese-Translator/issues";
   window.CCT.assets = window.CCT.assets || {};
@@ -60,11 +60,15 @@
       .replace(/\u00a0/g, " ")
       .replace(/[\u200B-\u200D\u2060\uFEFF]/g, "")
       .replace(/\s+/g, " ")
-      .trim()
-      .toLowerCase();
+      .trim();
+  }
+
+  function foldText(text) {
+    return normalizeText(text).toLocaleLowerCase("en-US");
   }
 
   CCT.normalizeText = normalizeText;
+  CCT.foldText = foldText;
 })();
 
 (function () {
@@ -82,7 +86,7 @@
     if (pathname === "/") return "home";
     if (/^\/models(?:\/|$)/i.test(pathname)) return "models";
     if (/^\/images(?:\/|$)/i.test(pathname)) return "images";
-    if (pathname === "/videos") return "videos";
+    if (/^\/videos(?:\/|$)/i.test(pathname)) return "videos";
     if (/^\/3d-models(?:\/|$)/i.test(pathname)) return "3d-models";
     if (/^\/articles(?:\/|$)/i.test(pathname)) return "articles";
     if (/^\/comics(?:\/|$)/i.test(pathname)) return "comics";
@@ -194,42 +198,37 @@
       display: none !important;
     }
 
-    html.cct-site-red.cct-ad-blocking-enabled .box-content:has(> div[id]:empty),
-    html.cct-site-red.cct-ad-blocking-enabled [style*="min-height"]:has(.box-content > div[id]:empty),
-    html.cct-site-red.cct-ad-blocking-enabled [class*="__rail"]:has(.box-content > div[id]:empty),
-    html.cct-site-red.cct-ad-blocking-enabled [style*="content-visibility"]:has(.box-content > div[id]:empty) {
+    html.cct-site-red.cct-ad-blocking-enabled:not(.cct-page-user) div.relative.box-content.flex.flex-col.items-center.justify-center.gap-2[style*="min-height"]:has(> div[id]:empty),
+    html.cct-site-red.cct-ad-blocking-enabled:not(.cct-page-user) [class*="__rail"]:has(> div.relative.box-content.flex.flex-col.items-center.justify-center.gap-2[style*="min-height"] > div[id]:empty),
+    html.cct-site-red.cct-ad-blocking-enabled:not(.cct-page-user) [style*="content-visibility"]:has(> div > div.relative.box-content.flex.flex-col.items-center.justify-center.gap-2[style*="min-height"] > div[id]:empty) {
       display: none !important;
     }
 
-    html.cct-site-red.cct-ad-blocking-enabled div.relative.box-content.flex.flex-col.items-center.justify-center.gap-2.bg-gray-1.py-3[style*="min-height: 250px"] {
+    html.cct-site-red.cct-ad-blocking-enabled:not(.cct-page-user) div.relative.box-content.flex.flex-col.items-center.justify-center.gap-2.bg-gray-1.py-3[style*="min-height: 250px"]:has(> div[id]:empty) {
       display: none !important;
     }
 
-    html.cct-site-com.cct-ad-blocking-enabled div.relative.flex.justify-center.border-t[style*="min-height: 90px"] {
+    html.cct-site-com.cct-ad-blocking-enabled div.relative.flex.justify-center.border-t[style*="min-height: 90px"]:has(button[aria-label="Close ad"]) {
       display: none !important;
     }
 
-    html.cct-site-com.cct-ad-blocking-enabled div.relative.box-content.flex.flex-col.items-center.justify-center.gap-2.py-3[style*="min-height: 250px"] {
+    html.cct-site-com.cct-ad-blocking-enabled:not(.cct-page-user) div.relative.box-content.flex.flex-col.items-center.justify-center.gap-2.py-3[style*="min-height: 250px"]:has(> div[id]:empty) {
       display: none !important;
     }
 
-    html.cct-site-com.cct-ad-blocking-enabled [class*="__rail"]:has(> div.relative.box-content.flex.flex-col.items-center.justify-center.gap-2[style*="min-height: 600px"]) {
+    html.cct-site-com.cct-ad-blocking-enabled:not(.cct-page-user) [class*="__rail"]:has(> div.relative.box-content.flex.flex-col.items-center.justify-center.gap-2[style*="min-height: 600px"]) {
       display: none !important;
     }
 
-    html.cct-site-com.cct-ad-blocking-enabled [class*="__rail"]:empty {
+    html.cct-site-com.cct-ad-blocking-enabled:not(.cct-page-user) [class*="__rail"]:empty {
       display: none !important;
     }
 
-    html.cct-site-com.cct-ad-blocking-enabled div.relative.box-content.flex.flex-col.items-center.justify-center.gap-2[style*="min-height: 280px"] {
+    html.cct-site-com.cct-ad-blocking-enabled:not(.cct-page-user) div.relative.box-content.flex.flex-col.items-center.justify-center.gap-2[style*="min-height: 280px"]:has(> div[id]:empty) {
       display: none !important;
     }
 
     html.cct-site-com.cct-ad-blocking-enabled div.relative.flex.overflow-hidden.flex-col.mx-auto.min-w-80.justify-between:has(a[href="/pricing"]) {
-      display: none !important;
-    }
-
-    html.cct-ad-blocking-enabled div:has(> div[class~="@container"]:only-child > div[class*="MasonryContainer"][class*="__queries"]:only-child:empty) {
       display: none !important;
     }
 
@@ -959,8 +958,10 @@
 
   function syncAdBlockingState() {
     if (!document.documentElement) return false;
+    const isUserPage = /^\/user(?:\/|$)/i.test(location.pathname);
     document.documentElement.classList.toggle("cct-site-red", location.hostname.endsWith("civitai.red"));
     document.documentElement.classList.toggle("cct-site-com", location.hostname.endsWith("civitai.com"));
+    document.documentElement.classList.toggle("cct-page-user", isUserPage);
     document.documentElement.classList.toggle("cct-ad-blocking-enabled", isAdBlockingEnabled());
     document.documentElement.classList.toggle("cct-ad-layout-centered", isAdLayoutCenteredEnabled());
     return true;
@@ -1600,9 +1601,14 @@
     }
 
     const parts = url.pathname.split("/");
-    if (parts.length < 5) return null;
+    if (parts.length < 4) return null;
 
-    parts[3] = "original=true";
+    const transformIndex = parts.findIndex((part) => /^(?:original|width|height|quality|anim|transcode)=/i.test(part));
+    if (transformIndex > -1) {
+      parts[transformIndex] = "original=true";
+    } else {
+      parts.splice(parts.length - 1, 0, "original=true");
+    }
     url.pathname = parts.join("/");
     url.search = "";
     url.hash = "";
@@ -1626,13 +1632,20 @@
     return `civitai-${imageId || "original"}.${extension}`;
   }
 
-  function downloadFile(url, fileName) {
+  function downloadFile(url, fileName, onSuccess, onError) {
     if (typeof GM_download === "function") {
-      GM_download({
-        url,
-        name: fileName,
-        saveAs: false,
-      });
+      try {
+        GM_download({
+          url,
+          name: fileName,
+          saveAs: false,
+          onload: onSuccess,
+          onerror: onError,
+          ontimeout: onError,
+        });
+      } catch (error) {
+        onError(error);
+      }
       return;
     }
 
@@ -1644,6 +1657,7 @@
     document.body.appendChild(link);
     link.click();
     link.remove();
+    onSuccess();
   }
 
   function setButtonState(button, text, state) {
@@ -1654,6 +1668,21 @@
   function getActionGroup(card) {
     const moreButton = card.querySelector('button[aria-label="More options"]');
     return moreButton && moreButton.parentElement;
+  }
+
+  function findMediaCard(link) {
+    let current = link.parentElement;
+    let fallback = null;
+    let depth = 0;
+
+    while (current && current !== document.body && depth < 10) {
+      if (getCardMedia(current)) fallback = fallback || current;
+      if (getActionGroup(current)) return current;
+      current = current.parentElement;
+      depth += 1;
+    }
+
+    return fallback;
   }
 
   function createButton(card) {
@@ -1671,6 +1700,7 @@
     button.addEventListener("click", (event) => {
       event.preventDefault();
       event.stopPropagation();
+      if (button.dataset.state === "loading") return;
 
       const media = getCardMedia(card);
       const mediaUrl = media && (media.currentSrc || media.src);
@@ -1683,8 +1713,18 @@
 
       const imageId = getImageId(card);
       setButtonState(button, "开始下载", "loading");
-      downloadFile(originalUrl, getFileName(originalUrl, imageId));
-      window.setTimeout(() => setButtonState(button, "下载", "idle"), 1600);
+      downloadFile(
+        originalUrl,
+        getFileName(originalUrl, imageId),
+        () => setButtonState(button, "下载", "idle"),
+        () => {
+          setButtonState(button, "下载失败", "error");
+          window.setTimeout(() => setButtonState(button, "下载", "idle"), 2000);
+        },
+      );
+      window.setTimeout(() => {
+        if (button.dataset.state === "loading") setButtonState(button, "下载", "idle");
+      }, 1600);
     });
 
     return button;
@@ -1701,7 +1741,7 @@
       : Array.from(scope.querySelectorAll(selector));
 
     links.forEach((link) => {
-      const card = link.parentElement;
+      const card = findMediaCard(link);
       if (!card || card.querySelector(".cct-original-download-button")) return;
       if (!getCardMedia(card)) return;
 
@@ -2682,12 +2722,16 @@
         "Terms of Service": "服务条款",
         Safety: "安全",
         API: "API",
-        Status: "服务状态",
         "Known Issues": "已知问题",
         Education: "教育",
         Support: "支持",
       },
       selector: [
+        {
+          selector: 'a[href*="status.civitai" i], a[href*="/status" i]',
+          source: "Status",
+          text: "服务状态",
+        },
         {
           selector: 'a[href*="privacy" i]',
           source: "Privacy",
@@ -2864,7 +2908,6 @@
         To: "截止",
         "Start date": "开始日期",
         "End date": "结束日期",
-        Status: "任务状态",
         "Hide Failed": "隐藏失败任务",
         "Delete selected": "删除所选项",
         "Apply workflow to selected": "将工作流应用到所选项",
@@ -4148,6 +4191,7 @@
 
   let activeRules = null;
   let staticMap = null;
+  let foldedStaticMap = null;
   let ignoreSelector = baseIgnore.join(",");
 
   function isTranslationEnabled() {
@@ -4161,9 +4205,18 @@
   function refreshRules() {
     activeRules = CCT.getActiveRules();
     staticMap = new Map();
+    foldedStaticMap = new Map();
 
     Object.entries(activeRules.static || {}).forEach(([source, target]) => {
-      staticMap.set(CCT.normalizeText(source), target);
+      const normalized = CCT.normalizeText(source);
+      const folded = CCT.foldText(source);
+      staticMap.set(normalized, target);
+
+      if (!foldedStaticMap.has(folded)) {
+        foldedStaticMap.set(folded, target);
+      } else if (foldedStaticMap.get(folded) !== target) {
+        foldedStaticMap.set(folded, null);
+      }
     });
 
     ignoreSelector = [...baseIgnore, ...(activeRules.ignore || [])].join(",");
@@ -4184,6 +4237,11 @@
 
     if (staticMap.has(normalized)) {
       return staticMap.get(normalized);
+    }
+
+    const folded = CCT.foldText(normalized);
+    if (foldedStaticMap.has(folded) && foldedStaticMap.get(folded) !== null) {
+      return foldedStaticMap.get(folded);
     }
 
     for (const rule of activeRules.regexp || []) {
@@ -4311,22 +4369,30 @@
     }
   }
 
-  function translateSplitTextElements(root) {
-    const elements = [root, ...Array.from(root.querySelectorAll ? root.querySelectorAll("*") : [])].reverse();
+  function translateSplitTextElements(root, elements) {
+    const textNodesByElement = new Map();
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode(node) {
+        if (shouldSkipTextNode(node) || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      },
+    });
+    let node;
 
-    elements.forEach((element) => {
-      if (shouldSkipElement(element)) return;
+    while ((node = walker.nextNode())) {
+      let element = node.parentElement;
 
-      const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT, {
-        acceptNode(node) {
-          if (shouldSkipTextNode(node) || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
-          return NodeFilter.FILTER_ACCEPT;
-        },
-      });
-      const textNodes = [];
-      let node;
+      while (element) {
+        const textNodes = textNodesByElement.get(element) || [];
+        textNodes.push(node);
+        textNodesByElement.set(element, textNodes);
+        if (element === root) break;
+        element = element.parentElement;
+      }
+    }
 
-      while ((node = walker.nextNode())) textNodes.push(node);
+    [...elements].reverse().forEach((element) => {
+      const textNodes = textNodesByElement.get(element) || [];
       if (textNodes.length < 2) return;
 
       const combinedText = textNodes.map((textNode) => textNode.nodeValue.trim()).join(" ");
@@ -4345,15 +4411,15 @@
   function translateElementTree(root) {
     if (root.nodeType !== Node.ELEMENT_NODE || shouldSkipElement(root)) return;
 
-    translateAttributes(root);
-    root.querySelectorAll("*").forEach((element) => {
+    const elements = [root, ...root.querySelectorAll("*")];
+    elements.forEach((element) => {
       if (!shouldSkipElement(element)) {
         translateAttributes(element);
       }
     });
 
     translateSelectorRules(root);
-    translateSplitTextElements(root);
+    translateSplitTextElements(root, elements);
     translateTextNodes(root);
     translateSelectValueRules(root);
   }
@@ -4382,7 +4448,17 @@
     }
 
     function schedule(root) {
-      if (root) pendingRoots.add(root);
+      if (root) {
+        const existingRoots = Array.from(pendingRoots);
+        const isCovered = existingRoots.some((existing) => existing === root || (existing.contains && existing.contains(root)));
+
+        if (!isCovered) {
+          existingRoots.forEach((existing) => {
+            if (root.contains && root.contains(existing)) pendingRoots.delete(existing);
+          });
+          pendingRoots.add(root);
+        }
+      }
       if (timer) return;
 
       timer = setTimeout(() => {

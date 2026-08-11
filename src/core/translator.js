@@ -21,6 +21,7 @@
 
   let activeRules = null;
   let staticMap = null;
+  let foldedStaticMap = null;
   let ignoreSelector = baseIgnore.join(",");
 
   function isTranslationEnabled() {
@@ -34,9 +35,18 @@
   function refreshRules() {
     activeRules = CCT.getActiveRules();
     staticMap = new Map();
+    foldedStaticMap = new Map();
 
     Object.entries(activeRules.static || {}).forEach(([source, target]) => {
-      staticMap.set(CCT.normalizeText(source), target);
+      const normalized = CCT.normalizeText(source);
+      const folded = CCT.foldText(source);
+      staticMap.set(normalized, target);
+
+      if (!foldedStaticMap.has(folded)) {
+        foldedStaticMap.set(folded, target);
+      } else if (foldedStaticMap.get(folded) !== target) {
+        foldedStaticMap.set(folded, null);
+      }
     });
 
     ignoreSelector = [...baseIgnore, ...(activeRules.ignore || [])].join(",");
@@ -57,6 +67,11 @@
 
     if (staticMap.has(normalized)) {
       return staticMap.get(normalized);
+    }
+
+    const folded = CCT.foldText(normalized);
+    if (foldedStaticMap.has(folded) && foldedStaticMap.get(folded) !== null) {
+      return foldedStaticMap.get(folded);
     }
 
     for (const rule of activeRules.regexp || []) {
@@ -184,22 +199,30 @@
     }
   }
 
-  function translateSplitTextElements(root) {
-    const elements = [root, ...Array.from(root.querySelectorAll ? root.querySelectorAll("*") : [])].reverse();
+  function translateSplitTextElements(root, elements) {
+    const textNodesByElement = new Map();
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode(node) {
+        if (shouldSkipTextNode(node) || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      },
+    });
+    let node;
 
-    elements.forEach((element) => {
-      if (shouldSkipElement(element)) return;
+    while ((node = walker.nextNode())) {
+      let element = node.parentElement;
 
-      const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT, {
-        acceptNode(node) {
-          if (shouldSkipTextNode(node) || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
-          return NodeFilter.FILTER_ACCEPT;
-        },
-      });
-      const textNodes = [];
-      let node;
+      while (element) {
+        const textNodes = textNodesByElement.get(element) || [];
+        textNodes.push(node);
+        textNodesByElement.set(element, textNodes);
+        if (element === root) break;
+        element = element.parentElement;
+      }
+    }
 
-      while ((node = walker.nextNode())) textNodes.push(node);
+    [...elements].reverse().forEach((element) => {
+      const textNodes = textNodesByElement.get(element) || [];
       if (textNodes.length < 2) return;
 
       const combinedText = textNodes.map((textNode) => textNode.nodeValue.trim()).join(" ");
@@ -218,15 +241,15 @@
   function translateElementTree(root) {
     if (root.nodeType !== Node.ELEMENT_NODE || shouldSkipElement(root)) return;
 
-    translateAttributes(root);
-    root.querySelectorAll("*").forEach((element) => {
+    const elements = [root, ...root.querySelectorAll("*")];
+    elements.forEach((element) => {
       if (!shouldSkipElement(element)) {
         translateAttributes(element);
       }
     });
 
     translateSelectorRules(root);
-    translateSplitTextElements(root);
+    translateSplitTextElements(root, elements);
     translateTextNodes(root);
     translateSelectValueRules(root);
   }
@@ -255,7 +278,17 @@
     }
 
     function schedule(root) {
-      if (root) pendingRoots.add(root);
+      if (root) {
+        const existingRoots = Array.from(pendingRoots);
+        const isCovered = existingRoots.some((existing) => existing === root || (existing.contains && existing.contains(root)));
+
+        if (!isCovered) {
+          existingRoots.forEach((existing) => {
+            if (root.contains && root.contains(existing)) pendingRoots.delete(existing);
+          });
+          pendingRoots.add(root);
+        }
+      }
       if (timer) return;
 
       timer = setTimeout(() => {
