@@ -50,6 +50,10 @@
       display: none !important;
     }
 
+    html.cct-ad-blocking-enabled div:has(> div[class~="@container"]:only-child > div[class*="MasonryContainer"][class*="__queries"]:only-child:empty) {
+      display: none !important;
+    }
+
     html.cct-ad-blocking-enabled.cct-ad-layout-centered [class*="__mainRegion"][class*="__withRail"] {
       grid-template-columns: minmax(0, 1fr) !important;
     }

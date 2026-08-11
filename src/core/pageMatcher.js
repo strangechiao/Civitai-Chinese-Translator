@@ -11,10 +11,17 @@
     const pathname = getPathname();
 
     if (pathname === "/") return "home";
-    if (pathname === "/models") return "models";
-    if (/^\/models\/\d+/i.test(pathname)) return "modelDetail";
-    if (/^\/images\/\d+/i.test(pathname)) return "imageDetail";
-    if (/^\/user\/[^/]+/i.test(pathname)) return "userProfile";
+    if (/^\/models(?:\/|$)/i.test(pathname)) return "models";
+    if (/^\/images(?:\/|$)/i.test(pathname)) return "images";
+    if (pathname === "/videos") return "videos";
+    if (/^\/3d-models(?:\/|$)/i.test(pathname)) return "3d-models";
+    if (/^\/articles(?:\/|$)/i.test(pathname)) return "articles";
+    if (/^\/comics(?:\/|$)/i.test(pathname)) return "comics";
+    if (/^\/bounties(?:\/|$)/i.test(pathname)) return "bounties";
+    if (/^\/challenges(?:\/|$)/i.test(pathname)) return "challenges";
+    if (/^\/changelog(?:\/|$)/i.test(pathname)) return "changelog";
+    if (/^\/shop(?:\/|$)/i.test(pathname)) return "shop";
+    if (/^\/user\/[^/]+/i.test(pathname)) return "user";
     if (/^\/(?:buzz|buzz-dashboard|purchase\/buzz)/i.test(pathname)) return "buzz";
     if (/^\/generate/i.test(pathname)) return "generation";
 

@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         [CCT] Civitai汉化&增强插件
 // @namespace    https://civitai.com/
-// @version      0.6.2
+// @version      1.0.0
 // @description  Civitai.com / Civitai.red 页面汉化 | 功能菜单 | 一键原图下载 | 模型描述快捷折叠 | 模型版本选项卡整合 | 广告屏蔽与页面布局修正
 // @license      GPL-3.0-or-later
 // @homepageURL  https://github.com/strangechiao/Civitai-Chinese-Translator
@@ -29,7 +29,7 @@
 
   window.CCT = window.CCT || {};
   window.CCT.meta = window.CCT.meta || {};
-  window.CCT.meta.version = "0.6.2";
+  window.CCT.meta.version = "1.0.0";
   window.CCT.meta.updateUrl = "https://raw.githubusercontent.com/strangechiao/Civitai-Chinese-Translator/main/civitai-chinese-translator.user.js";
   window.CCT.meta.supportUrl = "https://github.com/strangechiao/Civitai-Chinese-Translator/issues";
   window.CCT.assets = window.CCT.assets || {};
@@ -58,6 +58,7 @@
       .replace(/[‘’]/g, "'")
       .replace(/[“”]/g, '"')
       .replace(/\u00a0/g, " ")
+      .replace(/[\u200B-\u200D\u2060\uFEFF]/g, "")
       .replace(/\s+/g, " ")
       .trim()
       .toLowerCase();
@@ -79,10 +80,17 @@
     const pathname = getPathname();
 
     if (pathname === "/") return "home";
-    if (pathname === "/models") return "models";
-    if (/^\/models\/\d+/i.test(pathname)) return "modelDetail";
-    if (/^\/images\/\d+/i.test(pathname)) return "imageDetail";
-    if (/^\/user\/[^/]+/i.test(pathname)) return "userProfile";
+    if (/^\/models(?:\/|$)/i.test(pathname)) return "models";
+    if (/^\/images(?:\/|$)/i.test(pathname)) return "images";
+    if (pathname === "/videos") return "videos";
+    if (/^\/3d-models(?:\/|$)/i.test(pathname)) return "3d-models";
+    if (/^\/articles(?:\/|$)/i.test(pathname)) return "articles";
+    if (/^\/comics(?:\/|$)/i.test(pathname)) return "comics";
+    if (/^\/bounties(?:\/|$)/i.test(pathname)) return "bounties";
+    if (/^\/challenges(?:\/|$)/i.test(pathname)) return "challenges";
+    if (/^\/changelog(?:\/|$)/i.test(pathname)) return "changelog";
+    if (/^\/shop(?:\/|$)/i.test(pathname)) return "shop";
+    if (/^\/user\/[^/]+/i.test(pathname)) return "user";
     if (/^\/(?:buzz|buzz-dashboard|purchase\/buzz)/i.test(pathname)) return "buzz";
     if (/^\/generate/i.test(pathname)) return "generation";
 
@@ -217,6 +225,10 @@
     }
 
     html.cct-site-com.cct-ad-blocking-enabled div.relative.flex.overflow-hidden.flex-col.mx-auto.min-w-80.justify-between:has(a[href="/pricing"]) {
+      display: none !important;
+    }
+
+    html.cct-ad-blocking-enabled div:has(> div[class~="@container"]:only-child > div[class*="MasonryContainer"][class*="__queries"]:only-child:empty) {
       display: none !important;
     }
 
@@ -1731,7 +1743,7 @@
   }
 
   function isModelDetailPage() {
-    return CCT.getCurrentPage && CCT.getCurrentPage() === "modelDetail";
+    return CCT.getCurrentPage && CCT.getCurrentPage() === "models";
   }
 
   function getSpoilerControl() {
@@ -1893,7 +1905,7 @@
   }
 
   function isModelDetailPage() {
-    return CCT.getCurrentPage && CCT.getCurrentPage() === "modelDetail";
+    return CCT.getCurrentPage && CCT.getCurrentPage() === "models";
   }
 
   function getVersionListRoots() {
@@ -2149,8 +2161,305 @@
     name: "global",
     component: "index",
     rules: {
-      static: {},
-      regexp: [],
+      static: {
+        // 在多个页面中含义一致的通用词条
+        "3D Models": "三维模型",
+        "Add to Image Collection": "将图片添加到收藏夹",
+        "Adult Products": "成人用品",
+        "Action": "动作",
+        "All": "全部",
+        "All Base Models": "所有基础模型",
+        "All Time": "全部时间",
+        "Animal": "动物",
+        "Announcement": "公告",
+        "Anime": "动漫",
+        "Anyone can see this collection": "任何人都可以查看此收藏夹",
+        "Anything that helps moderators triage (link, account behavior, repeated posts, etc.)":
+          "任何有助于版主进行初步判断的信息（链接、账号行为、重复发帖等）",
+        "Apply filters": "应用筛选",
+        "Architecture": "建筑",
+        "Articles": "文章",
+        "Astronomy": "天文",
+        "Back to selection": "返回选择",
+        "Base Model": "基础模型",
+        "Block": "屏蔽",
+        "Block this user": "屏蔽该用户",
+        "Car": "汽车",
+        "Cartoon": "卡通",
+        "Cat": "猫",
+        "Child abuse and exploitation": "虐待和剥削儿童",
+        "Clear all filters": "清除所有筛选条件",
+        "City": "城市",
+        "Clothing": "服装",
+        "Collections": "收藏夹",
+        "Comics": "漫画",
+        "Comment": "备注",
+        "Comment (optional)": "备注（可选）",
+        "content from this user": "该用户的内容",
+        "Content that should be reviewed": "应当接受审核的内容",
+        "Create": "创建",
+        "Created with...": "请选择……",
+        "Creators": "创作者",
+        "Customize profile": "自定义个人资料",
+        "Day": "天",
+        "Daily challenges": "每日挑战",
+        "Daily Challenges": "每日挑战",
+        "Deceased Bodies": "尸体",
+        "Deceptive content": "欺骗性内容",
+        "Depiction of a real-person likeness": "描绘真实人物形象",
+        "Description": "描述",
+        "Disturbing": "令人不适的内容",
+        "Dog": "狗",
+        "Dragon": "龙",
+        "e.g., Video Game Characters": "例如：电子游戏角色",
+        "e.g.: My favorite video game characters": "例如：我最喜欢的电子游戏角色",
+        "e.g.: Video Game Characters": "例如：电子游戏角色",
+        "Early Access": "抢先体验",
+        "Ending Soon": "即将结束",
+        "Emaciated Figures": "极度消瘦的人物",
+        "Everyone": "所有人",
+        "Explicit Adult Content": "露骨成人内容",
+        "Explicit Female Nudity": "明确女性裸露",
+        "Explicit Male Nudity": "明确男性裸露",
+        "Explosions": "爆炸",
+        "Extremist Content": "极端主义内容",
+        "False impersonation": "虚假冒充",
+        "Fantasy": "奇幻",
+        "Female Swimwear/Underwear": "女性泳装或内衣",
+        "Filters": "筛选",
+        "Followed": "已关注",
+        "Food": "美食",
+        "Game Character": "游戏角色",
+        "Graphic violence": "血腥暴力",
+        "Hanging": "上吊",
+        "Hate Symbols": "仇恨标志",
+        "Hidden": "隐藏内容",
+        "Hide": "隐藏",
+        "Hide content from this user": "隐藏该用户的内容",
+        "Hide content with these tags": "隐藏带有这些标签的内容",
+        "Hide this image": "隐藏此图片",
+        "Hide this model": "隐藏此模型",
+        "Illustrated Nudity": "插画裸露",
+        "image to collection": "图片到收藏夹",
+        "Images": "图片",
+        "Incorrect or misrepresented content": "内容错误或表述不实",
+        "Intense Violence/Gore": "强烈暴力或血腥内容",
+        "Made On-site": "站内制作",
+        "Male Swimwear/Underwear": "男性泳装或内衣",
+        "Mature Content": "成人内容",
+        "Metadata only": "仅含元数据",
+        "Models": "模型",
+        "Modifiers": "附加条件",
+        "Month": "月",
+        "Most Collected": "收藏最多",
+        "Most Comments": "评论最多",
+        "Most Downloaded": "下载最多",
+        "Most Discussed": "讨论最多",
+        "Most Entries": "投稿最多",
+        "Most Liked": "获赞最多",
+        "Most Reactions": "互动最多",
+        "Name": "名称",
+        "Name of the person or any additional information related to them": "当事人姓名或与其相关的其他补充信息",
+        "Nazi-related Content": "纳粹相关内容",
+        "Needs Moderator Review": "需要版主审核",
+        "New & Upcoming": "最新与即将发布",
+        "New collection": "新建收藏夹",
+        "Newest": "最新",
+        "Nudity": "裸露",
+        "Offensive Gestures": "冒犯性手势",
+        "Oldest": "最早",
+        "Only people with the link can see this collection": "只有拥有链接的人可以查看此收藏夹",
+        "Only you and contributors for this collection can see this": "只有你和该收藏夹的贡献者可以查看此收藏夹",
+        "Other concern": "其他问题",
+        "Originals Only": "仅原创",
+        "Outdoors": "户外",
+        "Partial Nudity": "部分裸露",
+        "Photorealistic depiction of a minor": "未成年人的照片级真实描绘",
+        "Physical Violence": "肢体暴力",
+        "Photography": "摄影",
+        "Photorealistic": "照片级写实",
+        "Potential security concern": "潜在安全问题",
+        "Post Apocalyptic": "末日后",
+        "Privacy": "隐私设置",
+        "Private": "私密",
+        "Prohibited concepts": "违禁内容",
+        "Public": "公开",
+        "Reason": "原因",
+        "Report": "举报",
+        "Report image": "举报图片",
+        "Reset": "重置",
+        "Remixes Only": "仅再创作",
+        "Robot": "机器人",
+        "Sale of illegal substances": "销售非法物质",
+        "Save": "保存",
+        "Save image to collection": "将图片保存到收藏夹",
+        "Scheduled": "定时发布",
+        "Sci-Fi": "科幻",
+        "Select all that apply": "选择所有适用项",
+        "Self-harm": "自残",
+        "Sexual Acts": "性行为",
+        "Sexual Situations": "性暗示情境",
+        "Sexy Attire": "性感服饰",
+        "Shop": "商店",
+        "Spam": "垃圾内容",
+        "Sports Car": "跑车",
+        "Submit": "提交",
+        "Suggestive Content": "性暗示内容",
+        "This collection contains mature content": "此收藏夹包含成人内容",
+        "Techniques": "生成方式",
+        "this image": "此图片",
+        "this user": "该用户",
+        "Time period": "时间范围",
+        "Tools": "工具",
+        "Transportation": "交通工具",
+        "TOS Violation": "违反服务条款",
+        "Unlisted": "不公开",
+        "Videos": "视频",
+        "View Post": "查看帖子",
+        "Violation": "违规类型",
+        "Violence": "暴力",
+        "Visually Disturbing": "引起强烈不适的内容",
+        "Weapon-related Violence": "武器相关暴力",
+        "Week": "周",
+        "White Supremacist Content": "白人至上主义内容",
+        "Year": "年",
+        "You don't have any image collections yet.": "你还没有任何图片收藏夹。",
+        "Your collections": "你的收藏夹",
+        "Hide challenge entries": "隐藏挑战赛作品",
+        "Landscape": "风景",
+        "Modern Art": "现代艺术",
+        "Add Post": "添加帖子",
+        "Copied": "已复制",
+        "Copy Url": "复制链接",
+        "Copy link": "复制链接",
+        "Comments": "评论",
+        "Details": "详情",
+        "Download": "下载",
+        "Follow": "关注",
+        "Gallery": "图库",
+        "License:": "许可证：",
+        "No results found": "未找到结果",
+        "No reviews yet": "暂无评价",
+        "Other": "其他",
+        "MESSAGE:": "消息：",
+        "Reviews": "评价",
+        "Send": "发送",
+        "Send Chat": "发送至聊天",
+        "Share": "分享",
+        // 用户页与商店共用的个人资料编辑窗口
+        "Profile": "个人资料",
+        "Save Changes": "保存更改",
+        "Edit avatar": "编辑头像",
+        "Drop image here, should not exceed 50 MB": "将图片拖到这里，大小不得超过 50 MB",
+        "Showcase Stats": "展示统计数据",
+        "Followers": "关注者",
+        "Likes": "获赞",
+        "Uploads": "上传数",
+        "Downloads": "下载量",
+        "Generations": "生成数",
+        "Reactions": "互动数",
+        "Avatar decoration": "头像装饰",
+        "You don't have any avatar decorations yet": "你还没有任何头像装饰",
+        "Creator Card Backgrounds": "创作者卡片背景",
+        "You don't have any profile backgrounds yet": "你还没有任何个人资料背景",
+        "Show badges on profile": "在个人资料中显示徽章",
+        "Featured Badge": "精选徽章",
+        "Highlighted badges": "高亮徽章",
+        "Pin badges to the top of your profile's badge list.": "将徽章置顶显示在个人资料的徽章列表中。",
+        "Hidden badges": "隐藏的徽章",
+        "Hidden badges won't be shown on your profile.": "隐藏的徽章不会显示在个人资料中。",
+
+        // 用户名牌与展示排行榜
+        "Nameplates": "用户名牌",
+        "Nameplates change the appearance of your username. They can include special colors or effects. You can earn nameplates by being a subscriber or earning trophies on the site.":
+          "用户名牌会改变用户名的外观，可包含特殊颜色或效果。你可以通过订阅会员或在站内赢得奖杯来获取用户名牌。",
+        "Nameplate Style": "用户名牌样式",
+        "Select style": "选择样式",
+        "Your earned nameplate styles will apppear here": "你已获得的用户名牌样式将显示在这里",
+        "Your earned nameplate styles will appear here": "你已获得的用户名牌样式将显示在这里",
+        "Showcase Leaderboard": "展示排行榜",
+        "Choose which leaderboard badge to display on your profile card": "选择要在个人资料卡片上显示的排行榜徽章",
+        "Select a leaderboard": "选择排行榜",
+        "Creators (90 days)": "创作者（90 天）",
+        "Creators (mature)": "创作者（成人）",
+        "New creators": "新晋创作者",
+        "Buzz daddies": "Buzz 大亨",
+        "Top generators": "顶尖生成者",
+        "Top trainers": "顶尖训练师",
+        "Cosmetic collectors": "装扮收藏家",
+        "Creators (z-image)": "创作者（z-image）",
+        "Creators (flux)": "创作者（flux）",
+        "Creators (sdxl)": "创作者（sdxl）",
+        "Creators (pony)": "创作者（pony）",
+        "Creators (krea 2)": "创作者（krea 2）",
+        "Creators (anima)": "创作者（anima）",
+        "Guardians": "守护者",
+        "Writers": "作家",
+        "Comedians": "喜剧达人",
+        "Master generators": "生成大师",
+        "Master generators (mature)": "生成大师（成人）",
+        "New master generators": "新晋生成大师",
+        "Base model creators": "基础模型创作者",
+        "Style creators": "风格创作者",
+        "Clothing creators": "服装创作者",
+        "Character creators": "角色创作者",
+        "Architecture creators": "建筑创作者",
+        "Background creators": "背景创作者",
+        "Poses creators": "姿势创作者",
+        "Concept creators": "概念创作者",
+        "Vehicle creators": "载具创作者",
+        "Asset creators": "素材创作者",
+        "Tool creators": "工具创作者",
+        "Knights of new order": "新作骑士团",
+
+        // 个人资料链接与页面版块
+        "Links": "链接",
+        "Social Links": "社交链接",
+        "Add new link": "添加新链接",
+        "Sponsorship Links": "赞助链接",
+        "Profile Page": "个人资料页面",
+        "Cover Image": "封面图片",
+        "Suggested resolution: 1600x400px": "建议分辨率：1600×400 像素",
+        "Have something you want to share with people visiting your profile? Put it here and we'll display it at the top of your page":
+          "有想和个人资料访客分享的内容吗？写在这里，我们会将其显示在页面顶部。",
+        "Bio": "个人简介",
+        "Location": "所在地",
+        "Page sections": "页面版块",
+        "Drag diferent sections on your profile in order of your preference": "按照你的偏好拖动个人资料中的不同版块进行排序",
+        "Drag different sections on your profile in order of your preference": "按照你的偏好拖动个人资料中的不同版块进行排序",
+        "Showcase": "展示",
+        "Most popular models": "最受欢迎的模型",
+        "Most popular articles": "最受欢迎的文章",
+        "Images overview": "图片概览",
+        "Models overview": "模型概览",
+        "Recent reviews": "最近评价",
+        "Showcase Items": "展示项目",
+        "Select up to 32 items to showcase on your profile. You do this via the \"Add to showcase\" button on models and images":
+          "最多选择 32 个项目展示在个人资料中。你可以通过模型和图片上的“添加到展示”按钮进行选择。",
+        "You have not selected any items to showcase.": "你还没有选择任何展示项目。",
+        "Try adjusting your search or filters to find what you're looking for":
+          "请尝试调整搜索条件或筛选器，以找到你想要的内容",
+      },
+      regexp: [
+        {
+          pattern: /^drag dif+erent sections on your profile in order of your preference$/i,
+          replace: "按照你的偏好拖动个人资料中的不同版块进行排序",
+        },
+      ],
+      selector: [
+        {
+          selector: '[role="dialog"] *',
+          source: "Privacy",
+          text: "隐私设置",
+        },
+      ],
+      selectValue: [
+        {
+          selector: '[role="dialog"] input[readonly]',
+          value: "Private",
+          text: "私密",
+        },
+      ],
     },
   });
 })();
@@ -2173,21 +2482,14 @@
         // 搜索栏
         // 默认的搜索框下拉菜单按钮的Models，
         // 使用selectValue的方式把“模型”覆盖在了Models上。
-        Models: "模型",
-        Images: "图片",
-        Articles: "文章",
         Users: "用户",
-        Collections: "收藏",
         Bounties: "悬赏",
-        Tools: "工具",
-        Comics: "漫画",
         "Search Civitai": "探索 Civitai",
         "pro-tip: quick search faster!": "小技巧：使用快捷搜索，效率更高！",
         "open the quick search without leaving your keyboard by tapping the": "无需离开键盘，只需按下",
         "key from anywhere and just start typing.": "键，即可随时打开快捷搜索并直接输入内容。",
 
         // Create 按钮菜单
-        Create: "创建",
         Generate: "生成",
         "Post Images": "发布图片",
         "Post Videos": "发布视频",
@@ -2228,9 +2530,7 @@
         "Mark all as read": "全部标记为已读",
         "All caught up! Nothing to see here": "全部看完啦！这里暂时没有新消息。",
         "Notification Settings": "通知设置",
-        All: "全部",
         Announcements: "公告",
-        Comments: "评论",
         Updates: "更新",
         Milestones: "里程碑",
         Bounties: "悬赏",
@@ -2265,7 +2565,6 @@
           "和 Civitai 版主徽章的账号与您联系（徽章位于用户名旁边，而非头像上！）。切勿点击未知链接或泄露付款信息。",
         "Report suspicious DMs": "举报可疑私信",
         "immediately.": "。",
-        Report: "举报",
         Leave: "归档",
         "Enable notifications": "启用通知",
         "Disable notifications": "关闭通知",
@@ -2278,7 +2577,7 @@
         Back: "返回",
         "Your Profile": "个人资料",
         Training: "训练",
-        "My Collections": "我的收藏集",
+        "My Collections": "我的收藏夹",
         "Liked Models": "喜欢的模型",
         "Bookmarked Articles": "收藏的文章",
         "My Bounties": "我的悬赏",
@@ -2289,7 +2588,7 @@
         Leaderboard: "排行榜",
         Auctions: "拍卖",
         "Knights of New": "新骑士团",
-        "Download Link App": "下载链接应用",
+        "Download Link App": "下载 Link App",
         "Creators You Follow": "我关注的创作者",
         "Download History": "下载历史",
         "Getting Started": "入门指南",
@@ -2297,29 +2596,11 @@
         "Dark mode": "深色模式",
         "Account settings": "账户设置",
 
-        // 首页设置按钮
-        "Manage Home Page": "管理首页",
-        "Expect frequent changes.": "此功能可能会频繁调整。",
-        "Civitai Home Blocks": "Civitai 首页模块",
-        "All home blocks selected": "已选择全部首页模块",
-        "All civitai home blocks are already selected.": "所有 Civitai 首页模块均已选择。",
-        "Your Home": "你的首页",
-        Save: "保存",
-        "No home blocks selected": "未选择任何首页模块",
-        "By leaving this empty you will end up with our default recommended home page setup.": "如果将此留空，则会使用我们默认推荐的主页设置。",
-
         // 导航栏
         Home: "首页",
-        Models: "模型",
-        Images: "图片",
-        Videos: "视频",
-        "3D Models": "三维模型",
-        Articles: "文章",
-        Comics: "漫画",
         Bounties: "悬赏",
         Challenges: "挑战",
         Updates: "更新",
-        Shop: "商店",
       },
 
       // 聊天窗口
@@ -2354,15 +2635,20 @@
     rules: {
       static: {
         "Terms of Service": "服务条款",
-        Privacy: "隐私政策",
         Safety: "安全",
         API: "API",
         Status: "服务状态",
         "Known Issues": "已知问题",
         Education: "教育",
-        Creators: "创作者",
         Support: "支持",
       },
+      selector: [
+        {
+          selector: 'a[href*="privacy" i]',
+          source: "Privacy",
+          text: "隐私政策",
+        },
+      ],
     },
   });
 })();
@@ -2376,6 +2662,17 @@
     component: "index",
     rules: {
       static: {
+        // 首页设置按钮
+        "Manage Home Page": "管理首页",
+        "Expect frequent changes.": "此功能可能会频繁调整。",
+        "Civitai Home Blocks": "Civitai 首页模块",
+        "All home blocks selected": "已选择全部首页模块",
+        "All civitai home blocks are already selected.": "所有 Civitai 首页模块均已选择。",
+        "Your Home": "你的首页",
+        "No home blocks selected": "未选择任何首页模块",
+        "By leaving this empty you will end up with our default recommended home page setup.": "如果将此留空，则会使用我们默认推荐的主页设置。",
+
+        // 首页内容
         "Featured Images": "精选图片",
         "All sorts of cool pictures created by our community, from simple shapes to detailed landscapes or human faces. A virtual canvas where you can unleash your creativity or get inspired.":
           "社区创作的各种精彩图片，从简单图形到细腻风景或人物面孔应有尽有。在这片虚拟画布上，你可以尽情发挥创意，也可以从中获取灵感。",
@@ -2391,12 +2688,12 @@
         "Popular models from creators who just got started": "新晋创作者的热门模型",
         "Browse their models": "浏览他们的模型",
         "Buzz Beggars Board": "Buzz 悬赏榜",
-        "Featured Collections": "精选系列",
+        "Featured Collections": "精选收藏夹",
         "Ran out of Buzz while playing? Or want to be generous? Jump in.": "玩着玩着 Buzz 用完了？或者想慷慨解囊？快来参与吧。",
         "Beg or Give": "求助或赠送",
-        "Curated Collection by": "精选收藏集，来自",
+        "Curated Collection by": "精选收藏夹，来自",
         "Highly creative": "极具创意",
-        "View Collection": "查看收藏集",
+        "View Collection": "查看收藏夹",
         "Top Creators": "顶尖创作者",
         "View more": "查看更多",
       },
@@ -2413,57 +2710,93 @@
     component: "index",
     rules: {
       static: {
-        // 模型列表页
-      },
-    },
-  });
-})();
+        // 模型分类导航
+        Character: "角色",
+        Style: "风格",
+        Concept: "概念",
+        Background: "背景",
+        Poses: "姿势",
+        Tool: "工具",
+        Assets: "素材",
+        Vehicle: "载具",
+        Buildings: "建筑",
+        Objects: "物体",
 
-(function () {
-  "use strict";
+        // 排序方式
+        "Highest Rated": "评分最高",
+        "Most Images": "图片最多",
 
-  window.CCT.registerRules({
-    type: "page",
-    name: "modelDetail",
-    component: "index",
-    rules: {
-      static: {
+        // 筛选面板
+        "Model status": "模型状态",
+        "On-site Generation": "支持站内生成",
+        Featured: "精选",
+        "Model types": "模型类型",
+        "Checkpoint type": "Checkpoint 类型",
+        Trained: "训练",
+        Merge: "合并",
+        "File format": "文件格式",
+
+        // Models 页面图片卡片操作菜单
+        "Report resource": "举报资源",
+
+        // Models 页面：屏蔽用户确认窗口
+        "Block User": "屏蔽用户",
+        "Are you sure you want to block this user? Once a user is blocked, you won't see their content again and they won't see yours.":
+          "确定要屏蔽该用户吗？屏蔽后，你将无法再看到该用户的内容，对方也无法看到你的内容。",
+        "Yes, block the user": "是，屏蔽该用户",
+
+        // Models 页面：举报模型与举报图片窗口
+        "Report model": "举报模型",
+        "Claim imported model": "认领已导入的模型",
+        "This uses my art": "此模型使用了我的作品",
+
+        // Models 页面：举报表单字段
+        Email: "邮箱",
+        Phone: "电话",
+
+        // Models 页面：作品被模型使用申诉
+        "If you believe that this model may have been trained using your art, please complete the form below for review. A review of the claim will only be opened if this is placed by the original artist.":
+          "如果你认为该模型可能使用了你的作品进行训练，请填写以下表单以供审核。仅当申诉由原创作者本人提交时，我们才会受理。",
+        "We will contact you at this address to verify the legitimacy of your claim":
+          "我们将通过此邮箱联系你，以核实申诉的真实性",
+        "Images for comparison": "用于对比的图片",
+        "Drag images here or click to select files": "将图片拖放到此处，或点击选择文件",
+        "Attach up to 10 files, each file should not exceed 50 MB":
+          "最多可上传 10 个文件，每个文件不得超过 50 MB",
+        "Are you interested in having an official model of your art style created and attributed to you?":
+          "你是否有兴趣创建一个以你的艺术风格为基础，并注明归属于你的官方模型？",
+        "You would receive 70% of any proceeds made from the use of your model on Civitai.":
+          "你将获得该模型在 Civitai 上产生收益的 70%。",
+        "I'm interested": "我感兴趣",
+        "Not at this time": "暂时不考虑",
+
+        // Models 页面：添加到模型收藏夹窗口
+        "Add to Model Collection": "将模型添加到收藏夹",
+        "Favorite Models": "收藏的模型",
+
+        // 模型详情页
         "Updated:": "更新于：",
-        "Early Access": "抢先体验",
-        Share: "分享",
         Like: "点赞",
         "Add To Vault": "添加到保险库",
         "Stop getting notifications for this model": "停止接收此模型的通知",
         "Get notifications for this model": "接收此模型的通知",
-        "Add to collection": "添加到收藏集",
+        "Add to collection": "添加到收藏夹",
         "Bid to feature this model": "竞价推广此模型",
-        Save: "保存",
-        "Hide content from this user": "隐藏该用户的内容",
-        "Hide this model": "隐藏此模型",
-        "Hide content with these tags": "隐藏带有这些标签的内容",
         // 部分菜单项会把 Hide 和后半句拆成不同的文本节点。
-        Hide: "隐藏",
-        "content from this user": "该用户的内容",
         "this model": "此模型",
         "content with these tags": "带有这些标签的内容",
-        Download: "下载",
         SafeTensor: "SafeTensor",
         "Download Selected": "下载所选文件",
-        Follow: "关注",
         Unfollow: "取消关注",
         "processing...": "处理中……",
-        Details: "详情",
         Type: "类型",
         Stats: "统计",
         "Generation License Fee": "生成许可费",
-        Reviews: "评价",
         Published: "发布于",
-        "Base Model": "基础模型",
         Hash: "哈希",
         AIR: "AIR",
         Tensors: "张量",
         "What did you think of this resource?": "你觉得这个资源怎么样？",
-        "License:": "许可证：",
         "Show More": "展开",
         "Suggested Resources": "推荐资源",
         "These are resources suggested by the creator of this model. They may be related to this model or created by the same user.":
@@ -2471,12 +2804,14 @@
         Discussion: "讨论",
         "Add Comment": "添加评论",
         "Load more": "加载更多",
-        Gallery: "图库",
-        "Add Post": "添加帖子",
         "Add Review": "添加评价",
-        "No results found": "未找到结果",
-        "Try adjusting your search or filters to find what you're looking for": "请尝试调整搜索条件或筛选器，以找到你想要的内容",
       },
+      regexp: [
+        {
+          pattern: /^(\d+)\/10 uploaded files$/i,
+          replace: (match) => `${match[1]}/10 个文件已上传`,
+        },
+      ],
       selector: [
         {
           selector: '.mantine-Spoiler-control[aria-expanded="true"]',
@@ -2492,123 +2827,479 @@
 
   window.CCT.registerRules({
     type: "page",
-    name: "userProfile",
+    name: "images",
+    component: "index",
+    rules: {
+      static: {
+        // 图片详情信息
+        Process: "生成过程",
+        "Generation data": "生成数据",
+        "Resources used": "使用的资源",
+        Remix: "再创作",
+        Prompt: "提示词",
+        "Negative prompt": "负面提示词",
+        "Other metadata": "其他元数据",
+        "COPY ALL": "全部复制",
+        TAG: "标签",
+        TIP: "打赏",
+        TIPPING: "打赏中",
+
+        // 评论区
+        Discussion: "讨论",
+        Reply: "回复",
+        "Type your comment...": "输入你的评论……",
+        "Type your comment…": "输入你的评论……",
+        "Load More Comments": "加载更多评论",
+      },
+      regexp: [
+        {
+          pattern: /^show (\d+) more$/i,
+          replace: "再显示 $1 项",
+        },
+        {
+          pattern: /^cfg\s*scale:\s*(.+)$/i,
+          replace: "CFG 强度：$1",
+        },
+        {
+          pattern: /^steps:\s*(.+)$/i,
+          replace: "步数：$1",
+        },
+        {
+          pattern: /^sampler:\s*(.+)$/i,
+          replace: "采样器：$1",
+        },
+        {
+          pattern: /^seed:\s*(.+)$/i,
+          replace: "种子：$1",
+        },
+      ],
+      selectValue: [
+        {
+          selector: 'input[readonly][aria-label="Search category"]',
+          value: "Images",
+          text: "图片",
+        },
+      ],
+    },
+  });
+})();
+
+(function () {
+  "use strict";
+
+  window.CCT.registerRules({
+    type: "page",
+    name: "videos",
+    component: "index",
+    rules: {
+      static: {},
+      selectValue: [
+        {
+          selector: 'input[readonly][aria-label="Search category"]',
+          value: "Videos",
+          text: "视频",
+        },
+      ],
+    },
+  });
+})();
+
+(function () {
+  "use strict";
+
+  window.CCT.registerRules({
+    type: "page",
+    name: "3d-models",
+    component: "index",
+    rules: {
+      static: {
+        // 3D 模型卡片与预览操作
+        "Hide this 3D model": "隐藏此 3D 模型",
+        "this 3D model": "此 3D 模型",
+        "Preview in-line": "页面内预览",
+        "Open model page": "打开模型页面",
+        Plain: "纯色",
+        Studio: "影棚",
+        Light: "明亮",
+        Transparent: "透明",
+        "Reset View": "重置视角",
+        "Reset the camera to the initial fitted view.": "将相机重置为初始适配视角。",
+        "Generate with this image": "使用此图片生成",
+        "Capture the current view and send it to the generator as an img2img reference.":
+          "捕获当前视图，并将其作为图生图参考发送到生成器。",
+        "No files yet": "暂无文件",
+        "The 3D files for this model are still being processed.": "此模型的 3D 文件仍在处理中。",
+
+        // 3D 模型详情
+        "Write a review": "撰写评价",
+        Prompt: "提示词",
+        Topology: "拓扑结构",
+        "Target polycount": "目标多边形数量",
+        Symmetry: "对称方式",
+        auto: "自动",
+        "PBR materials": "PBR 材质",
+        Seed: "种子",
+        Animation: "动画",
+        triangle: "三角面",
+        Yes: "是",
+        No: "否",
+        "All Rights Reserved": "保留所有权利",
+
+        // 评论
+        "Be the first to leave a comment...": "来发表第一条评论吧……",
+
+        // 图库筛选
+        "Media type": "媒体类型",
+        Image: "图片",
+        Video: "视频",
+        Resources: "资源",
+        "Hide manually-added": "隐藏手动添加的内容",
+        "Hide auto-detected": "隐藏自动检测的内容",
+      },
+      regexp: [
+        {
+          pattern: /^Loading 3D model(?:\.{3}|…)?$/i,
+          replace: "正在加载 3D 模型……",
+        },
+        {
+          pattern: /^Download \(([^)]+)\)$/i,
+          replace: (match) => `下载（${match[1]}）`,
+        },
+      ],
+      selectValue: [
+        {
+          selector: 'input[readonly][aria-label="Search category"]',
+          value: "3D Models",
+          text: "3D 模型",
+        },
+      ],
+    },
+  });
+})();
+
+(function () {
+  "use strict";
+
+  window.CCT.registerRules({
+    type: "page",
+    name: "articles",
+    component: "index",
+    rules: {
+      static: {
+        // 文章分类
+        Story: "故事",
+        Musing: "随想",
+        Workflows: "工作流",
+        "Generation Guide": "生成指南",
+        News: "新闻",
+        "Tool Guide": "工具指南",
+        "Training Guide": "训练指南",
+        "Resource Guide": "资源指南",
+        "Comparative Study": "对比研究",
+        "Data Prep": "数据准备",
+        "Video Generation Guide": "视频生成指南",
+        "ML Research": "机器学习研究",
+
+        // 排序方式
+        "Most Bookmarks": "收藏最多",
+        "Recently Updated": "最近更新",
+
+        // 文章卡片操作菜单
+        "Report article": "举报文章",
+      },
+      selectValue: [
+        {
+          selector: 'input[readonly][aria-label="Search category"]',
+          value: "Articles",
+          text: "文章",
+        },
+      ],
+    },
+  });
+})();
+
+(function () {
+  "use strict";
+
+  window.CCT.registerRules({
+    type: "page",
+    name: "comics",
+    component: "index",
+    rules: {
+      static: {
+        // 漫画分类
+        Adventure: "冒险",
+        Comedy: "喜剧",
+        Drama: "剧情",
+        Horror: "恐怖",
+        Mystery: "悬疑",
+        Romance: "爱情",
+        "Sci Fi": "科幻",
+        "Slice of Life": "日常",
+        Thriller: "惊悚",
+
+        // 浏览范围与排序
+        "Followed Comics": "已关注的漫画",
+        "Most Followed": "关注最多",
+        "Most Chapters": "章节最多",
+        Today: "今天",
+        "This Week": "本周",
+        "This Month": "本月",
+        "This Year": "今年",
+
+        // 漫画卡片与举报窗口
+        "Report comic": "举报漫画",
+        "Report comic Project": "举报漫画项目",
+      },
+      selectValue: [
+        {
+          selector: 'input[readonly][aria-label="Search category"]',
+          value: "Comics",
+          text: "漫画",
+        },
+      ],
+    },
+  });
+})();
+
+(function () {
+  "use strict";
+
+  window.CCT.registerRules({
+    type: "page",
+    name: "bounties",
+    component: "index",
+    rules: {
+      static: {
+        // 排序方式
+        "Highest Bounty": "悬赏最高",
+        "Most Contributors": "贡献者最多",
+        "Most Tracked": "追踪最多",
+
+        // 悬赏筛选
+        "Bounty type": "悬赏类型",
+        "Model Creation": "模型制作",
+        "Lora Creation": "LoRA 制作",
+        "Embed Creation": "嵌入模型制作",
+        "Data Set Creation": "数据集制作",
+        "Data Set Caption": "数据集标注",
+        "Image Creation": "图片创作",
+        "Video Creation": "视频创作",
+        "Bounty status": "悬赏状态",
+        Open: "进行中",
+        Expired: "已过期",
+        Awarded: "已颁奖",
+
+        // 悬赏举报
+        "Report bounty": "举报悬赏",
+      },
+      selectValue: [
+        {
+          selector: 'input[readonly][aria-label="Search category"]',
+          value: "Bounties",
+          text: "悬赏",
+        },
+      ],
+    },
+  });
+})();
+
+(function () {
+  "use strict";
+
+  window.CCT.registerRules({
+    type: "page",
+    name: "challenges",
+    component: "index",
+    rules: {
+      static: {
+        // 每日挑战说明
+        "How Challenges Work": "挑战规则说明",
+        "How It Works": "参与方式",
+        "🎨 How It Works": "🎨 参与方式",
+        "Every day, we select a new challenge featuring a specific AI model. Create images using the featured model and submit your best work to compete for prizes!":
+          "每天，我们都会选出一个使用特定 AI 模型的新挑战。使用指定模型创作图片，并提交你最好的作品来赢取奖励！",
+        "Winning & Rewards": "获胜与奖励",
+        "🏆 Winning & Rewards": "🏆 获胜与奖励",
+        "The top 3 entries are reviewed and selected by our AI judging system. Entries are ranked by a weighted score where theme relevance counts for 50%, so staying on-theme is key! Winners receive Buzz prizes and challenge points. Even if you don't win, you can earn participation rewards for submitting quality entries.":
+          "排名前三的作品将由 AI 评审系统审核并选出。作品采用加权评分，其中主题相关性占 50%，因此紧扣主题非常重要！获胜者将获得 Buzz 奖励和挑战积分。即使没有获胜，提交优质作品也能获得参与奖励。",
+        "Challenge Points": "挑战积分",
+        "⭐ Challenge Points": "⭐ 挑战积分",
+        "Earn points by participating in challenges. Top winners get the most points, but everyone who participates earns something. Climb the leaderboard and show off your skills!":
+          "参与挑战即可获得积分。排名越高，获得的积分越多，但所有参与者都会有所收获。登上排行榜，展示你的实力吧！",
+        "Tips for Success": "成功技巧",
+        "📝 Tips for Success": "📝 成功技巧",
+        "Use the featured model specified in the challenge": "使用挑战中指定的模型",
+        "• Use the featured model specified in the challenge": "• 使用挑战中指定的模型",
+        "Follow the theme or prompt provided": "遵循给定的主题或提示词",
+        "• Follow the theme or prompt provided": "• 遵循给定的主题或提示词",
+        "Submit your best work - quality over quantity": "提交你最好的作品，质量重于数量",
+        "• Submit your best work - quality over quantity": "• 提交你最好的作品，质量重于数量",
+        "Check back daily for new challenges": "每天回来查看新的挑战",
+        "• Check back daily for new challenges": "• 每天回来查看新的挑战",
+
+        // 挑战操作
+        "Notify me": "通知我",
+        "Stop notifying me": "停止通知我",
+        "Previous winners": "往届获奖者",
+        "Create Challenge": "创建挑战",
+
+        // 排序与筛选
+        "Highest Prize": "奖励最高",
+        Status: "挑战状态",
+        Current: "当前",
+        Upcoming: "即将开始",
+        Completed: "已结束",
+        "Challenge Participation": "参与状态",
+        Entered: "已参加",
+        "Not Entered": "未参加",
+        Won: "已获胜",
+        Hosting: "我主办的",
+
+        // 社区挑战
+        "Community Challenges": "社区挑战",
+        "You are all caught up": "已全部看完",
+        "Consider changing your period or filters to find more": "可以尝试调整时间范围或筛选条件查看更多内容",
+        "Back to the top": "返回顶部",
+      },
+    },
+  });
+})();
+
+(function () {
+  "use strict";
+
+  window.CCT.registerRules({
+    type: "page",
+    name: "changelog",
+    component: "index",
+    rules: {
+      static: {
+        // 搜索与更新类型
+        "Search titles and content...": "搜索标题和内容……",
+        Types: "类型",
+        Feature: "新功能",
+        Bugfix: "问题修复",
+        Policy: "政策",
+        Update: "更新",
+        Incident: "事件",
+
+        // 标签与日期筛选
+        Tags: "标签",
+        "Select tags...": "选择标签……",
+        Crypto: "加密货币",
+        Changelog: "更新日志",
+        Outage: "服务中断",
+        Resolved: "已解决",
+        Bug: "问题",
+        "Image & Video Feeds": "图片与视频信息流",
+        Ingestion: "数据导入",
+        Ratings: "评级",
+        Generation: "生成",
+        "Image Rating": "图片评级",
+        "LoRA Training": "LoRA 训练",
+        Membership: "会员",
+        "Image Delivery": "图片分发",
+        "Pricing Change": "价格调整",
+        Infrastructure: "基础设施",
+        "Video Generation": "视频生成",
+        "Replication Lag": "数据同步延迟",
+        "Maintenance Mode": "维护模式",
+        "Creator Compensation": "创作者补偿",
+        "Creator Program": "创作者计划",
+        "Posts Feed": "帖子信息流",
+        "Front-End": "前端",
+        "Scheduled Maintenance": "计划维护",
+        Downloads: "下载",
+        "Unresponsive Pages": "页面无响应",
+        "Gift Cards": "礼品卡",
+        Before: "早于",
+        After: "晚于",
+        "Choose a date...": "选择日期……",
+      },
+    },
+  });
+})();
+
+(function () {
+  "use strict";
+
+  window.CCT.registerRules({
+    type: "page",
+    name: "shop",
+    component: "index",
+    rules: {
+      static: {
+        // 商店介绍
+        "Civitai Cosmetic Shop": "Civitai 装扮商店",
+        "Any cosmetic purchases directly contributes to Civitai": "购买任何装扮都将直接支持 Civitai",
+        "Any cosmetic purchases directly contributes to Civitai 💗": "购买任何装扮都将直接支持 Civitai 💗",
+        "Notify me about new items in the shop.": "商店上新时通知我。",
+        "Do not notify me about new items in the shop.": "不要通知我商店上新。",
+        "Discover handcrafted cosmetics from our featured creators.": "探索精选创作者精心制作的装扮。",
+        "Browse a growing collection of community-created cosmetics, including profile backgrounds, badges, avatar decorations, and more. Customize your profile and showcase your style with creations from talented creators.":
+          "浏览日益丰富的社区创作装扮，包括个人资料背景、徽章、头像装饰等。使用优秀创作者的作品自定义个人资料，展现你的独特风格。",
+        Preview: "预览",
+
+        // 装扮类型筛选
+        "Filter by Cosmetic Types": "按装扮类型筛选",
+        Badge: "徽章",
+        "Name Plate": "用户名牌",
+        "Content Decoration": "内容装饰",
+        "Avatar Decoration": "头像装饰",
+        "Profile Background": "个人资料背景",
+        Sticker: "贴纸",
+        Pack: "套装",
+
+        // 拥有状态与愿望清单
+        Owned: "已拥有",
+        "Not Owned": "未拥有",
+        Wishlist: "愿望清单",
+        Wishlisted: "已加入愿望清单",
+
+        // 链接与个人资料页面
+        "Show something different to visitors on civitai.com. Anything you leave off here is shown the same on every Civitai site.":
+          "你可以向 civitai.com 的访客展示不同内容。未单独设置的内容将在所有 Civitai 站点保持一致。",
+        "Cover Image (civitai.com)": "封面图片（civitai.com）",
+        "Leave empty to use the cover image above.": "留空则使用上方的封面图片。",
+        "Different announcement on civitai.com": "在 civitai.com 使用不同的公告",
+        "Different bio on civitai.com": "在 civitai.com 使用不同的个人简介",
+
+      },
+      regexp: [
+        {
+          pattern: /^any cosmetic purchases directly contributes to civitai(.*)$/i,
+          replace: (match) => `购买任何装扮都将直接支持 Civitai${match[1]}`,
+        },
+      ],
+    },
+  });
+})();
+
+(function () {
+  "use strict";
+
+  window.CCT.registerRules({
+    type: "page",
+    name: "user",
     component: "index",
     rules: {
       static: {
         // 侧边栏
-        "Customize profile": "自定义个人资料",
         FOLLOWERS: "关注者",
         LIKES: "获赞",
         DOWNLOADS: "下载量",
         BADGES: "徽章",
 
         // 自定义个人资料窗口
-        Profile: "个人资料",
-        "Save Changes": "保存更改",
-        "Edit avatar": "编辑头像",
-        "Drop image here, should not exceed 50 MB": "将图片拖到这里，大小不得超过 50 MB",
-        "Showcase Stats": "展示统计数据",
-        Followers: "关注者",
-        Likes: "获赞",
-        Uploads: "上传数",
-        Downloads: "下载量",
-        Generations: "生成数",
-        Reactions: "互动数",
-        "Avatar decoration": "头像装饰",
-        "You don't have any avatar decorations yet": "你还没有任何头像装饰",
-        "Creator Card Backgrounds": "创作者卡片背景",
-        "You don’t have any profile backgrounds yet": "你还没有个人资料背景",
-        "Show badges on profile": "在个人资料中显示徽章",
-        "Featured Badge": "精选徽章",
-        "Highlighted badges": "高亮徽章",
-        "Pin badges to the top of your profile's badge list.": "将徽章置顶显示在个人资料的徽章列表中。",
-        "Hidden badges": "隐藏的徽章",
-        "Hidden badges won't be shown on your profile.": "隐藏的徽章不会显示在个人资料中。",
-        "Nameplate Style": "用户名样式",
-        Nameplates: "用户名样式",
-        "Nameplates change the appearance of your username. They can include special colors or effects. You can earn nameplates by being a subscriber or earning trophies on the site.":
-          "用户名样式会改变用户名的外观，可包含特殊颜色或效果。你可以通过订阅会员或在站内赢得奖杯来获取用户名样式。",
-        "Select style": "选择样式",
-        "Your earned nameplate styles will apppear here": "你已获得的用户名样式将显示在这里",
-        "Showcase Leaderboard": "展示排行榜",
-        "Choose which leaderboard badge to display on your profile card": "选择要在个人资料卡片上显示的排行榜徽章",
-        "Select a leaderboard": "选择排行榜",
-
-        Creators: "创作者",
-        "Creators (90 days)": "创作者（90 天）",
-        "Creators (mature)": "创作者（成人）",
-        "New creators": "新晋创作者",
-        "Daily challenges": "每日挑战",
-        "Buzz daddies": "Buzz 大亨",
-        "Top generators": "顶尖生成者",
-        "Top trainers": "顶尖训练师",
-        "Cosmetic collectors": "装饰品收藏家",
-        "Creators (z-image)": "创作者（z-image）",
-        "Creators (flux)": "创作者（flux）",
-        "Creators (sdxl)": "创作者（sdxl）",
-        "Creators (pony)": "创作者（pony）",
-        "Creators (krea 2)": "创作者（krea 2）",
-        "Creators (anima)": "创作者（anima）",
-        Guardians: "守护者",
-        Writers: "作家",
-        Comedians: "喜剧达人",
-        "Master generators": "生成大师",
-        "Master generators (mature)": "生成大师（成人）",
-        "New master generators": "新晋生成大师",
-        "Base model creators": "基础模型创作者",
-        "Style creators": "风格创作者",
-        "Clothing creators": "服装创作者",
-        "Character creators": "角色创作者",
-        "Architecture creators": "建筑创作者",
-        "Background creators": "背景创作者",
-        "Poses creators": "姿势创作者",
-        "Concept creators": "概念创作者",
-        "Vehicle creators": "载具创作者",
-        "Asset creators": "素材创作者",
-        "Tool creators": "工具创作者",
-        "Knights of new order": "新作骑士团",
-
-        Links: "链接",
-        "Social Links": "社交链接",
-        "Add new link": "添加新链接",
         "Provided URL appears to be invalid": "提供的网址似乎无效",
-        "Sponsorship Links": "赞助链接",
-        "Profile Page": "个人资料页面",
-        "Cover Image": "封面图片",
-        "Suggested resolution: 1600x400px": "建议分辨率：1600×400 像素",
-        Announcement: "公告",
-        "Have something you want to share with people visiting your profile? Put it here and we'll display it at the top of your page":
-          "有想和个人资料访客分享的内容吗？写在这里，我们会将其显示在页面顶部。",
-        Bio: "个人简介",
-        Location: "所在地",
-        "Page sections": "页面版块",
-        "Drag diferent sections on your profile in order of your preference": "按照你的偏好拖动个人资料中的不同版块进行排序",
-        Showcase: "展示",
-        "Images overview": "图片概览",
-        "Models overview": "模型概览",
-        "Recent reviews": "最近评价",
-        "Showcase Items": "展示项目",
-        "Select up to 32 items to showcase on your profile. You do this via the \"Add to showcase\" button on models and images":
-          "最多选择 32 个项目展示在个人资料中。你可以通过模型和图片上的“添加到展示”按钮进行选择。",
-        "You have not selected any items to showcase.": "你还没有选择任何展示项目。",
 
         // 导航栏
         Overview: "概览",
-        Models: "模型",
         Posts: "帖子",
-        Images: "图片",
-        Videos: "视频",
-        "3D Models": "三维模型",
-        Articles: "文章",
-        Comics: "漫画",
-        Collections: "收藏集",
-        Shop: "商店",
 
         // 内容页
-        "Most popular models": "最受欢迎的模型",
         "View all models": "查看所有模型",
-        "Most popular articles": "最受欢迎的文章",
         "View all Articles": "查看所有文章",
         "View all images": "查看所有图片",
       },
@@ -2730,6 +3421,10 @@
         const textElement = rule.textSelector ? target.querySelector(rule.textSelector) : target;
         if (!textElement) return;
 
+        if (rule.source && CCT.normalizeText(textElement.textContent) !== CCT.normalizeText(rule.source)) {
+          return;
+        }
+
         if (rule.attr) {
           if (textElement.getAttribute(rule.attr) !== rule.text) {
             textElement.setAttribute(rule.attr, rule.text);
@@ -2780,6 +3475,37 @@
     }
   }
 
+  function translateSplitTextElements(root) {
+    const elements = [root, ...Array.from(root.querySelectorAll ? root.querySelectorAll("*") : [])].reverse();
+
+    elements.forEach((element) => {
+      if (shouldSkipElement(element)) return;
+
+      const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT, {
+        acceptNode(node) {
+          if (shouldSkipTextNode(node) || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+          return NodeFilter.FILTER_ACCEPT;
+        },
+      });
+      const textNodes = [];
+      let node;
+
+      while ((node = walker.nextNode())) textNodes.push(node);
+      if (textNodes.length < 2) return;
+
+      const combinedText = textNodes.map((textNode) => textNode.nodeValue.trim()).join(" ");
+      const translated = getTranslation(combinedText);
+      if (!translated) return;
+
+      const firstNode = textNodes[0];
+      const firstText = firstNode.nodeValue.trim();
+      firstNode.nodeValue = firstNode.nodeValue.replace(firstText, translated);
+      textNodes.slice(1).forEach((textNode) => {
+        textNode.nodeValue = "";
+      });
+    });
+  }
+
   function translateElementTree(root) {
     if (root.nodeType !== Node.ELEMENT_NODE || shouldSkipElement(root)) return;
 
@@ -2790,8 +3516,9 @@
       }
     });
 
-    translateTextNodes(root);
     translateSelectorRules(root);
+    translateSplitTextElements(root);
+    translateTextNodes(root);
     translateSelectValueRules(root);
   }
 

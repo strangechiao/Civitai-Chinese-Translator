@@ -7,6 +7,17 @@
     component: "index",
     rules: {
       static: {
+        // 首页设置按钮
+        "Manage Home Page": "管理首页",
+        "Expect frequent changes.": "此功能可能会频繁调整。",
+        "Civitai Home Blocks": "Civitai 首页模块",
+        "All home blocks selected": "已选择全部首页模块",
+        "All civitai home blocks are already selected.": "所有 Civitai 首页模块均已选择。",
+        "Your Home": "你的首页",
+        "No home blocks selected": "未选择任何首页模块",
+        "By leaving this empty you will end up with our default recommended home page setup.": "如果将此留空，则会使用我们默认推荐的主页设置。",
+
+        // 首页内容
         "Featured Images": "精选图片",
         "All sorts of cool pictures created by our community, from simple shapes to detailed landscapes or human faces. A virtual canvas where you can unleash your creativity or get inspired.":
           "社区创作的各种精彩图片，从简单图形到细腻风景或人物面孔应有尽有。在这片虚拟画布上，你可以尽情发挥创意，也可以从中获取灵感。",
@@ -22,12 +33,12 @@
         "Popular models from creators who just got started": "新晋创作者的热门模型",
         "Browse their models": "浏览他们的模型",
         "Buzz Beggars Board": "Buzz 悬赏榜",
-        "Featured Collections": "精选系列",
+        "Featured Collections": "精选收藏夹",
         "Ran out of Buzz while playing? Or want to be generous? Jump in.": "玩着玩着 Buzz 用完了？或者想慷慨解囊？快来参与吧。",
         "Beg or Give": "求助或赠送",
-        "Curated Collection by": "精选收藏集，来自",
+        "Curated Collection by": "精选收藏夹，来自",
         "Highly creative": "极具创意",
-        "View Collection": "查看收藏集",
+        "View Collection": "查看收藏夹",
         "Top Creators": "顶尖创作者",
         "View more": "查看更多",
       },

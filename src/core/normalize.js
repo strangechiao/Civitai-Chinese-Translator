@@ -8,6 +8,7 @@
       .replace(/[‘’]/g, "'")
       .replace(/[“”]/g, '"')
       .replace(/\u00a0/g, " ")
+      .replace(/[\u200B-\u200D\u2060\uFEFF]/g, "")
       .replace(/\s+/g, " ")
       .trim()
       .toLowerCase();

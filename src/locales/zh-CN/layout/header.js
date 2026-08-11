@@ -16,21 +16,14 @@
         // 搜索栏
         // 默认的搜索框下拉菜单按钮的Models，
         // 使用selectValue的方式把“模型”覆盖在了Models上。
-        Models: "模型",
-        Images: "图片",
-        Articles: "文章",
         Users: "用户",
-        Collections: "收藏",
         Bounties: "悬赏",
-        Tools: "工具",
-        Comics: "漫画",
         "Search Civitai": "探索 Civitai",
         "pro-tip: quick search faster!": "小技巧：使用快捷搜索，效率更高！",
         "open the quick search without leaving your keyboard by tapping the": "无需离开键盘，只需按下",
         "key from anywhere and just start typing.": "键，即可随时打开快捷搜索并直接输入内容。",
 
         // Create 按钮菜单
-        Create: "创建",
         Generate: "生成",
         "Post Images": "发布图片",
         "Post Videos": "发布视频",
@@ -71,9 +64,7 @@
         "Mark all as read": "全部标记为已读",
         "All caught up! Nothing to see here": "全部看完啦！这里暂时没有新消息。",
         "Notification Settings": "通知设置",
-        All: "全部",
         Announcements: "公告",
-        Comments: "评论",
         Updates: "更新",
         Milestones: "里程碑",
         Bounties: "悬赏",
@@ -108,7 +99,6 @@
           "和 Civitai 版主徽章的账号与您联系（徽章位于用户名旁边，而非头像上！）。切勿点击未知链接或泄露付款信息。",
         "Report suspicious DMs": "举报可疑私信",
         "immediately.": "。",
-        Report: "举报",
         Leave: "归档",
         "Enable notifications": "启用通知",
         "Disable notifications": "关闭通知",
@@ -121,7 +111,7 @@
         Back: "返回",
         "Your Profile": "个人资料",
         Training: "训练",
-        "My Collections": "我的收藏集",
+        "My Collections": "我的收藏夹",
         "Liked Models": "喜欢的模型",
         "Bookmarked Articles": "收藏的文章",
         "My Bounties": "我的悬赏",
@@ -132,7 +122,7 @@
         Leaderboard: "排行榜",
         Auctions: "拍卖",
         "Knights of New": "新骑士团",
-        "Download Link App": "下载链接应用",
+        "Download Link App": "下载 Link App",
         "Creators You Follow": "我关注的创作者",
         "Download History": "下载历史",
         "Getting Started": "入门指南",
@@ -140,29 +130,11 @@
         "Dark mode": "深色模式",
         "Account settings": "账户设置",
 
-        // 首页设置按钮
-        "Manage Home Page": "管理首页",
-        "Expect frequent changes.": "此功能可能会频繁调整。",
-        "Civitai Home Blocks": "Civitai 首页模块",
-        "All home blocks selected": "已选择全部首页模块",
-        "All civitai home blocks are already selected.": "所有 Civitai 首页模块均已选择。",
-        "Your Home": "你的首页",
-        Save: "保存",
-        "No home blocks selected": "未选择任何首页模块",
-        "By leaving this empty you will end up with our default recommended home page setup.": "如果将此留空，则会使用我们默认推荐的主页设置。",
-
         // 导航栏
         Home: "首页",
-        Models: "模型",
-        Images: "图片",
-        Videos: "视频",
-        "3D Models": "三维模型",
-        Articles: "文章",
-        Comics: "漫画",
         Bounties: "悬赏",
         Challenges: "挑战",
         Updates: "更新",
-        Shop: "商店",
       },
 
       // 聊天窗口

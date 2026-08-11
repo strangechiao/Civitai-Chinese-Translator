@@ -6,13 +6,30 @@
 
 不要把所有词条都放进一个全局大词典里硬扫全站。
 
+页面分类以网址路径为准。目录名和规则注册名应直接对应一级路径；同一一级路径下的列表页、详情页和弹窗默认归入同一个页面规则，不再按界面形态拆成不同页面。
+
+例如：
+
+```text
+/models、/models/...       -> pages/models.js
+/images、/images/...       -> pages/images.js
+/videos、/videos/...       -> pages/videos.js
+/3d-models、/3d-models/... -> pages/3d-models.js
+/comics、/comics/...       -> pages/comics.js
+/bounties、/bounties/...   -> pages/bounties.js
+/challenges、其子路径      -> pages/challenges.js
+/changelog、其子路径       -> pages/changelog.js
+/shop、其子路径            -> pages/shop.js
+/user/...                  -> pages/user.js
+```
+
 脚本应该先判断当前页面类型，再加载：
 
 ```text
-通用规则 common + 当前页面目录 pages/<page>/*
+通用规则 common.js + 当前页面文件 pages/<page>.js
 ```
 
-分类采用“页面作为第一层，页面内组件作为第二层”的方式。这样既能根据 URL 判断页面，又能像维护 Vue 组件一样维护每块 UI 的翻译。
+每条一级网址路径对应一个页面文件。同一路径下的列表、详情、弹窗和卡片菜单都写入同一个文件。
 
 ## 目录约定
 
@@ -28,42 +45,22 @@ src/
   locales/
     zh-CN/
       common.js         全站通用词条
+      layout/
+        header.js       页头
+        footer.js       页脚
       pages/
-        models/
-          index.js          模型列表页基础文案
-
-        modelDetail/
-          index.js          模型详情页基础文案
-          actions.js        操作按钮区
-          downloadPanel.js  下载面板
-          airInfo.js        AIR 说明
-          reviews.js        评价区
-          gallery.js        图库区
-          comments.js       评论区
-
-        imageDetail/
-          index.js          图片详情页基础文案
-          actions.js        操作按钮区
-          generationData.js 生成数据面板
-          comments.js       评论区
-
-        userProfile/
-          index.js          个人资料页基础文案
-          showcase.js       展示区
-          badges.js         徽章区
-          collections.js    收藏集区
-
-        buzz/
-          index.js          Buzz 页面基础文案
-          balance.js        余额面板
-          transactions.js   交易记录
-          banking.js        入库/收益面板
-
-        generation/
-          index.js          生成器基础文案
-
-        settings/
-          index.js          设置页基础文案
+        home.js          首页
+        models.js        模型列表与详情
+        images.js        图片列表与详情
+        videos.js        视频列表与详情
+        3d-models.js     3D 模型列表与详情
+        articles.js      文章列表与详情
+        comics.js        漫画列表与详情
+        bounties.js      悬赏列表与详情
+        challenges.js    挑战列表与详情
+        changelog.js     更新日志
+        shop.js          装扮商店
+        user.js          用户页面
 
   features/
     styles.js           样式
@@ -93,71 +90,26 @@ Load more -> 加载更多
 
 不要把页面专属文案放进 common。
 
-## 页面与组件分类规则
+## 页面文件分类规则
 
-### 第一层：页面
-
-页面目录由 URL 或页面特征决定。
-
-例子：
+页面文件由一级网址路径决定，文件名与路径名保持一致。
 
 ```text
-/models            -> pages/models/
-/models/...        -> pages/modelDetail/
-/images/...        -> pages/imageDetail/
-/user/...          -> pages/userProfile/
-/buzz-dashboard    -> pages/buzz/
+/                       -> pages/home.js
+/models、/models/...     -> pages/models.js
+/images、/images/...     -> pages/images.js
+/videos、/videos/...     -> pages/videos.js
+/3d-models、其子路径     -> pages/3d-models.js
+/articles、其子路径      -> pages/articles.js
+/comics、其子路径        -> pages/comics.js
+/bounties、其子路径      -> pages/bounties.js
+/challenges、其子路径    -> pages/challenges.js
+/changelog、其子路径     -> pages/changelog.js
+/shop、其子路径          -> pages/shop.js
+/user/...                -> pages/user.js
 ```
 
-脚本运行时先判断当前页面，再只加载该页面目录下的规则。
-
-### 第二层：页面内组件
-
-页面目录内部按 UI 区块拆文件。不要把一个页面所有文案都堆进 `index.js`。
-
-`index.js` 只放该页面的基础文案和不容易归属到具体区块的内容。
-
-### pages/modelDetail/
-
-模型详情页相关文案。
-
-例子：
-
-```text
-index.js          页面基础文案
-actions.js        Like / Follow / Add to collection / Download
-downloadPanel.js 3 variants available / Tensors / Shape / Precision
-airInfo.js        What is an AIR? / ecosystem / type / source / id
-reviews.js        Reviews / Very Positive / Add review
-gallery.js        Gallery / Add post
-comments.js       Add comment / Load more
-```
-
-### pages/imageDetail/
-
-图片详情页相关文案。
-
-例子：
-
-```text
-index.js          页面基础文案
-actions.js        Add to showcase / Save / Delete
-generationData.js Prompt / Generation data / Resources used / COPY ALL
-comments.js       Discussion / Add comment / Load more
-```
-
-### pages/userProfile/
-
-个人资料页相关文案。
-
-例子：
-
-```text
-index.js       页面基础文案
-showcase.js    Showcase / Showcase stats
-badges.js      Badges / Featured badge / Hidden badges
-collections.js Collections / Favorite models
-```
+同一路径下的列表、详情、弹窗、卡片菜单和筛选面板均放在同一个页面文件中，通过注释划分区域，不再创建只有一个 `index.js` 的目录。
 
 ## 加载规则
 
@@ -166,43 +118,38 @@ collections.js Collections / Favorite models
 ```text
 1. 加载 common.js
 2. 通过 pageMatcher 判断当前页面
-3. 加载 pages/<page>/index.js
-4. 加载 pages/<page>/ 下的组件规则
-5. 合并规则后交给 translator
+3. 加载 pages/<page>.js
+4. 合并规则后交给 translator
 ```
 
 例子：
 
 ```text
-模型详情页加载：
+模型页面加载：
 common.js
-pages/modelDetail/index.js
-pages/modelDetail/actions.js
-pages/modelDetail/downloadPanel.js
-pages/modelDetail/airInfo.js
-pages/modelDetail/reviews.js
-pages/modelDetail/gallery.js
-pages/modelDetail/comments.js
+pages/models.js
 
-图片详情页加载：
+3D 模型页面加载：
 common.js
-pages/imageDetail/index.js
-pages/imageDetail/actions.js
-pages/imageDetail/generationData.js
-pages/imageDetail/comments.js
+pages/3d-models.js
 ```
 
 ## 页面规则结构
 
-每个页面或组件规则文件都使用同一结构：
+每个页面规则文件都使用同一注册结构：
 
 ```js
-export default {
-  static: {},
-  regexp: [],
-  selector: [],
-  ignore: [],
-};
+window.CCT.registerRules({
+  type: "page",
+  name: "models",
+  component: "index",
+  rules: {
+    static: {},
+    regexp: [],
+    selector: [],
+    ignore: [],
+  },
+});
 ```
 
 ### static
@@ -259,7 +206,7 @@ ignore: [
    - 否：继续
 
 2. 只属于某个页面或功能吗？
-   - 是：放对应 `pages/<page>/` 目录下的组件文件
+   - 是：放对应的 `pages/<page>.js`
    - 否：继续
 
 3. 文本里有数字、时间、用户名、模型名等变量吗？
@@ -273,8 +220,8 @@ ignore: [
 ## 维护原则
 
 - 优先页面专属规则，少用全局规则。
-- 页面是第一层分类，页面内组件是第二层分类。
-- `index.js` 不要无限变大，能归到组件文件的就放组件文件。
+- 页面文件严格对应一级网址路径。
+- 同一路径内通过注释划分功能区域，不再拆分列表页和详情页。
 - 短词慎放 common，例如 `Type`、`Model`、`Post`。
 - 不直接改 React 内部数据节点。
 - 不翻译 `script`、`style`、`template`、`svg`、`#__NEXT_DATA__`。

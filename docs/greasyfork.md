@@ -3,9 +3,9 @@
 <center><h1>[CCT] Civitai汉化&增强插件</h1></center>
 
 <center>
-  <a href="https://civitai.com"><img src="https://img.shields.io/badge/支持-Civitai.com-1971C2?style=for-the-badge&labelColor=3C3C3C" alt="支持 Civitai.com"></a>
-  <a href="https://civitai.red"><img src="https://img.shields.io/badge/支持-Civitai.red-E03131?style=for-the-badge&labelColor=3C3C3C" alt="支持 Civitai.red"></a>
-  <a href="https://www.tampermonkey.net/"><img src="https://img.shields.io/badge/脚本管理器-Tampermonkey-2F9E44?style=for-the-badge&labelColor=3C3C3C" alt="Tampermonkey 用户脚本"></a>
+  <a href="https://civitai.com"><img src="https://img.shields.io/badge/%E6%94%AF%E6%8C%81-Civitai.com-1971C2?style=for-the-badge&amp;labelColor=3C3C3C" alt="支持 Civitai.com"></a>
+  <a href="https://civitai.red"><img src="https://img.shields.io/badge/%E6%94%AF%E6%8C%81-Civitai.red-E03131?style=for-the-badge&amp;labelColor=3C3C3C" alt="支持 Civitai.red"></a>
+  <a href="https://www.tampermonkey.net/"><img src="https://img.shields.io/badge/%E8%84%9A%E6%9C%AC%E7%AE%A1%E7%90%86%E5%99%A8-Tampermonkey-2F9E44?style=for-the-badge&amp;labelColor=3C3C3C" alt="Tampermonkey 用户脚本"></a>
 </center>
 
 <br>

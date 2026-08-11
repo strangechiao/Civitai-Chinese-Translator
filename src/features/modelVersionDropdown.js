@@ -17,7 +17,7 @@
   }
 
   function isModelDetailPage() {
-    return CCT.getCurrentPage && CCT.getCurrentPage() === "modelDetail";
+    return CCT.getCurrentPage && CCT.getCurrentPage() === "models";
   }
 
   function getVersionListRoots() {

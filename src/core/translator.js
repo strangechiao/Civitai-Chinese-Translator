@@ -112,6 +112,10 @@
         const textElement = rule.textSelector ? target.querySelector(rule.textSelector) : target;
         if (!textElement) return;
 
+        if (rule.source && CCT.normalizeText(textElement.textContent) !== CCT.normalizeText(rule.source)) {
+          return;
+        }
+
         if (rule.attr) {
           if (textElement.getAttribute(rule.attr) !== rule.text) {
             textElement.setAttribute(rule.attr, rule.text);
@@ -162,6 +166,37 @@
     }
   }
 
+  function translateSplitTextElements(root) {
+    const elements = [root, ...Array.from(root.querySelectorAll ? root.querySelectorAll("*") : [])].reverse();
+
+    elements.forEach((element) => {
+      if (shouldSkipElement(element)) return;
+
+      const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT, {
+        acceptNode(node) {
+          if (shouldSkipTextNode(node) || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+          return NodeFilter.FILTER_ACCEPT;
+        },
+      });
+      const textNodes = [];
+      let node;
+
+      while ((node = walker.nextNode())) textNodes.push(node);
+      if (textNodes.length < 2) return;
+
+      const combinedText = textNodes.map((textNode) => textNode.nodeValue.trim()).join(" ");
+      const translated = getTranslation(combinedText);
+      if (!translated) return;
+
+      const firstNode = textNodes[0];
+      const firstText = firstNode.nodeValue.trim();
+      firstNode.nodeValue = firstNode.nodeValue.replace(firstText, translated);
+      textNodes.slice(1).forEach((textNode) => {
+        textNode.nodeValue = "";
+      });
+    });
+  }
+
   function translateElementTree(root) {
     if (root.nodeType !== Node.ELEMENT_NODE || shouldSkipElement(root)) return;
 
@@ -172,8 +207,9 @@
       }
     });
 
-    translateTextNodes(root);
     translateSelectorRules(root);
+    translateSplitTextElements(root);
+    translateTextNodes(root);
     translateSelectValueRules(root);
   }
 

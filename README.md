@@ -42,7 +42,7 @@
 
 <div align="center">
   <h3>
-    <a href="https://github.com/strangechiao/Civitai-Chinese-Translator#CCT-中文增强插件">
+    <a href="https://github.com/strangechiao/Civitai-Chinese-Translator#cct-civitai汉化增强插件">
       仓库首页
     </a>
     <!-- <span> | </span>
