@@ -57,6 +57,7 @@
         "Deceptive content": "欺骗性内容",
         "Depiction of a real-person likeness": "描绘真实人物形象",
         "Description": "描述",
+        "Depicts an actual person": "描绘真实人物",
         "Disturbing": "令人不适的内容",
         "Dog": "狗",
         "Dragon": "龙",
@@ -161,6 +162,9 @@
         "Submit": "提交",
         "Suggestive Content": "性暗示内容",
         "Tags": "标签",
+        "Tags are how users filter content on the site. It's important to correctly tag your content so it can be found by interested users":
+          "标签是用户在网站上筛选内容的依据。请为内容添加准确的标签，以便感兴趣的用户能够找到它。",
+        "Attachments": "附件",
         "This collection contains mature content": "此收藏夹包含成人内容",
         "Techniques": "生成方式",
         "this image": "此图片",
@@ -305,6 +309,10 @@
           "请尝试调整搜索条件或筛选器，以找到你想要的内容",
       },
       regexp: [
+        {
+          pattern: /^(\d+)\/10 uploaded files$/i,
+          replace: (match) => `${match[1]}/10 个文件已上传`,
+        },
         {
           pattern: /^drag dif+erent sections on your profile in order of your preference$/i,
           replace: "按照你的偏好拖动个人资料中的不同版块进行排序",

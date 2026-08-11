@@ -35,8 +35,6 @@
         "Your article is currently": "你的文章当前处于",
         "Categories determine what kind of article you're making. Selecting a category that's the closest match to your subject helps users find your article":
           "分类用于确定文章的内容类型。选择最贴近文章主题的分类，有助于用户找到你的文章。",
-        "Tags are how users filter content on the site. It's important to correctly tag your content so it can be found by interested users":
-          "标签是用户在网站上筛选内容的依据。请为内容添加准确的标签，以便感兴趣的用户能够找到它。",
         Title: "标题",
         "e.g.: How to create your own LoRA": "例如：如何创建自己的 LoRA",
         Content: "内容",
@@ -118,7 +116,6 @@
         // 封面与附件
         "Cover Image": "封面图片",
         "Suggested resolution: 850 x 400": "建议分辨率：850 × 400",
-        Attachments: "附件",
         "Drop your files or click to select": "将文件拖到这里，或点击选择",
         "Attach up to 10 files. Each file should not exceed 30 MB. Accepted file types: .pdf, .zip, .json, .yaml, .yml, .txt, .md, .py":
           "最多可添加 10 个文件，每个文件不得超过 30 MB。支持的文件类型：.pdf、.zip、.json、.yaml、.yml、.txt、.md、.py",
@@ -127,10 +124,6 @@
         {
           pattern: /^attach up to 10 files\. each file should not exceed 30 mb\. accepted file types:\s*(.+)$/i,
           replace: (match) => `最多可添加 10 个文件，每个文件不得超过 30 MB。支持的文件类型：${match[1]}`,
-        },
-        {
-          pattern: /^(\d+)\/10 uploaded files$/i,
-          replace: (match) => `${match[1]}/10 个文件已上传`,
         },
       ],
       selectValue: [

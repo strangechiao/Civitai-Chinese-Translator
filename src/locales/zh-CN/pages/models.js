@@ -170,7 +170,6 @@
         "Use on other generation services": "用于其他生成服务",
         "Sell this model or merges": "出售此模型或其合并版本",
         "This resource:": "此资源：",
-        "Depicts an actual person": "描绘真实人物",
         "This model was trained on real imagery of a living, or deceased, person, or depicts a character portrayed by a real-life actor or actress. E.g. Tom Cruise or Tom Cruise as Maverick.":
           "此模型使用在世或已故真实人物的影像进行训练，或者描绘由真人演员扮演的角色。例如：汤姆·克鲁斯本人，或汤姆·克鲁斯饰演的“独行侠”。",
         Yes: "是",
@@ -199,10 +198,6 @@
         {
           pattern: /^Collection\s*-\s*(\d+)\s+items?$/i,
           replace: (match) => `收藏夹 - ${match[1]} 项`,
-        },
-        {
-          pattern: /^(\d+)\/10 uploaded files$/i,
-          replace: (match) => `${match[1]}/10 个文件已上传`,
         },
       ],
       selector: [
