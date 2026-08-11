@@ -112,6 +112,24 @@
         const textElement = rule.textSelector ? target.querySelector(rule.textSelector) : target;
         if (!textElement) return;
 
+        if (rule.textReplacements) {
+          const walker = document.createTreeWalker(textElement, NodeFilter.SHOW_TEXT, {
+            acceptNode(node) {
+              return shouldSkipTextNode(node) ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT;
+            },
+          });
+          let textNode;
+
+          while ((textNode = walker.nextNode())) {
+            let nextText = textNode.nodeValue;
+            rule.textReplacements.forEach((replacement) => {
+              nextText = nextText.replace(replacement.pattern, replacement.replace);
+            });
+            if (nextText !== textNode.nodeValue) textNode.nodeValue = nextText;
+          }
+          return;
+        }
+
         if (rule.source && CCT.normalizeText(textElement.textContent) !== CCT.normalizeText(rule.source)) {
           return;
         }

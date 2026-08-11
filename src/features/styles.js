@@ -609,8 +609,18 @@
     }
 
     .cct-model-version-select-paid {
-      color: var(--mantine-color-yellow-6, #FAB005);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 18px;
+      height: 18px;
+      border-radius: var(--mantine-radius-xs, calc(0.125rem * var(--mantine-scale)));
+      background: var(--mantine-color-yellow-5, #FCC419);
+      color: var(--mantine-color-dark-9, #101113);
       flex: 0 0 auto;
+      font-family: Arial, sans-serif;
+      font-size: 12px;
+      font-weight: 700;
       line-height: 1;
     }
 

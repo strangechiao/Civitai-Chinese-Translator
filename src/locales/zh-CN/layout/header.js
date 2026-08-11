@@ -27,7 +27,7 @@
         Generate: "生成",
         "Post Images": "发布图片",
         "Post Videos": "发布视频",
-        "Upload a Model": "上传模型",
+        "Upload a Model": "发布模型",
         "Generate 3D Model": "生成三维模型",
         "Train a Lora": "训练 LoRA",
         "Write an Article": "撰写文章",

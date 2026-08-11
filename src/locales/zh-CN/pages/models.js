@@ -100,14 +100,110 @@
         "Add Comment": "添加评论",
         "Load more": "加载更多",
         "Add Review": "添加评价",
+
+        // 抢先体验与捐赠支持
+        "The creator of this": "此",
+        "has set this version to": "的创作者已将该版本设为",
+        "and as such it is only available for people who purchase it. This":
+          "，因此该版本仅供购买者使用。此",
+        "will be available for free in": "将在",
+        here: "查看文章",
+        "here.": "查看文章",
+        "Notify me when it's available.": "开放时通知我",
+        "Support this model": "支持此模型",
+        "The creator of this Checkpoint has set a donation goal! You can donate to make this resource available to everyone before the end of Early Access.":
+          "此 Checkpoint 的创作者设定了捐赠目标！你可以通过捐赠，让所有人在抢先体验结束前使用此资源。",
+        "The creator of this Checkpoint has set a donation goal! You can donate to make this resource available to everyone before the end of":
+          "此 Checkpoint 的创作者设定了捐赠目标！你可以通过捐赠，让此资源提前向所有人开放。当前阶段：",
+        "Donation Goal": "捐赠目标",
+        Donate: "捐赠",
+
+        // 创建与发布模型
+        "Publish a Model": "发布模型",
+        "Use a template": "使用模板",
+        "Create your model": "创建模型",
+        "Add version": "添加版本",
+        "Upload files": "上传文件",
+        "Create a post": "创建帖子",
+        Category: "分类",
+        "Selecting the closest match helps users find your resource.":
+          "选择最匹配的分类，有助于用户找到你的资源。",
+        "Select a Category": "选择分类",
+        Tags: "标签",
+        "Search or create tags for your model": "搜索或创建模型标签",
+        "How to Upload a Model": "如何上传模型",
+
+        // 模型模板
+        "Your models": "你的模型",
+        "Copy settings only": "仅复制设置",
+        "Leaves out the template's description and tags": "不复制模板的描述和标签",
+        "Search your models...": "搜索你的模型……",
+
+        // 模型描述与展示收藏夹
+        "Tell us what your model does": "请介绍你的模型用途",
+        "What does your model do? What's it for? What is your model good at? What should it be used for? What is your resource bad at? How should it not be used?":
+          "你的模型能做什么？它适合哪些用途？擅长什么？应该如何使用？有哪些不足？哪些用途不适合使用？",
+        "Showcase Collection": "展示收藏夹",
+        "Select the collection this model belongs to": "选择此模型所属的收藏夹",
+        "Click here to select a collection": "点击选择收藏夹",
+        "Creator Controls: metric privacy": "创作者控制：统计数据隐私",
+        "Hide these public stats on this model's page and cards. Requires an active Creator Program membership — these only apply while your membership is active.":
+          "隐藏此模型详情页和卡片上的公开统计数据。此功能需要有效的创作者计划会员资格，且仅在会员有效期间生效。",
+        "Hide tipped / earned Buzz": "隐藏获赠或赚取的 Buzz",
+        "Hide download count": "隐藏下载次数",
+        "Hide generation count": "隐藏生成次数",
+
+        // 选择展示收藏夹
+        "Select Model Showcase Collection": "选择模型展示收藏夹",
+        "Search...": "搜索……",
+        "No collections found": "未找到收藏夹",
+        "It looks like we couldn't find any matching your query.": "未找到与你的搜索条件匹配的收藏夹。",
+
+        // 使用许可与内容声明
+        "When using this model, I give permission for users to:": "使用此模型时，我允许用户：",
+        "Use without crediting me": "无需注明我的署名即可使用",
+        "Share merges of this model": "分享此模型的合并版本",
+        "Use different permissions on merges": "为合并版本设置不同许可",
+        "Learn more about how licensing works by reading our": "阅读我们的许可指南，详细了解许可规则：",
+        "Licensing Guide.": "许可指南",
+        "Commercial Use": "商业用途",
+        "Select all permissions you would like to apply to your model.": "选择要应用于此模型的所有许可权限。",
+        "Sell generated images": "出售生成的图片",
+        "Use on Civitai generation service": "用于 Civitai 生成服务",
+        "Use on other generation services": "用于其他生成服务",
+        "Sell this model or merges": "出售此模型或其合并版本",
+        "This resource:": "此资源：",
+        "Depicts an actual person": "描绘真实人物",
+        "This model was trained on real imagery of a living, or deceased, person, or depicts a character portrayed by a real-life actor or actress. E.g. Tom Cruise or Tom Cruise as Maverick.":
+          "此模型使用在世或已故真实人物的影像进行训练，或者描绘由真人演员扮演的角色。例如：汤姆·克鲁斯本人，或汤姆·克鲁斯饰演的“独行侠”。",
+        Yes: "是",
+        No: "否",
+        "Is intended to produce mature themes": "旨在生成成人主题内容",
+        "Intended to depict a minor character": "旨在描绘未成年角色",
+        "Cannot be used for NSFW generation": "不可用于生成 NSFW 内容",
+        "I acknowledge that I have reviewed the choices above, selected the appropriate option, and understand that my account may be at risk if the selection is found to be incorrect.":
+          "我确认已查看上述选项并作出适当选择，也理解如果选择有误，我的账号可能面临风险。",
       },
       regexp: [
+        {
+          pattern: /^Collection\s*-\s*(\d+)\s+items?$/i,
+          replace: (match) => `收藏夹 - ${match[1]} 项`,
+        },
         {
           pattern: /^(\d+)\/10 uploaded files$/i,
           replace: (match) => `${match[1]}/10 个文件已上传`,
         },
       ],
       selector: [
+        {
+          selector: '[role="alert"] [id$="-body"] p',
+          textReplacements: [
+            {
+              pattern: /\s+or once the donation goal is met\. If you want to know more, check out our article\s*$/i,
+              replace: " 后免费开放，或在达成捐赠目标后免费开放。如需了解更多，请阅读我们的相关文章：",
+            },
+          ],
+        },
         {
           selector: '.mantine-Spoiler-control[aria-expanded="true"]',
           text: "收起",

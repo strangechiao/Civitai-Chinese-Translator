@@ -169,7 +169,7 @@
       current.dataset.cctSignature = currentSignature;
       current.innerHTML = `
         <span class="cct-model-version-select-label">${selectedLabel}</span>
-        ${selected.paid ? '<span class="cct-model-version-select-paid">⚡</span>' : ""}
+        ${selected.paid ? '<span class="cct-model-version-select-paid" aria-label="Early Access">&#9889;&#65038;</span>' : ""}
       `;
     }
 
@@ -197,7 +197,7 @@
       const label = escapeHtml(option.label);
       item.innerHTML = `
         <span class="cct-model-version-select-label">${label}</span>
-        ${option.paid ? '<span class="cct-model-version-select-paid">⚡</span>' : ""}
+        ${option.paid ? '<span class="cct-model-version-select-paid" aria-label="Early Access">&#9889;&#65038;</span>' : ""}
       `;
 
       item.addEventListener("pointerdown", (event) => activateOption(root, versionListRoot, option, event));
