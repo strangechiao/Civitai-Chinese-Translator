@@ -1,0 +1,198 @@
+Civitai 文章发布编辑稿
+======================
+
+这不是 HTML 或 Markdown 源码，而是按照 Civitai 网页端富文本编辑器整理的排版稿。
+方括号中的内容是编辑说明，不要粘贴进正文。
+
+
+发布信息
+--------
+
+标题：
+[CCT] Civitai汉化&增强插件
+
+分类：
+Tool Guide
+
+建议标签：
+Civitai、Chinese、Translation、Tampermonkey、Userscript、CCT
+
+封面图片：
+public/images/hero.png
+
+
+正文开始
+--------
+
+[普通段落]
+[CCT] Civitai汉化&增强插件是一款同时支持 Civitai.com 与 Civitai.red 的 Tampermonkey 用户脚本，为中文用户提供界面汉化，以及广告屏蔽、原始文件快捷下载、模型介绍折叠、模型版本整理等实用增强功能。
+
+[普通段落，其中“开源项目”和“安装脚本”分别添加链接]
+这是一个免费开源项目。你可以查看开源项目，也可以直接安装脚本开始使用。
+
+“开源项目”链接：
+https://github.com/strangechiao/Civitai-Chinese-Translator
+
+“安装脚本”链接：
+https://raw.githubusercontent.com/strangechiao/Civitai-Chinese-Translator/main/civitai-chinese-translator.user.js
+
+[插入图片]
+public/images/hero.png
+
+
+[H2] 主要功能
+
+[H3] 1. CCT 功能菜单
+
+[普通段落]
+通过统一的功能菜单管理 CCT。界面汉化和各项增强功能均可独立开启或关闭，菜单中还提供检查更新、反馈问题和联系作者等快捷入口。
+
+[插入 GIF]
+public/gif/教程1.gif
+
+
+[H3] 2. Civitai / Civitai.red 页面汉化
+
+[普通段落]
+自动将 Civitai.com 与 Civitai.red 的导航栏、按钮、菜单、筛选器、弹窗和提示信息等界面文本翻译为简体中文。模型名称、模型类型及其他专有名词会尽量保留原文。
+
+[插入 GIF]
+public/gif/教程2.gif
+
+
+[H3] 3. 原始文件快捷下载
+
+[普通段落]
+开启后，图片和视频卡片上会显示下载按钮。无需进入内容详情页，即可直接下载原始图片或视频，避免保存到经过压缩的预览文件。
+
+[插入 GIF]
+public/gif/教程3.gif
+
+
+[H3] 4. 模型介绍快速折叠
+
+[普通段落]
+当模型介绍和版本更新日志较长时，可以通过页面右下角的快捷按钮随时展开或折叠介绍内容，无需反复滚动到原始按钮所在的位置。
+
+[插入 GIF]
+public/gif/教程4.gif
+
+
+[H3] 5. 模型版本快速切换
+
+[普通段落]
+将模型原有的版本选项卡整理为侧边栏下拉菜单，减少大量版本占用的页面空间，方便快速查看并切换不同模型版本。
+
+[插入 GIF]
+public/gif/教程5.gif
+
+
+[H3] 6. 广告屏蔽与页面布局修正
+
+[普通段落]
+针对 Civitai.com 与 Civitai.red 不同的广告加载方式进行适配，减少横幅、侧栏和内容流中的广告干扰。在模型详情页屏蔽右侧广告后，还可以将原有双栏布局修正为单栏，使主要内容恢复居中显示。
+
+[插入 GIF]
+public/gif/教程6.gif
+
+
+[H2] 下载与安装
+
+[H3] 1. 安装 Tampermonkey
+
+[普通段落，其中“Tampermonkey 官网”添加链接]
+首先前往 Tampermonkey 官网，根据自己使用的浏览器安装扩展。
+
+“Tampermonkey 官网”链接：
+https://www.tampermonkey.net/
+
+[无序列表]
+Microsoft Edge
+Google Chrome
+Mozilla Firefox
+Apple Safari
+Opera
+
+[依次插入教程图片]
+public/images/截图1.png
+public/images/截图2.png
+
+
+[H3] 2. 允许浏览器运行用户脚本
+
+[普通段落，其中“查看官方教程”添加链接]
+Chrome、Edge 等 Chromium 内核浏览器需要在扩展设置中开启“允许运行用户脚本”。如未找到该选项，可以查看官方教程。
+
+“查看官方教程”链接：
+https://www.tampermonkey.net/faq.php?q=Q209#Q209
+
+[插入图片]
+public/images/截图3.png
+
+
+[H3] 3. 安装 CCT
+
+[普通段落，其中“安装 [CCT] Civitai汉化&增强插件”添加链接]
+点击安装 [CCT] Civitai汉化&增强插件，Tampermonkey 会自动打开脚本安装页面。
+
+“安装 [CCT] Civitai汉化&增强插件”链接：
+https://raw.githubusercontent.com/strangechiao/Civitai-Chinese-Translator/main/civitai-chinese-translator.user.js
+
+[有序列表]
+1. 在 Tampermonkey 安装页面确认脚本信息。
+2. 点击“安装”。
+3. 打开 Civitai.com 或 Civitai.red。
+4. 刷新网页后即可使用。
+
+
+[H2] 使用说明
+
+[无序列表]
+脚本同时支持 Civitai.com 与 Civitai.red。
+各项增强功能默认开启，可以在 CCT 功能菜单中独立关闭。
+网站更新后，少量界面文字或增强功能可能暂时失效，后续版本会持续适配。
+如果发现漏译、错译或功能异常，欢迎提交反馈。
+
+
+[H2] 项目与反馈
+
+[普通段落，将每一项文字分别添加链接]
+查看 GitHub 仓库
+安装或更新脚本
+反馈问题
+联系作者
+
+“查看 GitHub 仓库”链接：
+https://github.com/strangechiao/Civitai-Chinese-Translator
+
+“安装或更新脚本”链接：
+https://raw.githubusercontent.com/strangechiao/Civitai-Chinese-Translator/main/civitai-chinese-translator.user.js
+
+“反馈问题”链接：
+https://github.com/strangechiao/Civitai-Chinese-Translator/issues
+
+“联系作者”链接：
+https://civitai.com/user/qoob9006
+
+
+[H2] 更新状态
+
+[普通段落]
+项目仍在持续更新中。后续会继续补充遗漏翻译、修复网站改版造成的兼容问题，并逐步完善现有增强功能。
+
+
+正文结束
+--------
+
+
+Civitai 编辑器操作说明
+----------------------
+
+1. 将“标题”填写到页面顶部独立的 Title 输入框，不要在正文中重复创建 H1。
+2. 将正文按段落粘贴到 Content 编辑器。
+3. 选中标注为 [H2] 或 [H3] 的标题文字，用编辑器工具栏设置对应标题级别，然后删除方括号标注。
+4. 列表使用编辑器的无序列表或有序列表按钮创建，不要直接保留说明文字。
+5. 选中需要跳转的文字，使用链条图标添加对应链接。
+6. GIF 和图片使用编辑器的图片按钮上传；不要粘贴本地路径，也不要使用 Markdown 图片语法。
+7. Civitai 不支持 README 中的徽章、居中标签和自定义 HTML 样式，因此这份文章采用单栏、短段落和分级标题排版。
+8. 发布前删除全部方括号编辑说明和本文件末尾的操作说明。

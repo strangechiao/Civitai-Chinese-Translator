@@ -397,6 +397,12 @@
       cursor: pointer;
     }
 
+    .cct-original-download-button.cct-original-download-button-overlay {
+      position: absolute;
+      top: 8px;
+      right: 42px;
+    }
+
     .cct-original-download-button:hover .cct-original-download-label,
     .cct-original-download-button[data-state="loading"] .cct-original-download-label,
     .cct-original-download-button[data-state="error"] .cct-original-download-label {

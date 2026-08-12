@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         [CCT] Civitai汉化&增强插件
 // @namespace    https://civitai.com/
-// @version      1.2.0
+// @version      1.2.1
 // @description  Civitai.com / Civitai.red 页面汉化 | 功能菜单 | 一键原图下载 | 模型描述快捷折叠 | 模型版本选项卡整合 | 广告屏蔽与页面布局修正
 // @license      GPL-3.0-or-later
 // @homepageURL  https://github.com/strangechiao/Civitai-Chinese-Translator
@@ -29,7 +29,7 @@
 
   window.CCT = window.CCT || {};
   window.CCT.meta = window.CCT.meta || {};
-  window.CCT.meta.version = "1.2.0";
+  window.CCT.meta.version = "1.2.1";
   window.CCT.meta.updateUrl = "https://raw.githubusercontent.com/strangechiao/Civitai-Chinese-Translator/main/civitai-chinese-translator.user.js";
   window.CCT.meta.supportUrl = "https://github.com/strangechiao/Civitai-Chinese-Translator/issues";
   window.CCT.assets = window.CCT.assets || {};
@@ -578,6 +578,12 @@
       font-weight: 700;
       line-height: var(--mantine-line-height-xs);
       cursor: pointer;
+    }
+
+    .cct-original-download-button.cct-original-download-button-overlay {
+      position: absolute;
+      top: 8px;
+      right: 42px;
     }
 
     .cct-original-download-button:hover .cct-original-download-label,
@@ -1854,6 +1860,7 @@
   function injectOriginalDownloadButtons(root) {
     if (!isOriginalDownloadEnabled()) return;
 
+    const isArticleDetailPage = /^\/articles\/\d+(?:\/|$)/i.test(window.location.pathname);
     const rootElement = root && root.nodeType === Node.ELEMENT_NODE ? root : root && root.parentElement;
     const scope = rootElement && rootElement.querySelectorAll ? rootElement : document;
     const selector = 'a[href^="/images/"], a[href*="/images/"]';
@@ -1867,8 +1874,15 @@
       if (!getCardMedia(card)) return;
 
       const actionGroup = getActionGroup(card);
+      // Article body images can link to /images/:id but are not media cards.
+      if (isArticleDetailPage && !actionGroup) return;
+
       if (actionGroup) {
         const button = createButton(card);
+        const moreButton = actionGroup.querySelector(':scope > button[aria-label="More options"]');
+        if (moreButton && moreButton.classList.contains("absolute")) {
+          button.classList.add("cct-original-download-button-overlay");
+        }
         actionGroup.appendChild(button);
         return;
       }

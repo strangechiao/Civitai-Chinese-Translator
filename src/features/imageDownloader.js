@@ -176,6 +176,7 @@
   function injectOriginalDownloadButtons(root) {
     if (!isOriginalDownloadEnabled()) return;
 
+    const isArticleDetailPage = /^\/articles\/\d+(?:\/|$)/i.test(window.location.pathname);
     const rootElement = root && root.nodeType === Node.ELEMENT_NODE ? root : root && root.parentElement;
     const scope = rootElement && rootElement.querySelectorAll ? rootElement : document;
     const selector = 'a[href^="/images/"], a[href*="/images/"]';
@@ -189,8 +190,15 @@
       if (!getCardMedia(card)) return;
 
       const actionGroup = getActionGroup(card);
+      // Article body images can link to /images/:id but are not media cards.
+      if (isArticleDetailPage && !actionGroup) return;
+
       if (actionGroup) {
         const button = createButton(card);
+        const moreButton = actionGroup.querySelector(':scope > button[aria-label="More options"]');
+        if (moreButton && moreButton.classList.contains("absolute")) {
+          button.classList.add("cct-original-download-button-overlay");
+        }
         actionGroup.appendChild(button);
         return;
       }
