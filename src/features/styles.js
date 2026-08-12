@@ -82,6 +82,26 @@
       cursor: pointer;
     }
 
+    .cct-logo-root[data-update-available="true"]::after {
+      content: "!";
+      position: absolute;
+      top: -3px;
+      right: -5px;
+      display: grid;
+      place-items: center;
+      width: 14px;
+      height: 14px;
+      border: 2px solid var(--mantine-color-body, #1A1B1E);
+      border-radius: 50%;
+      background: #F59F00;
+      color: #212529;
+      font-family: var(--mantine-font-family);
+      font-size: 10px;
+      font-weight: 800;
+      line-height: 1;
+      pointer-events: none;
+    }
+
     .cct-logo-root svg,
     .cct-logo-root img {
       display: block;

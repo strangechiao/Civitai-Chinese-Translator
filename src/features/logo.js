@@ -3,7 +3,12 @@
 
   const CCT = window.CCT;
   const MENU_ID = "cct-logo-menu";
+  const AUTO_UPDATE_LAST_CHECK_KEY = "cct-auto-update-last-check";
+  const AUTO_UPDATE_LATEST_VERSION_KEY = "cct-auto-update-latest-version";
+  const AUTO_UPDATE_INTERVAL = 12 * 60 * 60 * 1000;
+  const AUTO_UPDATE_DELAY = 1500;
   let menuListenersReady = false;
+  let availableUpdateVersion = "";
 
   function getProductName() {
     return "[CCT] Civitai汉化&增强插件";
@@ -184,6 +189,61 @@
     return 0;
   }
 
+  function readStoredValue(key) {
+    try {
+      return window.localStorage.getItem(key) || "";
+    } catch (error) {
+      return "";
+    }
+  }
+
+  function writeStoredValue(key, value) {
+    try {
+      window.localStorage.setItem(key, String(value));
+    } catch (error) {
+      // Storage can be unavailable in strict privacy modes; the check still works for this page.
+    }
+  }
+
+  function clearStoredValue(key) {
+    try {
+      window.localStorage.removeItem(key);
+    } catch (error) {
+      // Ignore unavailable storage.
+    }
+  }
+
+  function applyAvailableUpdate(root, version) {
+    if (!version) return;
+
+    availableUpdateVersion = version;
+    if (!root) return;
+
+    const button = root.querySelector(".cct-logo-button");
+    root.dataset.updateAvailable = "true";
+    root.dataset.updateVersion = version;
+    if (button) {
+      button.title = `发现新版本 v${version}`;
+      button.setAttribute("aria-label", `${getProductName()}，发现新版本 v${version}`);
+    }
+    setUpdateButton(root, `立即更新 v${version}`, "open");
+    setUpdateStatus(root, `立即更新 v${version}`, "available");
+  }
+
+  function clearAvailableUpdate(root) {
+    availableUpdateVersion = "";
+    clearStoredValue(AUTO_UPDATE_LATEST_VERSION_KEY);
+    if (!root) return;
+
+    const button = root.querySelector(".cct-logo-button");
+    delete root.dataset.updateAvailable;
+    delete root.dataset.updateVersion;
+    if (button) {
+      button.removeAttribute("title");
+      button.setAttribute("aria-label", getProductName());
+    }
+  }
+
   function setUpdateStatus(root, text, state) {
     const button = getMenu(root).querySelector(".cct-logo-menu-check");
     if (!button) return;
@@ -233,11 +293,12 @@
     try {
       const latestVersion = await fetchLatestVersion();
       if (compareVersions(latestVersion, currentVersion) > 0) {
-        setUpdateButton(root, `立即更新 v${latestVersion}`, "open");
-        setUpdateStatus(root, `立即更新 v${latestVersion}`, "available");
+        writeStoredValue(AUTO_UPDATE_LATEST_VERSION_KEY, latestVersion);
+        applyAvailableUpdate(root, latestVersion);
         return;
       }
 
+      clearAvailableUpdate(root);
       setUpdateStatus(root, "已是最新版本", "latest");
     } catch (error) {
       setUpdateStatus(root, "检查失败", "error");
@@ -245,6 +306,41 @@
       button.dataset.loading = "false";
       button.disabled = false;
     }
+  }
+
+  async function runAutomaticUpdateCheck() {
+    const currentVersion = (CCT.meta && CCT.meta.version) || "0.0.0";
+
+    try {
+      const latestVersion = await fetchLatestVersion();
+      const root = document.querySelector(".cct-logo-root");
+      if (compareVersions(latestVersion, currentVersion) > 0) {
+        writeStoredValue(AUTO_UPDATE_LATEST_VERSION_KEY, latestVersion);
+        applyAvailableUpdate(root, latestVersion);
+        return;
+      }
+
+      clearAvailableUpdate(root);
+    } catch (error) {
+      // Automatic checks stay silent. The manual check button still reports failures.
+    }
+  }
+
+  function scheduleAutomaticUpdateCheck() {
+    const currentVersion = (CCT.meta && CCT.meta.version) || "0.0.0";
+    const cachedVersion = readStoredValue(AUTO_UPDATE_LATEST_VERSION_KEY);
+    if (cachedVersion && compareVersions(cachedVersion, currentVersion) > 0) {
+      availableUpdateVersion = cachedVersion;
+    } else if (cachedVersion) {
+      clearStoredValue(AUTO_UPDATE_LATEST_VERSION_KEY);
+    }
+
+    const lastCheck = Number.parseInt(readStoredValue(AUTO_UPDATE_LAST_CHECK_KEY), 10) || 0;
+    if (Date.now() - lastCheck < AUTO_UPDATE_INTERVAL) return;
+
+    // Reserve the cooldown before the request so several tabs opened together do not all check.
+    writeStoredValue(AUTO_UPDATE_LAST_CHECK_KEY, Date.now());
+    window.setTimeout(runAutomaticUpdateCheck, AUTO_UPDATE_DELAY);
   }
 
   function setMenuOpen(root, open) {
@@ -476,6 +572,10 @@
     document.body.appendChild(menu);
     bindMenuListeners();
 
+    if (availableUpdateVersion) {
+      applyAvailableUpdate(root, availableUpdateVersion);
+    }
+
     return root;
   }
 
@@ -496,4 +596,5 @@
   }
 
   CCT.injectLogo = injectLogo;
+  scheduleAutomaticUpdateCheck();
 })();
