@@ -97,9 +97,35 @@
     return elements;
   }
 
+  function isProtectedContentContainer(element) {
+    return (
+      element.matches("main, #main") ||
+      Boolean(element.querySelector('[class*="EdgeImage"], [class*="EdgeVideo"], [class*="EdgeMedia"]'))
+    );
+  }
+
+  function clearUnsafeAdMarkers() {
+    document.querySelectorAll(`.${HIDDEN_CLASS}`).forEach((element) => {
+      if (isProtectedContentContainer(element)) element.classList.remove(HIDDEN_CLASS);
+    });
+  }
+
+  function canHideAdContainer(element) {
+    if (isProtectedContentContainer(element)) return false;
+
+    return (
+      element.classList.contains("box-content") ||
+      hasDirectCloseButton(element) ||
+      isAdRail(element) ||
+      isVirtualizedAdItem(element)
+    );
+  }
+
   function applyAdBlocking(root = document.body) {
     syncAdBlockingState();
     if (!document.body) return;
+
+    clearUnsafeAdMarkers();
 
     if (!isAdBlockingEnabled()) {
       document.querySelectorAll(`.${HIDDEN_CLASS}`).forEach((element) => element.classList.remove(HIDDEN_CLASS));
@@ -107,8 +133,9 @@
     }
 
     findAdElements(root).forEach((element) => {
+      if (!element.isConnected) return;
       const container = findAdContainer(element);
-      if (container) container.classList.add(HIDDEN_CLASS);
+      if (container && canHideAdContainer(container)) container.classList.add(HIDDEN_CLASS);
     });
   }
 
@@ -136,3 +163,4 @@
   CCT.setAdLayoutCenteredEnabled = setAdLayoutCenteredEnabled;
   CCT.applyAdBlocking = applyAdBlocking;
 })();
+

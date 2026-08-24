@@ -4,7 +4,7 @@
   const CCT = window.CCT;
 
   CCT.styleText = `
-    .cct-hidden-ad {
+    html.cct-ad-blocking-enabled .cct-hidden-ad {
       display: none !important;
     }
 
@@ -758,3 +758,4 @@
     }
   `;
 })();
+

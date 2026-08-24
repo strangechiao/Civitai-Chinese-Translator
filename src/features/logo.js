@@ -74,11 +74,13 @@
     const icons = CCT.assets && CCT.assets.icons;
     const svg =
       (icons && icons[name]) ||
-      (name === "modelVersionSwitch"
-        ? '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16"/><path d="M4 12h16"/><path d="M4 19h16"/></svg>'
-        : name === "translation"
-          ? '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/></svg>'
-        : "");
+      (name === "fullSearch"
+        ? '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/><path d="M8 11h6"/><path d="M11 8v6"/></svg>'
+        : name === "modelVersionSwitch"
+          ? '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16"/><path d="M4 12h16"/><path d="M4 19h16"/></svg>'
+          : name === "translation"
+            ? '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/></svg>'
+            : "");
     const className = name === "external" ? "cct-logo-menu-external" : "cct-logo-menu-icon";
     if (!svg) return "";
 
@@ -139,6 +141,15 @@
     if (!toggle) return;
 
     const enabled = !CCT.isAdLayoutCenteredEnabled || CCT.isAdLayoutCenteredEnabled();
+    toggle.dataset.checked = enabled ? "true" : "false";
+    toggle.setAttribute("aria-checked", String(enabled));
+  }
+
+  function updateFullSearchToggle(menu) {
+    const toggle = menu.querySelector(".cct-full-search-toggle");
+    if (!toggle) return;
+
+    const enabled = CCT.isFullSearchEnabled && CCT.isFullSearchEnabled();
     toggle.dataset.checked = enabled ? "true" : "false";
     toggle.setAttribute("aria-checked", String(enabled));
   }
@@ -462,6 +473,13 @@
         </span>
         <span class="cct-logo-menu-tooltip" role="tooltip">将模型版本选项卡列表改为侧边栏下拉菜单，方便快速查看和切换不同版本，解决有些模型版本过多，切换时过于麻烦的问题。</span>
       </button>
+      <button class="cct-logo-menu-toggle cct-full-search-toggle" type="button" role="switch" aria-checked="false">
+        <span class="cct-logo-menu-link-main">${iconSvg("fullSearch")}<span>完整搜索</span><span class="cct-logo-menu-help" tabindex="0" aria-label="完整搜索说明">${iconSvg("question")}</span></span>
+        <span class="cct-logo-menu-toggle-right">
+          <span class="cct-logo-menu-switch" aria-hidden="true"></span>
+        </span>
+        <span class="cct-logo-menu-tooltip" role="tooltip">启用成人内容后，Civitai 可能会在模型搜索中自动隐藏部分内容。开启后会保留当前内容分级，并解除这项额外的搜索限制。</span>
+      </button>
       <button class="cct-logo-menu-toggle cct-ad-blocking-toggle" type="button" role="switch" aria-checked="true">
         <span class="cct-logo-menu-link-main">${iconSvg("adBlocking")}<span>屏蔽广告</span></span>
         <span class="cct-logo-menu-toggle-right">
@@ -559,12 +577,23 @@
       updateModelVersionSwitchToggle(menu);
     });
 
+    menu.querySelector(".cct-full-search-toggle").addEventListener("click", (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+
+      if (!CCT.setFullSearchEnabled || !CCT.isFullSearchEnabled) return;
+
+      CCT.setFullSearchEnabled(!CCT.isFullSearchEnabled());
+      updateFullSearchToggle(menu);
+    });
+
     updateTranslationToggle(menu);
     updateAdBlockingToggle(menu);
     updateAdLayoutCenteredToggle(menu);
     updateOriginalDownloadToggle(menu);
     updateQuickCollapseToggle(menu);
     updateModelVersionSwitchToggle(menu);
+    updateFullSearchToggle(menu);
     bindTooltip(menu);
 
     root._cctMenu = menu;

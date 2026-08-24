@@ -5,6 +5,7 @@ module.exports = [
   "src/core/registry.js",
   "src/features/styles.js",
   "src/features/adBlocker.js",
+  "src/features/fullSearch.js",
   "src/features/logo.js",
   "src/features/imageDownloader.js",
   "src/features/modelSidebar.js",

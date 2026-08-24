@@ -4,7 +4,7 @@ const { runAudit } = require("./audit");
 const sourceFiles = require("./sourceFiles");
 
 const root = path.resolve(__dirname, "..");
-const version = "1.2.1";
+const version = "1.3.1";
 const outputFile = "civitai-chinese-translator.user.js";
 const homepageUrl = "https://github.com/strangechiao/Civitai-Chinese-Translator";
 const updateUrl = `${homepageUrl.replace("https://github.com", "https://raw.githubusercontent.com")}/main/${outputFile}`;
